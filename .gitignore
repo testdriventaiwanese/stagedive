@@ -2,3 +2,4 @@ node_modules/
 .DS_Store
 client/.DS_Store
 .env
+./src/client/public/
