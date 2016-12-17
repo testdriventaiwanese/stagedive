@@ -57,9 +57,9 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
 	
-	var _something = __webpack_require__(/*! ./something.jsx */ 178);
+	var _component = __webpack_require__(/*! ./component.jsx */ 178);
 	
-	var _something2 = _interopRequireDefault(_something);
+	var _component2 = _interopRequireDefault(_component);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -87,9 +87,9 @@
 	        _react2.default.createElement(
 	          'p',
 	          null,
-	          ' Hello React!'
+	          ' Hello Justin!'
 	        ),
-	        _react2.default.createElement(_something2.default, null)
+	        _react2.default.createElement(_component2.default, null)
 	      );
 	    }
 	  }]);
@@ -22040,7 +22040,7 @@
 /***/ },
 /* 178 */
 /*!**************************************!*\
-  !*** ./src/client/app/something.jsx ***!
+  !*** ./src/client/app/component.jsx ***!
   \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
@@ -22101,7 +22101,7 @@
 	          _react2.default.createElement(
 	            'button',
 	            { onClick: this.onLike },
-	            'Like Me'
+	            'Sojung Me'
 	          )
 	        )
 	      );
