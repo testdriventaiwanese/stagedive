@@ -1,4 +1,3 @@
-const db = require('../database/config_deploy');
 
 module.exports = {
   users: {
