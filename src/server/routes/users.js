@@ -7,7 +7,8 @@ exports.register = (server, options, next) => {
       method: 'POST',
       path: '/api/signin',
       handler: (request, reply) => {
-        userController.users.signin(request, reply);
+        // userController.users.signin(request, reply);
+        console.log('Hello Your Post Works');
       },
     },
     {
