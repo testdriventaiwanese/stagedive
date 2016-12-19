@@ -60,6 +60,18 @@ module.exports = {
           callback(results);
         }
       });
+    },
+
+    removeEvents(params, callback) {
+
+      const queryStr = 'DELETE FROM event WHERE name = ?'
+      db.query(queryStr, params, (err, results) => {
+        if (err) {
+          console.log('Error in server/eventModel.js removeEvents : ', err);
+        } else {
+          callback(results);
+        }
+      })
     }
   } ,
 };
