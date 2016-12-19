@@ -52,7 +52,7 @@ module.exports = {
 
     localEvents(params, callback) {
       //save query string in separate var to pass into database query, question marks denote params being passed in
-      const queryStr = 'SELECT name FROM event WHERE city = ? AND zipcode = ?';
+      const queryStr = 'SELECT name FROM event WHERE city = ? OR zipcode = ? OR location = ?';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js localEvents : ', err);
