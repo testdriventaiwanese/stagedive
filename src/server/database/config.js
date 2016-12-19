@@ -1,7 +1,4 @@
 const mysql = require('mysql');
-const dotenv = require('dotenv');
-
-const pw = process.env.key || require('./pw');
 
 const connection = mysql.createConnection({
   host: 'mysqlcluster4.registeredsite.com',
