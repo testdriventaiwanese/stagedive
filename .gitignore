@@ -16,3 +16,6 @@ src/server/database/pw.js
 ### WIP ###
 src/client/public/bundle.js
 src/client/public/bundle.js.map
+
+### ENV ###
+.env
