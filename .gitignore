@@ -19,3 +19,6 @@ src/client/public/bundle.js.map
 
 ### ENV ###
 .env
+
+### debug log ###
+npm-debug.log
