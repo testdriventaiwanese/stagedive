@@ -3,12 +3,12 @@ const userController = require('./user/userController');
 const eventController = require('./event/eventController');
 // const email = require('./email/emailModel.js');
 
-router.post('/api/users/signup', userController.signUp);
-router.post('/api/users/signin', userController.signIn);
-
+router.post('/api/users/signup', userController.users.signup);
+router.post('/api/users/signin', userController.users.signin);
+router.post('/api/users/addfollow', userController.users.addfollow);
+router.post('/api/users/unfollow', userController.users.unfollow);
 
 // Event routes here:
-
 
 
 // see emailModel.js
