@@ -37,5 +37,31 @@ module.exports = {
         });
       }));
     },
+
+    addFollower({ body: { user1, user2 } }, res) {
+      const params = { user1, user2 };
+      userModel.users.addFollower(params, (response) => {
+        if (!response) {
+          console.log('Issue in adding follower');
+          res.sendStatus(500);
+        } else {
+          const token = jwt.encode(email, 'secret');
+          res.json({ token });
+        }
+      });
+    },
+
+    unfollow({ body: { user1, user2 } }, res) {
+      const params = { user1, user2 };
+      userModel.users.unfollow(params, (response) => {
+        if (!response) {
+          console.log('Issue in adding follower');
+          res.sendStatus(500);
+        } else {
+          const token = jwt.encode(email, 'secret');
+          res.json({ token });
+        }
+      });
+    },
   },
 };

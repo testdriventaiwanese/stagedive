@@ -49,6 +49,20 @@ module.exports = {
         .then(() => session.close());
     },
 
-    
+    unfollow(params, callback) {
+      const session = db.session();
+      // const statement = 'MATCH (n:User {name:user1}), (m:User {name:user2}) MERGE (n)-[:FOLLOWS]-(m) RETURN n,m';
+
+      session.run(statement, params)
+        .then((record) => {
+          console.log('UNFOLLOW RECORD: ', record);
+        })
+        .catch((err) => {
+          console.log('ERROR With unfollow: ', err);
+        })
+        .then(() => session.close());
+    },
+
+
   },
 };
