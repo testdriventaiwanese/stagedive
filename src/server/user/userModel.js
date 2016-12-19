@@ -3,7 +3,6 @@ const db = require('../database/config');
 module.exports = {
   users: {
     addOne(params, callback) {
-      //save query string in separate var to pass into database query, question marks denote params being passed in
       const queryStr = 'INSERT INTO users (email, password, fullname) VALUES (?, ?, ?)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
@@ -15,8 +14,7 @@ module.exports = {
     },
 
     getPassword(params, callback) {
-      //save query string in separate var to pass into database query, question marks denote params being passed in
-      const queryStr = 'SELECT password FROM users WHERE username = ?';
+      const queryStr = 'SELECT password FROM users WHERE email = ?';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/userModel.js getPassword : ', err);
@@ -26,9 +24,19 @@ module.exports = {
       });
     },
 
+    getAll(callback) {
+      const queryStr = 'SELECT id, email, fullname FROM users';
+      db.query(queryStr, (err, results) => {
+        if (err) {
+          console.log('Error in server/userModel.js getPassword : ', err);
+        } else {
+          callback(results);
+        }
+      });
+    },
+
     changePassword(params, callback) {
-      //save query string in separate var to pass into database query, question marks denote params being passed in
-      const queryStr = '';
+      const queryStr = 'UPDATE users SET password = ? WHERE email = ?';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/userModel.js changePassword : ', err);
@@ -39,8 +47,7 @@ module.exports = {
     },
 
     addFollow(params, callback) {
-      //save query string in separate var to pass into database query, question marks denote params being passed in
-      const queryStr = '';
+      const queryStr = 'INSERT into users_friends';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/userModel.js addFollow : ', err);
@@ -51,7 +58,6 @@ module.exports = {
     },
 
     unfollow(params, callback) {
-      //save query string in separate var to pass into database query, question marks denote params being passed in
       const queryStr = '';
       db.query(queryStr, params, (err, results) => {
         if (err) {

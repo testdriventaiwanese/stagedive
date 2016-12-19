@@ -7,7 +7,8 @@ router.post('/api/users/signup', userController.users.signup);
 router.post('/api/users/signin', userController.users.signin);
 router.post('/api/users/addfollow', userController.users.addfollow);
 router.post('/api/users/unfollow', userController.users.unfollow);
-
+router.post('/api/users/changepassword', userController.users.changepassword);
+router.get('/api/users/getall', userController.users.getAll);
 // Event routes here:
 
 
