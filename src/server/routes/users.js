@@ -1,20 +1,20 @@
-const userModel = require('../user/userController');
+const userController = require('../user/userController');
 
 // Options can be passed to plugins on registration
 exports.register = (server, options, next) => {
   server.route([
     {
-      method: 'GET',
-      path: '/api/user',
+      method: 'POST',
+      path: '/api/signin',
       handler: (request, reply) => {
-        reply('make this work!');
+        userController.users.signin(request, reply);
       },
     },
     {
       method: 'POST',
-      path: '/api/user',
+      path: '/api/signup',
       handler: (request, reply) => {
-        reply('make this work');
+        userController.users.signup(request, reply);
       },
     },
   ]);
