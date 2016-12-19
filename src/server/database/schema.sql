@@ -53,18 +53,6 @@ CREATE TABLE `users_friends` (
 );
 
 -- ---
--- Table 'sojung'
---
--- ---
-
-DROP TABLE IF EXISTS `sojung`;
-
-CREATE TABLE `sojung` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);
-
--- ---
 -- Foreign Keys
 -- ---
 
@@ -79,7 +67,6 @@ ALTER TABLE `users_friends` ADD FOREIGN KEY (friend_id) REFERENCES `users` (`id`
 -- ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `events` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `users_friends` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `sojung` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ---
 -- Test Data
@@ -91,5 +78,3 @@ ALTER TABLE `users_friends` ADD FOREIGN KEY (friend_id) REFERENCES `users` (`id`
 -- ('','','','','','','','');
 -- INSERT INTO `users_friends` (`user_id`,`friend_id`) VALUES
 -- ('','');
--- INSERT INTO `sojung` (`id`) VALUES
--- ('');
