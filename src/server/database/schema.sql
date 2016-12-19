@@ -36,6 +36,7 @@ CREATE TABLE `events` (
   `venue` VARCHAR(150) NOT NULL,
   `city` VARCHAR(100) NOT NULL,
   `zipcode` INTEGER NOT NULL,
+  `genre` VARCHAR(255) NOT NULL
   PRIMARY KEY (`id`)
 );
 
