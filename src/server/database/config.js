@@ -1,11 +1,12 @@
 const mysql = require('mysql');
+const dotenv = require('dotenv');
 
 const pw = process.env.key || require('./pw');
 
 const connection = mysql.createConnection({
   host: 'mysqlcluster4.registeredsite.com',
-  user: 'tdtadmin',
-  password: pw,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   database: 'concert_wallet',
 });
 

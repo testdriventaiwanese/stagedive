@@ -15,6 +15,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "boom": "^4.2.0",
+    "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "glob": "^7.1.1",
     "good": "^7.1.0",
