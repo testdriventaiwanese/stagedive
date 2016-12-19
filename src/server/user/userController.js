@@ -4,6 +4,16 @@ const bcrypt = require('bcrypt-nodejs');
 
 module.exports = {
   users: {
+    getAll(req, res) {
+      userModel.users.getAll((response) => {
+        if (!response) {
+          console.log('Issue retreiving users from database');
+          res.sendStatus(401);
+        } else {
+          res.json(response);
+        }
+      });
+    },
     signin({ body: { email, password } }, res) {
       userModel.users.getPassword(email, (results) => {
         if (results.length === 0) {
@@ -23,7 +33,6 @@ module.exports = {
         }
       });
     },
-
     signup({ body: { email, password, fullname } }, res) {
       bcrypt.hash(password, null, null, ((err, hash) => {
         const params = [email, hash, fullname];
@@ -39,7 +48,6 @@ module.exports = {
         });
       }));
     },
-
     changepassword({ body: { email, password } }, res) {
       bcrypt.hash(password, null, null, ((err, hash) => {
         const params = [hash, email];
@@ -55,7 +63,6 @@ module.exports = {
         });
       }));
     },
-
     addfollow({ body: { user1, user2 } }, res) {
       const params = [user1, user2];
       userModel.users.addFollow(params, (response) => {
@@ -67,7 +74,6 @@ module.exports = {
         }
       });
     },
-
     unfollow({ body: { user1, user2 } }, res) {
       const params = [user1, user2];
       userModel.users.unfollow(params, (response) => {

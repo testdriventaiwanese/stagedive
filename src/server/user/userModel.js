@@ -24,6 +24,17 @@ module.exports = {
       });
     },
 
+    getAll(callback) {
+      const queryStr = 'SELECT id, email, fullname FROM users';
+      db.query(queryStr, (err, results) => {
+        if (err) {
+          console.log('Error in server/userModel.js getPassword : ', err);
+        } else {
+          callback(results);
+        }
+      });
+    },
+
     changePassword(params, callback) {
       const queryStr = 'UPDATE users SET password = ? WHERE email = ?';
       db.query(queryStr, params, (err, results) => {
