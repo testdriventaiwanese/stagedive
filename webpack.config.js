@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const BUILD_DIR = path.resolve(__dirname, 'src/client/public');
-const APP_DIR = path.resolve(__dirname, 'src/client/');
+const BUILD_DIR = path.resolve(__dirname, 'client/public');
+const APP_DIR = path.resolve(__dirname, 'client/');
 
 const config = {
   entry: APP_DIR + '/src/index.js',
@@ -15,17 +15,17 @@ const config = {
       {
         test: /\.jsx?/,
         include: APP_DIR,
-        exclulde: /node_modules/,
+        exclude: /node_modules/,
         loader: 'babel',
       },
     ],
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
   },
   devServer: {
-    contentBase: './'
-  }
+    contentBase: './',
+  },
 };
 
 module.exports = config;
