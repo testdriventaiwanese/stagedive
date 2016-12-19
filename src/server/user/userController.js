@@ -23,9 +23,9 @@ module.exports = {
       });
     },
 
-    signup({ body: { username, password } }, res) {
+    signup({ body: { email, password, fullname } }, res) {
       bcrypt.hash(password, null, null, ((err, hash) => {
-        const params = [username, hash];
+        const params = [email, hash, fullname];
         userModel.users.addOne(params, (response) => {
           if (!response) {
             console.log('Issue in adding to database');

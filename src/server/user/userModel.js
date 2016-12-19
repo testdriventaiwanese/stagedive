@@ -4,7 +4,7 @@ module.exports = {
   users: {
     addOne(params, callback) {
       //save query string in separate var to pass into database query, question marks denote params being passed in
-      const queryStr = 'INSERT INTO users (username, password) VALUES (?, ?)';
+      const queryStr = 'INSERT INTO users (email, password, fullname) VALUES (?, ?, ?)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/userModel.js addOne : ', err);
