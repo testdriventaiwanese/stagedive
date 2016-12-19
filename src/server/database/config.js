@@ -1,12 +1,6 @@
-// const mysql = require('mysql');
+const pw = process.env.password || require('./pw');
+const neo4j = require('neo4j-driver').v1;
 
-// const pw = process.env.key || require('./pw.js');
+const driver = neo4j.driver('bolt://hobby-dfhkcmbeoeaggbkelacallol.dbs.graphenedb.com:24786', neo4j.auth.basic('testdriventaiwanese', pw));
 
-// const connection = mysql.createConnection({
-//   host: 'mysqlcluster2.registeredsite.com',
-//   user: 'hohohadmin',
-//   password: pw,
-//   database: 'hohohoh',
-// });
-
-// module.exports = connection;
+module.exports = driver;

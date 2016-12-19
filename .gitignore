@@ -1,6 +1,18 @@
-node_modules/
+### OSX ###
 .DS_Store
 client/.DS_Store
-.env
+
+### Node ###
+node_modules
+
+### NPM ###
+node_modules/
+
+### Bower ###
+
+### API keys ###
+src/server/database/pw.js
+
+### WIP ###
 src/client/public/bundle.js
 src/client/public/bundle.js.map

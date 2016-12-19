@@ -9,7 +9,8 @@ const server = new Hapi.Server();
 server.connection({ port });
 
 const plugins = [
-  { register: require('./routes/users.js') },
+  // { register: require('./routes/users.js') },
+  // { register: require('./routes/events.js') },
 ];
 
 server.route({
