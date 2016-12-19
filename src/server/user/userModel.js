@@ -31,7 +31,7 @@ module.exports = {
       const queryStr = '';
       db.query(queryStr, params, (err, results) => {
         if (err) {
-          console.log('Error in server/userModel.js getPassword : ', err);
+          console.log('Error in server/userModel.js changePassword : ', err);
         } else {
           callback(results);
         }

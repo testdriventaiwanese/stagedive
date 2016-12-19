@@ -4,11 +4,6 @@ const bodyParser = require('body-parser'); //
 const router = require('./routes.js');
 const app = express();
 
-// requirements for Hapi JS
-// const Hapi = require('hapi');
-// const Inert = require('inert');
-// const Good = require('good');
-// const weeklyReminder = require('./email/emailHelper.js');  // uncomment for weekly reminder emails
 
 module.exports = app;
 app.use(bodyParser.urlencoded({
@@ -34,12 +29,15 @@ app.listen(port, (err) => {
     //   reminded = true;
     // }
     console.log('Server is listening to port : ', port);
-  }
 });
 
 
-
 // UNCOMMENT FOR HAPI JS SERVER CODE
+// requirements for Hapi JS
+// const Hapi = require('hapi');
+// const Inert = require('inert');
+// const Good = require('good');
+// const weeklyReminder = require('./email/emailHelper.js');  // uncomment for weekly reminder emails
 // const server = new Hapi.Server();
 // server.connection({ port });
 //
