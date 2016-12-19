@@ -2,6 +2,18 @@ const eventModel = require('./eventModel');
 
 module.exports = {
   events: {
+    search({body: {name}}, res) {
+      eventModel.events.searchEvents(name, (results) =>) {
+        if(!results) {
+          console.log('ERROR in searching');
+          res.sendStatus(401);
+        } else {
+          console.log('searched');
+          res.sendStatus(200);
+        }
+      }
+    },
+    
     addEvents({ body: {userId, eventName, date, location, venue, city, zipcode, genre}}, res) {
       const params = [userId, eventName, date, location, venue, city, zipcode, genre]
       eventModel.events.newEvents(params, (results) => {
@@ -37,7 +49,7 @@ module.exports = {
           console.log(res);
           res.sendStatus(200);
         }
-      });
+      })
     },
 
     showRelatedEvents({body: {genre}}, res) {
