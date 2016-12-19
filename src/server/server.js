@@ -10,6 +10,7 @@ server.connection({ port });
 
 const plugins = [
   { register: require('./routes/users.js') },
+  { register: require('./routes/events.js') },
 ];
 
 server.route({
