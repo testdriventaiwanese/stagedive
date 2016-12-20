@@ -7,6 +7,7 @@ export const EVENT_SELECTED = 'EVENT_SELECTED';
 export function selectEvent(event) {
   // selectBook is an ActionCreator, it needs to return an action,
   // an object with a type property.
+  const request = axios.get(`${ROOT_URL}`)
   return {
     type: EVENT_SELECTED,
     payload: event,
