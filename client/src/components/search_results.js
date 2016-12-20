@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectEvent } from '../actions/index'
+import { searchEvents } from '../actions/index'
 
-class PostIndex extends Component {
+class SearchResults extends Component {
   componentWillMount() {
+    console.log(this.props);
+    this.props.searchEvents();
     // console.log('this wpld be a a great time to call an actrio creator')
   }
 
   render() {
-    return()
+    return(
+      <div> hellooooo this.componentWillMount()</div>
+    )
   }
 }
 
@@ -20,7 +24,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchPosts }, dispatch)
+  return bindActionCreators({ searchEvents }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostIndex);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
