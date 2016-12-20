@@ -49,6 +49,10 @@ module.exports = {
         params: {
           user_Id,
         },
+      })
+      .then((resp) => {
+        console.log("SERVICES GET RESPONSE: ", resp.data);
+        return resp.data;
       });
     },
   },
