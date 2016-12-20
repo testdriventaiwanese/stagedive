@@ -14,11 +14,41 @@ module.exports = {
       });
     },
 
-    addEvents({ body: { userId, eventName, date, location, venue, city, zipcode, genre } }, res) {
-      const params = [userId, eventName, date, location, venue, city, zipcode, genre];
-      eventModel.events.newEvents(params, (results) => {
+    addEvent({ body: {
+      tm_id,
+      name,
+      artist_name,
+      date,
+      event_url,
+      venue,
+      venue_address,
+      city,
+      zipcode,
+      image,
+      genre,
+      subgenre,
+      latitude,
+      longitude,
+    } }, res) {
+      const params = [
+        tm_id,
+        name,
+        artist_name,
+        date,
+        event_url,
+        venue,
+        venue_address,
+        city,
+        zipcode,
+        image,
+        genre,
+        subgenre,
+        latitude,
+        longitude,
+      ];
+      eventModel.events.addEvent(params, (results) => {
         if (!results) {
-          console.log('Issue in adding to database');
+          console.log('Issue in adding EVENT to database');
           res.sendStatus(401);
         } else {
           console.log(results);

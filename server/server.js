@@ -7,9 +7,13 @@ const router = require('./routes.js');
 const app = express();
 
 
+// if (process.env.NODE_ENV !== 'production') {
+//   require('dotenv').config();
+// }
+
 module.exports = app;
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }));
 app.use(bodyParser.json());
 
@@ -40,7 +44,7 @@ app.listen(port, (err) => {
 // const Hapi = require('hapi');
 // const Inert = require('inert');
 // const Good = require('good');
-// const weeklyReminder = require('./email/emailHelper.js');  // uncomment for weekly reminder emails
+// const weeklyReminder = require('./email/emailHelper.js');
 // const server = new Hapi.Server();
 // server.connection({ port });
 //
