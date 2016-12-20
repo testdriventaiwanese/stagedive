@@ -19,6 +19,9 @@ module.exports = {
     return {
       type: SEARCH_EVENTS,
       payload: request,
-    };
+    }
+    .then((req) => {
+      console.log('THIS IS THE REQ', req);
+    });
   },
 };
