@@ -2,6 +2,17 @@ const eventModel = require('./eventModel');
 
 module.exports = {
   events: {
+    getAll(req, res) {
+      eventModel.events.getall((results) => {
+        if (!results) {
+          console.log('ERROR in getting all');
+          res.sendStatus(401);
+        } else {
+          console.log('got all');
+          res.status(200).send(results);
+        }
+      });
+    },
     search({ body: { name } }, res) {
       eventModel.events.searchEvents(name, (results) => {
         if (!results) {
@@ -13,7 +24,6 @@ module.exports = {
         }
       });
     },
-
     addEvent({ body: {
       tm_id,
       name,
