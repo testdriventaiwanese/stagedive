@@ -11,6 +11,7 @@ router.post('/api/users/changepassword', userController.users.changepassword);
 router.get('/api/users/getall', userController.users.getAll);
 // Event routes here:
 
+router.get('/api/events/getall', eventController.events.getAll);
 router.post('/api/events/search', eventController.events.search);
 router.post('/api/events/addevent', eventController.events.addEvent);
 router.get('/api/events/showuserevents', eventController.events.showUserEvents);
