@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class BookDetail extends Component {
+class EventDetail extends Component {
   render() {
-    if (!this.props.book) {
+    if (!this.props.event) {
       return <div>Select an event to get started.</div>;
     }
 
     return (
       <div>
         <h3>Details for:</h3>
-        <div>Title: {this.props.book.name}</div>
-        <div>ID: {this.props.book.id}</div>
+        <div>Title: {this.props.event.name}</div>
+        <div>ID: {this.props.event.id}</div>
       </div>
     );
   }
@@ -19,8 +19,8 @@ class BookDetail extends Component {
 
 function mapStateToProps(state) {
   return {
-    book: state.activeBook
+    event: state.activeEvent
   };
 }
 
-export default connect(mapStateToProps)(BookDetail);
+export default connect(mapStateToProps)(EventDetail);
