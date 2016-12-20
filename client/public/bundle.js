@@ -24372,13 +24372,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _bookList = __webpack_require__(/*! ../containers/book-list */ 217);
+	var _eventList = __webpack_require__(/*! ../containers/event-list */ 226);
 	
-	var _bookList2 = _interopRequireDefault(_bookList);
+	var _eventList2 = _interopRequireDefault(_eventList);
 	
-	var _bookDetail = __webpack_require__(/*! ../containers/book-detail */ 219);
+	var _eventDetail = __webpack_require__(/*! ../containers/event-detail */ 225);
 	
-	var _bookDetail2 = _interopRequireDefault(_bookDetail);
+	var _eventDetail2 = _interopRequireDefault(_eventDetail);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -24403,8 +24403,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_bookList2.default, null),
-	        _react2.default.createElement(_bookDetail2.default, null)
+	        _react2.default.createElement(_eventList2.default, null),
+	        _react2.default.createElement(_eventDetail2.default, null)
 	      );
 	    }
 	  }]);
@@ -24415,101 +24415,7 @@
 	exports.default = App;
 
 /***/ },
-/* 217 */
-/*!********************************************!*\
-  !*** ./client/src/containers/book-list.js ***!
-  \********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 178);
-	
-	var _index = __webpack_require__(/*! ../actions/index */ 218);
-	
-	var _redux = __webpack_require__(/*! redux */ 189);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var BookList = function (_Component) {
-	  _inherits(BookList, _Component);
-	
-	  function BookList() {
-	    _classCallCheck(this, BookList);
-	
-	    return _possibleConstructorReturn(this, (BookList.__proto__ || Object.getPrototypeOf(BookList)).apply(this, arguments));
-	  }
-	
-	  _createClass(BookList, [{
-	    key: 'renderList',
-	    value: function renderList() {
-	      var _this2 = this;
-	
-	      return this.props.books.map(function (book) {
-	        return _react2.default.createElement(
-	          'li',
-	          {
-	            key: book.id,
-	            onClick: function onClick() {
-	              return _this2.props.selectBook(book);
-	            },
-	            className: 'list-group-item' },
-	          book.name
-	        );
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'ul',
-	        { className: 'list-group col-sm-4' },
-	        this.renderList()
-	      );
-	    }
-	  }]);
-	
-	  return BookList;
-	}(_react.Component);
-	
-	function mapStateToProps(state) {
-	  // Whatever is returned will show up as props
-	  // inside of BookList
-	  return {
-	    books: state.books
-	  };
-	}
-	
-	// Anything returned from this function will end up as props
-	// on the BookList container
-	function mapDispatchToProps(dispatch) {
-	  // Whenever selectBook is called, the result shoudl be passed
-	  // to all of our reducers
-	  return (0, _redux.bindActionCreators)({ selectBook: _index.selectBook }, dispatch);
-	}
-	
-	// Promote BookList from a component to a container - it needs to know
-	// about this new dispatch method, selectBook. Make it available
-	// as a prop.
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BookList);
-
-/***/ },
+/* 217 */,
 /* 218 */
 /*!*************************************!*\
   !*** ./client/src/actions/index.js ***!
@@ -24521,101 +24427,18 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.selectBook = selectBook;
-	function selectBook(book) {
+	exports.selectEvent = selectEvent;
+	function selectEvent(event) {
 	  // selectBook is an ActionCreator, it needs to return an action,
 	  // an object with a type property.
 	  return {
-	    type: 'BOOK_SELECTED',
-	    payload: book
+	    type: 'EVENT_SELECTED',
+	    payload: event
 	  };
 	}
 
 /***/ },
-/* 219 */
-/*!**********************************************!*\
-  !*** ./client/src/containers/book-detail.js ***!
-  \**********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 178);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var BookDetail = function (_Component) {
-	  _inherits(BookDetail, _Component);
-	
-	  function BookDetail() {
-	    _classCallCheck(this, BookDetail);
-	
-	    return _possibleConstructorReturn(this, (BookDetail.__proto__ || Object.getPrototypeOf(BookDetail)).apply(this, arguments));
-	  }
-	
-	  _createClass(BookDetail, [{
-	    key: 'render',
-	    value: function render() {
-	      if (!this.props.book) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          'Select an event to get started.'
-	        );
-	      }
-	
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          'Details for:'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          'Title: ',
-	          this.props.book.name
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          'ID: ',
-	          this.props.book.id
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return BookDetail;
-	}(_react.Component);
-	
-	function mapStateToProps(state) {
-	  return {
-	    book: state.activeBook
-	  };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(BookDetail);
-
-/***/ },
+/* 219 */,
 /* 220 */
 /*!**************************************!*\
   !*** ./client/src/reducers/index.js ***!
@@ -24630,28 +24453,30 @@
 	
 	var _redux = __webpack_require__(/*! redux */ 189);
 	
-	var _reducer_books = __webpack_require__(/*! ./reducer_books */ 221);
+	var _reducer_events = __webpack_require__(/*! ./reducer_events */ 223);
 	
-	var _reducer_books2 = _interopRequireDefault(_reducer_books);
+	var _reducer_events2 = _interopRequireDefault(_reducer_events);
 	
-	var _reducer_active_book = __webpack_require__(/*! ./reducer_active_book */ 222);
+	var _reducer_active_event = __webpack_require__(/*! ./reducer_active_event */ 224);
 	
-	var _reducer_active_book2 = _interopRequireDefault(_reducer_active_book);
+	var _reducer_active_event2 = _interopRequireDefault(_reducer_active_event);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
-	  books: _reducer_books2.default,
-	  activeBook: _reducer_active_book2.default
+	  events: _reducer_events2.default,
+	  activeEvent: _reducer_active_event2.default
 	});
 	
 	exports.default = rootReducer;
 
 /***/ },
-/* 221 */
-/*!**********************************************!*\
-  !*** ./client/src/reducers/reducer_books.js ***!
-  \**********************************************/
+/* 221 */,
+/* 222 */,
+/* 223 */
+/*!***********************************************!*\
+  !*** ./client/src/reducers/reducer_events.js ***!
+  \***********************************************/
 /***/ function(module, exports) {
 
 	"use strict";
@@ -25322,10 +25147,10 @@
 	};
 
 /***/ },
-/* 222 */
-/*!****************************************************!*\
-  !*** ./client/src/reducers/reducer_active_book.js ***!
-  \****************************************************/
+/* 224 */
+/*!*****************************************************!*\
+  !*** ./client/src/reducers/reducer_active_event.js ***!
+  \*****************************************************/
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25339,12 +25164,191 @@
 	  var action = arguments[1];
 	
 	  switch (action.type) {
-	    case 'BOOK_SELECTED':
+	    case 'EVENT_SELECTED':
 	      return action.payload;
 	  }
 	
 	  return state;
 	};
+
+/***/ },
+/* 225 */
+/*!***********************************************!*\
+  !*** ./client/src/containers/event-detail.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 178);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EventDetail = function (_Component) {
+	  _inherits(EventDetail, _Component);
+	
+	  function EventDetail() {
+	    _classCallCheck(this, EventDetail);
+	
+	    return _possibleConstructorReturn(this, (EventDetail.__proto__ || Object.getPrototypeOf(EventDetail)).apply(this, arguments));
+	  }
+	
+	  _createClass(EventDetail, [{
+	    key: 'render',
+	    value: function render() {
+	      if (!this.props.event) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Select an event to get started.'
+	        );
+	      }
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Details for:'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          'Title: ',
+	          this.props.event.name
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          'ID: ',
+	          this.props.event.id
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return EventDetail;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return {
+	    event: state.activeEvent
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(EventDetail);
+
+/***/ },
+/* 226 */
+/*!*********************************************!*\
+  !*** ./client/src/containers/event-list.js ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 178);
+	
+	var _index = __webpack_require__(/*! ../actions/index */ 218);
+	
+	var _redux = __webpack_require__(/*! redux */ 189);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EventList = function (_Component) {
+	  _inherits(EventList, _Component);
+	
+	  function EventList() {
+	    _classCallCheck(this, EventList);
+	
+	    return _possibleConstructorReturn(this, (EventList.__proto__ || Object.getPrototypeOf(EventList)).apply(this, arguments));
+	  }
+	
+	  _createClass(EventList, [{
+	    key: 'renderList',
+	    value: function renderList() {
+	      var _this2 = this;
+	
+	      return this.props.events.map(function (event) {
+	        return _react2.default.createElement(
+	          'li',
+	          {
+	            key: event.id,
+	            onClick: function onClick() {
+	              return _this2.props.selectEvent(event);
+	            },
+	            className: 'list-group-item' },
+	          event.name
+	        );
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'ul',
+	        { className: 'list-group col-sm-4' },
+	        this.renderList()
+	      );
+	    }
+	  }]);
+	
+	  return EventList;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  // Whatever is returned will show up as props
+	  // inside of BookList
+	  return {
+	    events: state.events
+	  };
+	}
+	
+	// Anything returned from this function will end up as props
+	// on the BookList container
+	function mapDispatchToProps(dispatch) {
+	  // Whenever selectBook is called, the result shoudl be passed
+	  // to all of our reducers
+	  return (0, _redux.bindActionCreators)({ selectEvent: _index.selectEvent }, dispatch);
+	}
+	
+	// Promote BookList from a component to a container - it needs to know
+	// about this new dispatch method, selectBook. Make it available
+	// as a prop.
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EventList);
 
 /***/ }
 /******/ ]);
