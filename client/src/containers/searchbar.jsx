@@ -29,6 +29,7 @@ class SearchBar extends Component {
 
   render() {
     return (
+
       <form onSubmit={this.onFormSubmit} className="input-group">
         <input
           placeholder="Search for events"
