@@ -13,11 +13,12 @@ export function selectEvent(event) {
   };
 }
 
-export function searchEvents(city) {
-  const url = `${ROOT_URL}`;
-  const request = axios.get(url);
-  return {
-    type: SEARCH_EVENTS;
-    payload: request;
-  }
-}
+// export function searchEvents(city) {
+//   const url = `${ROOT_URL}`;
+//   const request = axios.get(url);
+//   return {
+//     type: SEARCH_EVENTS,
+//     payload: request,
+//
+//   }
+// }
