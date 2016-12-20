@@ -6,21 +6,19 @@ const ROOT_URL = `https://app.ticketmaster.com/discovery/v2/events.json?classifi
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
 
-export function selectEvent(event) {
-  // selectBook is an ActionCreator, it needs to return an action,
-  // an object with a type property.
-  return {
-    type: EVENT_SELECTED,
-    payload: event,
-  };
-}
-
-
-export function searchEvents(city) {
-  const url = `${ROOT_URL}`;
-  const request = axios.get(url);
-  return {
-    type: SEARCH_EVENTS,
-    payload: request,
-  };
-}
+module.exports = {
+  selectEvent(event) {
+    return {
+      type: EVENT_SELECTED,
+      payload: event,
+    };
+  },
+  searchEvents() {
+    const url = `${ROOT_URL}`;
+    const request = axios.get(url);
+    return {
+      type: SEARCH_EVENTS,
+      payload: request,
+    };
+  },
+};
