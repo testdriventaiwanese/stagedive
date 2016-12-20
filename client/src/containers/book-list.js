@@ -8,10 +8,10 @@ class BookList extends Component {
     return this.props.books.map((book) => {
       return (
         <li
-          key={book.title}
+          key={book.id}
           onClick={() => this.props.selectBook(book)}
           className="list-group-item">
-          {book.title}
+          {book.name}
         </li>
       );
     });

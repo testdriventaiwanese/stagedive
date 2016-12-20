@@ -22,3 +22,7 @@ src/client/public/bundle.js.map
 
 ### debug log ###
 npm-debug.log
+
+### Bundle.js / .map ###
+client/public/bundle.js.map
+client/public/bundle.js
