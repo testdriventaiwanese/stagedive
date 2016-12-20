@@ -1,7 +1,6 @@
 import axios from 'axios';
-
-const TICKETMASTER_API = process.env.TICKETMASTER_API;
-const ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&size=3&dmaId=324&apikey=lfaGyWA9sAAGJj7vrMfYX9TnT2vjOkNA';
+import APIKEYS from './APIKEYS.js';
+const ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&size=3&dmaId=324&apikey='+APIKEYS;
 
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
