@@ -2,11 +2,11 @@ const db = require('../database/config');
 
 module.exports = {
   events: {
-    newEvents(params, callback) {
-      const queryStr = 'INSERT INTO events (id_users, name, date, location, venue, city, zipcode, genre) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    addEvent(params, callback) {
+      const queryStr = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
-          console.log('Error in server/eventModel.js newEvents : ', err);
+          console.log('Error in server/eventModel.js addEvent : ', err);
         } else {
           callback(results);
         }

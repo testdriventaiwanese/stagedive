@@ -47,7 +47,7 @@ module.exports = {
     },
 
     addFollow(params, callback) {
-      const queryStr = 'INSERT into users_friends';
+      const queryStr = 'INSERT into users_friends (id_user, id_friend) VALUES (?, ?)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/userModel.js addFollow : ', err);
