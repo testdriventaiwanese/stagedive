@@ -8,6 +8,7 @@ import EventDetail from '../containers/event-detail';
 import SearchBar from '../containers/searchbar.jsx';
 import SearchResults from '../containers/search-results';
 
+
 class PostIndex extends Component {
   render() {
     return (

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import * as mui from 'material-ui';
+// import * as mui from 'material-ui';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-let ThemeManager = new mui.Styles.ThemeManager();
+// let ThemeManager = new mui.Styles.ThemeManager();
 
 const SignUpForm = ({
   onSubmit,
