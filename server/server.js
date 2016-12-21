@@ -5,8 +5,7 @@ require('dotenv').config();
 require('./database/config.js');
 const path = require('path');
 const express = require('express');
-const bodyParser = require('body-parser'); //
-const router = require('./routes.js');
+const bodyParser = require('body-parser');
 const passport = require('passport');
 const app = express();
 
