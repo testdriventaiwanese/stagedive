@@ -2,6 +2,28 @@ const db = require('../database/config');
 
 module.exports = {
   users: {
+    findById(params, callback) {
+      const queryStr = 'SELECT email FROM users WHERE id = ?';
+      db.query(queryStr, params, (err, results) => {
+        if (err) {
+          console.log('Error in server/userModel.js findOne : ', err);
+        } else {
+          callback(results);
+        }
+      });
+    },
+
+    findOne(params, callback) {
+      const queryStr = 'SELECT email FROM users WHERE email = ?';
+      db.query(queryStr, params, (err, results) => {
+        if (err) {
+          console.log('Error in server/userModel.js findOne : ', err);
+        } else {
+          callback(results);
+        }
+      });
+    },
+
     addOne(params, callback) {
       const queryStr = 'INSERT INTO users (email, password, fullname) VALUES (?, ?, ?)';
       db.query(queryStr, params, (err, results) => {
@@ -14,7 +36,7 @@ module.exports = {
     },
 
     getPassword(params, callback) {
-      const queryStr = 'SELECT password FROM users WHERE email = ?';
+      const queryStr = 'SELECT id, password, fullname FROM users WHERE email = ?';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/userModel.js getPassword : ', err);
