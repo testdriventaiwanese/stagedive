@@ -14,7 +14,7 @@ module.exports = {
       });
     },
     addEvent(userId, params, callback) {
-      const queryStr = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, country, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      const queryStr = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, country, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
       const queryStr2 = 'INSERT INTO users_events (id_users, id_events) VALUES (?, ?)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
