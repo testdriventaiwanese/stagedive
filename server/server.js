@@ -1,3 +1,6 @@
+// if (process.env.NODE_ENV !== 'production') {
+//   require('dotenv').config();
+// }
 require('dotenv').config();
 require('./database/config.js');
 const path = require('path');
@@ -7,12 +10,6 @@ const router = require('./routes.js');
 const passport = require('passport');
 const app = express();
 
-
-// if (process.env.NODE_ENV !== 'production') {
-//   require('dotenv').config();
-// }
-
-// module.exports = app;
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
@@ -20,7 +17,7 @@ app.use(bodyParser.json());
 // pass the passport middleware
 app.use(passport.initialize());
 
-// app.use(router);
+// serve static files
 app.use(express.static(path.join(__dirname, '/../client/')));
 app.use(express.static(path.join(__dirname, '/../client/public/')));
 app.use(express.static(path.join(__dirname, '/../node_modules')));
@@ -61,35 +58,3 @@ app.listen(port, (err) => {
     // }
     console.log('Server is listening to port : ', port);
 });
-
-
-// UNCOMMENT FOR HAPI JS SERVER CODE
-// requirements for Hapi JS
-// const Hapi = require('hapi');
-// const Inert = require('inert');
-// const Good = require('good');
-// const weeklyReminder = require('./email/emailHelper.js');
-// const server = new Hapi.Server();
-// server.connection({ port });
-//
-// const plugins = [
-//   { register: require('./routes/users.js') },
-//   // { register: require('./routes/events.js') },
-// ];
-//
-// server.route({
-//   method: 'GET',
-//   path: '/',
-//   handler: (request, reply) => {
-//     reply('Hello, world!');
-//   },
-// });
-//
-//
-// server.register(plugins, (err) => {
-//   if (err) { throw err; }
-//
-//   server.start(() => {
-//     console.log('Server running at: ' + server.info.uri);
-//   });
-// });
