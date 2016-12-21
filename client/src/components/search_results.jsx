@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchEvents } from '../actions/index'
 
-class SearchResults extends Component {
+class SearchResults2 extends Component {
   componentWillMount() {
     console.log(this.props);
     this.props.searchEvents();
@@ -12,7 +12,7 @@ class SearchResults extends Component {
 
   render() {
     return(
-      <div> hellooooo this.componentWillMount()</div>
+      <div> TEST TEST TEST </div>
     )
   }
 }
@@ -27,4 +27,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ searchEvents }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults2);

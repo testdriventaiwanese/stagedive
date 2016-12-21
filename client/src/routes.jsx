@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
 import PostIndex from './components/post_index';
-import SearchResults from './components/search_results';
+import SearchResults from './containers/search-results';
 
 export default(
   <Route path="/" component={App} >
