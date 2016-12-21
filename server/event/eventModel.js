@@ -13,18 +13,27 @@ module.exports = {
         }
       });
     },
-    addEvent(params, callback) {
-      const queryStr = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, couuntry, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    addEvent(userId, params, callback) {
+      const queryStr = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, country, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      const queryStr2 = 'INSERT INTO users_events (id_users, id_events) VALUES (?, ?)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js addEvent : ', err);
         } else {
-          callback(results);
+          console.log('ADD EVENT QUERY 1 RESPONSE: ', results);
+          const params2 = [userId, results.insertId];
+          db.query(queryStr2, params2, (err, results) => {
+            if (err) {
+              console.log('Error in server/eventModel.js addEvent : ', err);
+            } else {
+              callback(results);
+            }
+          });
         }
       });
     },
     userEvents(params, callback) {
-      const queryStr = 'SELECT name FROM event WHERE id_users = ?';
+      const queryStr = 'SELECT name FROM events WHERE id_users = ?';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js userEvents : ', err);
@@ -34,7 +43,7 @@ module.exports = {
       });
     },
     searchEvents(params, callback) {
-      const queryStr = 'SELECT name FROM event WHERE name = ?';
+      const queryStr = 'SELECT name FROM events WHERE name = ?';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js searchEvents : ', err);
@@ -44,7 +53,7 @@ module.exports = {
       });
     },
     relatedEvents(params, callback) {
-      const queryStr = 'SELECT name FROM event WHERE genre = ?';
+      const queryStr = 'SELECT name FROM events WHERE genre = ?';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js relatedEvents : ', err);
@@ -54,7 +63,7 @@ module.exports = {
       });
     },
     localEvents(params, callback) {
-      const queryStr = 'SELECT name FROM event WHERE city = ? OR zipcode = ? OR location = ?';
+      const queryStr = 'SELECT name FROM events WHERE city = ? OR zipcode = ? OR location = ?';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js localEvents : ', err);
@@ -63,13 +72,21 @@ module.exports = {
         }
       });
     },
-    removeEvents(params, callback) {
-      const queryStr = 'DELETE FROM event WHERE name = ?';
+    deleteEvent(params, callback) {
+      const queryStr = 'DELETE FROM users_events WHERE id_events = ? AND id_users = ?';
+      const queryStr2 = 'DELETE FROM events WHERE id = ?';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js removeEvents : ', err);
         } else {
-          callback(results);
+          console.log("AFTER DELETE EVENT RESULTS: ", results);
+          db.query(queryStr2, params, (err, results) => {
+            if (err) {
+              console.log('Error in server/eventModel.js removeEvents : ', err);
+            } else {
+              callback(results);
+            }
+          });
         }
       });
     },

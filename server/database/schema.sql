@@ -28,7 +28,7 @@ CREATE TABLE `events` (
   `subgenre` VARCHAR(50) NOT NULL,
   `latitude` VARCHAR(50) NOT NULL,
   `longitude` VARCHAR(50) NOT NULL,
-  `id_artists` INTEGER NOT NULL,
+  `country` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
