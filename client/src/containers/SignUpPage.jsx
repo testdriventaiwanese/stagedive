@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
-import SignUpForm from '../components/SignUpForm.jsx';
-
+import SignUpForm from '../components/SignUpForm';
 
 class SignUpPage extends React.Component {
 
@@ -83,7 +82,7 @@ class SignUpPage extends React.Component {
     user[field] = event.target.value;
 
     this.setState({
-      user
+      user,
     });
   }
 
@@ -92,12 +91,14 @@ class SignUpPage extends React.Component {
    */
   render() {
     return (
-      <SignUpForm
-        onSubmit={this.processForm}
-        onChange={this.changeUser}
-        errors={this.state.errors}
-        user={this.state.user}
-      />
+      <div>
+        <SignUpForm
+          onSubmit={this.processForm}
+          onChange={this.changeUser}
+          errors={this.state.errors}
+          user={this.state.user}
+        />
+      </div>
     );
   }
 
