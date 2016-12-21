@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+// import { selectEvent } from '../actions/index';
 
 class SearchResults extends Component {
   renderList() {
@@ -46,4 +47,4 @@ function mapStateToProps(state) {
 // Promote BookList from a component to a container - it needs to know
 // about this new dispatch method, selectBook. Make it available
 // as a prop.
-export default connect(mapStateToProps)(SearchResults);
+export default connect(mapStateToProps, null)(SearchResults);
