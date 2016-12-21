@@ -10,14 +10,16 @@ class SearchResults extends Component {
           key={result.id}
           onClick={() => this.props.selectEvent(result)}
           className="list-group-item">
-          {result.name}
+          <div>{result.name}</div>
+          <div>{result._embedded.venues[0].city.name}, {result._embedded.venues[0].country.name}</div>
+          <div>{result.dates.start.localDate}</div>
         </li>
       );
     });
   }
   render() {
     return (
-      <ul className="list-group col-sm-4">
+      <ul>
         {this.renderList()}
       </ul>
     )

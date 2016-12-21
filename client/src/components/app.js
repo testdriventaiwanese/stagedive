@@ -9,11 +9,15 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <SearchBar />
-        <EventList />
-        <EventDetail />
-        <h1>Search Results Below:</h1>
-        <SearchResults />
+        <div>
+          <SearchBar />
+          <EventList />
+          <EventDetail />
+        </div>
+        <div>
+          <h1>Search Results Below:</h1>
+          <SearchResults />
+        </div>
       </div>
     );
   }

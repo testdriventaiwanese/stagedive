@@ -9,7 +9,7 @@ class PostIndex extends Component {
   }
 
   render() {
-    return()
+    // return()
   }
 }
 
