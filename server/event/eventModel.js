@@ -14,21 +14,22 @@ module.exports = {
       });
     },
     addEvent(userId, params, callback) {
-      const queryStr = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, country, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-      const queryStr2 = 'INSERT INTO users_events (id_users, id_events) VALUES (?, ?)';
+      const queryStr = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, country, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      // const queryStr2 = 'INSERT INTO users_events (id_users, id_events) VALUES (?, ?)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js addEvent : ', err);
         } else {
           console.log('ADD EVENT QUERY 1 RESPONSE: ', results);
           const params2 = [userId, results.insertId];
-          db.query(queryStr2, params2, (err, results) => {
-            if (err) {
-              console.log('Error in server/eventModel.js addEvent : ', err);
-            } else {
-              callback(results);
-            }
-          });
+          callback(results);
+          // db.query(queryStr2, params2, (err, results) => {
+          //   if (err) {
+          //     console.log('Error in server/eventModel.js addEvent : ', err);
+          //   } else {
+          //     callback(results);
+          //   }
+          // });
         }
       });
     },
@@ -79,8 +80,8 @@ module.exports = {
         if (err) {
           console.log('Error in server/eventModel.js removeEvents : ', err);
         } else {
-          console.log("AFTER DELETE EVENT RESULTS: ", results);
-          db.query(queryStr2, params, (err, results) => {
+          console.log('AFTER DELETE EVENT RESULTS: ', results);
+          db.query(queryStr2, params[0], (err, results) => {
             if (err) {
               console.log('Error in server/eventModel.js removeEvents : ', err);
             } else {
