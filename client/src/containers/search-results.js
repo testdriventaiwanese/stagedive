@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+// import { selectEvent } from '../actions/index';
 
 class SearchResults extends Component {
   renderList() {
@@ -10,14 +11,16 @@ class SearchResults extends Component {
           key={result.id}
           onClick={() => this.props.selectEvent(result)}
           className="list-group-item">
-          {result.name}
+          <div>{result.name}</div>
+          <div>{result._embedded.venues[0].city.name}, {result._embedded.venues[0].country.name}</div>
+          <div>{result.dates.start.localDate}</div>
         </li>
       );
     });
   }
   render() {
     return (
-      <ul className="list-group col-sm-4">
+      <ul>
         {this.renderList()}
       </ul>
     )
@@ -44,4 +47,4 @@ function mapStateToProps(state) {
 // Promote BookList from a component to a container - it needs to know
 // about this new dispatch method, selectBook. Make it available
 // as a prop.
-export default connect(mapStateToProps)(SearchResults);
+export default connect(mapStateToProps, null)(SearchResults);
