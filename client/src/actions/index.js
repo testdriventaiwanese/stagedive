@@ -26,7 +26,7 @@ module.exports = {
     const resultObj = {
       tm_id: result.id,
       name: result.name,
-      artist_name: result._embedded.attractions[0].name,
+      artist_name: JSON.stringify(result._embedded.attractions),
       date: result.dates.start.dateTime,
       event_url: result.url,
       venue: result._embedded.venues[0].name,
@@ -39,6 +39,7 @@ module.exports = {
       latitude: result._embedded.venues[0].location.latitude,
       longitude: result._embedded.venues[0].location.longitude,
       country: result._embedded.venues[0].country.name,
+      sale_date: JSON.stringify(result.sales.public),
     }
     return {
       type: SAVE_RESULT,
