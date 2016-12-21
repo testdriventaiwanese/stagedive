@@ -24,7 +24,7 @@ class SearchBar extends Component {
     event.preventDefault();
 
 // We need to go and fetch weather data
-    this.props.searchEvents(this.state.term);
+    this.props.searchEvents(this.state.term || 'New York');
     this.setState({ term: '' });
     browserHistory.push('/results');
   }
