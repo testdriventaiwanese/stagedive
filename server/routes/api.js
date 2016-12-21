@@ -17,6 +17,6 @@ router.post('/events/addevent', eventController.events.addEvent);
 router.get('/events/showuserevents', eventController.events.showUserEvents);
 router.get('/events/showlocalevents', eventController.events.showLocalEvents);
 router.get('/events/showrelatedevents', eventController.events.showRelatedEvents);
-router.post('/events/deleteevents', eventController.events.deleteEvents);
+router.post('/events/deleteevent', eventController.events.deleteEvent);
 
 module.exports = router;

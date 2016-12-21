@@ -41,7 +41,9 @@ module.exports = {
       longitude,
       country,
       sale_date,
-    } }, res) {
+    }, headers }, res) {
+      console.log("REQUEST HEADERS FROM ADD EVENT: ", headers)
+      const userId = headers.userid;
       const params = [
         tm_id,
         name,
@@ -60,7 +62,7 @@ module.exports = {
         country,
         sale_date,
       ];
-      eventModel.events.addEvent(params, (results) => {
+      eventModel.events.addEvent(userId, params, (results) => {
         if (!results) {
           console.log('Issue in adding EVENT to database');
           res.sendStatus(401);
@@ -108,8 +110,9 @@ module.exports = {
       });
     },
 
-    deleteEvents({ body: { name } }, res) {
-      eventModel.events.removeEvents(name, (results) => {
+    deleteEvent({ body: { eventId, userId } }, res) {
+      const params = [eventId, userId];
+      eventModel.events.deleteEvent(params, (results) => {
         if (!results) {
           console.log('Issue in removing events');
           res.sendStatus(401);

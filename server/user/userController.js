@@ -51,6 +51,16 @@ module.exports = {
         }
       });
     },
+    deleteUser({ body: { email } }, res) {
+      userModel.users.deleteUser(email, (response) => {
+        if (!response) {
+          console.log('Issue in adding to database');
+          res.sendStatus(401);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    },
     // signin({ body: { email, password } }, res) {
     //   userModel.users.getPassword(email, (results) => {
     //     if (results.length === 0) {
