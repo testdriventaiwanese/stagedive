@@ -19,10 +19,6 @@ class PostIndex extends Component {
           <EventList />
           <EventDetail />
         </div>
-        <div>
-          <h1>Search Results Below:</h1>
-          <SearchResults />
-        </div>
     </div>
     );
   }

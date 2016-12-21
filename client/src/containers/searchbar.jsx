@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchEvents } from '../actions/index';
+import { browserHistory } from 'react-router';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class SearchBar extends Component {
 // We need to go and fetch weather data
     this.props.searchEvents(this.state.term);
     this.setState({ term: '' });
+    browserHistory.push('/results');
   }
 
   render() {
