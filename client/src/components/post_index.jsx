@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { selectEvent } from '../actions/index';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
 import EventList from '../containers/event-list';
 import EventDetail from '../containers/event-detail';
 import SearchBar from '../containers/searchbar.jsx';
@@ -13,7 +13,6 @@ class PostIndex extends Component {
     return (
       <div>
         <div>
-          <Link to={"results"}>Results</Link>
           <Link to={"signup"}>SignUp</Link>
           <SearchBar />
           <EventList />
