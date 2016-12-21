@@ -4,6 +4,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser'); //
 const router = require('./routes.js');
+const passport = require('passport');
 const app = express();
 
 
@@ -11,16 +12,39 @@ const app = express();
 //   require('dotenv').config();
 // }
 
-module.exports = app;
+// module.exports = app;
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
 app.use(bodyParser.json());
+// pass the passport middleware
+app.use(passport.initialize());
 
-app.use(router);
+// app.use(router);
 app.use(express.static(path.join(__dirname, '/../client/')));
 app.use(express.static(path.join(__dirname, '/../client/public/')));
 app.use(express.static(path.join(__dirname, '/../node_modules')));
+
+// load passport strategies
+const localSignupStrategy = require('./passport/local-signup');
+const localLoginStrategy = require('./passport/local-login');
+
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
+
+// COMMENT OUT FOR AUTH CHECK MIDDLEWARE
+// pass the authenticaion checker middleware
+// const authCheckMiddleware = require('./passport/auth-check');
+//
+// app.use('/api', authCheckMiddleware);
+
+// routes
+const authRoutes = require('./routes/auth');
+const apiRoutes = require('./routes/api');
+
+app.use('/auth', authRoutes);
+app.use('/api', apiRoutes);
+
 
 const port = process.env.PORT || 5000;
 

@@ -14,40 +14,6 @@ module.exports = {
         }
       });
     },
-    signin({ body: { email, password } }, res) {
-      userModel.users.getPassword(email, (results) => {
-        if (results.length === 0) {
-          console.log('ERROR no password found');
-          res.sendStatus(401);
-        } else {
-          bcrypt.compare(password, results[0].password, ((err, response) => {
-            if (!response) {
-              console.log('Password did not match in compare');
-              res.sendStatus(401);
-            } else {
-              // const token = jwt.encode(email, 'secret');
-              // res.json({ token });
-              res.status(200).send('Signin Successful!');
-            }
-          }));
-        }
-      });
-    },
-    signup({ body: { email, password, fullname } }, res) {
-      bcrypt.hash(password, null, null, ((err, hash) => {
-        const params = [email, hash, fullname];
-        userModel.users.addOne(params, (response) => {
-          if (!response) {
-            console.log('Issue in adding to database');
-            res.sendStatus(401);
-          } else {
-            // const token = jwt.encode(email, 'secret');
-            // res.json({ token });
-            res.status(200).send('Signup Successful!');
-          }
-        });
-      }));
-    },
     changepassword({ body: { email, password } }, res) {
       bcrypt.hash(password, null, null, ((err, hash) => {
         const params = [hash, email];
@@ -85,6 +51,40 @@ module.exports = {
         }
       });
     },
+    // signin({ body: { email, password } }, res) {
+    //   userModel.users.getPassword(email, (results) => {
+    //     if (results.length === 0) {
+    //       console.log('ERROR no password found');
+    //       res.sendStatus(401);
+    //     } else {
+    //       bcrypt.compare(password, results[0].password, ((err, response) => {
+    //         if (!response) {
+    //           console.log('Password did not match in compare');
+    //           res.sendStatus(401);
+    //         } else {
+    //           // const token = jwt.encode(email, 'secret');
+    //           // res.json({ token });
+    //           res.status(200).send('Signin Successful!');
+    //         }
+    //       }));
+    //     }
+    //   });
+    // },
+    // signup({ body: { email, password, fullname } }, res) {
+    //   bcrypt.hash(password, null, null, ((err, hash) => {
+    //     const params = [email, hash, fullname];
+    //     userModel.users.addOne(params, (response) => {
+    //       if (!response) {
+    //         console.log('Issue in adding to database');
+    //         res.sendStatus(401);
+    //       } else {
+    //         // const token = jwt.encode(email, 'secret');
+    //         // res.json({ token });
+    //         res.status(200).send('Signup Successful!');
+    //       }
+    //     });
+    //   }));
+    // },
   },
 };
 
