@@ -68,6 +68,25 @@ module.exports = {
       });
     },
 
+    deleteUser(params, callback) {
+      const queryStr = 'DELETE FROM users WHERE email = ?';
+      const queryStr2 = 'DELETE FROM users_events WHERE id_users = ?';
+      db.query(queryStr, params, (err, results) => {
+        if (err) {
+          console.log('Error in server/userModel.js deleteUser : ', err);
+        } else {
+          var params2 = results.
+          db.query(queryStr, params2, (err, results) => {
+            if (err) {
+              console.log('Error in server/userModel.js deleteUser : ', err);
+            } else {
+              callback(results);
+            }
+          });
+        }
+      });
+    },
+
     addFollow(params, callback) {
       const queryStr = 'INSERT into users_friends (id_user, id_friend) VALUES (?, ?)';
       db.query(queryStr, params, (err, results) => {

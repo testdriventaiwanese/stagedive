@@ -5,7 +5,7 @@ const BUILD_DIR = path.resolve(__dirname, 'client/public');
 const APP_DIR = path.resolve(__dirname, 'client/');
 
 const config = {
-  entry: APP_DIR + '/src/index.js',
+  entry: APP_DIR + '/src/index.jsx',
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js',
