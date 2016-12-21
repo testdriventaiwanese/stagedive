@@ -42,7 +42,7 @@ module.exports = {
       country,
       sale_date,
     }, headers }, res) {
-      console.log("REQUEST HEADERS FROM ADD EVENT: ", headers)
+      console.log("REQUEST HEADERS WITH ADD EVENT: ", headers)
       const userId = headers.userid;
       const params = [
         tm_id,
@@ -67,8 +67,8 @@ module.exports = {
           console.log('Issue in adding EVENT to database');
           res.sendStatus(401);
         } else {
-          console.log(results);
-          res.sendStatus(200);
+          console.log('RESULTS FROM ADD EVENT: ', results);
+          res.status(200).send(results);
         }
       });
     },

@@ -41,7 +41,7 @@ module.exports = {
       country: result._embedded.venues[0].country.name,
       sale_date: JSON.stringify(result.sales.public),
     }
-    axios.post('/events/addevent', resultObj);
+    axios.post('/api/events/addevent', resultObj);
 
     return {
       type: SAVE_RESULT,
