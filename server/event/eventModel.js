@@ -14,7 +14,7 @@ module.exports = {
       });
     },
     addEvent(params, callback) {
-      const queryStr = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      const queryStr = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, couuntry, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js addEvent : ', err);

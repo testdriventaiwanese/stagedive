@@ -39,6 +39,8 @@ module.exports = {
       subgenre,
       latitude,
       longitude,
+      country,
+      sale_date,
     } }, res) {
       const params = [
         tm_id,
@@ -55,6 +57,8 @@ module.exports = {
         subgenre,
         latitude,
         longitude,
+        country,
+        sale_date,
       ];
       eventModel.events.addEvent(params, (results) => {
         if (!results) {
