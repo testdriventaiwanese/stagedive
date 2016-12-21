@@ -7,7 +7,7 @@ import SearchResults from './components/search_results';
 
 export default(
   <Route path="/" component={App} >
-    // <IndexRoute component={PostIndex} />
+    <IndexRoute component={PostIndex} />
     <Route path="results" component={SearchResults} />
   </Route>
 );

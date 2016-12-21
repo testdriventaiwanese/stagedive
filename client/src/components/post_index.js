@@ -12,13 +12,17 @@ class PostIndex extends Component {
   render() {
     return (
       <div>
-        <Link to={"results"}>Results</Link>
-        <SearchBar />
-        <EventList />
-        <EventDetail />
-        <h1>Search Results Below:</h1>
-        <SearchResults />
-      </div>
+        <div>
+          <Link to={"results"}>Results</Link>
+          <SearchBar />
+          <EventList />
+          <EventDetail />
+        </div>
+        <div>
+          <h1>Search Results Below:</h1>
+          <SearchResults />
+        </div>
+    </div>
     );
   }
 }
