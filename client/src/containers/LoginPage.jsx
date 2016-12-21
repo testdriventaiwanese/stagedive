@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import Auth from '../modules/auth';
-import LoginForm from '../components/LoginForm';
-
+import Auth from '../modules/Auth';
+import LoginForm from '../components/LoginForm.jsx';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class LoginPage extends React.Component {
 
@@ -102,13 +102,17 @@ class LoginPage extends React.Component {
    */
   render() {
     return (
-      <LoginForm
-        onSubmit={this.processForm}
-        onChange={this.changeUser}
-        errors={this.state.errors}
-        successMessage={this.state.successMessage}
-        user={this.state.user}
-      />
+      <MuiThemeProvider>
+        <div>
+          <LoginForm
+            onSubmit={this.processForm}
+            onChange={this.changeUser}
+            errors={this.state.errors}
+            successMessage={this.state.successMessage}
+            user={this.state.user}
+          />
+      </div>
+    </MuiThemeProvider>
     );
   }
 
