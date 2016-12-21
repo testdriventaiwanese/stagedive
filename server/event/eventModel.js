@@ -3,6 +3,7 @@ const db = require('../database/config');
 module.exports = {
   events: {
     getall(callback) {
+      // UNCOMMENT when querying by user, TODO fix this query
       // const queryStr = 'SELECT *, user_events.id_events FROM events INNER JOIN users_events ON users_events.id_users = ? ';
       const queryStr = 'SELECT * FROM events';
       db.query(queryStr, (err, results) => {
