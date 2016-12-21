@@ -4,6 +4,7 @@ const ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
 
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
+export const SAVE_RESULT = 'SAVE_RESULT';
 
 module.exports = {
   selectEvent(event) {
@@ -20,5 +21,11 @@ module.exports = {
       type: SEARCH_EVENTS,
       payload: request,
     };
+  },
+  saveResult(result) {
+    return {
+      type: SAVE_RESULT,
+      payload: result,
+    }
   },
 };
