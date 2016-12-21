@@ -5,7 +5,7 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-// let ThemeManager = new mui.Styles.ThemeManager();
+let ThemeManager = new mui.Styles.ThemeManager();
 
 const SignUpForm = ({
   onSubmit,
