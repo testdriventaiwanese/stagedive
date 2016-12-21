@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { browserHistory } from 'react-router';
-// import { selectEvent } from '../actions/index';
+import { selectEvent } from '../actions/index';
 
 class SearchResults extends Component {
   renderList() {
