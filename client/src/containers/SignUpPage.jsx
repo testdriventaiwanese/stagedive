@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import SignUpForm from '../components/SignUpForm';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 class SignUpPage extends React.Component {
 
@@ -91,6 +93,7 @@ class SignUpPage extends React.Component {
    */
   render() {
     return (
+      <MuiThemeProvider>
       <div>
         <SignUpForm
           onSubmit={this.processForm}
@@ -99,6 +102,7 @@ class SignUpPage extends React.Component {
           user={this.state.user}
         />
       </div>
+    </MuiThemeProvider>
     );
   }
 
