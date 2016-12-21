@@ -14,7 +14,7 @@ module.exports = {
   },
   searchEvents(query) {
     const url = ROOT_URL + 'keyword=' + query + '&&apikey=' + APIKEYS;
-    const request = axios.get(url);
+    const request = axios.post(url);
     console.log("REQUEST: ", request);
     return {
       type: SEARCH_EVENTS,

@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectEvent } from '../actions/index'
+import { selectEvent } from '../actions/index';
+import { Link } from 'react-router'
+import EventList from '../containers/event-list';
+import EventDetail from '../containers/event-detail';
+import SearchBar from '../containers/searchbar.jsx';
+import SearchResults from '../containers/search-results';
 
 class PostIndex extends Component {
-  componentWillMount() {
-    // console.log('this wpld be a a great time to call an actrio creator')
-  }
-
   render() {
-    return()
+    return (
+      <div>
+        <Link to={"results"}>Results</Link>
+        <SearchBar />
+        <EventList />
+        <EventDetail />
+        <h1>Search Results Below:</h1>
+        <SearchResults />
+      </div>
+    );
   }
 }
 
@@ -20,7 +30,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchPosts }, dispatch)
+  return bindActionCreators({ selectEvent }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostIndex);
