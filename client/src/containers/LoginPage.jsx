@@ -1,16 +1,17 @@
 import React, { PropTypes } from 'react';
 import Auth from '../modules/Auth';
-import LoginForm from '../components/LoginForm.jsx';
+import { logIn } from '../actions/index'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
+import { Card, CardText } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 class LoginPage extends React.Component {
-
-  /**
-   * Class constructor.
-   */
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     const storedMessage = localStorage.getItem('successMessage');
     let successMessage = '';
@@ -24,94 +25,71 @@ class LoginPage extends React.Component {
     this.state = {
       errors: {},
       successMessage,
-      user: {
-        email: '',
-        password: ''
-      }
+      email: '',
+      password: '',
     };
-
-    this.processForm = this.processForm.bind(this);
-    this.changeUser = this.changeUser.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
   }
 
-  /**
-   * Process the form.
-   *
-   * @param {object} event - the JavaScript event object
-   */
-  processForm(event) {
-    // prevent default action. in this case, action is the form submission event
+  onSubmit(event) {
+    let resultObj = {
+      email: this.state.email,
+      password: this.state.password,
+    }
     event.preventDefault();
-
-    // create a string for an HTTP body message
-    const email = encodeURIComponent(this.state.user.email);
-    const password = encodeURIComponent(this.state.user.password);
-    const formData = `email=${email}&password=${password}`;
-
-    // create an AJAX request
-    const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/login');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        // success
-
-        // change the component-container state
-        this.setState({
-          errors: {}
-        });
-
-        // save the token
-        Auth.authenticateUser(xhr.response.token);
-
-
-        // change the current URL to /
-        this.context.router.replace('/');
-      } else {
-        // failure
-
-        // change the component state
-        const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
-        this.setState({
-          errors
-        });
-      }
-    });
-    xhr.send(formData);
+    this.props.logIn(resultObj)
   }
 
-  /**
-   * Change the user object.
-   *
-   * @param {object} event - the JavaScript event object
-   */
-  changeUser(event) {
-    const field = event.target.name;
-    const user = this.state.user;
-    user[field] = event.target.value;
-
-    this.setState({
-      user
-    });
+  onEmailChange(event) {
+    this.setState({email: event.target.value})
+    console.log('THIS IS THE EMAIL: ', this.state.user, "VALUE: ", event.target.value);
+  }
+  onPasswordChange(event) {
+    this.setState({password: event.target.value})
+    console.log('THIS IS THE PASSWORD: ', this.state.user, "VALUE: ", event.target.value);
   }
 
-  /**
-   * Render the component.
-   */
   render() {
     return (
       <MuiThemeProvider>
         <div>
-          <LoginForm
-            onSubmit={this.processForm}
-            onChange={this.changeUser}
-            errors={this.state.errors}
-            successMessage={this.state.successMessage}
-            user={this.state.user}
-          />
+          <Card className="container">
+            <form action="/" onSubmit={this.onSubmit}>
+              <h2 className="card-heading">Login</h2>
+
+              {this.state.successMessage && <p className="success-message">{this.state.successMessage}</p>}
+              {this.state.errors.summary && <p className="error-message">{this.state.errors.summary}</p>}
+
+              <div className="field-line">
+                <TextField
+                  floatingLabelText="Email"
+                  name="email"
+                  errorText={this.state.errors.email}
+                  onChange={this.onEmailChange}
+                  value={this.state.email}
+                />
+              </div>
+
+              <div className="field-line">
+                <TextField
+                  floatingLabelText="Password"
+                  type="password"
+                  name="password"
+                  onChange={this.onPasswordChange}
+                  errorText={this.state.errors.password}
+                  value={this.state.password}
+                />
+              </div>
+
+              <div className="button-line">
+                <RaisedButton type="submit" label="Log in" primary />
+              </div>
+
+              <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
+            </form>
+          </Card>
       </div>
     </MuiThemeProvider>
     );
@@ -123,4 +101,8 @@ LoginPage.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default LoginPage;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ logIn }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(LoginPage);

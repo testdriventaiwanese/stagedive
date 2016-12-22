@@ -76,7 +76,7 @@ module.exports = {
   },
   logIn(result) {
     const resultObj = {
-      name: result.name,
+      email: result.email,
       password: result.password,
     };
     console.log('LOGIN RESULT:: ', result);
