@@ -78,17 +78,10 @@ module.exports = {
       email: result.email,
       password: result.password,
     };
-<<<<<<< HEAD
-    console.log('LOGIN RESULT:: ', result);
-    axios.post('/auth/login', {
-      data: resultObj,
-    });
-=======
     axios.post('/auth/login', resultObj).then((res) => {
       console.log('RESPONSE FROM LOGIN FRONT ', res);
       localStorage.setItem('token', res.data.token);
     })
->>>>>>> frontauth
 
     return {
       type: LOG_IN,
