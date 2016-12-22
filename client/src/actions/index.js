@@ -61,18 +61,21 @@ module.exports = {
     }
   },
   signUp(result) {
+    console.log('SIGNUP RESULT BEFORE OBJ: ', result);
     const resultObj = {
       name: result.name,
       email: result.email,
       password: result.password,
     };
     console.log('SIGNUP RESULT:: ', resultObj);
-    axios.post('/auth/signup', resultObj);
+    axios.post('/auth/signup', {
+      data: resultObj,
+    });
 
-    return {
-      type: SIGN_UP,
-      payload: resultObj,
-    };
+    // return {
+    //   type: SIGN_UP,
+    //   payload: resultObj,
+    // };
   },
   logIn(result) {
     const resultObj = {

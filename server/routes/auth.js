@@ -4,6 +4,7 @@ const passport = require('passport');
 const router = new express.Router();
 
 router.post('/signup', (req, res, next) => {
+  console.log('GOT TO THE SIGNUP ROUTE!!!!!');
   return passport.authenticate('local-signup', (err) => {
     if (err) {
       return res.status(400).json({
