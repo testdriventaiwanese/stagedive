@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import SignUpForm from '../components/SignUpForm';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { signUp } from '../actions/index'
+import { connect } from 'react-redux';
 
 
 class SignUpPage extends React.Component {
