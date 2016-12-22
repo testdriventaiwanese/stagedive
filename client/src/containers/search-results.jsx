@@ -18,7 +18,7 @@ class SearchResults extends Component {
       if(result._embedded) {
         city = result._embedded.venues[0].city.name;
         country = result._embedded.venues[0].country.name;
-        mid = ' ,';
+        mid = ', ';
       }
       return (
         <li
