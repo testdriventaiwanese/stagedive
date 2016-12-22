@@ -22,6 +22,7 @@ class SearchBar extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
+
     this.props.searchEvents(this.state.term || 'New York');
     this.setState({ term: '' });
     browserHistory.push('/results');

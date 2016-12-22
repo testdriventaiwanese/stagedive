@@ -6,6 +6,8 @@ export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
 export const SAVE_RESULT = 'SAVE_RESULT';
 export const GET_EVENTS = 'GET_EVENTS';
+export const SIGN_UP = 'SIGN_UP';
+export const LOG_IN = 'LOG_IN';
 
 module.exports = {
   selectEvent(event) {
@@ -17,6 +19,8 @@ module.exports = {
   searchEvents(query) {
     const url = ROOT_URL + 'keyword=' + query + '&&apikey=' + APIKEYS;
     const request = axios.get(url);
+
+    console.log('REQUEST: ', request);
     return {
       type: SEARCH_EVENTS,
       payload: request,
@@ -54,6 +58,33 @@ module.exports = {
     return {
       type: GET_EVENTS,
       payload: request,
+    }
+  },
+  signUp(result) {
+    const resultObj = {
+      name: result.name,
+      email: result.email,
+      password: result.password,
+    };
+    console.log('SIGNUP RESULT:: ', result);
+    axios.post('/auth/signup', resultObj);
+
+    return {
+      type: SIGN_UP,
+      payload: resultObj,
+    };
+  },
+  logIn(result) {
+    const resultObj = {
+      name: result.name,
+      password: result.password,
+    };
+    console.log('LOGIN RESULT:: ', result);
+    axios.post('/auth/login', resultObj);
+
+    return {
+      type: LOG_IN,
+      payload: resultObj,
     };
   },
 };
