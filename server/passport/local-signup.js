@@ -17,7 +17,6 @@ module.exports = new PassportLocalStrategy({
     password: password.trim(),
     fullname: req.body.fullname.trim(),
   };
-    console.log('IN THE LOCAL SIGNUP OF PASSPORT!');
   userModel.users.findOne(userData.email, (response) => {
     if (response.length > 0) {
       console.log('Username already exists');
