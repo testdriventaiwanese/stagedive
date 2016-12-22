@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 class EventDetail extends Component {
   render() {
     if (!this.props.event) {
-      return <div>Select an event to see details</div>;
+      return <div></div>;
     }
 
     return (
