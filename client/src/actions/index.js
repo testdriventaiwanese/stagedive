@@ -63,9 +63,9 @@ module.exports = {
   signUp(result) {
     console.log('SIGNUP RESULT BEFORE OBJ: ', result);
     const resultObj = {
-      name: result.name,
       email: result.email,
       password: result.password,
+      fullname: result.name,
     };
     console.log('SIGNUP RESULT:: ', resultObj);
     axios.post('/auth/signup', {
