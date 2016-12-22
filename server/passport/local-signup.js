@@ -1,4 +1,5 @@
-const userModel = require('../user/userModel')
+const userModel = require('../user/userModel');
+const userController = require('../user/userController');
 const PassportLocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt-nodejs');
 
@@ -16,8 +17,8 @@ module.exports = new PassportLocalStrategy({
     password: password.trim(),
     fullname: req.body.fullname.trim()
   };
-  bcrypt.hash(userData.password, null, null, ((err, hash) => {
-    const params = [userData.email, hash, userData.fullname];
+  userController.users.createPassword(userData.password, (hashPassword) => {
+    const params = [userData.email, hashPassword, userData.fullname];
     userModel.users.addOne(params, (response) => {
       if (!response) {
         console.log('Issue in adding to database');
@@ -26,5 +27,5 @@ module.exports = new PassportLocalStrategy({
       console.log('Signup Successful!');
       return done(null);
     });
-  }));
+  });
 });
