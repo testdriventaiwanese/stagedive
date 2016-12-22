@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react';
-import SignUpForm from '../components/SignUpForm';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { signUp } from '../actions/index'
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
-// import * as mui from 'material-ui';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
