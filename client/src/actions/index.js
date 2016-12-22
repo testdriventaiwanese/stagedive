@@ -85,7 +85,9 @@ module.exports = {
       password: result.password,
     };
     console.log('LOGIN RESULT:: ', result);
-    axios.post('/auth/login', resultObj);
+    axios.post('/auth/login', {
+      data: resultObj,
+    });
 
     return {
       type: LOG_IN,
