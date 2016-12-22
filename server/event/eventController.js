@@ -3,6 +3,7 @@ const eventModel = require('./eventModel');
 module.exports = {
   events: {
     getAll(req, res) {
+      console.log('REQ HEADERS IN GET ALL EVENTS: ', req.headers);
       eventModel.events.getall((results) => {
         if (!results) {
           console.log('ERROR in getting all');
