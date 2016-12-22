@@ -53,7 +53,7 @@ class SignUpPage extends React.Component {
       <MuiThemeProvider>
       <div>
         <Card className="container">
-          <form action="/" onSubmit={this.onSubmit}>
+          <form onSubmit={this.onSubmit}>
             <h2 className="card-heading">Sign Up</h2>
 
             {this.state.errors.summary && <p className="error-message">{this.state.errors.summary}</p>}
