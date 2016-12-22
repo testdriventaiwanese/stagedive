@@ -78,6 +78,7 @@ module.exports = {
     };
     axios.post('/auth/login', resultObj).then((res) => {
       console.log('RESPONSE FROM LOGIN FRONT ', res);
+      localStorage.setItem('token', res.data.token);
     })
 
     return {

@@ -4,16 +4,13 @@ const passport = require('passport');
 const router = new express.Router();
 
 router.post('/signup', (req, res, next) => {
-  console.log('GETTING TO SIGNUP ??', req.body);
   return passport.authenticate('local-signup', (err) => {
     if (err) {
-      console.log('ERROR ON SIGNUP: ', err);
       return res.status(400).json({
         success: false,
         message: 'Could not process the form.',
       });
     }
-    console.log('GOT TO THE PAST ERRRRR THING IN AUTH.JS');
     return res.status(200).json({
       success: true,
       message: 'You have successfully signed up! Now you should be able to log in.',
