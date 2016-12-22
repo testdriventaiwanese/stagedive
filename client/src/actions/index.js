@@ -28,24 +28,36 @@ module.exports = {
     };
   },
   saveResult(result) {
-    const resultObj = {
-      tm_id: result.id || null,
-      name: result.name || null,
-      artist_name: JSON.stringify(result._embedded.attractions) || null,
-      date: result.dates.start.dateTime || null,
-      event_url: result.url || null,
-      venue: result._embedded.venues[0].name|| null,
-      venue_address: result._embedded.venues[0].address.line1 || null,
-      city: result._embedded.venues[0].city.name || null,
-      zipcode: result._embedded.venues[0].postalCode || null,
-      image: result._embedded.attractions[0].images[0].url || null,
-      genre: result.classifications[0].genre.name || null,
-      subgenre: result.classifications[0].subGenre.name || null,
-      latitude: result._embedded.venues[0].location.latitude || null,
-      longitude: result._embedded.venues[0].location.longitude || null,
-      country: result._embedded.venues[0].country.name || null,
-      sale_date: JSON.stringify(result.sales.public) || null,
-    };
+    let resultObj;
+    if(!result._embedded) {
+      resultObj = {
+        tm_id: result.id || null,
+        name: result.name || null,
+        date: result.dates.start.dateTime || null,
+        event_url: result.url || null,
+        sale_date: JSON.stringify(result.sales.public) || null,
+      };
+    }
+    else {
+      resultObj = {
+        tm_id: result.id || null,
+        name: result.name || null,
+        artist_name: JSON.stringify(result._embedded.attractions) || null,
+        date: result.dates.start.dateTime || null,
+        event_url: result.url || null,
+        venue: result._embedded.venues[0].name|| null,
+        venue_address: result._embedded.venues[0].address.line1 || null,
+        city: result._embedded.venues[0].city.name || null,
+        zipcode: result._embedded.venues[0].postalCode || null,
+        image: result._embedded.attractions[0].images[0].url || null,
+        genre: result.classifications[0].genre.name || null,
+        subgenre: result.classifications[0].subGenre.name || null,
+        latitude: result._embedded.venues[0].location.latitude || null,
+        longitude: result._embedded.venues[0].location.longitude || null,
+        country: result._embedded.venues[0].country.name || null,
+        sale_date: JSON.stringify(result.sales.public) || null,
+      };
+    }
     axios.post('/api/events/addevent', resultObj);
     browserHistory.push('/');
     console.log('AFTER BROWSERHISTORY PUSH ');
