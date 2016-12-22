@@ -18,7 +18,7 @@ module.exports = {
     signup(email, password, fullname) {
       axios({
         method: 'POST',
-        url: '/api/users/signup',
+        url: '/auth/signup',
         data: { email, password, fullname },
       })
       .then((signUpResp) => {
