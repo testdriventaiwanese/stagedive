@@ -66,7 +66,7 @@ module.exports = {
       email: result.email,
       password: result.password,
     };
-    console.log('SIGNUP RESULT:: ', result);
+    console.log('SIGNUP RESULT:: ', resultObj);
     axios.post('/auth/signup', resultObj);
 
     return {

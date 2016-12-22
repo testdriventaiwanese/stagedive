@@ -3,106 +3,103 @@ import SignUpForm from '../components/SignUpForm';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { signUp } from '../actions/index'
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
+// import * as mui from 'material-ui';
+import { Card, CardText } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 class SignUpPage extends React.Component {
 
-  /**
-   * Class constructor.
-   */
-  constructor(props, context) {
-    super(props, context);
-
-    // set the initial component state
+  constructor(props) {
+    super(props);
     this.state = {
       errors: {},
-      user: {
-        email: '',
-        name: '',
-        password: ''
-      }
+      email: '',
+      name: '',
+      password: '',
     };
-
-    this.processForm = this.processForm.bind(this);
-    this.changeUser = this.changeUser.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onNameChange = this.onNameChange.bind(this);
+    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
   }
 
-  /**
-   * Process the form.
-   *
-   * @param {object} event - the JavaScript event object
-   */
-  processForm(event) {
-    // prevent default action. in this case, action is the form submission event
+  onSubmit(event) {
+    let resultObj = {
+      email: this.state.email,
+      password: this.state.password,
+      name: this.state.name,
+    }
     event.preventDefault();
-
-    // create a string for an HTTP body message
-    const name = encodeURIComponent(this.state.user.name);
-    const email = encodeURIComponent(this.state.user.email);
-    const password = encodeURIComponent(this.state.user.password);
-    const formData = `name=${name}&email=${email}&password=${password}`;
-
-    // create an AJAX request
-    const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/signup');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        // success
-
-        // change the component-container state
-        this.setState({
-          errors: {}
-        });
-
-        // set a message
-        localStorage.setItem('successMessage', xhr.response.message);
-
-        // make a redirect
-        this.context.router.replace('/login');
-      } else {
-        // failure
-
-        const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
-        this.setState({
-          errors
-        });
-      }
-    });
-    xhr.send(formData);
+    this.props.signUp(resultObj)
   }
 
-  /**
-   * Change the user object.
-   *
-   * @param {object} event - the JavaScript event object
-   */
-  changeUser(event) {
-    const field = event.target.name;
-    const user = this.state.user;
-    user[field] = event.target.value;
-
-    this.setState({
-      user,
-    });
+  onNameChange(event) {
+    this.setState({name: event.target.value})
+    console.log('THIS IS THE USERNAME: ', this.state.user, "VALUE: ", event.target.value);
   }
 
-  /**
-   * Render the component.
-   */
+  onEmailChange(event) {
+    this.setState({email: event.target.value})
+    console.log('THIS IS THE EMAIL: ', this.state.user, "VALUE: ", event.target.value);
+  }
+  onPasswordChange(event) {
+    this.setState({password: event.target.value})
+    console.log('THIS IS THE PASSWORD: ', this.state.user, "VALUE: ", event.target.value);
+  }
+
   render() {
     return (
       <MuiThemeProvider>
       <div>
-        <SignUpForm
-          onSubmit={this.processForm}
-          onChange={this.changeUser}
-          errors={this.state.errors}
-          user={this.state.user}
-        />
+        <Card className="container">
+          <form action="/" onSubmit={this.onSubmit}>
+            <h2 className="card-heading">Sign Up</h2>
+
+            {this.state.errors.summary && <p className="error-message">{this.state.errors.summary}</p>}
+
+            <div className="field-line">
+              <TextField
+                floatingLabelText="Name"
+                name="name"
+                type="text"
+                errorText={this.state.errors.name}
+                onChange={this.onNameChange}
+                value={this.state.name}
+              />
+            </div>
+
+            <div className="field-line">
+              <TextField
+                floatingLabelText="Email"
+                type="text"
+                name="email"
+                errorText={this.state.errors.email}
+                onChange={this.onEmailChange}
+                value={this.state.email}
+              />
+            </div>
+
+            <div className="field-line">
+              <TextField
+                floatingLabelText="Password"
+                type="password"
+                name="password"
+                onChange={this.onPasswordChange}
+                errorText={this.state.errors.password}
+                value={this.state.password}
+              />
+            </div>
+
+            <div className="button-line">
+              <RaisedButton type="submit" label="Create New Account" primary />
+            </div>
+
+            <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
+          </form>
+        </Card>
       </div>
     </MuiThemeProvider>
     );
@@ -114,4 +111,8 @@ SignUpPage.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default SignUpPage;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ signUp }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(SignUpPage);
