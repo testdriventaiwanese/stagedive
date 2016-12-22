@@ -67,23 +67,18 @@ module.exports = {
       password: result.password,
       fullname: result.name,
     };
-    console.log('SIGNUP RESULT:: ', resultObj);
-    axios.post('/auth/signup', {
-      data: resultObj,
+    axios.post('/auth/signup', resultObj).then((resp) => {
+      console.log("RESPONSE FROM SIGNUP FRONT :", resp);
     });
-
-    // return {
-    //   type: SIGN_UP,
-    //   payload: resultObj,
-    // };
   },
   logIn(result) {
     const resultObj = {
       email: result.email,
       password: result.password,
     };
-    console.log('LOGIN RESULT:: ', result);
-    axios.post('/auth/login', resultObj);
+    axios.post('/auth/login', resultObj).then((res) => {
+      console.log('RESPONSE FROM LOGIN FRONT ', res);
+    })
 
     return {
       type: LOG_IN,

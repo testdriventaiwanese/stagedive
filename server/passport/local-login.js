@@ -16,15 +16,13 @@ module.exports = new PassportLocalStrategy({
     email: email.trim(),
     password: password.trim(),
   };
-  console.log('LOGIN USER EMAIL: ', email);
   // find a user by password
-  return userModel.users.getPassword(email, (results) => {
-    console.log('GET PASSWORD RESULT: ', results)
+  userModel.users.getPassword(email, (results) => {
     if (results.length === 0) {
       return done('Error, no user found');
     }
     // check if a hashed user's password is equal to a value saved in the database
-    return bcrypt.compare(userData.password, results[0].password, (passwordErr, isMatch) => {
+    bcrypt.compare(userData.password, results[0].password, (passwordErr, isMatch) => {
       if (passwordErr) { return done(passwordErr); }
 
       if (!isMatch) {
@@ -41,7 +39,7 @@ module.exports = new PassportLocalStrategy({
       // create a token string
       const token = jwt.sign(payload, process.env.JWT_SECRET);
       const data = {
-        name: results[0].fullname
+        name: results[0].fullname,
       };
 
       return done(null, token, data);
