@@ -28,25 +28,25 @@ module.exports = {
   },
   saveResult(result) {
     const resultObj = {
-      tm_id: result.id,
-      name: result.name,
-      artist_name: JSON.stringify(result._embedded.attractions),
-      date: result.dates.start.dateTime,
-      event_url: result.url,
-      venue: result._embedded.venues[0].name,
-      venue_address: result._embedded.venues[0].address.line1,
-      city: result._embedded.venues[0].city.name,
-      zipcode: result._embedded.venues[0].postalCode,
-      image: result._embedded.attractions[0].images[0].url,
-      genre: result.classifications[0].genre.name,
-      subgenre: result.classifications[0].subGenre.name,
-      latitude: result._embedded.venues[0].location.latitude,
-      longitude: result._embedded.venues[0].location.longitude,
-      country: result._embedded.venues[0].country.name,
-      sale_date: JSON.stringify(result.sales.public),
+      tm_id: result.id || null,
+      name: result.name || null,
+      artist_name: JSON.stringify(result._embedded.attractions) || null,
+      date: result.dates.start.dateTime || null,
+      event_url: result.url || null,
+      venue: result._embedded.venues[0].name|| null,
+      venue_address: result._embedded.venues[0].address.line1 || null,
+      city: result._embedded.venues[0].city.name || null,
+      zipcode: result._embedded.venues[0].postalCode || null,
+      image: result._embedded.attractions[0].images[0].url || null,
+      genre: result.classifications[0].genre.name || null,
+      subgenre: result.classifications[0].subGenre.name || null,
+      latitude: result._embedded.venues[0].location.latitude || null,
+      longitude: result._embedded.venues[0].location.longitude || null,
+      country: result._embedded.venues[0].country.name || null,
+      sale_date: JSON.stringify(result.sales.public) || null,
     };
     axios.post('/api/events/addevent', resultObj);
-
+    // browserHistory.push('/');
     return {
       type: SAVE_RESULT,
       payload: resultObj,
