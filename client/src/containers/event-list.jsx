@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
-import { selectEvent } from '../actions/index';
+// import { selectEvent } from '../actions/index';
 import { getEvents } from '../actions/index';
 
 class EventList extends Component {
@@ -16,7 +16,9 @@ class EventList extends Component {
           key={event.id}
 
           className="list-group-item">
-          {event.name}
+          <p>{event.name}</p>
+          <p>{event.venue}</p>
+          <p>{event.city}</p>
         </li>
       );
     });
@@ -25,9 +27,12 @@ class EventList extends Component {
   render() {
     console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
     return (
-      <ul className="list-group col-sm-4">
-        {this.renderList()}
-      </ul>
+      <div>
+        <h1>Events Feed</h1>
+        <ul className="list-group col-sm-4">
+          {this.renderList()}
+        </ul>
+      </div>
     )
   }
 }
@@ -40,15 +45,5 @@ function mapStateToProps(state) {
   };
 }
 
-// Anything returned from this function will end up as props
-// on the BookList container
-// function mapDispatchToProps(dispatch) {
-//   // Whenever selectBook is called, the result shoudl be passed
-//   // to all of our reducers
-//   return bindActionCreators({ selectEvent: selectEvent }, dispatch);
-// }
 
-// Promote BookList from a component to a container - it needs to know
-// about this new dispatch method, selectBook. Make it available
-// as a prop.
 export default connect(mapStateToProps, {getEvents})(EventList);

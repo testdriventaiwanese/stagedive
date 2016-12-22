@@ -7,13 +7,15 @@ import { saveResult } from '../actions/index';
 class SearchResults extends Component {
   renderList() {
     return this.props.results.map((result) => {
+      // let city = result._embedded.venues[0].city.name || '';
+      // let country = result._embedded.venues[0].country.name || '';
       return (
         <li
           key={result.id}
           onClick={() => this.props.saveResult(result)}
           className="list-group-item">
           <div>{result.name}</div>
-          <div>{result._embedded.venues[0].city.name}, {result._embedded.venues[0].country.name}</div>
+
           <div>{result.dates.start.localDate}</div>
         </li>
       );
