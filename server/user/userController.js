@@ -1,5 +1,4 @@
 const userModel = require('./userModel');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-nodejs');
 
 module.exports = {
@@ -14,18 +13,32 @@ module.exports = {
         }
       });
     },
-    changepassword({ body: { email, password } }, res) {
+    createPassword(password, callback) {
       bcrypt.hash(password, null, null, ((err, hash) => {
-        const params = [hash, email];
-        userModel.users.changePassword(params, (response) => {
-          if (!response) {
-            console.log('Issue in adding to database');
+        callback(hash);
+      }));
+    },
+    changepassword({ body: { email, prevPassword, newPassword } }, res) {
+      userModel.users.getPassword(email, (response) => {
+        bcrypt.compare(prevPassword, response[0].password, (passwordErr, isMatch) => {
+          if (!isMatch) {
+            console.log('Password did not match', passwordErr);
             res.sendStatus(401);
           } else {
-            res.status(200).send('Password Change Successful!');
+            bcrypt.hash(newPassword, null, null, ((err, hash) => {
+              const params = [hash, email];
+              userModel.users.changePassword(params, (resp) => {
+                if (!resp) {
+                  console.log('Issue in changing password in database');
+                  res.sendStatus(401);
+                } else {
+                  res.status(200).send('Password Change Successful!');
+                }
+              });
+            }));
           }
         });
-      }));
+      });
     },
     addfollow({ body: { user1, user2 } }, res) {
       const params = [user1, user2];
@@ -49,14 +62,24 @@ module.exports = {
         }
       });
     },
-    deleteUser({ body: { email } }, res) {
-      userModel.users.deleteUser(email, (response) => {
-        if (!response) {
-          console.log('Issue in adding to database');
-          res.sendStatus(401);
-        } else {
-          res.sendStatus(200);
-        }
+    deleteUser({ body: { email, password } }, res) {
+      userModel.users.getPassword(email, (resp) => {
+        bcrypt.compare(password, resp[0].password, (passwordErr, isMatch) => {
+          if (!isMatch) {
+            console.log('Wrong password for delete user: ', passwordErr);
+            res.sendStatus(401);
+          } else {
+            userModel.users.deleteUser(email, (response) => {
+              if (!response) {
+                console.log('Issue in adding to database');
+                res.sendStatus(401);
+              } else {
+                console.log('Success deleting account!!!');
+                res.sendStatus(200);
+              }
+            });
+          }
+        });
       });
     },
   },

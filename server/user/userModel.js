@@ -75,8 +75,8 @@ module.exports = {
         if (err) {
           console.log('Error in server/userModel.js deleteUser : ', err);
         } else {
-          var params2 = results.
-          db.query(queryStr, params2, (err, results) => {
+          console.log('DELETE USER RESULT AFTER DELETE', results);
+          db.query(queryStr2, results.insertId, (err, results) => {
             if (err) {
               console.log('Error in server/userModel.js deleteUser : ', err);
             } else {

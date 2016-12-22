@@ -7,7 +7,8 @@
     "build": "webpack -p",
     "commit": "git-cz",
     "nodemon": "nodemon ./server/server.js",
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js"
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "lint": "eslint server client --ignore-pattern client/src --ignore-pattern client/public || true"
   },
   "author": "",
   "license": "ISC",
