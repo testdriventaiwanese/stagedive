@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
     const userId = decoded.sub;
 
     // check if a user exists
-    return userModel.findById(userId, (result) => {
+    return userModel.users.findById(userId, (result) => {
       if (result.length === 0) {
         return res.status(401).end();
       }
