@@ -1,6 +1,7 @@
 import axios from 'axios';
 import APIKEYS from './APIKEYS.js';
 const ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
+import { browserHistory } from 'react-router';
 
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
@@ -46,7 +47,8 @@ module.exports = {
       sale_date: JSON.stringify(result.sales.public) || null,
     };
     axios.post('/api/events/addevent', resultObj);
-    // browserHistory.push('/');
+    browserHistory.push('/');
+    console.log('AFTER BROWSERHISTORY PUSH ');
     return {
       type: SAVE_RESULT,
       payload: resultObj,

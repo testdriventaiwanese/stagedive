@@ -5,6 +5,11 @@ import { bindActionCreators } from 'redux';
 import { saveResult } from '../actions/index';
 
 class SearchResults extends Component {
+  // saveResultRedirect(result) {
+  //   browserHistory.push('/');
+  //   return this.props.saveResult
+  // }
+
   renderList() {
     return this.props.results.map((result) => {
       // let city = result._embedded.venues[0].city.name || '';
