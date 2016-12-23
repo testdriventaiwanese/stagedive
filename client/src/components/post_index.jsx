@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectEvent } from '../actions/index';
+import { selectEvent, logoutUser } from '../actions/index';
 import { Link } from 'react-router';
 import EventList from '../containers/event-list';
 import EventDetail from '../containers/event-detail';
@@ -16,7 +16,7 @@ class PostIndex extends Component {
         <div>
           <Link to={"signup"}>SignUp</Link>
           <Link to={"login"}>LogIn</Link>
-          <Link to={"logout"}>LogOut</Link>
+          <form onClick={() => this.props.logoutUser()}>LogOut</form>
           <SearchBar />
           <EventList />
           <EventDetail />
@@ -33,7 +33,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ selectEvent }, dispatch)
+  return bindActionCreators({ selectEvent, logoutUser }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostIndex);
