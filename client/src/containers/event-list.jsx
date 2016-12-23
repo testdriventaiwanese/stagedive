@@ -10,23 +10,31 @@ class EventList extends Component {
   }
 
   renderList() {
+    let imageDiv = {
+      width: '35%',
+      float: 'left',
+      height: '248px',
+    };
+    let imageStyle = {
+      width: '100%',
+    };
     return this.props.events.map((event) => {
-      let date = event.date.slice(5,9) + '-' + event.date.slice(0,4);
+      let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
       return (
-        <div
-          key={event.id}
-          className="list-group-item">
-          <img src={event.image}/>
-          <span>
-            <p>{event.name}</p>
+        <div key={event.id} className="list-group-item">
+          <div style={imageDiv}>
+              <img src={event.image} style={imageStyle}></img>
+          </div>
+          <div>
+            <p><strong>{event.name}</strong></p>
             <p>{event.venue}</p>
             <span>{event.city}</span>
             <p>{event.country}</p>
-            <p>Date: {date}</p>
+            <span>Date: {date}</span>
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
-          </span>
+          </div>
         </div>
       );
     });

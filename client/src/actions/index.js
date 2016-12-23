@@ -60,7 +60,6 @@ module.exports = {
     }
     axios.post('/api/events/addevent', resultObj);
     browserHistory.push('/');
-    console.log('AFTER BROWSERHISTORY PUSH ');
     return {
       type: SAVE_RESULT,
       payload: resultObj,
