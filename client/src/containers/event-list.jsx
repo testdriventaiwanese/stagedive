@@ -18,9 +18,6 @@ class EventList extends Component {
     let imageStyle = {
       width: '100%',
     };
-    let textStyle = {
-      padding: '0px, 0px, 0px, 10px',
-    }
     return this.props.events.map((event) => {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
@@ -29,7 +26,7 @@ class EventList extends Component {
           <div style={imageDiv}>
               <img src={event.image} style={imageStyle}></img>
           </div>
-          <div style={textStyle}>
+          <div>
             <p><strong>{event.name}</strong></p>
             <p>{event.venue}</p>
             <span>{event.city}</span>
