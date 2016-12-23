@@ -64,7 +64,10 @@ module.exports = {
         sale_date: JSON.stringify(result.sales.public) || null,
       };
     }
-    axios.post('/api/events/addevent', resultObj);
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    axios.post('/api/events/addevent', resultObj, config);
     browserHistory.push('/');
     return {
       type: SAVE_RESULT,
