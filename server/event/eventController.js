@@ -110,8 +110,8 @@ module.exports = {
       });
     },
 
-    deleteEvent({ body: { eventId, userId } }, res) {
-      const params = [eventId, userId];
+    deleteEvent({ body: { tm_id, userId } }, res) {
+      const params = [tm_id, userId];
       eventModel.events.deleteEvent(params, (results) => {
         if (!results) {
           console.log('Issue in removing events');

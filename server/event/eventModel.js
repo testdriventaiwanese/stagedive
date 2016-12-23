@@ -14,29 +14,38 @@ module.exports = {
       });
     },
     addEvent(userId, params, callback) {
-      const queryStr = 'SELECT name FROM events WHERE tm_id = ?';
+      const queryStr = 'SELECT id FROM events WHERE tm_id = ?';
       const queryStr2 = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, country, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
       const queryStr3 = 'INSERT INTO users_events (id_users, id_events) VALUES (?, ?)';
-      // db.query(queryStr, params[0], (err, results) => {
-      //   if (err) {
-      //     console.log('Error in server/eventModel.js addEvent : ', err);
-      //   } else {
-      //     callback(results);
-      //   }
-      // });
-      db.query(queryStr2, params, (err, results) => {
+      db.query(queryStr, params[0], (err, eventResults) => {
         if (err) {
           console.log('Error in server/eventModel.js addEvent : ', err);
         } else {
-          console.log('ADD EVENT QUERY 1 RESPONSE: ', results);
-          const params2 = [userId, results.insertId];
-          db.query(queryStr3, params2, (err, results) => {
-            if (err) {
-              console.log('Error in server/eventModel.js addEvent : ', err);
-            } else {
-              callback(results);
-            }
-          });
+          if (eventResults.length !== 0) {
+            const dupeParams = [userId, eventResults[0].id];
+            db.query(queryStr3, dupeParams, (userEventsErr, userEventsResults) => {
+              if (userEventsErr) {
+                console.log('Error in server/eventModel.js addEvent : ', err);
+              } else {
+                callback(userEventsResults);
+              }
+            });
+          } else {
+            db.query(queryStr2, params, (insertErr, insertResults) => {
+              if (insertErr) {
+                console.log('Error in server/eventModel.js addEvent : ', err);
+              } else {
+                const params2 = [userId, insertResults.insertId];
+                db.query(queryStr3, params2, (userEventsErr, userEventsResults) => {
+                  if (userEventsErr) {
+                    console.log('Error in server/eventModel.js addEvent : ', err);
+                  } else {
+                    callback(userEventsResults);
+                  }
+                });
+              }
+            });
+          }
         }
       });
     },
@@ -81,18 +90,43 @@ module.exports = {
       });
     },
     deleteEvent(params, callback) {
-      const queryStr = 'DELETE FROM users_events WHERE id_events = ? AND id_users = ?';
-      const queryStr2 = 'DELETE FROM events WHERE id = ?';
-      db.query(queryStr, params, (err, results) => {
-        if (err) {
-          console.log('Error in server/eventModel.js removeEvents : ', err);
+      const queryStr = 'SELECT id FROM events WHERE tm_id = ?';
+      const queryStr2 = 'SELECT id_users FROM users_events WHERE id_events = ?';
+      const queryStr3 = 'DELETE FROM users_events WHERE id_events = ? AND id_users = ?';
+      const queryStr4 = 'DELETE FROM events WHERE id = ?';
+      db.query(queryStr, params[0], (eventErr, eventResults) => {
+        if (eventErr) {
+          console.log('Error in server/eventModel.js deleteEvent : ', eventErr);
         } else {
-          console.log('AFTER DELETE EVENT RESULTS: ', results);
-          db.query(queryStr2, params[0], (err, results) => {
-            if (err) {
-              console.log('Error in server/eventModel.js removeEvents : ', err);
+          db.query(queryStr2, eventResults[0].id, (userEventErr, userEventResults) => {
+            if (userEventErr) {
+              console.log('Error in server/eventModel.js deleteEvent : ', userEventErr);
             } else {
-              callback(results);
+              if (userEventResults.length > 1) {
+                const multipleEventsParams = [eventResults[0].id, params[1]];
+                db.query(queryStr3, multipleEventsParams, (deleteUserEvent, deleteUserEventResult) => {
+                  if (deleteUserEvent) {
+                    console.log('Error in server/eventModel.js deleteEvent : ', deleteUserEvent);
+                  } else {
+                    callback(deleteUserEventResult);
+                  }
+                });
+              } else {
+                const singleEventParams = [eventResults[0].id, params[1]];
+                db.query(queryStr3, singleEventParams, (deleteUserEventErr, res) => {
+                  if (deleteUserEventErr) {
+                    console.log('Error in server/eventModel.js deleteEvent : ', deleteUserEventErr);
+                  } else {
+                    db.query(queryStr4, eventResults[0].id, (deleteEventErr, deleteEventResult) => {
+                      if (deleteEventErr) {
+                        console.log('Error in server/eventModel.js deleteEvent : ', deleteEventErr);
+                      } else {
+                        callback(deleteEventResult);
+                      }
+                    });
+                  }
+                });
+              }
             }
           });
         }
