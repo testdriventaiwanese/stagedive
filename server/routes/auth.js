@@ -19,17 +19,13 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
-  console.log('I LOGGED IN!!!!')
   return passport.authenticate('local-login', (err, token, userData) => {
-    console.log('I AM LOGGED IN')
     if (err) {
-      console.log('I WENT ERRORED')
       return res.status(400).json({
         success: false,
         message: 'Could not process the form.',
       });
     }
-    console.log('GOT OUT OF ERROR')
 
     return res.json({
       success: true,

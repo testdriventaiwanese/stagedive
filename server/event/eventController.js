@@ -43,9 +43,7 @@ module.exports = {
       country,
       sale_date,
     }, headers }, res) {
-      console.log("REQUEST HEADERS WITH ADD EVENT: ", headers)
       const userId = jwt.decode(headers.authheader, process.env.JWT_SECRET);
-      console.log(userId.sub);
       const params = [
         tm_id,
         name,

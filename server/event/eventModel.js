@@ -14,16 +14,23 @@ module.exports = {
       });
     },
     addEvent(userId, params, callback) {
-      const queryStr = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, country, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-      const queryStr2 = 'INSERT INTO users_events (id_users, id_events) VALUES (?, ?)';
-      db.query(queryStr, params, (err, results) => {
+      const queryStr = 'SELECT name FROM events WHERE tm_id = ?';
+      const queryStr2 = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, country, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      const queryStr3 = 'INSERT INTO users_events (id_users, id_events) VALUES (?, ?)';
+      // db.query(queryStr, params[0], (err, results) => {
+      //   if (err) {
+      //     console.log('Error in server/eventModel.js addEvent : ', err);
+      //   } else {
+      //     callback(results);
+      //   }
+      // });
+      db.query(queryStr2, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js addEvent : ', err);
         } else {
           console.log('ADD EVENT QUERY 1 RESPONSE: ', results);
           const params2 = [userId, results.insertId];
-          // callback(results);
-          db.query(queryStr2, params2, (err, results) => {
+          db.query(queryStr3, params2, (err, results) => {
             if (err) {
               console.log('Error in server/eventModel.js addEvent : ', err);
             } else {
