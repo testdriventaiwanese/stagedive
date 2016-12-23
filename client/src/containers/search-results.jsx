@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import { saveResult } from '../actions/index';
 
 class SearchResults extends Component {
-  // saveResultRedirect(result) {
-  //   browserHistory.push('/');
-  //   return this.props.saveResult
-  // }
-
   renderList() {
     let imageDiv = {
       width: '35%',
@@ -20,24 +15,23 @@ class SearchResults extends Component {
       width: '100%',
     };
     return this.props.results.map((result) => {
-      let city = '';
-      let country = '';
-      let mid = 'Location Not Available';
-      // let image = '';
-      if(result._embedded.venues) {
-        city = result._embedded.venues[0].city.name;
-        country = result._embedded.venues[0].country.name;
-        mid = ', ';
-        // let image = result._embedded.attractions[0].images[3].url;
-      }
+      let city = ()=> {
+        return result._embedded.venues[0].city.name ? result._embedded.venues[0].city.name : '';
+      };
+      let cityValue = city();
+      // let country = '';
+      let country = () => (result._embedded.venues[0].country.name ? result._embedded.venues[0].country.name : '');
+      let countryValue = country();
+      let mid = () => (result._embedded.venues[0].country.name ? ', ' : '');
+      let midValue = mid();
+      console.log('THIS IS CITY: ', cityValue);
       return (
-        <li
-          key={result.id}
+        <li key={result.id}
           onClick={() => this.props.saveResult(result)}
           className="list-group-item">
 
           <div>{result.name}</div>
-          <div>{city}{mid}{country}</div>
+          <div>{cityValue}{midValue}{countryValue}</div>
           <div>{result.dates.start.localDate}</div>
         </li>
       );
@@ -49,6 +43,7 @@ class SearchResults extends Component {
   // </div>
   render() {
     return (<div>
+      <button onClick={browserHistory.push('/')}>Back</button>
       <h1>Search Results</h1>
       <ul>
         {this.renderList()}
