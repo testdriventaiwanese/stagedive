@@ -11,20 +11,31 @@ class SearchResults extends Component {
   // }
 
   renderList() {
+    let imageDiv = {
+      width: '35%',
+      float: 'left',
+      height: '248px',
+    };
+    let imageStyle = {
+      width: '100%',
+    };
     return this.props.results.map((result) => {
       let city = '';
       let country = '';
       let mid = 'Location Not Available';
-      if(result._embedded) {
+      // let image = '';
+      if(result._embedded.venues) {
         city = result._embedded.venues[0].city.name;
         country = result._embedded.venues[0].country.name;
         mid = ', ';
+        // let image = result._embedded.attractions[0].images[3].url;
       }
       return (
         <li
           key={result.id}
           onClick={() => this.props.saveResult(result)}
           className="list-group-item">
+
           <div>{result.name}</div>
           <div>{city}{mid}{country}</div>
           <div>{result.dates.start.localDate}</div>
@@ -32,6 +43,10 @@ class SearchResults extends Component {
       );
     });
   }
+
+  // <div style={imageDiv}>
+  //   <img src={image} style={imageStyle}/>
+  // </div>
   render() {
     return (<div>
       <h1>Search Results</h1>
