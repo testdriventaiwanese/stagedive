@@ -43,9 +43,7 @@ module.exports = {
       country,
       sale_date,
     }, headers }, res) {
-      console.log("REQUEST HEADERS WITH ADD EVENT: ", headers)
       const userId = jwt.decode(headers.authheader, process.env.JWT_SECRET);
-      console.log(userId.sub);
       const params = [
         tm_id,
         name,
@@ -112,8 +110,8 @@ module.exports = {
       });
     },
 
-    deleteEvent({ body: { eventId, userId } }, res) {
-      const params = [eventId, userId];
+    deleteEvent({ body: { tm_id, userId } }, res) {
+      const params = [tm_id, userId];
       eventModel.events.deleteEvent(params, (results) => {
         if (!results) {
           console.log('Issue in removing events');
