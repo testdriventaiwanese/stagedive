@@ -4,6 +4,8 @@ import { logIn } from '../actions/index'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -21,7 +23,6 @@ class LoginPage extends React.Component {
       localStorage.removeItem('successMessage');
     }
 
-    // set the initial component state
     this.state = {
       errors: {},
       successMessage,
@@ -40,12 +41,14 @@ class LoginPage extends React.Component {
     }
     event.preventDefault();
     this.props.logIn(resultObj)
+    browserHistory.push('/results');
   }
 
   onEmailChange(event) {
     this.setState({email: event.target.value})
     console.log('THIS IS THE EMAIL: ', this.state.user, "VALUE: ", event.target.value);
   }
+
   onPasswordChange(event) {
     this.setState({password: event.target.value})
     console.log('THIS IS THE PASSWORD: ', this.state.user, "VALUE: ", event.target.value);

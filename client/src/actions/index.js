@@ -87,6 +87,11 @@ module.exports = {
     axios.post('/auth/signup', resultObj).then((resp) => {
       console.log("RESPONSE FROM SIGNUP FRONT :", resp);
     });
+
+    return {
+      type: SIGN_UP,
+      payload: resultObj,
+    }
   },
   logIn(result) {
     const resultObj = {
