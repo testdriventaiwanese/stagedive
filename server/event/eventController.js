@@ -1,15 +1,15 @@
 const eventModel = require('./eventModel');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   events: {
     getAll(req, res) {
-      console.log('REQ HEADERS IN GET ALL EVENTS: ', req.headers);
-      eventModel.events.getall((results) => {
+      const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
+      eventModel.events.getall(id.sub, (results) => {
         if (!results) {
           console.log('ERROR in getting all');
           res.sendStatus(401);
         } else {
-          console.log('got all');
           res.status(200).send(results);
         }
       });
@@ -44,7 +44,8 @@ module.exports = {
       sale_date,
     }, headers }, res) {
       console.log("REQUEST HEADERS WITH ADD EVENT: ", headers)
-      const userId = headers.userid;
+      const userId = jwt.decode(headers.authheader, process.env.JWT_SECRET);
+      console.log(userId.sub);
       const params = [
         tm_id,
         name,
@@ -63,7 +64,7 @@ module.exports = {
         country,
         sale_date,
       ];
-      eventModel.events.addEvent(userId, params, (results) => {
+      eventModel.events.addEvent(userId.sub, params, (results) => {
         if (!results) {
           console.log('Issue in adding EVENT to database');
           res.sendStatus(401);
