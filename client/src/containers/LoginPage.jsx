@@ -41,7 +41,7 @@ class LoginPage extends React.Component {
     }
     event.preventDefault();
     this.props.logIn(resultObj)
-    browserHistory.push('/results');
+    browserHistory.push('/');
   }
 
   onEmailChange(event) {
