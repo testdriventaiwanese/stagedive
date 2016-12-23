@@ -28,6 +28,9 @@ module.exports = {
     };
   },
   saveResult(result) {
+    var config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
     const resultObj = {
       tm_id: result.id || null,
       name: result.name || null,
@@ -46,7 +49,7 @@ module.exports = {
       country: result._embedded.venues[0].country.name || null,
       sale_date: JSON.stringify(result.sales.public) || null,
     };
-    axios.post('/api/events/addevent', resultObj);
+    axios.post('/api/events/addevent', resultObj, config);
     browserHistory.push('/');
     console.log('AFTER BROWSERHISTORY PUSH ');
     return {
@@ -55,7 +58,10 @@ module.exports = {
     };
   },
   getEvents() {
-    const request = axios.get('/api/events/getAll');
+    var config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    const request = axios.get('/api/events/getAll', config);
     console.log('THIS IS THE GETALL EVENTS REQUEST FROM ACTION: ', request);
     return {
       type: GET_EVENTS,
