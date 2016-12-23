@@ -11,14 +11,18 @@ class EventList extends Component {
 
   renderList() {
     return this.props.events.map((event) => {
+      let date = event.date.slice(5,9) + '-' + event.date.slice(0,4);
+      let time = event.date.slice(11, 16);
       return (
         <li
           key={event.id}
-
           className="list-group-item">
           <p>{event.name}</p>
           <p>{event.venue}</p>
-          <p>{event.city}</p>
+          <span>{event.city}</span>
+          <p>{event.country}</p>
+          <p>Date: {date}</p>
+          <p>Time: {time}</p>
         </li>
       );
     });
@@ -29,7 +33,7 @@ class EventList extends Component {
     return (
       <div>
         <h1>Events Feed</h1>
-        <ul className="list-group col-sm-4">
+        <ul className="list-group col-sm-8">
           {this.renderList()}
         </ul>
       </div>
