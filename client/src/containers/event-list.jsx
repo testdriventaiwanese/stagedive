@@ -14,16 +14,20 @@ class EventList extends Component {
       let date = event.date.slice(5,9) + '-' + event.date.slice(0,4);
       let time = event.date.slice(11, 16);
       return (
-        <li
+        <div
           key={event.id}
           className="list-group-item">
-          <p>{event.name}</p>
-          <p>{event.venue}</p>
-          <span>{event.city}</span>
-          <p>{event.country}</p>
-          <p>Date: {date}</p>
-          <p>Time: {time}</p>
-        </li>
+          <img src={event.image}/>
+          <span>
+            <p>{event.name}</p>
+            <p>{event.venue}</p>
+            <span>{event.city}</span>
+            <p>{event.country}</p>
+            <p>Date: {date}</p>
+            <p>Time: {time}</p>
+            <p><a href={event.event_url}>Buy Tickets</a></p>
+          </span>
+        </div>
       );
     });
   }
@@ -33,7 +37,7 @@ class EventList extends Component {
     return (
       <div>
         <h1>Events Feed</h1>
-        <ul className="list-group col-sm-8">
+        <ul className="list-group col-sm-16">
           {this.renderList()}
         </ul>
       </div>

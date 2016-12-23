@@ -49,7 +49,7 @@ module.exports = {
         venue_address: result._embedded.venues[0].address.line1 || null,
         city: result._embedded.venues[0].city.name || null,
         zipcode: result._embedded.venues[0].postalCode || null,
-        image: result._embedded.attractions[0].images[0].url || null,
+        image: result._embedded.attractions[0].images[3].url || null,
         genre: result.classifications[0].genre.name || null,
         subgenre: result.classifications[0].subGenre.name || null,
         latitude: result._embedded.venues[0].location.latitude || null,
