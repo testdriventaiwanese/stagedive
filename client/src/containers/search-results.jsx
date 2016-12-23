@@ -12,15 +12,21 @@ class SearchResults extends Component {
 
   renderList() {
     return this.props.results.map((result) => {
-      // let city = result._embedded.venues[0].city.name || '';
-      // let country = result._embedded.venues[0].country.name || '';
+      let city = '';
+      let country = '';
+      let mid = 'Location Not Available';
+      if(result._embedded) {
+        city = result._embedded.venues[0].city.name;
+        country = result._embedded.venues[0].country.name;
+        mid = ', ';
+      }
       return (
         <li
           key={result.id}
           onClick={() => this.props.saveResult(result)}
           className="list-group-item">
           <div>{result.name}</div>
-
+          <div>{city}{mid}{country}</div>
           <div>{result.dates.start.localDate}</div>
         </li>
       );
