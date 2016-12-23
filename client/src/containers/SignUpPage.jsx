@@ -1,10 +1,12 @@
 import React, { PropTypes } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { signUp } from '../actions/index'
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
+
 import { Card, CardText } from 'material-ui/Card';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
@@ -12,12 +14,14 @@ class SignUpPage extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       errors: {},
       email: '',
       name: '',
       password: '',
     };
+
     this.onSubmit = this.onSubmit.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
     this.onEmailChange = this.onEmailChange.bind(this);
@@ -31,7 +35,8 @@ class SignUpPage extends React.Component {
       name: this.state.name,
     }
     event.preventDefault();
-    this.props.signUp(resultObj)
+    this.props.signUp(resultObj);
+    browserHistory.push('/login');
   }
 
   onNameChange(event) {
