@@ -5,7 +5,8 @@ import App from './components/app';
 import PostIndex from './components/post_index';
 import SearchResults from './containers/search-results';
 import SignUp from './containers/SignUpPage';
-import LogIn from './containers/LoginPage'
+import LogIn from './containers/LoginPage';
+import LogOut from './containers/logout';
 
 export default(
   <Route path="/" component={App} >
@@ -13,5 +14,6 @@ export default(
     <Route path="signup" component={SignUp} />
     <Route path="results" component={SearchResults} />
     <Route path="login" component={LogIn} />
+    <Route path="logout" component={LogOut} />
   </Route>
 );

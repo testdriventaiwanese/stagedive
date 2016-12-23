@@ -9,6 +9,25 @@ export const SAVE_RESULT = 'SAVE_RESULT';
 export const GET_EVENTS = 'GET_EVENTS';
 export const SIGN_UP = 'SIGN_UP';
 export const LOG_IN = 'LOG_IN';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+
+function requestLogout() {
+  return {
+    type: LOGOUT_REQUEST,
+    isFetching: true,
+    isAuthenticated: true,
+  };
+}
+
+function receiveLogout() {
+  return {
+    type: LOGOUT_SUCCESS,
+    isFetching: false,
+    isAuthenticated: false,
+  };
+}
 
 module.exports = {
   selectEvent(event) {
@@ -106,5 +125,12 @@ module.exports = {
       type: LOG_IN,
       payload: resultObj,
     };
+  },
+  logoutUser() {
+    return dispatch => {
+      dispatch(requestLogout())
+      localStorage.removeItem('id_token')
+      dispatch(receiveLogout())
+    }
   },
 };

@@ -16,6 +16,7 @@ class PostIndex extends Component {
         <div>
           <Link to={"signup"}>SignUp</Link>
           <Link to={"login"}>LogIn</Link>
+          <Link to={"logout"}>LogOut</Link>
           <SearchBar />
           <EventList />
           <EventDetail />
