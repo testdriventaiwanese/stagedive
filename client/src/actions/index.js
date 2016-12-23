@@ -39,6 +39,12 @@ module.exports = {
       };
     }
     else {
+      let latitude = null;
+      let longitude = null;
+      if (result._embedded.venues[0].location) {
+        latitude = result._embedded.venues[0].location.latitude || null;
+        longitude = result._embedded.venues[0].location.longitude || null;
+      }
       resultObj = {
         tm_id: result.id || null,
         name: result.name || null,
@@ -52,8 +58,8 @@ module.exports = {
         image: result._embedded.attractions[0].images[3].url || null,
         genre: result.classifications[0].genre.name || null,
         subgenre: result.classifications[0].subGenre.name || null,
-        latitude: result._embedded.venues[0].location.latitude || null,
-        longitude: result._embedded.venues[0].location.longitude || null,
+        latitude: latitude,
+        longitude: longitude,
         country: result._embedded.venues[0].country.name || null,
         sale_date: JSON.stringify(result.sales.public) || null,
       };
