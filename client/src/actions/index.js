@@ -51,7 +51,7 @@ module.exports = {
         artist_name: JSON.stringify(result._embedded.attractions) || null,
         date: result.dates.start.dateTime || null,
         event_url: result.url || null,
-        venue: result._embedded.venues[0].name|| null,
+        venue: () => (result._embedded.venues[0].name ? result._embedded.venues[0].name : null),
         venue_address: result._embedded.venues[0].address.line1 || null,
         city: result._embedded.venues[0].city.name || null,
         zipcode: result._embedded.venues[0].postalCode || null,
@@ -68,7 +68,7 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     axios.post('/api/events/addevent', resultObj, config);
-    browserHistory.push('/');
+
     return {
       type: SAVE_RESULT,
       payload: resultObj,
