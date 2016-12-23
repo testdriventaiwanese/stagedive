@@ -44,6 +44,7 @@ module.exports = {
       sale_date,
     }, headers }, res) {
       const userId = jwt.decode(headers.authheader, process.env.JWT_SECRET);
+      console.log(userId);
       const params = [
         tm_id,
         name,
