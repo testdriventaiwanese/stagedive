@@ -41,17 +41,15 @@ class LoginPage extends React.Component {
     }
     event.preventDefault();
     this.props.logIn(resultObj)
-    browserHistory.push('/');
+    // browserHistory.push('/');
   }
 
   onEmailChange(event) {
-    this.setState({email: event.target.value})
-    console.log('THIS IS THE EMAIL: ', this.state.user, "VALUE: ", event.target.value);
+    this.setState({ email: event.target.value })
   }
 
   onPasswordChange(event) {
-    this.setState({password: event.target.value})
-    console.log('THIS IS THE PASSWORD: ', this.state.user, "VALUE: ", event.target.value);
+    this.setState({ password: event.target.value })
   }
 
   render() {
