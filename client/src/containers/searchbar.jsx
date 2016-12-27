@@ -4,6 +4,10 @@ import { bindActionCreators } from 'redux';
 import { searchEvents } from '../actions/index';
 import { browserHistory } from 'react-router';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -16,8 +20,7 @@ class SearchBar extends Component {
 
   onInputChange(event) {
     this.setState({term: event.target.value});
-    // console.log('SUBMIT FUNCTION CALLED');
-    console.log(event.target.value);
+
   }
 
   onFormSubmit(event) {
@@ -29,17 +32,18 @@ class SearchBar extends Component {
 
   render() {
     return (
-
+    <MuiThemeProvider>
       <form onSubmit={this.onFormSubmit} className="input-group">
-        <input
-          placeholder="Search for events"
-          value={this.state.term}
-          onChange={this.onInputChange}
+        <TextField
+        placeholder="Search for events"
+        value={this.state.term}
+        onChange={this.onInputChange}
         />
-        <span className="input-group-btn">
-          <button type="submit" className="btn btn-secondary">Submit</button>
+      <span className="button-line">
+          <RaisedButton type="submit" label="Search" primary />
         </span>
       </form>
+    </MuiThemeProvider>
     )
   };
 }

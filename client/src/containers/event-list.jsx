@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import { selectEvent } from '../actions/index';
 import { getEvents, removeEvent } from '../actions/index';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class EventList extends Component {
   componentWillMount() {
