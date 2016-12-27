@@ -14,6 +14,7 @@ class Account extends Component {
     }
     return (
       <div>
+        <div>Member Since: {this.props.info[0].createdOn.slice(0,10)}</div>
         <div>Username: {this.props.info[0].email}</div>
         <div>Name on account: {this.props.info[0].fullname}</div>
       </div>
