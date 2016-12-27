@@ -41,9 +41,9 @@ class SearchResults extends Component {
   // <div style={imageDiv}>
   //   <img src={image} style={imageStyle}/>
   // </div>
+  // <button onClick={browserHistory.push('/')}>Back</button>
   render() {
     return (<div>
-      <button onClick={browserHistory.push('/')}>Back</button>
       <h1>Search Results</h1>
       <ul>
         {this.renderList()}
