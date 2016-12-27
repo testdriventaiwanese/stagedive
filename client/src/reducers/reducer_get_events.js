@@ -4,5 +4,6 @@ export default function(state = [], action) {
   console.log('GET EVENTS ACTION GOT: ', action.payload.data);
     return action.payload.data;
   }
+  console.log('GET EVENTS AFTER CASE')
   return state;
 }
