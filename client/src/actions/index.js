@@ -9,7 +9,7 @@ export const SAVE_RESULT = 'SAVE_RESULT';
 export const GET_EVENTS = 'GET_EVENTS';
 export const SIGN_UP = 'SIGN_UP';
 export const LOG_IN = 'LOG_IN';
-export const REMOVE_EVENT = 'REMOVE_EVENT'
+export const REMOVE_EVENT = 'REMOVE_EVENT';
 
 module.exports = {
   selectEvent(event) {
@@ -91,6 +91,9 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     axios.post('/api/events/deleteevent', resultObj, config)
+    .then(() => {
+      browserHistory.replace('/');
+    });
 
     return {
       type:REMOVE_EVENT,

@@ -6,6 +6,7 @@ import SaveResult from './reducer_save_result';
 import GetEvents from './reducer_get_events';
 import SignUp from './reducer_sign_up';
 import LogIn from './reducer_log_in';
+import RemoveEvent from './reducer_remove_event'
 
 const rootReducer = combineReducers({
   events: EventsReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   getEvents: GetEvents,
   signUp: SignUp,
   logIn: LogIn,
+  removeEvent: RemoveEvent,
 });
 
 export default rootReducer;
