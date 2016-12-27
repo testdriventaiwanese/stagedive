@@ -112,7 +112,11 @@ module.exports = {
     },
 
     deleteEvent({ body: { tm_id, userId } }, res) {
-      const params = [tm_id, userId];
+      console.log('userId:: ', userId);
+      let user_id = jwt.decode(userId, process.env.JWT_SECRET);
+      const params = [tm_id, user_id.sub];
+      console.log('user_id:: ', user_id)
+      console.log('deleteEvent params:: ', params);
       eventModel.events.deleteEvent(params, (results) => {
         if (!results) {
           console.log('Issue in removing events');

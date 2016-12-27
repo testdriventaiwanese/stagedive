@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 // import { selectEvent } from '../actions/index';
-import { getEvents } from '../actions/index';
+import { getEvents, removeEvent } from '../actions/index';
 
 class EventList extends Component {
   componentWillMount() {
     this.props.getEvents();
+    // this.props.removeEvent();
   }
 
   renderList() {
@@ -34,6 +35,7 @@ class EventList extends Component {
             <span>Date: {date}</span>
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
+            <p onClick={() => this.props.removeEvent(event)}>Remove Event</p>
           </div>
         </div>
       );
@@ -61,5 +63,9 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ removeEvent, getEvents }, dispatch);
+}
 
-export default connect(mapStateToProps, {getEvents})(EventList);
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventList);
