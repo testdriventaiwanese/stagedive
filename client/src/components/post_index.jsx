@@ -14,9 +14,10 @@ class PostIndex extends Component {
     return (
       <div>
         <div>
-          <Link to={"signup"}>SignUp</Link>
-          <Link to={"login"}>LogIn</Link>
-          <form onClick={() => this.props.logoutUser()}>LogOut</form>
+          <Link to={"signup"}>Sign Up</Link>
+          <Link to={"login"}>Log In</Link>
+          <Link to={"account"}>My Account</Link>
+          <button onClick={() => this.props.logoutUser()}>LogOut</button>
           <SearchBar />
           <EventList />
           <EventDetail />

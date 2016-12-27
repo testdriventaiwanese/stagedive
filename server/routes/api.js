@@ -10,6 +10,7 @@ router.post('/users/unfollow', userController.users.unfollow);
 router.post('/users/changepassword', userController.users.changepassword);
 router.post('/users/deleteuser', userController.users.deleteUser);
 router.get('/users/getall', userController.users.getAll);
+router.get('/users/getinfo', userController.users.getInfo);
 
 // event calls
 router.get('/events/getall', eventController.events.getAll);
