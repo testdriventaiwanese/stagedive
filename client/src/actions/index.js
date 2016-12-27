@@ -9,6 +9,7 @@ export const SAVE_RESULT = 'SAVE_RESULT';
 export const GET_EVENTS = 'GET_EVENTS';
 export const SIGN_UP = 'SIGN_UP';
 export const LOG_IN = 'LOG_IN';
+export const REMOVE_EVENT = 'REMOVE_EVENT'
 
 module.exports = {
   selectEvent(event) {
@@ -76,6 +77,25 @@ module.exports = {
       type: SAVE_RESULT,
       payload: resultObj,
     };
+  },
+  removeEvent(result) {
+    let resultObj;
+    console.log('removeEvent result:: ', result);
+    resultObj = {
+      tm_id: result.tm_id,
+      userId: localStorage.getItem('token'),
+    }
+
+    console.log('removeEvent resultObj:: ', resultObj)
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    axios.post('/api/events/deleteevent', resultObj, config)
+
+    return {
+      type:REMOVE_EVENT,
+      payload: resultObj,
+    }
   },
   getEvents() {
     var config = {
