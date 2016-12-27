@@ -14,28 +14,34 @@ class SearchResults extends Component {
     let imageStyle = {
       width: '100%',
     };
-    return this.props.results.map((result) => {
-      let city = ()=> {
-        return result._embedded.venues[0].city.name ? result._embedded.venues[0].city.name : '';
-      };
-      let cityValue = city();
-      // let country = '';
-      let country = () => (result._embedded.venues[0].country.name ? result._embedded.venues[0].country.name : '');
-      let countryValue = country();
-      let mid = () => (result._embedded.venues[0].country.name ? ', ' : '');
-      let midValue = mid();
-      console.log('THIS IS CITY: ', cityValue);
-      return (
-        <li key={result.id}
-          onClick={() => this.props.saveResult(result)}
-          className="list-group-item">
 
-          <div>{result.name}</div>
-          <div>{cityValue}{midValue}{countryValue}</div>
-          <div>{result.dates.start.localDate}</div>
-        </li>
-      );
-    });
+    if(this.props.results.length === 0) {
+      return <div>No Results Found</div>
+    }
+    else {
+      return this.props.results.map((result) => {
+        let city = ()=> {
+          return result._embedded.venues[0].city.name ? result._embedded.venues[0].city.name : '';
+        };
+        let cityValue = city();
+        // let country = '';
+        let country = () => (result._embedded.venues[0].country.name ? result._embedded.venues[0].country.name : '');
+        let countryValue = country();
+        let mid = () => (result._embedded.venues[0].country.name ? ', ' : '');
+        let midValue = mid();
+
+        return (
+          <li key={result.id}
+            onClick={() => this.props.saveResult(result)}
+            className="list-group-item">
+
+            <div>{result.name}</div>
+            <div>{cityValue}{midValue}{countryValue}</div>
+            <div>{result.dates.start.localDate}</div>
+          </li>
+        );
+      });
+    }
   }
 
   // <div style={imageDiv}>
