@@ -44,6 +44,7 @@ CREATE TABLE `users` (
   `email` VARCHAR(70) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   `fullname` VARCHAR(100) NOT NULL,
+  `createdOn` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
 
