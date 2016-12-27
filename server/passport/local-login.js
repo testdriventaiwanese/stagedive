@@ -37,9 +37,7 @@ module.exports = new PassportLocalStrategy({
       };
 
       // create a token string
-      // TODO UNCOMMENT FOR EXPIRING TOKENS
-      // const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
-      const token = jwt.sign(payload, process.env.JWT_SECRET);
+      const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 60 * 60 });
       const data = {
         name: results[0].fullname,
       };

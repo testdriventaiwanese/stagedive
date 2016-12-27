@@ -15,7 +15,10 @@ module.exports = (req, res, next) => {
   // decode the token using a secret key-phrase
   return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     // the 401 code is for unauthorized status
-    if (err) { return res.status(401).end(); }
+    if (err) {
+      console.log('JWT token error : ', err);
+      return res.status(401).end();
+    }
 
     const userId = decoded.sub;
 
