@@ -78,6 +78,7 @@ module.exports = {
     var config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
+    console.log('THIS THE GET EVENTS CONFIG: ', config);
     const request = axios.get('/api/events/getAll', config);
     console.log('THIS IS THE GETALL EVENTS REQUEST FROM ACTION: ', request);
     return {
@@ -111,6 +112,7 @@ module.exports = {
       return localStorage.setItem('token', res.data.token);
     })
     .then(() => {
+      console.log('LOG IN REDIRECT HAPPENING NOW');
       browserHistory.push('/');
     })
 
