@@ -3,7 +3,7 @@ const db = require('../database/config');
 module.exports = {
   users: {
     findById(params, callback) {
-      const queryStr = 'SELECT email FROM users WHERE id = ?';
+      const queryStr = 'SELECT email, fullname FROM users WHERE id = ?';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/userModel.js findOne : ', err);
@@ -12,7 +12,6 @@ module.exports = {
         }
       });
     },
-
     findOne(params, callback) {
       const queryStr = 'SELECT email FROM users WHERE email = ?';
       db.query(queryStr, params, (err, results) => {

@@ -7,6 +7,7 @@ export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
 export const SAVE_RESULT = 'SAVE_RESULT';
 export const GET_EVENTS = 'GET_EVENTS';
+export const GET_USERINFO = 'GET_USERINFO';
 export const SIGN_UP = 'SIGN_UP';
 export const LOG_IN = 'LOG_IN';
 export const REMOVE_EVENT = 'REMOVE_EVENT';
@@ -104,11 +105,19 @@ module.exports = {
     var config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
-    console.log('THIS THE GET EVENTS CONFIG: ', config);
     const request = axios.get('/api/events/getAll', config);
-    console.log('THIS IS THE GETALL EVENTS REQUEST FROM ACTION: ', request);
     return {
       type: GET_EVENTS,
+      payload: request,
+    }
+  },
+  getUserInfo() {
+    var config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    const request = axios.get('/api/users/getinfo', config);
+    return {
+      type: GET_USERINFO,
       payload: request,
     }
   },

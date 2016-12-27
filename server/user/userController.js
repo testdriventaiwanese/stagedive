@@ -1,5 +1,7 @@
 const userModel = require('./userModel');
 const bcrypt = require('bcrypt-nodejs');
+const jwt = require('jsonwebtoken');
+
 
 module.exports = {
   users: {
@@ -13,10 +15,16 @@ module.exports = {
         }
       });
     },
-    createPassword(password, callback) {
-      bcrypt.hash(password, null, null, ((err, hash) => {
-        callback(hash);
-      }));
+    getInfo(req, res) {
+      const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
+      userModel.users.findById(id.sub, (response) => {
+        if (!response) {
+          console.log('Issue retreiving users from database');
+          res.sendStatus(401);
+        } else {
+          res.json(response);
+        }
+      });
     },
     changepassword({ body: { email, prevPassword, newPassword } }, res) {
       userModel.users.getPassword(email, (response) => {
