@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { saveResult } from '../actions/index';
+import SearchBar from './searchbar';
 
 class SearchResults extends Component {
   renderList() {
@@ -50,6 +51,8 @@ class SearchResults extends Component {
   // <button onClick={browserHistory.push('/')}>Back</button>
   render() {
     return (<div>
+      <button onClick={browserHistory.goBack}>Back</button>
+      <SearchBar />
       <h1>Search Results</h1>
       <ul>
         {this.renderList()}
