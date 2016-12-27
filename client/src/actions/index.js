@@ -67,7 +67,10 @@ module.exports = {
     const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
-    axios.post('/api/events/addevent', resultObj, config);
+    axios.post('/api/events/addevent', resultObj, config)
+    .then((resp) => {
+      browserHistory.push('/');
+    });
 
     return {
       type: SAVE_RESULT,
