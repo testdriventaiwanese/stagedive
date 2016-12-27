@@ -50,6 +50,7 @@ class SearchResults extends Component {
   // <button onClick={browserHistory.push('/')}>Back</button>
   render() {
     return (<div>
+      <button onClick={browserHistory.goBack}>Back</button>
       <h1>Search Results</h1>
       <ul>
         {this.renderList()}
