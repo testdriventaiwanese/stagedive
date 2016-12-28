@@ -2,12 +2,11 @@ const db = require('../database/config');
 
 module.exports = {
   events: {
-    getall(params, callback) {
+    getUserEvents(params, callback) {
       const queryStr = 'SELECT * FROM events INNER JOIN users_events ON (users_events.id_users = ? and events.id=users_events.id_events)'
-      // const queryStr = 'SELECT * FROM events';
       db.query(queryStr, params, (err, results) => {
         if (err) {
-          console.log('Error in server/eventModel.js getAll : ', err);
+          console.log('Error in server/eventModel.js getUserEvents : ', err);
         } else {
           callback(results);
         }

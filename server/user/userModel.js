@@ -56,6 +56,17 @@ module.exports = {
       });
     },
 
+    getFriends(callback) {
+      const queryStr = 'SELECT id, email, fullname FROM users INNER JOIN users_friends ON (users_events.id_user = ? AND users.id = users_friends.id_friend)';
+      db.query(queryStr, (err, results) => {
+        if (err) {
+          console.log('Error in server/userModel.js getPassword : ', err);
+        } else {
+          callback(results);
+        }
+      });
+    },
+
     changePassword(params, callback) {
       const queryStr = 'UPDATE users SET password = ? WHERE email = ?';
       db.query(queryStr, params, (err, results) => {
@@ -98,7 +109,7 @@ module.exports = {
     },
 
     unfollow(params, callback) {
-      const queryStr = '';
+      const queryStr = 'DELETE FROM users_friends WHERE id_user = ? AND id_friend = ? ';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/userModel.js unfollow : ', err);
