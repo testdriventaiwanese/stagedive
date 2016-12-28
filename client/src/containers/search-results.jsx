@@ -35,8 +35,8 @@ class SearchResults extends Component {
         let midValue = mid();
 
         return (
-          <Paper zDepth={2}>
-            <div key={result.id}
+          <Paper key={result.id} zDepth={2}>
+            <div
               onClick={() => this.props.saveResult(result)}>
 
               <div>{result.name}</div>
