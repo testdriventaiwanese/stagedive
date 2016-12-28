@@ -7,22 +7,20 @@ import EventList from '../containers/event-list';
 import EventDetail from '../containers/event-detail';
 import SearchBar from '../containers/searchbar.jsx';
 import SearchResults from '../containers/search-results';
-
+import AppBar from '../containers/app-bar';
 
 class PostIndex extends Component {
   render() {
     return (
       <div>
+        <AppBar />
         <div>
-          <Link to={"signup"}>Sign Up</Link>
-          <Link to={"login"}>Log In</Link>
           <Link to={"account"}>My Account</Link>
-          <button onClick={() => this.props.logoutUser()}>LogOut</button>
-          <SearchBar />
           <EventList />
           <EventDetail />
         </div>
     </div>
+
     );
   }
 }

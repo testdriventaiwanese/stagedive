@@ -4,8 +4,11 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { saveResult } from '../actions/index';
 import SearchBar from './searchbar';
+import Paper from 'material-ui/Paper';
+import AppBar from '../containers/app-bar';
 
 class SearchResults extends Component {
+
   renderList() {
     let imageDiv = {
       width: '35%',
@@ -32,31 +35,29 @@ class SearchResults extends Component {
         let midValue = mid();
 
         return (
-          <li key={result.id}
-            onClick={() => this.props.saveResult(result)}
-            className="list-group-item">
+          <Paper zDepth={2}>
+            <div key={result.id}
+              onClick={() => this.props.saveResult(result)}>
 
-            <div>{result.name}</div>
-            <div>{cityValue}{midValue}{countryValue}</div>
-            <div>{result.dates.start.localDate}</div>
-          </li>
+              <div>{result.name}</div>
+              <div>{cityValue}{midValue}{countryValue}</div>
+              <div>{result.dates.start.localDate}</div>
+            </div>
+            <br></br>
+          </Paper>
         );
       });
     }
   }
 
-  // <div style={imageDiv}>
-  //   <img src={image} style={imageStyle}/>
-  // </div>
-  // <button onClick={browserHistory.push('/')}>Back</button>
   render() {
     return (<div>
+      <AppBar />
       <button onClick={browserHistory.goBack}>Back</button>
-      <SearchBar />
-      <h1>Search Results</h1>
-      <ul>
-        {this.renderList()}
-      </ul>
+        <h1>Search Results</h1>
+        <div>
+          {this.renderList()}
+        </div>
     </div>
     )
   }

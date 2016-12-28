@@ -105,7 +105,10 @@ module.exports = {
     var config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
-    const request = axios.get('/api/events/getAll', config);
+    const request = axios.get('/api/events/getAll', config)
+    .catch((res) => {
+      return {data: []};
+    });
     return {
       type: GET_EVENTS,
       payload: request,
@@ -115,7 +118,11 @@ module.exports = {
     var config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
-    const request = axios.get('/api/users/getinfo', config);
+    let request = axios.get('/api/users/getinfo', config)
+      .catch((res) => {
+        return {data: []};
+      });
+
     return {
       type: GET_USERINFO,
       payload: request,
