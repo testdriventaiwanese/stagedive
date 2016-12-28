@@ -7,6 +7,7 @@ import SearchResults from './containers/search-results';
 import SignUp from './containers/SignUpPage';
 import LogIn from './containers/LoginPage';
 import Account from './containers/account';
+import Journal from './containers/journal';
 
 export default(
   <Route path="/" component={App} >
@@ -15,5 +16,6 @@ export default(
     <Route path="results" component={SearchResults} />
     <Route path="login" component={LogIn} />
     <Route path="account" component={Account} />
+    <Route path="journal" component={Journal} />
   </Route>
 );
