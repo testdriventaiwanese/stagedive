@@ -12,6 +12,16 @@ module.exports = {
         }
       });
     },
+    getFriendsEvents(params, callback) {
+      // const queryStr = 'SELECT * FROM events INNER JOIN users_events ON (users_events.id_users = ? and events.id=users_events.id_events)'
+      db.query(queryStr, params, (err, results) => {
+        if (err) {
+          console.log('Error in server/eventModel.js getFriendsEvents : ', err);
+        } else {
+          callback(results);
+        }
+      });
+    },
     addEvent(userId, params, callback) {
       const queryStr = 'SELECT id FROM events WHERE tm_id = ?';
       const queryStr2 = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, country, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';

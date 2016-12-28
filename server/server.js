@@ -28,7 +28,6 @@ const localLoginStrategy = require('./passport/local-login');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
-// COMMENT OUT FOR AUTH CHECK MIDDLEWARE
 // pass the authenticaion checker middleware
 const authCheckMiddleware = require('./passport/auth-check');
 
