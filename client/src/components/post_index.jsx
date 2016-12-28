@@ -9,6 +9,7 @@ import SearchBar from '../containers/searchbar.jsx';
 import SearchResults from '../containers/search-results';
 import AppBar from '../containers/app-bar';
 import Journal from '../containers/journal';
+import DrawerLeft from '../containers/drawer';
 
 class PostIndex extends Component {
   render() {
