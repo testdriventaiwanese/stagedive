@@ -14,6 +14,17 @@ module.exports = {
         }
       });
     },
+    getFriendsEvents(req, res) {
+      const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
+      eventModel.events.getFriendsEvents(id.sub, (results) => {
+        if (!results) {
+          console.log('ERROR in getting all');
+          res.sendStatus(401);
+        } else {
+          res.status(200).send(results);
+        }
+      });
+    },
     search({ body: { name } }, res) {
       eventModel.events.searchEvents(name, (results) => {
         if (!results) {
@@ -112,11 +123,8 @@ module.exports = {
     },
 
     deleteEvent({ body: { tm_id, userId } }, res) {
-      console.log('userId:: ', userId);
-      let user_id = jwt.decode(userId, process.env.JWT_SECRET);
-      const params = [tm_id, user_id.sub];
-      console.log('user_id:: ', user_id)
-      console.log('deleteEvent params:: ', params);
+      const id = jwt.decode(userId, process.env.JWT_SECRET);
+      const params = [tm_id, id.sub];
       eventModel.events.deleteEvent(params, (results) => {
         if (!results) {
           console.log('Issue in removing events');
