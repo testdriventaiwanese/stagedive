@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import { saveResult } from '../actions/index';
 import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
+import AppBar from '../containers/app-bar';
 
 class SearchResults extends Component {
 
@@ -34,7 +35,7 @@ class SearchResults extends Component {
         let midValue = mid();
 
         return (
-          <Paper zDepth={1}>
+          <Paper zDepth={2}>
             <div key={result.id}
               onClick={() => this.props.saveResult(result)}>
 
@@ -51,8 +52,8 @@ class SearchResults extends Component {
 
   render() {
     return (<div>
+      <AppBar />
       <button onClick={browserHistory.goBack}>Back</button>
-      <SearchBar />
         <h1>Search Results</h1>
         <div>
           {this.renderList()}

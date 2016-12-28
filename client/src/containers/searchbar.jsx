@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
 class SearchBar extends Component {
@@ -32,18 +33,21 @@ class SearchBar extends Component {
 
   render() {
     return (
+    <span>
     <MuiThemeProvider>
       <form onSubmit={this.onFormSubmit} className="input-group">
         <TextField
+        style={{ color: 'white' }}
         placeholder="Search for events"
         value={this.state.term}
         onChange={this.onInputChange}
         />
       <span className="button-line">
-          <RaisedButton type="submit" label="Search" default />
-        </span>
+      <FlatButton type="submit" label="Search" backgroundColor="#616161" style={{ color: 'white' }} />
+      </span>
       </form>
     </MuiThemeProvider>
+  </span>
     )
   };
 }
