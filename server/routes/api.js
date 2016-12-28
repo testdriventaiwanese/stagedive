@@ -11,9 +11,10 @@ router.post('/users/changepassword', userController.users.changepassword);
 router.post('/users/deleteuser', userController.users.deleteUser);
 router.get('/users/getall', userController.users.getAll);
 router.get('/users/getinfo', userController.users.getInfo);
+router.post('/users/getfriends', userController.users.getFriends);
 
 // event calls
-router.get('/events/getall', eventController.events.getAll);
+router.get('/events/getall', eventController.events.getUserEvents);
 router.post('/events/search', eventController.events.search);
 router.post('/events/addevent', eventController.events.addEvent);
 router.get('/events/showuserevents', eventController.events.showUserEvents);

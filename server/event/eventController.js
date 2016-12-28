@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
   events: {
-    getAll(req, res) {
+    getUserEvents(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
-      eventModel.events.getall(id.sub, (results) => {
+      eventModel.events.getUserEvents(id.sub, (results) => {
         if (!results) {
           console.log('ERROR in getting all');
           res.sendStatus(401);

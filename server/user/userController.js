@@ -48,8 +48,20 @@ module.exports = {
         });
       });
     },
-    addfollow({ body: { user1, user2 } }, res) {
-      const params = [user1, user2];
+    getFriends(req, res) {
+      const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
+      userModel.users.findById(id.sub, (response) => {
+        if (!response) {
+          console.log('Issue retreiving users from database');
+          res.sendStatus(401);
+        } else {
+          res.json(response);
+        }
+      });
+    },
+    addfollow(req, res) {
+      const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
+      const params = [id.sub, req.body.friendId];
       userModel.users.addFollow(params, (response) => {
         if (!response) {
           console.log('Issue in adding to database');
@@ -59,8 +71,9 @@ module.exports = {
         }
       });
     },
-    unfollow({ body: { user1, user2 } }, res) {
-      const params = [user1, user2];
+    unfollow(req, res) {
+      const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
+      const params = [id.sub, req.body.friendId];
       userModel.users.unfollow(params, (response) => {
         if (!response) {
           console.log('Issue in adding to database');
