@@ -40,7 +40,7 @@ class SearchBar extends Component {
         onChange={this.onInputChange}
         />
       <span className="button-line">
-          <RaisedButton type="submit" label="Search" primary />
+          <RaisedButton type="submit" label="Search" default />
         </span>
       </form>
     </MuiThemeProvider>
