@@ -8,6 +8,7 @@ import EventDetail from '../containers/event-detail';
 import SearchBar from '../containers/searchbar.jsx';
 import SearchResults from '../containers/search-results';
 import AppBar from '../containers/app-bar';
+import Journal from '../containers/journal';
 
 class PostIndex extends Component {
   render() {
@@ -16,6 +17,7 @@ class PostIndex extends Component {
         <AppBar />
         <div>
           <Link to={"account"}>My Account</Link>
+          <Link to={"journal"}>Concert Journal</Link>
           <EventList />
           <EventDetail />
         </div>
