@@ -2,24 +2,29 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import { saveResult } from '../actions/index';
 import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
 import AppBar from '../containers/app-bar';
 
 class SearchResults extends Component {
-
-  renderList() {
-    let imageDiv = {
-      width: '35%',
-      float: 'left',
-      height: '248px',
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 'events',
     };
-    let imageStyle = {
-      width: '100%',
-    };
+    this.renderEvents = this.renderEvents.bind(this);
+    this.renderArtists = this.renderArtists.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-    if(this.props.events.length === 0) {
+  handleChange(value) {
+    this.setState({ value });
+  }
+
+  renderEvents() {
+    if (this.props.events.length === 0) {
       return <div>No Results Found</div>
     }
     else {
@@ -48,6 +53,21 @@ class SearchResults extends Component {
     }
   }
 
+  renderArtists() {
+    return this.props.artists.map((artist) => {
+      return (
+        <Paper key={artist.tracker_count} onClick={() => this.props.saveResult(artist)} zDepth={2}>
+          <div>
+            <div>{artist.name}</div>
+            <div>{cityValue}{midValue}{countryValue}</div>
+            <div>{artist.dates.start.localDate}</div>
+          </div>
+          <br />
+        </Paper>
+      );
+    });
+  }
+
   render() {
     return (
       <div>
@@ -55,7 +75,7 @@ class SearchResults extends Component {
         <button onClick={browserHistory.goBack}>Back</button>
         <h1>Search Results</h1>
         <div>
-          {this.renderList()}
+          {this.renderEvents()}
         </div>
       </div>
     );
@@ -66,6 +86,7 @@ class SearchResults extends Component {
 function mapStateToProps(state) {
   return {
     events: state.searchEvents,
+    artists: state.searchArtists,
   };
 }
 
