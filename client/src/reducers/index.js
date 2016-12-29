@@ -8,7 +8,7 @@ import GetUserInfo from './reducer_get_userinfo';
 import SignUp from './reducer_sign_up';
 import LogIn from './reducer_log_in';
 import RemoveEvent from './reducer_remove_event';
-import SearchArtists from
+import SearchArtists from './reducer_search_artists';
 
 const rootReducer = combineReducers({
   events: EventsReducer,
