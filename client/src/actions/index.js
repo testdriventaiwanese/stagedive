@@ -1,6 +1,7 @@
 import axios from 'axios';
 import APIKEYS from './APIKEYS.js';
-const ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
+const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
+const BIM_ROOT_URL = 'http://api.bandsintown.com/artists/';
 import { browserHistory } from 'react-router';
 
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
@@ -20,7 +21,7 @@ module.exports = {
     };
   },
   searchEvents(query) {
-    const url = ROOT_URL + 'keyword=' + query + '&&apikey=' + APIKEYS;
+    const url = TM_ROOT_URL + 'keyword=' + query + '&&apikey=' + APIKEYS.TM;
     const request = axios.get(url);
 
     console.log('REQUEST: ', request);
@@ -169,4 +170,14 @@ module.exports = {
     localStorage.removeItem('token')
     browserHistory.push('/login')
   },
+  searchArtists(query) {
+    const url = BIM_ROOT_URL + query + '.json?api_version=2.0&app_id=' + APIKEYS.BIM;
+    const request = axios.get(url);
+
+    console.log('REQUEST FROM BANDS IN TOWN: ', request);
+    return {
+      type: SEARCH_ARTISTS,
+      payload: request,
+    };
+  }
 };

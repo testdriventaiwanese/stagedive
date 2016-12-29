@@ -19,31 +19,29 @@ class SearchResults extends Component {
       width: '100%',
     };
 
-    if(this.props.results.length === 0) {
+    if(this.props.events.length === 0) {
       return <div>No Results Found</div>
     }
     else {
-      return this.props.results.map((result) => {
+      return this.props.events.map((event) => {
         let city = ()=> {
-          return result._embedded.venues[0].city.name ? result._embedded.venues[0].city.name : '';
+          return event._embedded.venues[0].city.name ? event._embedded.venues[0].city.name : '';
         };
         let cityValue = city();
         // let country = '';
-        let country = () => (result._embedded.venues[0].country.name ? result._embedded.venues[0].country.name : '');
+        let country = () => (event._embedded.venues[0].country.name ? event._embedded.venues[0].country.name : '');
         let countryValue = country();
-        let mid = () => (result._embedded.venues[0].country.name ? ', ' : '');
+        let mid = () => (event._embedded.venues[0].country.name ? ', ' : '');
         let midValue = mid();
 
         return (
-          <Paper key={result.id} zDepth={2}>
-            <div
-              onClick={() => this.props.saveResult(result)}>
-
-              <div>{result.name}</div>
+          <Paper key={event.id} onClick={() => this.props.saveResult(event)} zDepth={2}>
+            <div>
+              <div>{event.name}</div>
               <div>{cityValue}{midValue}{countryValue}</div>
-              <div>{result.dates.start.localDate}</div>
+              <div>{event.dates.start.localDate}</div>
             </div>
-            <br></br>
+            <br />
           </Paper>
         );
       });
@@ -51,36 +49,28 @@ class SearchResults extends Component {
   }
 
   render() {
-    return (<div>
-      <AppBar />
-      <button onClick={browserHistory.goBack}>Back</button>
+    return (
+      <div>
+        <AppBar />
+        <button onClick={browserHistory.goBack}>Back</button>
         <h1>Search Results</h1>
         <div>
           {this.renderList()}
         </div>
-    </div>
-    )
+      </div>
+    );
   }
 }
 
 
 function mapStateToProps(state) {
-  // Whatever is returned will show up as props
-  // inside of BookList
   return {
-    results: state.searchEvents,
+    events: state.searchEvents,
   };
 }
 
-// Anything returned from this function will end up as props
-// on the BookList container
 function mapDispatchToProps(dispatch) {
-  // Whenever selectBook is called, the result shoudl be passed
-  // to all of our reducers
   return bindActionCreators({ saveResult: saveResult }, dispatch);
 }
 
-// Promote BookList from a component to a container - it needs to know
-// about this new dispatch method, selectBook. Make it available
-// as a prop.
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
