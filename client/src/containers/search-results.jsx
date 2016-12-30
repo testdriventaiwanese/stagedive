@@ -98,12 +98,11 @@ class SearchResults extends Component {
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}
-            style={{backgroundColor: '#424242' }}
           >
-            <Tab label="Events" value="events" >
+            <Tab label="Events" value="events" style={{backgroundColor: '#424242' }}>
               {this.renderEvents()}
             </Tab>
-            <Tab label="Artists" value="artists">
+            <Tab label="Artists" value="artists" style={{backgroundColor: '#424242' }}>
               {this.renderArtists()}
             </Tab>
           </Tabs>
