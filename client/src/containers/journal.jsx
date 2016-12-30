@@ -7,8 +7,8 @@ import AppBar from '../containers/app-bar';
 
 class Journal extends Component {
   componentWillMount() {
-    this.props.getEvents();
     this.props.getUserInfo();
+    this.props.getEvents();
   }
 
   renderList() {
@@ -20,10 +20,9 @@ class Journal extends Component {
     let imageStyle = {
       width: '100%',
     };
+    console.log('THE USER INFO IN JOURNAL: ', this.props.userInfo);
     const dateStr = this.props.userInfo[0].createdOn.slice(0,19);
-    console.log('THIS IS THE DATE STR: ', dateStr);
     let currentDate = new Date(dateStr);
-    console.log('THIS IS THE CURRENTDATE: ', currentDate);
 
     let pastEvents = this.props.events.filter((event) => {
       let eventDate = new Date(event.date.slice(0,19));
@@ -36,7 +35,7 @@ class Journal extends Component {
       return (
         <div key={event.id} className="list-group-item">
           <div style={imageDiv}>
-              <img src={event.image} style={imageStyle}></img>
+              <img src={event.image} style={imageStyle}/>
           </div>
           <div>
             <p><strong>{event.name}</strong></p>
@@ -45,14 +44,12 @@ class Journal extends Component {
             <p>{event.country}</p>
             <span>Date: {date}</span>
             <p>Time: {time}</p>
-            <p><a href={event.event_url}>Buy Tickets</a></p>
             <p onClick={() => this.props.removeEvent(event)}>Remove Event</p>
           </div>
         </div>
       );
     });
   }
-//          onClick={() => this.props.selectEvent(event)}
   render() {
     console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
     return (
@@ -63,13 +60,11 @@ class Journal extends Component {
           {this.renderList()}
         </ul>
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
-  // Whatever is returned will show up as props
-  // inside of BookList
   return {
     events: state.getEvents,
     userInfo: state.getUserInfo,
