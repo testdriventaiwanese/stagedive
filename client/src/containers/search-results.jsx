@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
-<<<<<<< HEAD
-import { saveResult } from '../actions/index';
-=======
 import { saveEvent } from '../actions/index';
->>>>>>> searchArtists
 import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
 import AppBar from '../containers/app-bar';
