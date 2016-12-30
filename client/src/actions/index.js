@@ -3,7 +3,6 @@ import APIKEYS from './APIKEYS.js';
 const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
 const BIM_ROOT_URL = 'http://api.bandsintown.com/artists/';
 import { browserHistory } from 'react-router';
-// import {searchArtists} from '../../../server/API/bandsInTown.js';
 
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
@@ -13,7 +12,6 @@ export const GET_USERINFO = 'GET_USERINFO';
 export const SIGN_UP = 'SIGN_UP';
 export const LOG_IN = 'LOG_IN';
 export const REMOVE_EVENT = 'REMOVE_EVENT';
-export const SEARCH_ARTISTS = 'SEARCH_ARTISTS';
 
 module.exports = {
   selectEvent(event) {
@@ -173,13 +171,9 @@ module.exports = {
     browserHistory.push('/login')
   },
   searchArtists(query) {
-    // const url = BIM_ROOT_URL + query + '.json?api_version=2.0&app_id=' + APIKEYS.BIM;
-    const config = {
-      headers: {'Access-Control-Allow-Origin': '*' },
-    }
-    const url = 'http://api.bandsintown.com/artists/Skrillex.json?api_version=2.0&app_id=asdfafd'
-    const request = axios.get(url, config);
-    // const request = searchArtists;
+    const url = BIM_ROOT_URL + query + '.json?api_version=2.0&app_id=' + APIKEYS.BIM;
+    const request = axios.get(url);
+
     console.log('REQUEST FROM BANDS IN TOWN: ', request);
     return {
       type: SEARCH_ARTISTS,

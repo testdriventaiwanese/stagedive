@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import { saveEvent } from '../actions/index';
+import { saveResult } from '../actions/index';
 import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
 import AppBar from '../containers/app-bar';
@@ -40,7 +40,7 @@ class SearchResults extends Component {
         let midValue = mid();
 
         return (
-          <Paper key={event.id} onClick={() => this.props.saveEvent(event)} zDepth={2}>
+          <Paper key={event.id} onClick={() => this.props.saveResult(event)} zDepth={2}>
             <div>
               <div>{event.name}</div>
               <div>{cityValue}{midValue}{countryValue}</div>
@@ -54,23 +54,13 @@ class SearchResults extends Component {
   }
 
   renderArtists() {
-    let imageDiv = {
-      width: '35%',
-      float: 'left',
-      height: '248px',
-    };
-    let imageStyle = {
-      width: '100%',
-    };
     return this.props.artists.map((artist) => {
       return (
-        <Paper key={artist.tracker_count} zDepth={2}>
+        <Paper key={artist.tracker_count} onClick={() => this.props.saveResult(artist)} zDepth={2}>
           <div>
-            <div style={imageDiv}>
-                <img src={artist.image_url} style={imageStyle}></img>
-            </div>
             <div>{artist.name}</div>
-            <div><a href={artist.facebook_page_url}>Facebook Page</a></div>
+            <div>{cityValue}{midValue}{countryValue}</div>
+            <div>{artist.dates.start.localDate}</div>
           </div>
           <br />
         </Paper>
@@ -101,7 +91,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ saveEvent }, dispatch);
+  return bindActionCreators({ saveResult: saveResult }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
