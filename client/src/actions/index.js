@@ -1,7 +1,9 @@
 import axios from 'axios';
 import APIKEYS from './APIKEYS.js';
-const ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
+const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
+const BIM_ROOT_URL = 'http://api.bandsintown.com/artists/';
 import { browserHistory } from 'react-router';
+// import {searchArtists} from '../../../server/API/bandsInTown.js';
 
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
@@ -11,6 +13,7 @@ export const GET_USERINFO = 'GET_USERINFO';
 export const SIGN_UP = 'SIGN_UP';
 export const LOG_IN = 'LOG_IN';
 export const REMOVE_EVENT = 'REMOVE_EVENT';
+export const SEARCH_ARTISTS = 'SEARCH_ARTISTS';
 
 module.exports = {
   selectEvent(event) {
@@ -20,7 +23,7 @@ module.exports = {
     };
   },
   searchEvents(query) {
-    const url = ROOT_URL + 'keyword=' + query + '&&apikey=' + APIKEYS;
+    const url = TM_ROOT_URL + 'keyword=' + query + '&&apikey=' + APIKEYS.TM;
     const request = axios.get(url);
 
     console.log('REQUEST: ', request);
@@ -29,53 +32,53 @@ module.exports = {
       payload: request,
     };
   },
-  saveResult(result) {
-    let resultObj;
-    if(!result._embedded) {
-      resultObj = {
-        tm_id: result.id || null,
-        name: result.name || null,
-        date: result.dates.start.dateTime || null,
-        event_url: result.url || null,
-        sale_date: JSON.stringify(result.sales.public) || null,
+  saveEvent(event) {
+    let eventObj;
+    if(!event._embedded) {
+      eventObj = {
+        tm_id: event.id || null,
+        name: event.name || null,
+        date: event.dates.start.dateTime || null,
+        event_url: event.url || null,
+        sale_date: JSON.stringify(event.sales.public) || null,
       };
     }
     else {
       let latitude = null;
       let longitude = null;
-      if (result._embedded.venues[0].location) {
-        latitude = result._embedded.venues[0].location.latitude || null;
-        longitude = result._embedded.venues[0].location.longitude || null;
+      if (event._embedded.venues[0].location) {
+        latitude = event._embedded.venues[0].location.latitude || null;
+        longitude = event._embedded.venues[0].location.longitude || null;
       }
-      resultObj = {
-        tm_id: result.id || null,
-        name: result.name || null,
-        artist_name: JSON.stringify(result._embedded.attractions) || null,
-        date: result.dates.start.dateTime || null,
-        event_url: result.url || null,
-        venue: () => (result._embedded.venues[0].name ? result._embedded.venues[0].name : null),
-        venue_address: result._embedded.venues[0].address.line1 || null,
-        city: result._embedded.venues[0].city.name || null,
-        zipcode: result._embedded.venues[0].postalCode || null,
-        image: result._embedded.attractions[0].images[3].url || null,
-        genre: result.classifications[0].genre.name || null,
-        subgenre: result.classifications[0].subGenre.name || null,
+      eventObj = {
+        tm_id: event.id || null,
+        name: event.name || null,
+        artist_name: JSON.stringify(event._embedded.attractions) || null,
+        date: event.dates.start.dateTime || null,
+        event_url: event.url || null,
+        venue: () => (event._embedded.venues[0].name ? event._embedded.venues[0].name : null),
+        venue_address: event._embedded.venues[0].address.line1 || null,
+        city: event._embedded.venues[0].city.name || null,
+        zipcode: event._embedded.venues[0].postalCode || null,
+        image: event._embedded.attractions[0].images[3].url || null,
+        genre: event.classifications[0].genre.name || null,
+        subgenre: event.classifications[0].subGenre.name || null,
         latitude: latitude,
         longitude: longitude,
-        country: result._embedded.venues[0].country.name || null,
+        country: event._embedded.venues[0].country.name || null,
         sale_date: JSON.stringify(result.sales.public) || null,
       };
     }
     const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
-    axios.post('/api/events/addevent', resultObj, config)
+    axios.post('/api/events/addevent', eventObj, config)
     .then((resp) => {
       browserHistory.push('/');
     });
 
     return {
-      type: SAVE_RESULT,
+      type: SAVE_EVENT,
       payload: resultObj,
     };
   },
@@ -169,4 +172,18 @@ module.exports = {
     localStorage.removeItem('token')
     browserHistory.push('/login')
   },
+  searchArtists(query) {
+    // const url = BIM_ROOT_URL + query + '.json?api_version=2.0&app_id=' + APIKEYS.BIM;
+    const config = {
+      headers: {'Access-Control-Allow-Origin': '*' },
+    }
+    const url = 'http://api.bandsintown.com/artists/Skrillex.json?api_version=2.0&app_id=asdfafd'
+    const request = axios.get(url, config);
+    // const request = searchArtists;
+    console.log('REQUEST FROM BANDS IN TOWN: ', request);
+    return {
+      type: SEARCH_ARTISTS,
+      payload: request,
+    };
+  }
 };

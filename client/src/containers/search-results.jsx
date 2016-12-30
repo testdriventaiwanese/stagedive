@@ -2,14 +2,62 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
+import {Tabs, Tab} from 'material-ui/Tabs';
+<<<<<<< HEAD
 import { saveResult } from '../actions/index';
+=======
+import { saveEvent } from '../actions/index';
+>>>>>>> searchArtists
 import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
 import AppBar from '../containers/app-bar';
 
 class SearchResults extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 'events',
+    };
+    this.renderEvents = this.renderEvents.bind(this);
+    this.renderArtists = this.renderArtists.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-  renderList() {
+  handleChange(value) {
+    this.setState({ value });
+  }
+
+  renderEvents() {
+    if (this.props.events.length === 0) {
+      return <div>No Results Found</div>
+    }
+    else {
+      return this.props.events.map((event) => {
+        let city = ()=> {
+          return event._embedded.venues[0].city.name ? event._embedded.venues[0].city.name : '';
+        };
+        let cityValue = city();
+        // let country = '';
+        let country = () => (event._embedded.venues[0].country.name ? event._embedded.venues[0].country.name : '');
+        let countryValue = country();
+        let mid = () => (event._embedded.venues[0].country.name ? ', ' : '');
+        let midValue = mid();
+
+        return (
+          <Paper key={event.id} onClick={() => this.props.saveEvent(event)} zDepth={2}>
+            <div>
+              <div>{event.name}</div>
+              <div>{cityValue}{midValue}{countryValue}</div>
+              <div>{event.dates.start.localDate}</div>
+            </div>
+            <br />
+          </Paper>
+        );
+      });
+    }
+  }
+
+  renderArtists() {
     let imageDiv = {
       width: '35%',
       float: 'left',
@@ -18,69 +66,46 @@ class SearchResults extends Component {
     let imageStyle = {
       width: '100%',
     };
-
-    if(this.props.results.length === 0) {
-      return <div>No Results Found</div>
-    }
-    else {
-      return this.props.results.map((result) => {
-        let city = ()=> {
-          return result._embedded.venues[0].city.name ? result._embedded.venues[0].city.name : '';
-        };
-        let cityValue = city();
-        // let country = '';
-        let country = () => (result._embedded.venues[0].country.name ? result._embedded.venues[0].country.name : '');
-        let countryValue = country();
-        let mid = () => (result._embedded.venues[0].country.name ? ', ' : '');
-        let midValue = mid();
-
-        return (
-          <Paper key={result.id} zDepth={2}>
-            <div
-              onClick={() => this.props.saveResult(result)}>
-
-              <div>{result.name}</div>
-              <div>{cityValue}{midValue}{countryValue}</div>
-              <div>{result.dates.start.localDate}</div>
+    return this.props.artists.map((artist) => {
+      return (
+        <Paper key={artist.tracker_count} zDepth={2}>
+          <div>
+            <div style={imageDiv}>
+                <img src={artist.image_url} style={imageStyle}></img>
             </div>
-            <br></br>
-          </Paper>
-        );
-      });
-    }
+            <div>{artist.name}</div>
+            <div><a href={artist.facebook_page_url}>Facebook Page</a></div>
+          </div>
+          <br />
+        </Paper>
+      );
+    });
   }
 
   render() {
-    return (<div>
-      <AppBar />
-      <button onClick={browserHistory.goBack}>Back</button>
+    return (
+      <div>
+        <AppBar />
+        <button onClick={browserHistory.goBack}>Back</button>
         <h1>Search Results</h1>
         <div>
-          {this.renderList()}
+          {this.renderEvents()}
         </div>
-    </div>
-    )
+      </div>
+    );
   }
 }
 
 
 function mapStateToProps(state) {
-  // Whatever is returned will show up as props
-  // inside of BookList
   return {
-    results: state.searchEvents,
+    events: state.searchEvents,
+    artists: state.searchArtists,
   };
 }
 
-// Anything returned from this function will end up as props
-// on the BookList container
 function mapDispatchToProps(dispatch) {
-  // Whenever selectBook is called, the result shoudl be passed
-  // to all of our reducers
-  return bindActionCreators({ saveResult: saveResult }, dispatch);
+  return bindActionCreators({ saveEvent }, dispatch);
 }
 
-// Promote BookList from a component to a container - it needs to know
-// about this new dispatch method, selectBook. Make it available
-// as a prop.
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

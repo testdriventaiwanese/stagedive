@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { searchEvents } from '../actions/index';
 import { browserHistory } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { searchEvents, searchArtists } from '../actions/index';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
@@ -27,6 +26,7 @@ class SearchBar extends Component {
   onFormSubmit(event) {
     event.preventDefault();
     this.props.searchEvents(this.state.term);
+    this.props.searchArtists(this.state.term);
     this.setState({ term: '' });
     browserHistory.push('/results');
   }
@@ -53,7 +53,7 @@ class SearchBar extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ searchEvents }, dispatch);
+  return bindActionCreators({ searchEvents, searchArtists }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(SearchBar);
