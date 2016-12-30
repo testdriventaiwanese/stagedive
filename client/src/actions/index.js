@@ -7,7 +7,7 @@ import { browserHistory } from 'react-router';
 
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
-export const SAVE_RESULT = 'SAVE_RESULT';
+export const SAVE_EVENT = 'SAVE_EVENT';
 export const GET_EVENTS = 'GET_EVENTS';
 export const GET_USERINFO = 'GET_USERINFO';
 export const SIGN_UP = 'SIGN_UP';
@@ -66,7 +66,7 @@ module.exports = {
         latitude: latitude,
         longitude: longitude,
         country: event._embedded.venues[0].country.name || null,
-        sale_date: JSON.stringify(result.sales.public) || null,
+        sale_date: JSON.stringify(event.sales.public) || null,
       };
     }
     const config = {
@@ -79,7 +79,7 @@ module.exports = {
 
     return {
       type: SAVE_EVENT,
-      payload: resultObj,
+      payload: eventObj,
     };
   },
   removeEvent(result) {

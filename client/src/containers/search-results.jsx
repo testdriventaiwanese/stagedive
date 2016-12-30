@@ -62,6 +62,17 @@ class SearchResults extends Component {
     let imageStyle = {
       width: '100%',
     };
+    if(this.props.artists.length === 0) {
+      return (
+        <Paper zDepth={2}>
+          <div>
+            No Artists Found
+          </div>
+          <br />
+        </Paper>
+      )
+    }
+
     return this.props.artists.map((artist) => {
       return (
         <Paper key={artist.tracker_count} zDepth={2}>
@@ -84,9 +95,17 @@ class SearchResults extends Component {
         <AppBar />
         <button onClick={browserHistory.goBack}>Back</button>
         <h1>Search Results</h1>
-        <div>
-          {this.renderEvents()}
-        </div>
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+          >
+            <Tab label="Events" value="events" style={{backgroundColor: '#424242' }}>
+              {this.renderEvents()}
+            </Tab>
+            <Tab label="Artists" value="artists" style={{backgroundColor: '#424242' }}>
+              {this.renderArtists()}
+            </Tab>
+          </Tabs>
       </div>
     );
   }
