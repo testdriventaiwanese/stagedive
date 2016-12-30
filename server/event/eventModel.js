@@ -3,7 +3,7 @@ const db = require('../database/config');
 module.exports = {
   events: {
     getUserEvents(params, callback) {
-      const queryStr = 'SELECT * FROM events INNER JOIN users_events ON (users_events.id_users = ? and events.id=users_events.id_events)'
+      const queryStr = 'SELECT * FROM events INNER JOIN users_events ON (users_events.id_users = ? and events.id=users_events.id_events)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js getUserEvents : ', err);
@@ -13,7 +13,8 @@ module.exports = {
       });
     },
     getFriendsEvents(params, callback) {
-      // const queryStr = 'SELECT * FROM events INNER JOIN users_events ON (users_events.id_users = ? and events.id=users_events.id_events)'
+      const queryStr = 'SELECT id_friend FROM users_friends WHERE id_user = ?';
+      const queryStr2 = 'SELECT * FROM events INNER JOIN users_events ON (users_events.id_users = ? and events.id=users_events.id_events)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js getFriendsEvents : ', err);
