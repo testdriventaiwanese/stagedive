@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import EventsReducer from './reducer_events';
 import ActiveEvent from './reducer_active_event';
 import SearchEvents from './reducer_search_events';
-import SaveResult from './reducer_save_result';
+import SaveEvent from './reducer_save_event';
 import GetEvents from './reducer_get_events';
 import GetUserInfo from './reducer_get_userinfo';
 import SignUp from './reducer_sign_up';
@@ -14,7 +14,11 @@ const rootReducer = combineReducers({
   events: EventsReducer,
   activeEvent: ActiveEvent,
   searchEvents: SearchEvents,
+<<<<<<< HEAD
   saveResult: SaveResult,
+=======
+  saveEvent: SaveEvent,
+>>>>>>> searchArtists
   getEvents: GetEvents,
   getUserInfo: GetUserInfo,
   signUp: SignUp,
