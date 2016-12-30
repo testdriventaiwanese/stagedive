@@ -14,11 +14,7 @@ const rootReducer = combineReducers({
   events: EventsReducer,
   activeEvent: ActiveEvent,
   searchEvents: SearchEvents,
-<<<<<<< HEAD
-  saveResult: SaveResult,
-=======
   saveEvent: SaveEvent,
->>>>>>> searchArtists
   getEvents: GetEvents,
   getUserInfo: GetUserInfo,
   signUp: SignUp,
