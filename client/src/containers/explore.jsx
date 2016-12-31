@@ -4,7 +4,8 @@ import { searchNearby } from '../actions/index'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AppBar from '../containers/app-bar';
-
+import MapComponent from '../containers/map';
+import GOOGLEMAPSAPIKEY from './GOOGLEMAPSAPIKEY.js';
 
 class Explore extends React.Component {
   constructor(props) {
@@ -39,7 +40,6 @@ class Explore extends React.Component {
     return (
       <div>
         <AppBar />
-          I'm the motherfucking map page.
           <Map
           google={this.props.google}
           onReady={this.onReady.bind(this)}
@@ -61,4 +61,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ searchNearby }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(Explore);
+// export default connect(null, mapDispatchToProps)(Explore);
+export default GoogleApiWrapper({
+  apiKey: GOOGLEMAPSAPIKEY
+})(Explore)
