@@ -26,6 +26,16 @@ module.exports = {
         }
       });
     },
+    findUser({ body: { query } }, res) {
+      userModel.users.findUser(query, (response) => {
+        if (!response) {
+          console.log('Issue retreiving users from database');
+          res.sendStatus(401);
+        } else {
+          res.json(response);
+        }
+      });
+    },
     changepassword({ body: { email, prevPassword, newPassword } }, res) {
       userModel.users.getPassword(email, (response) => {
         bcrypt.compare(prevPassword, response[0].password, (passwordErr, isMatch) => {
@@ -50,7 +60,7 @@ module.exports = {
     },
     getFriends(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
-      userModel.users.findById(id.sub, (response) => {
+      userModel.users.getFriends(id.sub, (response) => {
         if (!response) {
           console.log('Issue retreiving users from database');
           res.sendStatus(401);
@@ -61,7 +71,7 @@ module.exports = {
     },
     addfollow(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
-      const params = [id.sub, req.body.friendId];
+      const params = [id.sub, req.body.userId];
       userModel.users.addFollow(params, (response) => {
         if (!response) {
           console.log('Issue in adding to database');
@@ -73,7 +83,7 @@ module.exports = {
     },
     unfollow(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
-      const params = [id.sub, req.body.friendId];
+      const params = [id.sub, req.body.userId];
       userModel.users.unfollow(params, (response) => {
         if (!response) {
           console.log('Issue in adding to database');

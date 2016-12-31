@@ -14,6 +14,8 @@ export const SIGN_UP = 'SIGN_UP';
 export const LOG_IN = 'LOG_IN';
 export const REMOVE_EVENT = 'REMOVE_EVENT';
 export const SEARCH_ARTISTS = 'SEARCH_ARTISTS';
+export const SEARCH_USERS = 'SEARCH_USERS';
+export const GET_FRIENDS = 'GET_FRIENDS';
 
 module.exports = {
   selectEvent(event) {
@@ -23,7 +25,7 @@ module.exports = {
     };
   },
   searchEvents(query) {
-    const url = TM_ROOT_URL + 'keyword=' + query + '&&apikey=' + APIKEYS.TM;
+    const url = TM_ROOT_URL + 'keyword=' + query + '&&apikey=' + APIKEYS;
     const request = axios.get(url);
 
     console.log('REQUEST: ', request);
@@ -105,7 +107,7 @@ module.exports = {
     }
   },
   getEvents() {
-    var config = {
+    const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/events/getAll', config)
@@ -118,7 +120,7 @@ module.exports = {
     }
   },
   getFriendsEvents() {
-    var config = {
+    const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/events/getfriendsevents', config)
@@ -131,11 +133,11 @@ module.exports = {
     }
   },
   getUserInfo() {
-    var config = {
+    const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     let request = axios.get('/api/users/getinfo', config)
-      .catch((res) => {
+      .catch(() => {
         return {data: []};
       });
 
@@ -144,16 +146,73 @@ module.exports = {
       payload: request,
     }
   },
+  getFriends() {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    let getFriendsRequest = axios.get('/api/users/getfriends', config)
+      .catch(() => {
+        return {data: []};
+      });
+
+    return {
+      type: GET_FRIENDS,
+      payload: getFriendsRequest,
+    }
+  },
+  searchUsers(userQuery) {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    const userQueryObj = {
+      query: userQuery,
+    };
+    let searchUserResult = axios.post('/api/users/finduser', userQueryObj, config)
+      .catch(() => {
+        return { data: [] };
+      });
+    return {
+      type: SEARCH_USERS,
+      payload: searchUserResult,
+    };
+  },
+  addFollower(userId) {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    const addFollowObj = {
+      userId,
+    };
+    let addFollowerResult = axios.post('/api/users/addfollow', addFollowObj, config)
+      .then(() => {
+        browserHistory.push('/');
+      })
+      .catch(() => {
+        return { data: [] };
+      });
+  },
+  unfollow(userId) {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    const unfollowObj = {
+      userId,
+    };
+    let addFollowerResult = axios.post('/api/users/unfollow', unfollowObj, config)
+      .then(() => {
+        browserHistory.push('/');
+      })
+      .catch(() => {
+        return { data: [] };
+      });
+  },
   signUp(result) {
-    console.log('SIGNUP RESULT BEFORE OBJ: ', result);
     const resultObj = {
       email: result.email,
       password: result.password,
       fullname: result.name,
     };
-    axios.post('/auth/signup', resultObj).then((resp) => {
-      console.log("RESPONSE FROM SIGNUP FRONT :", resp);
-    });
+    axios.post('/auth/signup', resultObj);
 
     return {
       type: SIGN_UP,
@@ -166,14 +225,11 @@ module.exports = {
       password: result.password,
     };
     axios.post('/auth/login', resultObj).then((res) => {
-      console.log('RESPONSE FROM LOGIN FRONT ', res);
       return localStorage.setItem('token', res.data.token);
     })
     .then(() => {
-      console.log('LOG IN REDIRECT HAPPENING NOW');
       browserHistory.push('/');
     })
-
 
     return {
       type: LOG_IN,

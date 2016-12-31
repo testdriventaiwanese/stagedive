@@ -31,6 +31,7 @@ export default class DrawerLeft extends React.Component {
           />
           <Link to={"account"}>My Account</Link>
           <Link to={"journal"}>Concert Journal</Link>
+          <Link to={"explore"}>Explore Events</Link>
         </Drawer>
       </div>
     );

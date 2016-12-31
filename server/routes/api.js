@@ -11,7 +11,8 @@ router.post('/users/changepassword', userController.users.changepassword);
 router.post('/users/deleteuser', userController.users.deleteUser);
 router.get('/users/getall', userController.users.getAll);
 router.get('/users/getinfo', userController.users.getInfo);
-router.post('/users/getfriends', userController.users.getFriends);
+router.get('/users/getfriends', userController.users.getFriends);
+router.post('/users/finduser', userController.users.findUser);
 
 // event calls
 router.get('/events/getall', eventController.events.getUserEvents);

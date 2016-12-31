@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import { saveEvent } from '../actions/index';
+import { saveEvent, addFollower } from '../actions/index';
 import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
 import AppBar from '../containers/app-bar';
@@ -16,6 +16,7 @@ class SearchResults extends Component {
     };
     this.renderEvents = this.renderEvents.bind(this);
     this.renderArtists = this.renderArtists.bind(this);
+    this.renderUsers = this.renderUsers.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -89,6 +90,40 @@ class SearchResults extends Component {
     });
   }
 
+  renderUsers() {
+    let imageDiv = {
+      width: '35%',
+      float: 'left',
+      height: '248px',
+    };
+    let imageStyle = {
+      width: '100%',
+    };
+    if(this.props.users.length === 0) {
+      return (
+        <Paper zDepth={2}>
+          <div>
+            No Users Found
+          </div>
+          <br />
+        </Paper>
+      )
+    }
+
+    return this.props.users.map((user) => {
+      return (
+        <Paper key={user.id} zDepth={2}>
+          <div>
+            <div>{user.fullname}</div>
+            <div>{user.email}</div>
+            <button onClick={() => this.props.addFollower(user.id)}>Follow</button>
+          </div>
+          <br />
+        </Paper>
+      );
+    });
+  }
+
   render() {
     return (
       <div>
@@ -105,6 +140,9 @@ class SearchResults extends Component {
             <Tab label="Artists" value="artists" style={{backgroundColor: '#424242' }}>
               {this.renderArtists()}
             </Tab>
+            <Tab label="Friends" value="users" style={{backgroundColor: '#424242' }}>
+              {this.renderUsers()}
+            </Tab>
           </Tabs>
       </div>
     );
@@ -116,11 +154,12 @@ function mapStateToProps(state) {
   return {
     events: state.searchEvents,
     artists: state.searchArtists,
+    users: state.searchUsers,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ saveEvent }, dispatch);
+  return bindActionCreators({ saveEvent, addFollower }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

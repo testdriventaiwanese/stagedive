@@ -22,7 +22,16 @@ module.exports = {
         }
       });
     },
-
+    findUser(params, callback) {
+      const queryStr = 'SELECT id, email, fullname FROM users WHERE fullname LIKE CONCAT("%", ? , "%")';
+      db.query(queryStr, params, (err, results) => {
+        if (err) {
+          console.log('Error in server/userModel.js findOne : ', err);
+        } else {
+          callback(results);
+        }
+      });
+    },
     addOne(params, callback) {
       const queryStr = 'INSERT INTO users (email, password, fullname) VALUES (?, ?, ?)';
       db.query(queryStr, params, (err, results) => {
@@ -33,7 +42,6 @@ module.exports = {
         }
       });
     },
-
     getPassword(params, callback) {
       const queryStr = 'SELECT id, password, fullname FROM users WHERE email = ?';
       db.query(queryStr, params, (err, results) => {
@@ -56,11 +64,11 @@ module.exports = {
       });
     },
 
-    getFriends(callback) {
-      const queryStr = 'SELECT id, email, fullname FROM users INNER JOIN users_friends ON (users_events.id_user = ? AND users.id = users_friends.id_friend)';
-      db.query(queryStr, (err, results) => {
+    getFriends(params, callback) {
+      const queryStr = 'SELECT id, email, fullname FROM users INNER JOIN users_friends ON (users_friends.id_user = ? AND users.id = users_friends.id_friend)';
+      db.query(queryStr, params, (err, results) => {
         if (err) {
-          console.log('Error in server/userModel.js getPassword : ', err);
+          console.log('Error in server/userModel.js getFriends : ', err);
         } else {
           callback(results);
         }
@@ -96,18 +104,24 @@ module.exports = {
         }
       });
     },
-
     addFollow(params, callback) {
-      const queryStr = 'INSERT into users_friends (id_user, id_friend) VALUES (?, ?)';
+      const queryStr = 'SELECT * FROM users_friends WHERE id_user = ? AND id_friend = ?';
+      const queryStr2 = 'INSERT into users_friends (id_user, id_friend) VALUES (?, ?)';
       db.query(queryStr, params, (err, results) => {
-        if (err) {
+        if (results.length !== 0) {
           console.log('Error in server/userModel.js addFollow : ', err);
+          console.log('User already follows this friend');
         } else {
-          callback(results);
+          db.query(queryStr2, params, (err, results) => {
+            if (err) {
+              console.log('Error in server/userModel.js addFollow : ', err);
+            } else {
+              callback(results);
+            }
+          });
         }
       });
     },
-
     unfollow(params, callback) {
       const queryStr = 'DELETE FROM users_friends WHERE id_user = ? AND id_friend = ? ';
       db.query(queryStr, params, (err, results) => {
