@@ -26,6 +26,16 @@ module.exports = {
         }
       });
     },
+    findUser({ body: { query } }, res) {
+      userModel.users.findUser(query, (response) => {
+        if (!response) {
+          console.log('Issue retreiving users from database');
+          res.sendStatus(401);
+        } else {
+          res.json(response);
+        }
+      });
+    },
     changepassword({ body: { email, prevPassword, newPassword } }, res) {
       userModel.users.getPassword(email, (response) => {
         bcrypt.compare(prevPassword, response[0].password, (passwordErr, isMatch) => {

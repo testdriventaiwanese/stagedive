@@ -9,6 +9,7 @@ import SignUp from './reducer_sign_up';
 import LogIn from './reducer_log_in';
 import RemoveEvent from './reducer_remove_event';
 import SearchArtists from './reducer_search_artists';
+import SearchUsers from './reducer_search_users';
 
 const rootReducer = combineReducers({
   events: EventsReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   logIn: LogIn,
   removeEvent: RemoveEvent,
   searchArtists: SearchArtists,
+  searchUsers: SearchUsers,
 });
 
 export default rootReducer;

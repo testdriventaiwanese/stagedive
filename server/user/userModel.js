@@ -22,7 +22,16 @@ module.exports = {
         }
       });
     },
-
+    findUser(params, callback) {
+      const queryStr = 'SELECT id, email, fullname FROM users WHERE fullname LIKE CONCAT("%", ? , "%")';
+      db.query(queryStr, params, (err, results) => {
+        if (err) {
+          console.log('Error in server/userModel.js findOne : ', err);
+        } else {
+          callback(results);
+        }
+      });
+    },
     addOne(params, callback) {
       const queryStr = 'INSERT INTO users (email, password, fullname) VALUES (?, ?, ?)';
       db.query(queryStr, params, (err, results) => {
@@ -33,7 +42,6 @@ module.exports = {
         }
       });
     },
-
     getPassword(params, callback) {
       const queryStr = 'SELECT id, password, fullname FROM users WHERE email = ?';
       db.query(queryStr, params, (err, results) => {
