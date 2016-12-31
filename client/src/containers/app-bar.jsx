@@ -63,9 +63,10 @@ class NavBar extends Component {
         <Drawer
           open={this.state.open}
           style={{ backgroundColor: '#424242' }}>
-          <MenuItem onTouchTap={this.handleToggle} style={{ color: 'white' }}>Back</MenuItem>
-          <MenuItem style={{ color: 'white' }}><Link to={"account"}>My Account</Link></MenuItem>
-          <MenuItem><Link to={"journal"} style={{ color: 'white' }}>Concert Journal</Link></MenuItem>
+          <MenuItem onTouchTap={this.handleToggle}>Back</MenuItem>
+          <MenuItem><Link to={"account"} style={{ color: 'black' }}>My Account</Link></MenuItem>
+          <MenuItem><Link to={"journal"} style={{ color: 'black' }}>Concert Journal</Link></MenuItem>
+          <MenuItem><Link to={"explore"} style={{ color: 'black' }}>Explore</Link></MenuItem>
         </Drawer>
         <AppBar
           title="ConcertWallet"
