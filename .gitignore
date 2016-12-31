@@ -13,6 +13,7 @@ node_modules/
 ### API keys ###
 src/server/database/pw.js
 
+
 ### WIP ###
 src/client/public/bundle.js
 src/client/public/bundle.js.map
@@ -29,3 +30,4 @@ client/public/bundle.js
 
 ### API Key ###
 client/src/actions/APIKEYS.js
+client/src/containers/GOOGLEMAPSAPIKEY.js
