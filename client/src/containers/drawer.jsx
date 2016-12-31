@@ -11,7 +11,8 @@ export default class DrawerLeft extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: true};
+    this.state = {open: false};
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
   handleToggle = () => this.setState({open: !this.state.open});
@@ -24,6 +25,10 @@ export default class DrawerLeft extends React.Component {
           onTouchTap={this.handleToggle}
         />
         <Drawer open={this.state.open}>
+          <RaisedButton
+            label="Toggle Drawer"
+            onTouchTap={this.handleToggle}
+          />
           <Link to={"account"}>My Account</Link>
           <Link to={"journal"}>Concert Journal</Link>
         </Drawer>

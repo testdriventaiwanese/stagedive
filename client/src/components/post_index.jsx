@@ -15,8 +15,10 @@ class PostIndex extends Component {
   render() {
     return (
       <div>
-        <AppBar />
         <div>
+        </div>
+        <div>
+          <AppBar />
           <Link to={"account"}>My Account</Link>
           <Link to={"journal"}>Concert Journal</Link>
           <Link to={"explore"}>Explore</Link>
