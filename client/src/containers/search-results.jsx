@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import { saveEvent } from '../actions/index';
+import { saveEvent, addFollower } from '../actions/index';
 import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
 import AppBar from '../containers/app-bar';
@@ -116,6 +116,7 @@ class SearchResults extends Component {
           <div>
             <div>{user.fullname}</div>
             <div>{user.email}</div>
+            <button onClick={() => this.props.addFollower(user.id)}>Follow</button>
           </div>
           <br />
         </Paper>
@@ -158,7 +159,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ saveEvent }, dispatch);
+  return bindActionCreators({ saveEvent, addFollower }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

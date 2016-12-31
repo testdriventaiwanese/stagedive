@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { selectEvent, logoutUser } from '../actions/index';
 import { Link } from 'react-router';
 import EventList from '../containers/event-list';
+import Friends from '../containers/friends';
 import EventDetail from '../containers/event-detail';
 import SearchBar from '../containers/searchbar.jsx';
 import SearchResults from '../containers/search-results';
@@ -23,6 +24,7 @@ class PostIndex extends Component {
           <Link to={"journal"}>Concert Journal</Link>
           <Link to={"explore"}>Explore</Link>
           <EventList />
+          <Friends />
           <EventDetail />
         </div>
     </div>

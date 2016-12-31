@@ -15,6 +15,7 @@ export const LOG_IN = 'LOG_IN';
 export const REMOVE_EVENT = 'REMOVE_EVENT';
 export const SEARCH_ARTISTS = 'SEARCH_ARTISTS';
 export const SEARCH_USERS = 'SEARCH_USERS';
+export const GET_FRIENDS = 'GET_FRIENDS';
 
 module.exports = {
   selectEvent(event) {
@@ -145,6 +146,20 @@ module.exports = {
       payload: request,
     }
   },
+  getFriends() {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    let getFriendsRequest = axios.get('/api/users/getfriends', config)
+      .catch(() => {
+        return {data: []};
+      });
+
+    return {
+      type: GET_FRIENDS,
+      payload: getFriendsRequest,
+    }
+  },
   searchUsers(userQuery) {
     const config = {
       headers: { authHeader: localStorage.getItem('token') },
@@ -160,6 +175,36 @@ module.exports = {
       type: SEARCH_USERS,
       payload: searchUserResult,
     };
+  },
+  addFollower(userId) {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    const addFollowObj = {
+      userId,
+    };
+    let addFollowerResult = axios.post('/api/users/addfollow', addFollowObj, config)
+      .then(() => {
+        browserHistory.push('/');
+      })
+      .catch(() => {
+        return { data: [] };
+      });
+  },
+  unfollow(userId) {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    const unfollowObj = {
+      userId,
+    };
+    let addFollowerResult = axios.post('/api/users/unfollow', unfollowObj, config)
+      .then(() => {
+        browserHistory.push('/');
+      })
+      .catch(() => {
+        return { data: [] };
+      });
   },
   signUp(result) {
     const resultObj = {
