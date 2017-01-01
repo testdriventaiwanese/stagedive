@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import EventsReducer from './reducer_events';
 import ActiveEvent from './reducer_active_event';
 import SearchEvents from './reducer_search_events';
 import SaveEvent from './reducer_save_event';
@@ -11,9 +10,9 @@ import LogIn from './reducer_log_in';
 import RemoveEvent from './reducer_remove_event';
 import SearchArtists from './reducer_search_artists';
 import SearchUsers from './reducer_search_users';
+import Unfollow from './reducer_unfollow';
 
 const rootReducer = combineReducers({
-  events: EventsReducer,
   activeEvent: ActiveEvent,
   searchEvents: SearchEvents,
   saveEvent: SaveEvent,
@@ -25,6 +24,7 @@ const rootReducer = combineReducers({
   removeEvent: RemoveEvent,
   searchArtists: SearchArtists,
   searchUsers: SearchUsers,
+  unfollow: Unfollow,
 });
 
 export default rootReducer;

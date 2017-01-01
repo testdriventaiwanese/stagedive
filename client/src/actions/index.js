@@ -15,6 +15,7 @@ export const LOG_IN = 'LOG_IN';
 export const REMOVE_EVENT = 'REMOVE_EVENT';
 export const SEARCH_ARTISTS = 'SEARCH_ARTISTS';
 export const SEARCH_USERS = 'SEARCH_USERS';
+export const UNFOLLOW = 'UNFOLLOW';
 export const GET_FRIENDS = 'GET_FRIENDS';
 
 module.exports = {
@@ -191,20 +192,19 @@ module.exports = {
         return { data: [] };
       });
   },
-  unfollow(userId) {
+  unfollow(userId, index) {
     const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     const unfollowObj = {
       userId,
     };
-    let addFollowerResult = axios.post('/api/users/unfollow', unfollowObj, config)
-      .then(() => {
-        browserHistory.push('/');
-      })
-      .catch(() => {
-        return { data: [] };
-      });
+    let unfollowResult = axios.post('/api/users/unfollow', unfollowObj, config);
+    return {
+      type: 'UNFOLLOW',
+      userId,
+      index,
+    }
   },
   signUp(result) {
     const resultObj = {
