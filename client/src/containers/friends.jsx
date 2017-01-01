@@ -22,7 +22,7 @@ class Friends extends Component {
       )
     }
 
-    return this.props.friends.map((friend) => {
+    return this.props.friends.map((friend, i) => {
       return (
         <Paper key={friend.id} zDepth={2}>
           <div>
