@@ -61,9 +61,10 @@ class SearchResults extends Component {
       height: '248px',
     };
     let imageStyle = {
-      width: '100%',
+      width: '60%',
     };
-    if(this.props.artists.length === 0) {
+    let artist = this.props.artists;
+    if(!artist) {
       return (
         <Paper zDepth={2}>
           <div>
@@ -74,20 +75,20 @@ class SearchResults extends Component {
       )
     }
 
-    return this.props.artists.map((artist) => {
-      return (
-        <Paper key={artist.tracker_count} zDepth={2}>
-          <div>
-            <div style={imageDiv}>
-                <img src={artist.image_url} style={imageStyle}></img>
-            </div>
-            <div>{artist.name}</div>
-            <div><a href={artist.facebook_page_url}>Facebook Page</a></div>
+    return (
+      <Paper key={artist.mbid} zDepth={2}>
+        <div>
+          <div style={imageDiv}>
+            <img src={artist.image_url} style={imageStyle} alt="artist headshot" />
           </div>
-          <br />
-        </Paper>
-      );
-    });
+          <div>{artist.name}</div>
+          <div><a href={artist.facebook_page_url}>Facebook Page</a></div>
+          <div><a href={artist.facebook_tour_dates_url}>Facebook Tour Dates</a></div>
+          <div>Number of upcoming events: {artist.upcoming_event_count}</div>
+        </div>
+        <br />
+      </Paper>
+    );
   }
 
   renderUsers() {
