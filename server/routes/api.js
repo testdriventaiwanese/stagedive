@@ -1,6 +1,7 @@
 const express = require('express');
 const userController = require('../user/userController');
 const eventController = require('../event/eventController');
+const artistsController = require('../artists/artistsController');
 
 const router = new express.Router();
 
@@ -23,5 +24,13 @@ router.get('/events/showuserevents', eventController.events.showUserEvents);
 router.get('/events/showlocalevents', eventController.events.showLocalEvents);
 router.get('/events/showrelatedevents', eventController.events.showRelatedEvents);
 router.post('/events/deleteevent', eventController.events.deleteEvent);
+
+//artist calls
+router.get('/artists/getall', artistsController.artists.getUserArtists);
+router.post('/artists/addartist', artistsController.artists.addArtist);
+router.post('/artists/deleteartist', artistsController.artists.deleteArtist);
+router.get('/artists/showuserartists', artistsController.artists.showUserArtists);
+router.post('/artists/search', artistsController.artists.search);
+
 
 module.exports = router;
