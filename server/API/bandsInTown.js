@@ -1,22 +1,18 @@
 const request = require('request');
 
-formatUrl = (artist, city, state) => {
-   let location = city.replace(/\s+/g, '%20')+","+state;
-   console.log(location)
-  `http://api.bandsintown.com/artists/${artist}/events/search.json?api_version=2.0&app_id=rhino_music&location=${location}&radius=25`
-};
-
-eventSearch = () => {
-  request({url: 'http://api.bandsintown.com/artists/jai wolf.json?api_version=2.0&app_id=YASDFASDF'}, (error, res, body) => {
-  	console.log("RES", res, "BODY", body)
-    if (!error && res.statusCode === 200) {
-      // callback(body);
-    } else {
-      // callback({ error: 'Error'});
-    }
-  });
-};
 
 module.exports = {
-  searchArtists: eventSearch,
+  getArtist: (req, res) => {
+    const artist = req.headers.artist;
+    request.get({
+      url: `http://api.bandsintown.com/artists/${artist}.json?api_version=2.0&app_id=concert_wallet`,
+      method: 'GET',
+    }, (err, resp, body) => {
+      if (err) {
+        console.log('Error in bandsInTown getArtist: ', err);
+        return err;
+      }
+      res.status(200).send(body);
+    })
+  },
 };
