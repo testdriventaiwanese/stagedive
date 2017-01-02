@@ -127,7 +127,6 @@ class SearchResults extends Component {
   render() {
     return (
       <div>
-        <AppBar />
         <button onClick={browserHistory.goBack}>Back</button>
         <h1>Search Results</h1>
           <Tabs

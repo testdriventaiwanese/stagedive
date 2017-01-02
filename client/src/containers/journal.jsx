@@ -20,15 +20,15 @@ class Journal extends Component {
     let imageStyle = {
       width: '100%',
     };
-    console.log('THE USER INFO IN JOURNAL: ', this.props.userInfo);
+
     const dateStr = this.props.userInfo[0].createdOn.slice(0,19);
-    let currentDate = new Date(dateStr);
+    let currentDate = new Date();
 
     let pastEvents = this.props.events.filter((event) => {
       let eventDate = new Date(event.date.slice(0,19));
+      console.log('CURRENT DATE: ', currentDate, 'EVENT DATE: ', eventDate);
       return eventDate < currentDate;
     });
-
     return pastEvents.map((event) => {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
@@ -54,7 +54,6 @@ class Journal extends Component {
     console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
     return (
       <div>
-        <AppBar />
         <h1>Concert Journal</h1>
         <ul className="list-group col-sm-16">
           {this.renderList()}
