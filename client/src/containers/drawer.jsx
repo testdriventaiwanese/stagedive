@@ -29,6 +29,7 @@ export default class DrawerLeft extends React.Component {
             label="Toggle Drawer"
             onTouchTap={this.handleToggle}
           />
+          <Link to={"/"}>Home</Link>
           <Link to={"account"}>My Account</Link>
           <Link to={"journal"}>Concert Journal</Link>
           <Link to={"explore"}>Explore Events</Link>

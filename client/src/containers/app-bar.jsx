@@ -64,6 +64,7 @@ class NavBar extends Component {
           open={this.state.open}
           style={{ backgroundColor: '#424242' }}>
           <MenuItem onTouchTap={this.handleToggle}>Back</MenuItem>
+          <Link to={"/"} style={{ color: 'black' }}><MenuItem>Home</MenuItem></Link>
           <Link to={"account"} style={{ color: 'black' }}><MenuItem>My Account</MenuItem></Link>
           <Link to={"my-events"} style={{ color: 'black' }}><MenuItem>My Events</MenuItem></Link>
           <Link to={"journal"} style={{ color: 'black' }}><MenuItem>Concert Journal</MenuItem></Link>
