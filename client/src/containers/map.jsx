@@ -58,6 +58,7 @@ export class MapComponent extends React.Component {
   }
 }
 
+
 MapComponent.propTypes = {
   onMarkerClick: T.func
 }
@@ -65,8 +66,6 @@ const identity = (...a) => a;
 MapComponent.defaultProps = {
   onMarkerClick: identity
 }
-
-// export default MapComponent
 
 export default GoogleApiWrapper({
   apiKey: GOOGLEMAPSAPIKEY
