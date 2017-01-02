@@ -19,7 +19,6 @@ class PostIndex extends Component {
         <div>
         </div>
         <div>
-          <AppBar />
           <Link to={"account"}>My Account</Link>
           <Link to={"journal"}>Concert Journal</Link>
           <Link to={"explore"}>Explore</Link>

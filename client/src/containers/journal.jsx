@@ -54,7 +54,6 @@ class Journal extends Component {
     console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
     return (
       <div>
-        <AppBar />
         <h1>Concert Journal</h1>
         <ul className="list-group col-sm-16">
           {this.renderList()}
