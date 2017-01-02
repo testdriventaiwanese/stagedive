@@ -43,7 +43,6 @@ export class MapComponent extends React.Component {
 
     return (
       <div>
-      <AppBar />
       <Map map={this.props.map}
         google={this.props.google}
         zoom={this.props.zoom}

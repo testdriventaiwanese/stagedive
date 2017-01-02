@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
+import AppBar from '../containers/app-bar';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -13,6 +13,7 @@ export default class App extends Component {
     return (
       <MuiThemeProvider>
           <div>
+            <AppBar />
             {this.props.children}
           </div>
       </MuiThemeProvider>

@@ -39,7 +39,6 @@ class Explore extends React.Component {
 
     return (
       <div>
-        <AppBar />
           <Map
           google={this.props.google}
           onReady={this.onReady.bind(this)}
