@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { selectEvent } from '../actions/index';
 import { getEvents, removeEvent, getUserInfo } from '../actions/index';
-import Upcoming from './upcoming-event';
 
-class EventList extends Component {
-  componentWillMount() {
-    this.props.getEvents();
-    // this.props.getUserInfo();
-  }
+class Upcoming extends Component {
+  // componentWillMount() {
+  //   this.props.getEvents();
+  // }
 
   renderList() {
     let imageDiv = {
@@ -20,23 +18,28 @@ class EventList extends Component {
     let imageStyle = {
       width: '100%',
     };
-    // const dateStr = this.props.userInfo[0].createdOn.slice(0,19);
-    // let currentDate = new Date(dateStr);
-    //
-    // let futureEvents = this.props.events.filter((event) => {
-    //   let eventDate = new Date(event.date.slice(0,19));
-    //   return eventDate > currentDate;
+    let sortByDate = [];
+    // let event = {date:}
+    // let dateArray = this.props.events.map((event) => {
+    //   event.dateObj = new Date(event.date.slice(0,10));
     // });
-
-    return this.props.events.map((event) => {
-      let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
-      // let dateObj = new Date(event.date.slice(0,10));
-      // let date = dateObj.toString();
+    // console.log('THIS IS DATEARRAY IN UPCOMING: ', dateArray);
+    if(this.props.events.length > 0) {
+      sortByDate = this.props.events.sort((a,b)=> {
+        let aDate = new Date(a.date.slice(0,10));
+        let bDate = new Date(b.date.slice(0,10));
+        return aDate - bDate;
+      })
+      let event = this.props.events[0];
+      console.log('THIS IS THE SORTBYDATE: ', sortByDate);
+      let dateObj = new Date(event.date.slice(0,10));
+      let date = dateObj.toString();
       let time = event.date.slice(11, 16);
       return (
-        <div key={event.id} className="list-group-item">
+        <div className="list-group-item">
+          <h1>Upcoming Event</h1>
           <div style={imageDiv}>
-              <img src={event.image} style={imageStyle}></img>
+            <img src={event.image} style={imageStyle}></img>
           </div>
           <div>
             <p><strong>{event.name}</strong></p>
@@ -50,14 +53,13 @@ class EventList extends Component {
           </div>
         </div>
       );
-    });
+    }
   }
 //          onClick={() => this.props.selectEvent(event)}
   render() {
     console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
     return (
       <div>
-        <Upcoming />
         <h1>Events Feed</h1>
         <ul className="list-group col-sm-16">
           {this.renderList()}
@@ -81,4 +83,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventList);
+export default connect(mapStateToProps, mapDispatchToProps)(Upcoming);
