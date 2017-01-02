@@ -28,7 +28,9 @@ class EventList extends Component {
     // });
 
     return this.props.events.map((event) => {
-      let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
+      // let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
+      let dateObj = new Date(event.date.slice(0,10));
+      let date = dateObj.toString();
       let time = event.date.slice(11, 16);
       return (
         <div key={event.id} className="list-group-item">
@@ -40,7 +42,7 @@ class EventList extends Component {
             <p>{event.venue}</p>
             <span>{event.city}</span>
             <p>{event.country}</p>
-            <span>Date: {date}</span>
+            <span>{date}</span>
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
             <p onClick={() => this.props.removeEvent(event)}>Remove Event</p>

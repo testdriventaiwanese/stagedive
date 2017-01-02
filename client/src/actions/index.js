@@ -26,7 +26,7 @@ module.exports = {
     };
   },
   searchEvents(query) {
-    const url = TM_ROOT_URL + 'keyword=' + query + '&&apikey=' + APIKEYS;
+    const url = TM_ROOT_URL + 'keyword=' + query + '&&apikey=' + APIKEYS.TM;
     const request = axios.get(url);
 
     console.log('REQUEST: ', request);
