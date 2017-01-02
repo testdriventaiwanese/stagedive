@@ -242,13 +242,13 @@ module.exports = {
     browserHistory.push('/login')
   },
   searchArtists(query) {
-    // const url = BIM_ROOT_URL + query + '.json?api_version=2.0&app_id=' + APIKEYS.BIM;
     const config = {
-      headers: {'Access-Control-Allow-Origin': '*' },
-    }
-    const url = 'http://api.bandsintown.com/artists/Skrillex.json?api_version=2.0&app_id=asdfafd'
-    const request = axios.get(url, config);
-    // const request = searchArtists;
+      headers: {
+        authHeader: localStorage.getItem('token'),
+        artist: query,
+      },
+    };
+    const request = axios.get('/api/bandsintown/getartist', config);
     console.log('REQUEST FROM BANDS IN TOWN: ', request);
     return {
       type: SEARCH_ARTISTS,
