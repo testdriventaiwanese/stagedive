@@ -57,7 +57,8 @@ DROP TABLE IF EXISTS `users_events`;
 
 CREATE TABLE `users_events` (
   `id_users` INTEGER NOT NULL,
-  `id_events` INTEGER NOT NULL
+  `id_events` INTEGER NOT NULL,
+  `createdOn` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ---
@@ -73,6 +74,18 @@ CREATE TABLE `users_friends` (
 );
 
 -- ---
+-- Table 'users_artists'
+--
+-- ---
+
+DROP TABLE IF EXISTS `users_artists`;
+
+CREATE TABLE `users_artists` (
+  `id_artists` INTEGER NOT NULL,
+  `id_users` INTEGER NOT NULL
+);
+
+-- ---
 -- Table 'artists'
 --
 -- ---
@@ -81,9 +94,15 @@ DROP TABLE IF EXISTS `artists`;
 
 CREATE TABLE `artists` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
+  `bit_id` INTEGER NOT NULL,
+  `name` VARCHAR(150) NOT NULL,
+  `image` VARCHAR(255) NULL DEFAULT NULL,
+  `events` VARCHAR(255) NULL DEFAULT NULL,
+  `facebook` VARCHAR(255) NULL DEFAULT NULL,
+  `upcoming_events` INTEGER NOT NULL,
   PRIMARY KEY (`id`)
 );
+
 
 -- ---
 -- Foreign Keys
@@ -94,6 +113,9 @@ ALTER TABLE `users_events` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
 ALTER TABLE `users_events` ADD FOREIGN KEY (id_events) REFERENCES `events` (`id`);
 ALTER TABLE `users_friends` ADD FOREIGN KEY (id_user) REFERENCES `users` (`id`);
 ALTER TABLE `users_friends` ADD FOREIGN KEY (id_friend) REFERENCES `users` (`id`);
+ALTER TABLE `users_artists` ADD FOREIGN KEY (id_artists) REFERENCES `artists` (`id`);
+ALTER TABLE `users_artists` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
+
 
 -- ---
 -- Table Properties
