@@ -19,9 +19,6 @@ class PostIndex extends Component {
         <div>
         </div>
         <div>
-          <Link to={"account"}>My Account</Link>
-          <Link to={"journal"}>Concert Journal</Link>
-          <Link to={"explore"}>Explore</Link>
           <EventList />
           <Friends />
           <EventDetail />
