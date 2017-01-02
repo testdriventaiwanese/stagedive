@@ -27,8 +27,15 @@ class EventList extends Component {
     //   let eventDate = new Date(event.date.slice(0,19));
     //   return eventDate > currentDate;
     // });
+    let currentDate = new Date();
 
-    return this.props.events.map((event) => {
+    return this.props.events.sort((a, b) => {
+      let aDate = new Date(a.date.slice(0,10));
+      let bDate = new Date(b.date.slice(0,10));
+      return aDate - bDate;
+    })
+    .slice(1)
+    .map((event) => {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       // let dateObj = new Date(event.date.slice(0,10));
       // let date = dateObj.toString();
