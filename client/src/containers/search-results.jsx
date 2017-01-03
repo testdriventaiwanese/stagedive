@@ -137,6 +137,7 @@ class SearchResults extends Component {
           <div>
             <div onClick={() => this.props.getOtherUserEvents(user.id)}>{user.fullname}</div>
             <div>{user.email}</div>
+            <button onClick={() => this.props.getOtherUserEvents(user.id)}>See Profile</button>
             <button onClick={() => this.props.addFollower(user.id)}>Follow</button>
           </div>
           <br />
