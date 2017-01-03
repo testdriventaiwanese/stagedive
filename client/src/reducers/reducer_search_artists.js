@@ -1,12 +1,11 @@
 export default function (state = [], action) {
   switch (action.type) {
     case 'SEARCH_ARTISTS':
-    console.log('ARTISTS GOT: ', action.payload);
-      if (!action.payload.data) {
-        return [];
+      if (!action.payload) {
+        return state;
       }
       else {
-        return action.payload.data;
+        return action.payload;
       }
     default:
       return state;

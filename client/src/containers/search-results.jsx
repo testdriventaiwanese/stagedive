@@ -61,8 +61,13 @@ class SearchResults extends Component {
     const imageStyle = {
       width: '60%',
     };
-    const bandsintown = this.props.artists.bandsintown.data;
-    const songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
+    let bandsintown = this.props.artists.bandsintown;
+    let songkick = this.props.artists.songkick;
+    if(this.props.artists.bandsintown !== undefined || this.props.artists.songkick !== undefined){
+      bandsintown = this.props.artists.bandsintown.data;
+      songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
+    }
+    console.log('ARTISTS this.props: ', this.props.artists)
     if (!bandsintown) {
       return (
         <Paper zDepth={2}>

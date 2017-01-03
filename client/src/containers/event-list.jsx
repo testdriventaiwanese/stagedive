@@ -54,7 +54,6 @@ class EventList extends Component {
   }
 //          onClick={() => this.props.selectEvent(event)}
   render() {
-    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
     return (
       <div>
         <Upcoming />
