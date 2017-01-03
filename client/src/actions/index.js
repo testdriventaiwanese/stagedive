@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import axios from 'axios';
 import APIKEYS from './APIKEYS.js';
 
@@ -79,7 +79,7 @@ module.exports = {
     };
     axios.post('/api/events/addevent', eventObj, config)
     .then((resp) => {
-      browserHistory.push('/');
+      hashHistory.push('/');
     });
 
     return {
@@ -104,7 +104,7 @@ module.exports = {
     };
     axios.post('/api/artists/addartist', artistObj, config)
       .then(() => {
-        browserHistory.push('/');
+        hashHistory.push('/');
       })
     return {
       type: SAVE_ARTIST,
@@ -125,7 +125,7 @@ module.exports = {
     };
     axios.post('/api/events/deleteevent', resultObj, config)
     .then(() => {
-      browserHistory.replace('/');
+      hashHistory.replace('/');
     });
 
     return {
@@ -222,7 +222,7 @@ module.exports = {
     };
     let addFollowerResult = axios.post('/api/users/addfollow', addFollowObj, config)
       .then(() => {
-        browserHistory.push('/');
+        hashHistory.push('/');
       })
       .catch(() => {
         return { data: [] };
@@ -264,7 +264,7 @@ module.exports = {
       return localStorage.setItem('token', res.data.token);
     })
     .then(() => {
-      browserHistory.push('/');
+      hashHistory.push('/');
     })
 
     return {
@@ -275,7 +275,7 @@ module.exports = {
   logoutUser() {
     console.log('loggingout')
     localStorage.removeItem('token')
-    browserHistory.push('/login')
+    hashHistory.push('/login')
   },
   searchArtistEvents(query) {
     const config = {
