@@ -1,7 +1,7 @@
 export default function(state = { events: [], futureEvents: [] }, action) {
   switch(action.type) {
     case 'GET_USER_EVENTS':
-    console.log('THIS IS THE GET EVENTS REDUCER: ', action.payload);
+    console.log('THIS IS THE GET USER EVENTS REDUCER: ', action.payload);
       let events = action.payload.data.length === 0 ? state : action.payload.data;
       let currentDate = new Date();
       let futureEvents = events.sort((a, b) => {
