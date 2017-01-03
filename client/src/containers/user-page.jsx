@@ -10,6 +10,16 @@ class UserPage extends Component {
     // this.props.getOtherUserEvents();
   }
 
+  renderProfileBar() {
+    return (
+      <div>
+        <h1>
+          {this.props.events.userInfo.fullname}
+        </h1>
+      </div>
+    )
+  }
+
   renderUpcoming() {
     let imageDiv = {
       width: '35%',
@@ -29,6 +39,7 @@ class UserPage extends Component {
       let time = event.date.slice(11, 16);
       return (
         <div className="list-group-item">
+          <div>{this.renderProfileBar()}</div>
           <h1>Upcoming Event</h1>
           <div style={imageDiv}>
             <img src={event.image} style={imageStyle}></img>
@@ -100,7 +111,6 @@ class UserPage extends Component {
 function mapStateToProps(state) {
   return {
     events: state.userEvents,
-    userInfo: state.searchUsers,
   };
 }
 
