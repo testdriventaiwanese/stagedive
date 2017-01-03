@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Paper from 'material-ui/Paper';
 // import { selectEvent } from '../actions/index';
 import { getEvents, removeEvent, getUserInfo } from '../actions/index';
 
@@ -14,6 +15,7 @@ class EventList extends Component {
       width: '35%',
       float: 'left',
       height: '248px',
+      margin: '10px',
     };
     let imageStyle = {
       width: '100%',
@@ -27,7 +29,7 @@ class EventList extends Component {
       // let date = dateObj.toString();
       let time = event.date.slice(11, 16);
       return (
-        <div className="list-group-item">
+        <Paper className="list-group-item" zDepth={2}>
           <h1>Upcoming Event</h1>
           <div style={imageDiv}>
             <img src={event.image} style={imageStyle}></img>
@@ -42,7 +44,7 @@ class EventList extends Component {
             <p><a href={event.event_url}>Buy Tickets</a></p>
             <p onClick={() => this.props.removeEvent(event)}>Remove Event</p>
           </div>
-        </div>
+        </Paper>
       );
     }
   }
@@ -52,6 +54,7 @@ class EventList extends Component {
       width: '35%',
       float: 'left',
       height: '248px',
+      margin: '10px',
     };
     let imageStyle = {
       width: '100%',
@@ -63,7 +66,7 @@ class EventList extends Component {
       // let date = dateObj.toString();
       let time = event.date.slice(11, 16);
       return (
-        <div key={event.id} className="list-group-item">
+        <Paper key={event.id} className="list-group-item" zDepth={2}>
           <div style={imageDiv}>
               <img src={event.image} style={imageStyle}></img>
           </div>
@@ -77,7 +80,7 @@ class EventList extends Component {
             <p><a href={event.event_url}>Buy Tickets</a></p>
             <p onClick={() => this.props.removeEvent(event)}>Remove Event</p>
           </div>
-        </div>
+        </Paper>
       );
     });
   }

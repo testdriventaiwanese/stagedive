@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import { saveEvent, addFollower, saveArtist, getOtherUserEvents } from '../actions/index';
-import SearchBar from './searchbar';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
-import AppBar from '../containers/app-bar';
 import RaisedButton from 'material-ui/RaisedButton';
+import { saveEvent, addFollower, saveArtist } from '../actions/index';
 
 
 class SearchResults extends Component {
@@ -28,14 +26,7 @@ class SearchResults extends Component {
 
   renderEvents() {
     if (this.props.events.length === 0) {
-      return (
-        <Paper zDepth={2}>
-          <div>
-            No Events Found
-          </div>
-          <br />
-        </Paper>
-      )
+      return <div>No Results Found</div>
     }
     return this.props.events.map((event) => {
       const city = () => {
@@ -72,13 +63,11 @@ class SearchResults extends Component {
     };
     let bandsintown = this.props.artists.bandsintown;
     let songkick = this.props.artists.songkick;
-    console.log('ARTISTS PROPS: ', this.props.artists);
-    if(this.props.artists.bandsintown !== undefined || this.props.artists.songkick !== undefined) {
+    if(this.props.artists.bandsintown !== undefined || this.props.artists.songkick !== undefined){
       bandsintown = this.props.artists.bandsintown.data;
-      songkick = this.props.artists.songkick.data.resultsPage.results.artist ?
-      this.props.artists.songkick.data.resultsPage.results.artist[0] : null;
+      songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
     }
-    if (!songkick) {
+    if (!bandsintown) {
       return (
         <Paper zDepth={2}>
           <div>
@@ -135,7 +124,7 @@ class SearchResults extends Component {
       return (
         <Paper key={user.id} zDepth={2}>
           <div>
-            <div onClick={() => this.props.getOtherUserEvents(user.id)}>{user.fullname}</div>
+            <div>{user.fullname}</div>
             <div>{user.email}</div>
             <button onClick={() => this.props.addFollower(user.id)}>Follow</button>
           </div>
@@ -179,7 +168,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ saveEvent, addFollower, saveArtist, getOtherUserEvents }, dispatch);
+  return bindActionCreators({ saveEvent, addFollower, saveArtist }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
