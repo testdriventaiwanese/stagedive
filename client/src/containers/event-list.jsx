@@ -3,12 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { selectEvent } from '../actions/index';
 import { getEvents, removeEvent, getUserInfo } from '../actions/index';
-import Upcoming from './upcoming-event';
 
 class EventList extends Component {
   componentWillMount() {
     this.props.getEvents();
-    // this.props.getUserInfo();
   }
 
   renderUpcoming() {
@@ -99,8 +97,6 @@ class EventList extends Component {
 }
 
 function mapStateToProps(state) {
-  // Whatever is returned will show up as props
-  // inside of BookList
   return {
     events: state.getEvents,
     userInfo: state.getUserInfo,
