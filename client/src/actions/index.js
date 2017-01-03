@@ -293,15 +293,15 @@ module.exports = {
     });
   },
   getOtherUserEvents(userId) {
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    const request = axios.get('/api/events/getAll', config)
+    // const config = {
+    //   headers: { authHeader: localStorage.getItem('token') },
+    // };
+    const request = axios.get('/api/events/getAll', userId)
     .catch((res) => {
       return {data: []};
     });
     return {
-      type: GET_EVENTS,
+      type: GET_USER_EVENTS,
       payload: request,
     }
   },

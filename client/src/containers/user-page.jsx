@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { selectEvent } from '../actions/index';
-import { getEvents, removeEvent, getUserInfo } from '../actions/index';
+import { getOtherUserEvents, removeEvent, getUserInfo } from '../actions/index';
 
 class UserList extends Component {
   componentWillMount() {
-    this.props.getEvents();
+    this.props.getOtherUserEvents();
   }
 
   renderUpcoming() {
@@ -98,13 +98,13 @@ class UserList extends Component {
 
 function mapStateToProps(state) {
   return {
-    events: state.getEvents,
-    userInfo: state.getUserInfo,
+    events: state.userEvents,
+    userInfo: state.searchUsers,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent, getEvents, getUserInfo }, dispatch);
+  return bindActionCreators({ removeEvent, getOtherUserEvents, getUserInfo }, dispatch);
 }
 
 
