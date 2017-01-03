@@ -6,7 +6,7 @@ import { getOtherUserEvents, removeEvent, getUserInfo } from '../actions/index';
 
 class UserList extends Component {
   componentWillMount() {
-    this.props.getOtherUserEvents();
+    // this.props.getOtherUserEvents();
   }
 
   renderUpcoming() {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import { saveEvent, addFollower } from '../actions/index';
+import { saveEvent, addFollower, getOtherUserEvents } from '../actions/index';
 import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
 import AppBar from '../containers/app-bar';
@@ -131,7 +131,7 @@ class SearchResults extends Component {
       return (
         <Paper key={user.id} zDepth={2}>
           <div>
-            <div>{user.fullname}</div>
+            <div onClick={() => this.props.getOtherUserEvents(user.id)}>{user.fullname}</div>
             <div>{user.email}</div>
             <button onClick={() => this.props.addFollower(user.id)}>Follow</button>
           </div>
@@ -175,7 +175,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ saveEvent, addFollower }, dispatch);
+  return bindActionCreators({ saveEvent, addFollower, getOtherUserEvents }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
