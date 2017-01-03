@@ -19,10 +19,15 @@ class SearchResults extends Component {
     this.renderArtists = this.renderArtists.bind(this);
     this.renderUsers = this.renderUsers.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onProfileClick = this.onProfileClick.bind(this);
   }
 
   handleChange(value) {
     this.setState({ value });
+  }
+
+  onProfileClick(user) {
+    this.props.getOtherUserEvents(user);
   }
 
   renderEvents() {
@@ -130,14 +135,14 @@ class SearchResults extends Component {
       )
     }
 
-    return this.props.users.map((user) => {
+    return this.props.users.map((user, index) => {
       return (
         <Paper key={user.id} zDepth={2}>
           <div>
-            <div onClick={() => this.props.getOtherUserEvents(user.id)}>{user.fullname}</div>
+            <div>{user.fullname}</div>
             <div>{user.email}</div>
             <Link to={`/view/${user.id}`}>
-              <button onClick={() => this.props.getOtherUserEvents(user.id)}>See Profile</button>
+              <button onClick={this.onProfileClick(user)}>See Profile</button>
             </Link>
             <button onClick={() => this.props.addFollower(user.id)}>Follow</button>
           </div>
