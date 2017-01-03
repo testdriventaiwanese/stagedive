@@ -31,7 +31,6 @@ class Upcoming extends Component {
         return aDate - bDate;
       })
       let event = this.props.events[0];
-      console.log('THIS IS THE SORTBYDATE: ', sortByDate);
       let dateObj = new Date(event.date.slice(0,10));
       let date = dateObj.toString();
       let time = event.date.slice(11, 16);
@@ -55,12 +54,9 @@ class Upcoming extends Component {
       );
     }
   }
-//          onClick={() => this.props.selectEvent(event)}
   render() {
-    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
     return (
       <div>
-        <h1>Events Feed</h1>
         <ul className="list-group col-sm-16">
           {this.renderList()}
         </ul>
