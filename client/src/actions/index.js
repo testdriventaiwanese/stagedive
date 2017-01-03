@@ -339,6 +339,7 @@ module.exports = {
     .catch((res) => {
       return {data: []};
     });
+    console.log('IN getOtherUserEvents REQUEST: ', request);
     return {
       type: GET_USER_EVENTS,
       payload: request,

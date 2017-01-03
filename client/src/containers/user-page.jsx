@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 // import { selectEvent } from '../actions/index';
 import { getOtherUserEvents, removeEvent, getUserInfo } from '../actions/index';
 
-class UserList extends Component {
+class UserPage extends Component {
   componentWillMount() {
     // this.props.getOtherUserEvents();
   }
@@ -108,4 +109,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventList);
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
