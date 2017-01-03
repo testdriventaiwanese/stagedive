@@ -28,7 +28,14 @@ class SearchResults extends Component {
 
   renderEvents() {
     if (this.props.events.length === 0) {
-      return <div>No Results Found</div>
+      return (
+        <Paper zDepth={2}>
+          <div>
+            No Events Found
+          </div>
+          <br />
+        </Paper>
+      )
     }
     return this.props.events.map((event) => {
       const city = () => {
@@ -65,11 +72,13 @@ class SearchResults extends Component {
     };
     let bandsintown = this.props.artists.bandsintown;
     let songkick = this.props.artists.songkick;
-    if(this.props.artists.bandsintown !== undefined || this.props.artists.songkick !== undefined){
+    console.log('ARTISTS PROPS: ', this.props.artists);
+    if(this.props.artists.bandsintown !== undefined || this.props.artists.songkick !== undefined) {
       bandsintown = this.props.artists.bandsintown.data;
-      songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
+      songkick = this.props.artists.songkick.data.resultsPage.results.artist ?
+      this.props.artists.songkick.data.resultsPage.results.artist[0] : null;
     }
-    if (!bandsintown) {
+    if (!songkick) {
       return (
         <Paper zDepth={2}>
           <div>

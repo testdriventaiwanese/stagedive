@@ -272,7 +272,10 @@ module.exports = {
       payload: axios.all([bandsintownArtistSearch(), songkickArtistSearch()])
       .then(axios.spread((bandsintown, songkick) => {
         return { bandsintown, songkick };
-      })),
+      }))
+      .catch(() => {
+        return { bandsintown: [], songkick: [] };
+      }),
     };
   },
   searchNearby(google, map, request) {
@@ -288,5 +291,18 @@ module.exports = {
         }
       })
     });
+  },
+  getOtherUserEvents(userId) {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    const request = axios.get('/api/events/getAll', config)
+    .catch((res) => {
+      return {data: []};
+    });
+    return {
+      type: GET_EVENTS,
+      payload: request,
+    }
   },
 };
