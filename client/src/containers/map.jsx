@@ -16,15 +16,12 @@ class Map extends React.Component {
     if (this.props && this.props.google) {
       const { google } = this.props;
       const maps = google.maps;
-
       const mapRef = this.refs.map;
-
+      console.log('mapRef:: ', mapRef);
       const node = ReactDOM.findDOMNode(mapRef);
-
-      const zoom = 14;
       let crd;
-      let center;
       const position = navigator.geolocation.getCurrentPosition((pos) => {
+        const zoom = 16;
         crd = pos.coords;
         console.log(`Latitude : ${crd.latitude}`);
         console.log(`Longitude: ${crd.longitude}`);
@@ -56,6 +53,7 @@ export class MapComponent extends React.Component {
     }
     return (
       <div ref="map" style={style}>
+        <h1>Explore</h1>
         <Map google={this.props.google} />
       </div>
     );
