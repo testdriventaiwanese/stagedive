@@ -1,8 +1,9 @@
+import { browserHistory } from 'react-router';
 import axios from 'axios';
 import APIKEYS from './APIKEYS.js';
+
 const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
-const BIM_ROOT_URL = 'http://api.bandsintown.com/artists/';
-import { browserHistory } from 'react-router';
+
 // import {searchArtists} from '../../../server/API/bandsInTown.js';
 
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
@@ -28,8 +29,6 @@ module.exports = {
   searchEvents(query) {
     const url = TM_ROOT_URL + 'keyword=' + query + '&&apikey=' + APIKEYS.TM;
     const request = axios.get(url);
-
-    console.log('REQUEST: ', request);
     return {
       type: SEARCH_EVENTS,
       payload: request,
@@ -268,13 +267,12 @@ module.exports = {
     const songkickArtistSearch = () => {
       return axios.get('/api/songkick/getartist', config);
     }
-    const request = axios.all([bandsintownArtistSearch(), songkickArtistSearch()])
-      .then(axios.spread((bandsintown, songkick) => {
-        return { bandsintown, songkick };
-      }));
     return {
       type: SEARCH_ARTISTS,
-      payload: request,
+      payload: axios.all([bandsintownArtistSearch(), songkickArtistSearch()])
+      .then(axios.spread((bandsintown, songkick) => {
+        return { bandsintown, songkick };
+      })),
     };
   },
   searchNearby(google, map, request) {

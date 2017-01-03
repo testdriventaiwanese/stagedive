@@ -58,7 +58,6 @@ class EventList extends Component {
     });
   }
   render() {
-    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
     return (
       <div>
         <Upcoming />
