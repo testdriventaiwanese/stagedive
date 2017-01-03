@@ -14,9 +14,10 @@ class Artists extends Component {
       width: '35%',
       float: 'left',
       height: '248px',
+      margin: '10px',
     };
     const imageStyle = {
-      width: '60%',
+      width: '100%',
     };
     if (this.props.artists.length === 0) {
       return (
@@ -30,16 +31,18 @@ class Artists extends Component {
     }
     return this.props.artists.map((artist) => {
       return (
-        <Paper key={artist.id} zDepth={2}>
+        <Paper key={artist.id} className="list-group-item" zDepth={2}>
           <div>
             <div style={imageDiv}>
               <img src={artist.image} style={imageStyle} alt="artist headshot" />
             </div>
-            <div><strong>{artist.name}</strong></div>
-            <div>{artist.facebook}</div>
-            <div>{artist.events}</div>
-            <div>On Tour until: {artist.onTourUntil}</div>
-            <div>Remaining Tour Dates: {artist.upcoming_events}</div>
+            <div>
+              <p><strong>{artist.name}</strong></p>
+              <p>{artist.facebook}</p>
+              <p>{artist.events}</p>
+              <p>On Tour until: {artist.onTourUntil}</p>
+              <p>Remaining Tour Dates: {artist.upcoming_events}</p>
+            </div>
           </div>
         </Paper>
       );
@@ -50,7 +53,9 @@ class Artists extends Component {
     return (
       <div>
         <h3>Artists Following</h3>
-        <div>{this.renderArtists()}</div>
+        <ul className='list-group col-sm-16'>
+          {this.renderArtists()}
+        </ul>
       </div>
     );
   }
