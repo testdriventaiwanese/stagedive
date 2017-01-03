@@ -104,6 +104,21 @@ CREATE TABLE `artists` (
   PRIMARY KEY (`id`)
 );
 
+-- ---
+-- Table 'comments'
+--
+-- ---
+
+DROP TABLE IF EXISTS `comments`;
+
+CREATE TABLE `comments` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `id_users` INTEGER NOT NULL,
+  `id_events` INTEGER NOT NULL,
+  `text` VARCHAR(255) NOT NULL,
+  `createdOn` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
 
 -- ---
 -- Foreign Keys
@@ -116,6 +131,8 @@ ALTER TABLE `users_friends` ADD FOREIGN KEY (id_user) REFERENCES `users` (`id`);
 ALTER TABLE `users_friends` ADD FOREIGN KEY (id_friend) REFERENCES `users` (`id`);
 ALTER TABLE `users_artists` ADD FOREIGN KEY (id_artists) REFERENCES `artists` (`id`);
 ALTER TABLE `users_artists` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
+ALTER TABLE `comments` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
+ALTER TABLE `comments` ADD FOREIGN KEY (id_events) REFERENCES `events` (`id`);
 
 
 -- ---
@@ -127,18 +144,3 @@ ALTER TABLE `users_artists` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`)
 -- ALTER TABLE `users_events` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `users_friends` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `artists` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- ---
--- Test Data
--- ---
-
--- INSERT INTO `events` (`id`,`tm_id`,`name`,`artist_name`,`date`,`genre`,`event_url`,`venue`,`venue_address`,`city`,`zipcode`,`image`,`subgenre`,`latitude`,`longitude`,`id_artists`) VALUES
--- ('','','','','','','','','','','','','','','','');
--- INSERT INTO `users` (`id`,`email`,`password`,`fullname`) VALUES
--- ('','','','');
--- INSERT INTO `users_events` (`id_users`,`id_events`) VALUES
--- ('','');
--- INSERT INTO `users_friends` (`id_user`,`id_friend`) VALUES
--- ('','');
--- INSERT INTO `artists` (`id`,`name`) VALUES
--- ('','');
