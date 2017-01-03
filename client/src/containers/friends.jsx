@@ -15,14 +15,14 @@ class Friends extends Component {
       return (
         <Paper zDepth={2}>
           <div>
-            You're not following anyone! Search artists or friends to follow
+            You're not following any friends!
           </div>
           <br />
         </Paper>
       )
     }
 
-    return this.props.friends.map((friend, i) => {
+    return this.props.friends.map((friend) => {
       return (
         <Paper key={friend.id} zDepth={2}>
           <div>

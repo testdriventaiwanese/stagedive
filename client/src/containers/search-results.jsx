@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import { saveEvent, addFollower } from '../actions/index';
+import { saveEvent, addFollower, saveArtist } from '../actions/index';
 import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
 import AppBar from '../containers/app-bar';
@@ -87,11 +87,15 @@ class SearchResults extends Component {
             <img src={bandsintown.image_url} style={imageStyle} alt="artist headshot" />
           </div>
           <div>{songkick.displayName}</div>
-          <div>{songkick.onTourUntil}</div>
+          <div>On Tour until: {songkick.onTourUntil}</div>
           <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
           <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
           <div>Number of upcoming events: {bandsintown.upcoming_event_count}</div>
-          <RaisedButton label='Follow Artist' secondary />
+          <RaisedButton
+            label='Follow Artist'
+            secondary
+            onClick={() => this.props.saveArtist(bandsintown, songkick)}
+          />
         </div>
         <br />
       </Paper>
@@ -166,7 +170,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ saveEvent, addFollower }, dispatch);
+  return bindActionCreators({ saveEvent, addFollower, saveArtist }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

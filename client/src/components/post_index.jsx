@@ -5,8 +5,9 @@ import { selectEvent, logoutUser } from '../actions/index';
 import { Link } from 'react-router';
 import EventList from '../containers/event-list';
 import Friends from '../containers/friends';
+import Artists from '../containers/artists';
 import EventDetail from '../containers/event-detail';
-import SearchBar from '../containers/searchbar.jsx';
+import SearchBar from '../containers/searchbar';
 import SearchResults from '../containers/search-results';
 import AppBar from '../containers/app-bar';
 import Journal from '../containers/journal';
@@ -20,6 +21,7 @@ class PostIndex extends Component {
         <div>
           <EventList />
           <Friends />
+          <Artists />
           <EventDetail />
         </div>
     </div>

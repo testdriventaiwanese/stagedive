@@ -26,29 +26,30 @@ module.exports = {
       });
     },
     addArtist({ body: {
-      bit_id,
+      mbid,
       name,
       image,
       events,
       facebook,
+      onTourUntil,
       upcoming_events,
     }, headers }, res) {
       const userId = jwt.decode(headers.authheader, process.env.JWT_SECRET);
-      console.log(userId);
       const params = [
-        bit_id,
+        mbid,
         name,
         image,
         events,
         facebook,
+        onTourUntil,
         upcoming_events,
       ];
       artistsModel.artists.addArtist(userId.sub, params, (results) => {
         if (!results) {
-          console.log('Issue in adding EVENT to database');
+          console.log('Issue in adding ARTIST to database');
           res.sendStatus(401);
         } else {
-          console.log('RESULTS FROM ADD EVENT: ', results);
+          console.log('RESULTS FROM ADD ARTIST: ', results);
           res.status(200).send(results);
         }
       });

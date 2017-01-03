@@ -23,8 +23,8 @@ module.exports = {
       });
     },
     addArtist(userId, params, callback) {
-      const queryStr = 'SELECT id FROM artists WHERE bit_id = ?';
-      const queryStr2 = 'INSERT INTO artists (bit_id, name, image, events, facebook, upcoming_events) VALUES (?, ?, ?, ?, ?, ?)';
+      const queryStr = 'SELECT id FROM artists WHERE mbid = ?';
+      const queryStr2 = 'INSERT INTO artists (mbid, name, image, events, facebook, onTourUntil, upcoming_events) VALUES (?, ?, ?, ?, ?, ?, ?)';
       const queryStr3 = 'INSERT INTO users_artists (id_users, id_artists) VALUES (?, ?)';
       db.query(queryStr, params[0], (err, artistResults) => {
         if (err) {
