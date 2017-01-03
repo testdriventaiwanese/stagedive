@@ -9,7 +9,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
-import DrawerLeft from './drawer';
 import SearchBar from './searchbar';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
