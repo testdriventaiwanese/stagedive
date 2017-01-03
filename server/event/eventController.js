@@ -14,6 +14,17 @@ module.exports = {
         }
       });
     },
+    getOtherUserEvents(req, res) {
+      const otherUserId = req.headers.userId;
+      eventModel.events.getUserEvents(otherUserId, (results) => {
+        if (!results) {
+          console.log('ERROR in getting all');
+          res.sendStatus(401);
+        } else {
+          res.status(200).send(results);
+        }
+      });
+    },
     getFriendsEvents(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
       eventModel.events.getFriendsEvents(id.sub, (results) => {

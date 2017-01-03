@@ -100,6 +100,7 @@ CREATE TABLE `artists` (
   `events` VARCHAR(255) NULL DEFAULT NULL,
   `facebook` VARCHAR(255) NULL DEFAULT NULL,
   `upcoming_events` INTEGER NOT NULL,
+  `onTourUntil` VARCHAR(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
