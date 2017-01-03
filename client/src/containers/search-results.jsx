@@ -7,6 +7,8 @@ import { saveEvent, addFollower } from '../actions/index';
 import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
 import AppBar from '../containers/app-bar';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 class SearchResults extends Component {
   constructor(props) {
@@ -67,7 +69,6 @@ class SearchResults extends Component {
       bandsintown = this.props.artists.bandsintown.data;
       songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
     }
-    console.log('ARTISTS this.props: ', this.props.artists)
     if (!bandsintown) {
       return (
         <Paper zDepth={2}>
@@ -90,6 +91,7 @@ class SearchResults extends Component {
           <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
           <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
           <div>Number of upcoming events: {bandsintown.upcoming_event_count}</div>
+          <RaisedButton label='Follow Artist' secondary />
         </div>
         <br />
       </Paper>
