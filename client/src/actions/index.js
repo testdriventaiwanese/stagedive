@@ -20,6 +20,7 @@ export const SEARCH_ARTISTS = 'SEARCH_ARTISTS';
 export const SEARCH_USERS = 'SEARCH_USERS';
 export const UNFOLLOW = 'UNFOLLOW';
 export const GET_FRIENDS = 'GET_FRIENDS';
+export const GET_USER_EVENTS = 'GET_USER_EVENTS';
 
 module.exports = {
   selectEvent(event) {
@@ -308,7 +309,10 @@ module.exports = {
       payload: axios.all([bandsintownArtistSearch(), songkickArtistSearch()])
       .then(axios.spread((bandsintown, songkick) => {
         return { bandsintown, songkick };
-      })),
+      }))
+      .catch(() => {
+        return { bandsintown: [], songkick: [] };
+      }),
     };
   },
   searchNearby(google, map, request) {
@@ -324,5 +328,20 @@ module.exports = {
         }
       })
     });
+  },
+  getOtherUserEvents(userId) {
+    const config = {
+      headers: {
+        authHeader: localStorage.getItem('token'),
+        userId },
+    };
+    const request = axios.get('/api/events/getuserevents', config)
+    .catch((res) => {
+      return {data: []};
+    });
+    return {
+      type: GET_USER_EVENTS,
+      payload: request,
+    }
   },
 };

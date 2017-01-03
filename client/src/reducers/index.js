@@ -13,6 +13,7 @@ import RemoveEvent from './reducer_remove_event';
 import SearchArtists from './reducer_search_artists';
 import SearchUsers from './reducer_search_users';
 import Unfollow from './reducer_unfollow';
+import UserEvents from './reducer_get_user_events';
 
 const rootReducer = combineReducers({
   activeEvent: ActiveEvent,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   searchArtists: SearchArtists,
   searchUsers: SearchUsers,
   unfollow: Unfollow,
+  userEvents: UserEvents,
 });
 
 export default rootReducer;
