@@ -10,6 +10,7 @@ import Account from './containers/account';
 import Journal from './containers/journal';
 import MapComponent from './containers/map';
 import UserPage from './containers/user-page';
+import EventDetail from './containers/event-detail';
 // import Explore from './containers/explore';
 
 export default(
@@ -21,6 +22,7 @@ export default(
     <Route path="account" component={Account} />
     <Route path="journal" component={Journal} />
     <Route path="explore" component={MapComponent} />
-    <Route path="/view/:userId" component={UserPage}></Route>
+    <Route path="/view/:userId" component={UserPage} />
+    <Route path="/event/:eventId" component={EventDetail} />
   </Route>
 );

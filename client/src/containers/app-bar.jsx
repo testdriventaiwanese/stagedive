@@ -33,17 +33,16 @@ class NavBar extends Component {
     this.props.getUserInfo()
     .then((res) => {
       this.checkLogged();
-    })
+    });
   }
 
   checkLogged () {
-    if(this.props.info.length === 0) {
-      this.setState({logged: false});
+    if (this.props.info.length === 0) {
+      this.setState({ logged: false });
+    } else {
+      this.setState({ logged: true });
     }
-    else{
-      this.setState({logged: true});
-    }
-  };
+  }
 
   onClickLogin(event) {
     browserHistory.push('/login');
