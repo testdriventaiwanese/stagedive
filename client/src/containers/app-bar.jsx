@@ -10,7 +10,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 import SearchBar from './searchbar';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUserInfo, logoutUser } from '../actions/index';
@@ -45,10 +45,10 @@ class NavBar extends Component {
   }
 
   onClickLogin(event) {
-    browserHistory.push('/login');
+    hashHistory.push('/login');
   }
   onClickSignup(event) {
-    browserHistory.push('/signup');
+    hashHistory.push('/signup');
   }
 
   handleToggle() {

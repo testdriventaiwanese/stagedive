@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { browserHistory, Link } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import { saveEvent, addFollower, saveArtist, getOtherUserEvents } from '../actions/index';
 import Paper from 'material-ui/Paper';
@@ -144,7 +144,7 @@ class SearchResults extends Component {
   render() {
     return (
       <div>
-        <button onClick={browserHistory.goBack}>Back</button>
+        <button onClick={hashHistory.goBack}>Back</button>
         <h1>Search Results</h1>
           <Tabs
             value={this.state.value}
