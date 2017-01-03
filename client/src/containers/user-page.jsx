@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 // import { selectEvent } from '../actions/index';
-import { getOtherUserEvents, removeEvent, getUserInfo } from '../actions/index';
+import { getOtherUserEvents, removeEvent, addFollower, unfollow } from '../actions/index';
 
 class UserPage extends Component {
   componentWillMount() {
@@ -16,6 +16,8 @@ class UserPage extends Component {
         <h1>
           {this.props.events.userInfo.fullname}
         </h1>
+        <button onClick={() => this.props.addFollower(this.props.events.userInfo.id)}>Follow</button>
+        <button onClick={() => this.props.unfollow(this.props.events.userInfo.id)}>UnFollow</button>
       </div>
     )
   }
@@ -115,7 +117,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent, getOtherUserEvents, getUserInfo }, dispatch);
+  return bindActionCreators({ removeEvent, getOtherUserEvents, addFollower, unfollow }, dispatch);
 }
 
 
