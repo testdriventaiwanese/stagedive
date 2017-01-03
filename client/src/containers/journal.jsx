@@ -24,7 +24,7 @@ class Journal extends Component {
     const dateStr = this.props.userInfo[0].createdOn.slice(0,19);
     let currentDate = new Date();
 
-    let pastEvents = this.props.events.filter((event) => {
+    let pastEvents = this.props.events.events.filter((event) => {
       let eventDate = new Date(event.date.slice(0,19));
       console.log('CURRENT DATE: ', currentDate, 'EVENT DATE: ', eventDate);
       return eventDate < currentDate;
