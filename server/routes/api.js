@@ -3,6 +3,7 @@ const userController = require('../user/userController');
 const eventController = require('../event/eventController');
 const artistsController = require('../artists/artistsController');
 const bandsintown = require('../API/bandsInTown');
+const songkick = require('../API/songkick')
 
 const router = new express.Router();
 
@@ -35,6 +36,10 @@ router.post('/artists/search', artistsController.artists.search);
 
 // bandsintown api call
 router.get('/bandsintown/getartist', bandsintown.getArtist);
+
+// songkick api call
+router.get('/songkick/getevents', songkick.getEvents);
+router.get('/songkick/getartist', songkick.getArtist);
 
 
 module.exports = router;

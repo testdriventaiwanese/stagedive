@@ -241,6 +241,20 @@ module.exports = {
     localStorage.removeItem('token')
     browserHistory.push('/login')
   },
+  searchArtistEvents(query) {
+    const config = {
+      headers: {
+        authHeader: localStorage.getItem('token'),
+        mbid: query,
+      },
+    };
+    const request = axios.get('/api/songkick/getevents', config);
+    console.log('REQUEST FROM SONGKICK ARTIST EVENTS: ', request);
+    // return {
+    //   type: SEARCH_ARTISTS_EVENTS,
+    //   payload: request,
+    // };
+  },
   searchArtists(query) {
     const config = {
       headers: {
@@ -248,8 +262,16 @@ module.exports = {
         artist: query,
       },
     };
-    const request = axios.get('/api/bandsintown/getartist', config);
-    console.log('REQUEST FROM BANDS IN TOWN: ', request);
+    const bandsintownArtistSearch = () => {
+      return axios.get('/api/bandsintown/getartist', config);
+    }
+    const songkickArtistSearch = () => {
+      return axios.get('/api/songkick/getartist', config);
+    }
+    const request = axios.all([bandsintownArtistSearch(), songkickArtistSearch()])
+      .then(axios.spread((bandsintown, songkick) => {
+        return { bandsintown, songkick };
+      }));
     return {
       type: SEARCH_ARTISTS,
       payload: request,

@@ -28,43 +28,42 @@ class SearchResults extends Component {
     if (this.props.events.length === 0) {
       return <div>No Results Found</div>
     }
-    else {
-      return this.props.events.map((event) => {
-        let city = ()=> {
-          return event._embedded.venues[0].city.name ? event._embedded.venues[0].city.name : '';
-        };
-        let cityValue = city();
-        // let country = '';
-        let country = () => (event._embedded.venues[0].country.name ? event._embedded.venues[0].country.name : '');
-        let countryValue = country();
-        let mid = () => (event._embedded.venues[0].country.name ? ', ' : '');
-        let midValue = mid();
+    return this.props.events.map((event) => {
+      const city = () => {
+        return event._embedded.venues[0].city.name ? event._embedded.venues[0].city.name : '';
+      };
+      const cityValue = city();
+      // const country = '';
+      const country = () => (event._embedded.venues[0].country.name ? event._embedded.venues[0].country.name : '');
+      const countryValue = country();
+      const mid = () => (event._embedded.venues[0].country.name ? ', ' : '');
+      const midValue = mid();
 
-        return (
-          <Paper key={event.id} onClick={() => this.props.saveEvent(event)} zDepth={2}>
-            <div>
-              <div>{event.name}</div>
-              <div>{cityValue}{midValue}{countryValue}</div>
-              <div>{event.dates.start.localDate}</div>
-            </div>
-            <br />
-          </Paper>
-        );
-      });
-    }
+      return (
+        <Paper key={event.id} onClick={() => this.props.saveEvent(event)} zDepth={2}>
+          <div>
+            <div>{event.name}</div>
+            <div>{cityValue}{midValue}{countryValue}</div>
+            <div>{event.dates.start.localDate}</div>
+          </div>
+          <br />
+        </Paper>
+      );
+    });
   }
 
   renderArtists() {
-    let imageDiv = {
+    const imageDiv = {
       width: '35%',
       float: 'left',
       height: '248px',
     };
-    let imageStyle = {
+    const imageStyle = {
       width: '60%',
     };
-    let artist = this.props.artists;
-    if(!artist) {
+    const bandsintown = this.props.artists.bandsintown.data;
+    const songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
+    if (!bandsintown) {
       return (
         <Paper zDepth={2}>
           <div>
@@ -72,19 +71,20 @@ class SearchResults extends Component {
           </div>
           <br />
         </Paper>
-      )
+      );
     }
 
     return (
-      <Paper key={artist.mbid} zDepth={2}>
+      <Paper key={songkick.identifier[0].mbid} zDepth={2}>
         <div>
           <div style={imageDiv}>
-            <img src={artist.image_url} style={imageStyle} alt="artist headshot" />
+            <img src={bandsintown.image_url} style={imageStyle} alt="artist headshot" />
           </div>
-          <div>{artist.name}</div>
-          <div><a href={artist.facebook_page_url}>Facebook Page</a></div>
-          <div><a href={artist.facebook_tour_dates_url}>Facebook Tour Dates</a></div>
-          <div>Number of upcoming events: {artist.upcoming_event_count}</div>
+          <div>{songkick.displayName}</div>
+          <div>{songkick.onTourUntil}</div>
+          <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
+          <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
+          <div>Number of upcoming events: {bandsintown.upcoming_event_count}</div>
         </div>
         <br />
       </Paper>
@@ -92,15 +92,15 @@ class SearchResults extends Component {
   }
 
   renderUsers() {
-    let imageDiv = {
+    const imageDiv = {
       width: '35%',
       float: 'left',
       height: '248px',
     };
-    let imageStyle = {
+    const imageStyle = {
       width: '100%',
     };
-    if(this.props.users.length === 0) {
+    if (this.props.users.length === 0) {
       return (
         <Paper zDepth={2}>
           <div>
