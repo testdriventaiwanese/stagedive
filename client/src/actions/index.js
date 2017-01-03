@@ -329,17 +329,19 @@ module.exports = {
       })
     });
   },
-  getOtherUserEvents(userId) {
+  getOtherUserEvents(user) {
     const config = {
       headers: {
         authHeader: localStorage.getItem('token'),
-        userId },
+        userId: user.id ,
+        userInfo: user,
+      }
     };
     const request = axios.get('/api/events/getuserevents', config)
     .catch((res) => {
       return {data: []};
     });
-    console.log('IN getOtherUserEvents REQUEST: ', request);
+
     return {
       type: GET_USER_EVENTS,
       payload: request,
