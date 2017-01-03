@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import { getFriends, unfollow } from '../actions/index';
+import { Link } from 'react-router';
 
 
 class Friends extends Component {
@@ -26,7 +27,9 @@ class Friends extends Component {
       return (
         <Paper key={friend.id} zDepth={2}>
           <div>
-            <div>{friend.fullname}</div>
+            <Link to={`/view/${friend.id}`}>
+              <div>{friend.fullname}</div>
+            </Link>
             <div>{friend.email}</div>
             <button onClick={() => this.props.unfollow(friend.id)}>Unfollow</button>
           </div>
