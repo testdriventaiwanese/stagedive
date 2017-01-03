@@ -4,10 +4,8 @@ import { bindActionCreators } from 'redux';
 import { browserHistory, Link } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import { saveEvent, addFollower, saveArtist, getOtherUserEvents } from '../actions/index';
-import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import { saveEvent, addFollower, saveArtist } from '../actions/index';
 
 class SearchResults extends Component {
   constructor(props) {
