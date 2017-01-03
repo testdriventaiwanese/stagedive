@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import { saveEvent, addFollower, saveArtist, getOtherUserEvents } from '../actions/index';
 import SearchBar from './searchbar';
 import Paper from 'material-ui/Paper';
 import AppBar from '../containers/app-bar';
 import RaisedButton from 'material-ui/RaisedButton';
-
 
 class SearchResults extends Component {
   constructor(props) {
@@ -137,7 +136,9 @@ class SearchResults extends Component {
           <div>
             <div onClick={() => this.props.getOtherUserEvents(user.id)}>{user.fullname}</div>
             <div>{user.email}</div>
-            <button onClick={() => this.props.getOtherUserEvents(user.id)}>See Profile</button>
+            <Link to={`/view/${user.id}`}>
+              <button onClick={() => this.props.getOtherUserEvents(user.id)}>See Profile</button>
+            </Link>
             <button onClick={() => this.props.addFollower(user.id)}>Follow</button>
           </div>
           <br />
