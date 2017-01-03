@@ -9,7 +9,9 @@ const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
 export const SAVE_EVENT = 'SAVE_EVENT';
+export const SAVE_ARTIST = 'SAVE_ARTIST';
 export const GET_EVENTS = 'GET_EVENTS';
+export const GET_ARTISTS = 'GET_ARTISTS';
 export const GET_USERINFO = 'GET_USERINFO';
 export const SIGN_UP = 'SIGN_UP';
 export const LOG_IN = 'LOG_IN';
@@ -82,6 +84,30 @@ module.exports = {
     return {
       type: SAVE_EVENT,
       payload: eventObj,
+    };
+  },
+  saveArtist(bandsintown, songkick) {
+    console.log('save artist bandsintown? ', bandsintown)
+    console.log('save artist songkick? ', songkick)
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    const artistObj = {
+      mbid: songkick.identifier[0].mbid,
+      name: songkick.displayName,
+      image: bandsintown.image_url,
+      events: songkick.uri,
+      facebook: bandsintown.facebook_page_url,
+      onTourUntil: songkick.onTourUntil,
+      upcoming_events: bandsintown.upcoming_event_count,
+    };
+    axios.post('/api/artists/addartist', artistObj, config)
+      .then(() => {
+        browserHistory.push('/');
+      })
+    return {
+      type: SAVE_ARTIST,
+      payload: artistObj,
     };
   },
   removeEvent(result) {
@@ -159,6 +185,16 @@ module.exports = {
       type: GET_FRIENDS,
       payload: getFriendsRequest,
     }
+  },
+  getArtists() {
+    const config = {
+      headers: { authheader: localStorage.getItem('token') },
+    };
+    const request = axios.get('/api/artists/getall', config);
+    return {
+      type: 'GET_ARTISTS',
+      payload: request,
+    };
   },
   searchUsers(userQuery) {
     const config = {

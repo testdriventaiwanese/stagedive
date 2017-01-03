@@ -19,6 +19,7 @@ router.post('/users/finduser', userController.users.findUser);
 
 // event calls
 router.get('/events/getall', eventController.events.getUserEvents);
+router.get('/events/getuserevents', eventController.events.getOtherUserEvents);
 router.get('/events/getfriendsevents', eventController.events.getFriendsEvents);
 router.post('/events/search', eventController.events.search);
 router.post('/events/addevent', eventController.events.addEvent);
