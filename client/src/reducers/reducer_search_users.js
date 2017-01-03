@@ -5,6 +5,7 @@ export default function (state = [], action) {
         return [];
       }
       else {
+        console.log('SEARCH USERS REDUCER: ', action.payload.data);
         return action.payload.data;
       }
     default:
