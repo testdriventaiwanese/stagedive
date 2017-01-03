@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { searchEvents, searchArtists, searchUsers } from '../actions/index';
 
@@ -29,7 +29,7 @@ class SearchBar extends Component {
     this.props.searchArtists(this.state.term);
     this.props.searchUsers(this.state.term);
     this.setState({ term: '' });
-    browserHistory.push('/results');
+    hashHistory.push('/results');
   }
 
   render() {
