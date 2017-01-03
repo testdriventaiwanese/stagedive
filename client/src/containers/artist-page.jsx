@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 // import { selectEvent } from '../actions/index';
-import { getOtherUserEvents, removeEvent, addFollower, unfollow } from '../actions/index';
+import { getOtherUserEvents, removeEvent, saveArtist } from '../actions/index';
 
-class UserPage extends Component {
+class ArtistPage extends Component {
   componentWillMount() {
     // this.props.getOtherUserEvents();
   }
@@ -117,8 +117,8 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent, getOtherUserEvents, addFollower, unfollow }, dispatch);
+  return bindActionCreators({ removeEvent, getOtherUserEvents, saveArtist }, dispatch);
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ArtistPage);

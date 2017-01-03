@@ -175,7 +175,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ saveEvent, addFollower, saveArtist }, dispatch);
+  return bindActionCreators({ saveEvent, addFollower, saveArtist, getOtherUserEvents }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

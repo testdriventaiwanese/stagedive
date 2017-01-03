@@ -191,7 +191,10 @@ module.exports = {
     const config = {
       headers: { authheader: localStorage.getItem('token') },
     };
-    const request = axios.get('/api/artists/getall', config);
+    const request = axios.get('/api/artists/getall', config)
+    .catch(() => {
+      return { data: [] };
+    });
     return {
       type: 'GET_ARTISTS',
       payload: request,
