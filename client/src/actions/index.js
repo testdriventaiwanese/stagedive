@@ -264,7 +264,9 @@ module.exports = {
       password: result.password,
     };
     axios.post('/auth/login', resultObj).then((res) => {
-      return localStorage.setItem('token', res.data.token);
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('id', res.data.user.id);
+      return;
     })
     .then(() => {
       hashHistory.push('/');
