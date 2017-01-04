@@ -9,7 +9,12 @@ import { getArtistCalendar, unfollowArtist, saveArtist } from '../actions/index'
 
 class ArtistPage extends Component {
   componentWillMount() {
-    //
+    const artistsArr = this.props.artists.filter((artist) => {
+      return artist.mbid === this.props.params.artistId;
+    });
+    const artist = artistsArr[0];
+
+    this.props.getArtistCalendar(artist);
   }
 
   renderProfileBar() {
@@ -24,6 +29,29 @@ class ArtistPage extends Component {
     )
   }
 
+  renderCalendar() {
+    if(!this.props.artistCalendar.data){
+      return(
+        <Paper>
+          <div>
+            Loading Calendar..
+          </div>
+        </Paper>
+      )
+    }
+    return this.props.artistCalendar.data.resultsPage.results.event.map((event) => {
+      return(
+        <Paper key={event.id}>
+          <div>
+            <div>{event.displayName}</div>
+            <div>{event.location.city}</div>
+            <div>{event.start.date}</div>
+            <div>{event.start.time}</div>
+          </div>
+        </Paper>
+      )
+    })
+  }
   renderArtist() {
     let imageDiv = {
       width: '35%',
@@ -37,51 +65,26 @@ class ArtistPage extends Component {
       return <div>Artist Not Listed</div>;
     }
     const artistsArr = this.props.artists.filter((artist) => {
-      return artist.id === Number(this.props.params.artistId);
+      return artist.mbid === this.props.params.artistId;
     });
-    console.log('artistsArr:: ', artistsArr);
     const artist = artistsArr[0];
+
     return (
       <Paper>
+        <h1>{artist.name}</h1>
         <div style={imageDiv}>
             <img src={artist.image} style={imageStyle}></img>
         </div>
         <div>
-          <h2>{artist.name}</h2>
-        </div>
-        <div>
-          <h6>Upcoming Events</h6>
-          <p>Place</p>
-          <p>Date</p>
+          <h5><strong>Calendar</strong></h5>
+          <div className="list-group col-sm-16">{this.renderCalendar()}</div>
         </div>
       </Paper>
     )
-    // return this.props.events.futureEvents.slice(1).map((event) => {
-    //   let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
-    //   let time = event.date.slice(11, 16);
-    //   return (
-    //     <div key={event.id} className="list-group-item">
-    //       <div style={imageDiv}>
-    //         <img src="event.image" style={imageStyle}></img>
-    //       </div>
-    //       <div>
-    //         <p><strong>{event.name}</strong></p>
-    //         <p>{event.venue}</p>
-    //         <span>{event.city}</span>
-    //         <p>{event.country}</p>
-    //         <span>{date}</span>
-    //         <p>Time: {time}</p>
-    //         <p><a href={event.event_url}>Buy Tickets</a></p>
-    //         <p onClick={() => this.props.removeEvent(event)}>Remove Event</p>
-    //       </div>
-    //     </div>
-    //   );
-    // });
   }
   render() {
     return (
       <div>
-        <h1>Artist Page</h1>
         <ul className="list-group col-sm-16">
           {this.renderArtist()}
         </ul>
@@ -93,6 +96,7 @@ class ArtistPage extends Component {
 function mapStateToProps(state) {
   return {
     artists: state.getArtists,
+    artistCalendar: state.getArtistCalendar,
   };
 }
 
