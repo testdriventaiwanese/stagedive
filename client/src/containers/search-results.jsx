@@ -30,7 +30,14 @@ class SearchResults extends Component {
 
   renderEvents() {
     if (this.props.events.length === 0) {
-      return <div>No Results Found</div>
+      return (
+        <Paper zDepth={2}>
+          <div>
+            No Events Found
+          </div>
+          <br />
+        </Paper>
+      )
     }
     return this.props.events.map((event) => {
       const city = () => {
@@ -67,11 +74,44 @@ class SearchResults extends Component {
     };
     let bandsintown = this.props.artists.bandsintown;
     let songkick = this.props.artists.songkick;
+    console.log('THIS IS THE ARTISTS SEARCH: ', this.props.artists)
     if(this.props.artists.bandsintown !== undefined || this.props.artists.songkick !== undefined){
       bandsintown = this.props.artists.bandsintown.data;
-      songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
+      if(this.props.artists.songkick.data.resultsPage.results.artist !== undefined && songkick.identifier.length > 0) {
+        songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
+        return (
+          <Paper key={songkick.identifier[0].mbid} zDepth={2}>
+            <div>
+              <div style={imageDiv}>
+                <img src={bandsintown.image_url} style={imageStyle} alt="artist headshot" />
+              </div>
+              <div>{songkick.displayName}</div>
+              <div>On Tour until: {songkick.onTourUntil}</div>
+              <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
+              <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
+              <div>Number of upcoming events: {bandsintown.upcoming_event_count}</div>
+              <RaisedButton
+                label='Follow Artist'
+                secondary
+                onClick={() => this.props.saveArtist(bandsintown, songkick)}
+                />
+            </div>
+            <br />
+          </Paper>
+        );
+      }
+      else {
+        return (
+          <Paper zDepth={2}>
+            <div>
+              No Artists Found
+            </div>
+            <br />
+          </Paper>
+        );
+      }
     }
-    if (!bandsintown) {
+    else {
       return (
         <Paper zDepth={2}>
           <div>
@@ -82,26 +122,6 @@ class SearchResults extends Component {
       );
     }
 
-    return (
-      <Paper key={songkick.identifier[0].mbid} zDepth={2}>
-        <div>
-          <div style={imageDiv}>
-            <img src={bandsintown.image_url} style={imageStyle} alt="artist headshot" />
-          </div>
-          <div>{songkick.displayName}</div>
-          <div>On Tour until: {songkick.onTourUntil}</div>
-          <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
-          <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
-          <div>Number of upcoming events: {bandsintown.upcoming_event_count}</div>
-          <RaisedButton
-            label='Follow Artist'
-            secondary
-            onClick={() => this.props.saveArtist(bandsintown, songkick)}
-          />
-        </div>
-        <br />
-      </Paper>
-    );
   }
 
   renderUsers() {

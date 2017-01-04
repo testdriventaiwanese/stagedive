@@ -336,7 +336,7 @@ module.exports = {
     const config = {
       headers: {
         authHeader: localStorage.getItem('token'),
-        userId: user.id ,
+        userId: user.id,
         userInfo: user,
       }
     };

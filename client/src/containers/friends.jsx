@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
-import { getFriends, unfollow } from '../actions/index';
+import { getFriends, unfollow, getOtherUserEvents } from '../actions/index';
 import { Link } from 'react-router';
 
 
@@ -28,7 +28,7 @@ class Friends extends Component {
         <Paper key={friend.id} zDepth={2}>
           <div>
             <Link to={`/view/${friend.id}`}>
-              <div>{friend.fullname}</div>
+              <div onClick={() => this.props.getOtherUserEvents(friend)}>{friend.fullname}</div>
             </Link>
             <div>{friend.email}</div>
             <button onClick={() => this.props.unfollow(friend.id)}>Unfollow</button>
@@ -52,11 +52,12 @@ class Friends extends Component {
 function mapStateToProps(state) {
   return {
     friends: state.getFriends,
+    userInfo: state.userEvents,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getFriends, unfollow }, dispatch);
+  return bindActionCreators({ getFriends, unfollow, getOtherUserEvents }, dispatch);
 }
 
 

@@ -11,6 +11,12 @@ class UserPage extends Component {
   }
 
   renderProfileBar() {
+    console.log('THIS IS THE EVENTS OBJECT IN USER PAGE: ', this.props.events);
+    if(!this.props.events.userInfo) {
+      return (
+        <div>Loading...</div>
+      )
+    }
     return (
       <div>
         <h1>
@@ -41,7 +47,6 @@ class UserPage extends Component {
       let time = event.date.slice(11, 16);
       return (
         <div className="list-group-item">
-          <div>{this.renderProfileBar()}</div>
           <h1>Upcoming Event</h1>
           <div style={imageDiv}>
             <img src={event.image} style={imageStyle}></img>
@@ -97,9 +102,10 @@ class UserPage extends Component {
   }
 //          onClick={() => this.props.selectEvent(event)}
   render() {
-    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events.futureEvents);
+    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
     return (
       <div>
+        <div>{this.renderProfileBar()}</div>
         <div>{this.renderUpcoming()}</div>
         <h1>Events Feed</h1>
         <ul className="list-group col-sm-16">
