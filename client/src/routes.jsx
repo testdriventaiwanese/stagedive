@@ -27,6 +27,6 @@ export default(
     <Route path="/view/:userId" component={UserPage} />
     <Route path="/event/:eventId" component={EventDetail} />
     <Route path="/artists/:artistId" component={ArtistPage} />
-    <Route path="/journal/:eventTmId/:token" component={JournalSingle} />
+    <Route path="/journal/:userId/:eventTmId" component={JournalSingle} />
   </Route>
 );
