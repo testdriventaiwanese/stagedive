@@ -112,6 +112,7 @@ class SearchResults extends Component {
         );
       }
   }
+}
 
   renderUsers() {
     const imageDiv = {
