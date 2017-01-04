@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
+import { Link } from 'react-router';
 import { getArtists, unfollowArtist } from '../actions/index';
 
 class Artists extends Component {
@@ -37,11 +38,14 @@ class Artists extends Component {
               <img src={artist.image} style={imageStyle} alt="artist headshot" />
             </div>
             <div>
-              <p><strong>{artist.name}</strong></p>
+              <Link to={`/artists/${artist.id}`}>
+                <div><strong>{artist.name}</strong></div>
+              </Link>
               <p>{artist.facebook}</p>
               <p>{artist.events}</p>
               <p>On Tour until: {artist.onTourUntil}</p>
               <p>Remaining Tour Dates: {artist.upcoming_events}</p>
+
             </div>
           </div>
         </Paper>
