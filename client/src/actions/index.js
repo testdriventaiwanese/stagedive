@@ -21,6 +21,7 @@ export const SEARCH_USERS = 'SEARCH_USERS';
 export const UNFOLLOW = 'UNFOLLOW';
 export const GET_FRIENDS = 'GET_FRIENDS';
 export const GET_USER_EVENTS = 'GET_USER_EVENTS';
+export const GET_ARTIST_CALENDAR = 'GET_ARTIST_CALENDAR';
 
 module.exports = {
   selectEvent(event) {
@@ -350,12 +351,11 @@ module.exports = {
       payload: request,
     }
   },
-  getArtistCalendar(artistId) {
+  getArtistCalendar(artist) {
     const config = {
       headers: {
         authHeader: localStorage.getItem('token'),
-        userId: user.id ,
-        userInfo: user,
+        mbid: artist.mbid,
       }
     };
     const request = axios.get('/api/songkick/getartistcalendar', config)

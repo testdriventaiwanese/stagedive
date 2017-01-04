@@ -85,7 +85,9 @@ class SearchResults extends Component {
               <div style={imageDiv}>
                 <img src={bandsintown.image_url} style={imageStyle} alt="artist headshot" />
               </div>
-              <div>{songkick.displayName}</div>
+              <Link to={`/artists/${songkick.identifier[0].mbid}`}>
+                <div>{songkick.displayName}</div>
+              </Link>
               <div>On Tour until: {songkick.onTourUntil}</div>
               <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
               <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
@@ -94,13 +96,12 @@ class SearchResults extends Component {
                 label='Follow Artist'
                 secondary
                 onClick={() => this.props.saveArtist(bandsintown, songkick)}
-                />
+              />
             </div>
             <br />
           </Paper>
         );
-      }
-      else {
+      } else {
         return (
           <Paper zDepth={2}>
             <div>
@@ -110,18 +111,6 @@ class SearchResults extends Component {
           </Paper>
         );
       }
-    }
-    else {
-      return (
-        <Paper zDepth={2}>
-          <div>
-            No Artists Found
-          </div>
-          <br />
-        </Paper>
-      );
-    }
-
   }
 
   renderUsers() {

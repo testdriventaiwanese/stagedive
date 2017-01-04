@@ -14,6 +14,9 @@ import SearchArtists from './reducer_search_artists';
 import SearchUsers from './reducer_search_users';
 import Unfollow from './reducer_unfollow';
 import UserEvents from './reducer_get_user_events';
+import GetArtistCalendar from './reducer_get_artist_calendar';
+
+
 
 const rootReducer = combineReducers({
   activeEvent: ActiveEvent,
@@ -31,6 +34,7 @@ const rootReducer = combineReducers({
   searchUsers: SearchUsers,
   unfollow: Unfollow,
   userEvents: UserEvents,
+  getArtistCalendar: GetArtistCalendar,
 });
 
 export default rootReducer;

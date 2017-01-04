@@ -29,6 +29,7 @@ module.exports = {
   },
   getArtistCalendar: (req, res) => {
     const music_brainz_id = req.headers.mbid;
+    console.log(music_brainz_id);
     request.get({
       url: `http://api.songkick.com/api/3.0/artists/mbid:${music_brainz_id}/calendar.json?apikey=${process.env.SONGKICK_ID}`,
       method: 'GET',

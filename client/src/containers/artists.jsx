@@ -21,6 +21,7 @@ class Artists extends Component {
       width: '100%',
     };
     if (this.props.artists.length === 0) {
+
       return (
         <Paper zDepth={2}>
           <div>
@@ -31,6 +32,7 @@ class Artists extends Component {
       );
     }
     return this.props.artists.map((artist) => {
+      console.log(artist);
       return (
         <Paper key={artist.id} className="list-group-item" zDepth={2}>
           <div>
@@ -38,7 +40,7 @@ class Artists extends Component {
               <img src={artist.image} style={imageStyle} alt="artist headshot" />
             </div>
             <div>
-              <Link to={`/artists/${artist.id}`}>
+              <Link to={`/artists/${artist.mbid}`}>
                 <div><strong>{artist.name}</strong></div>
               </Link>
               <p>{artist.facebook}</p>
