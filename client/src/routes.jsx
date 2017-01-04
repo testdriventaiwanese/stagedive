@@ -12,6 +12,7 @@ import MapComponent from './containers/map';
 import UserPage from './containers/user-page';
 import EventDetail from './containers/event-detail';
 import ArtistPage from './containers/artist-page';
+import JournalSingle from './containers/journal-single';
 // import Explore from './containers/explore';
 
 export default(
@@ -26,5 +27,6 @@ export default(
     <Route path="/view/:userId" component={UserPage} />
     <Route path="/event/:eventId" component={EventDetail} />
     <Route path="/artists/:artistId" component={ArtistPage} />
+    <Route path="/journal/:eventTmId/:token" component={JournalSingle} />
   </Route>
 );
