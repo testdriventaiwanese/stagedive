@@ -111,11 +111,19 @@ module.exports = {
       payload: artistObj,
     };
   },
-  removeEvent(tm_id) {
+  removeEvent(result) {
+    let resultObj;
+    console.log('removeEvent result:: ', result);
+    resultObj = {
+      tm_id: result.tm_id,
+      userId: localStorage.getItem('token'),
+    }
+
+    console.log('removeEvent resultObj:: ', resultObj)
     const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
-    axios.post('/api/events/deleteevent', tm_id, config)
+    axios.post('/api/events/deleteevent', resultObj, config)
     .then(() => {
       hashHistory.replace('/');
     });
@@ -339,6 +347,24 @@ module.exports = {
 
     return {
       type: GET_USER_EVENTS,
+      payload: request,
+    }
+  },
+  getArtistCalendar(artistId) {
+    const config = {
+      headers: {
+        authHeader: localStorage.getItem('token'),
+        userId: user.id ,
+        userInfo: user,
+      }
+    };
+    const request = axios.get('/api/songkick/getartistcalendar', config)
+    .catch((res) => {
+      return {data: []};
+    });
+
+    return {
+      type: GET_ARTIST_CALENDAR,
       payload: request,
     }
   },

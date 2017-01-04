@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 // import { selectEvent } from '../actions/index';
-import { getArtistEvents, unfollowArtist, saveArtist } from '../actions/index';
+import Paper from 'material-ui/Paper';
+
+import { getArtistCalendar, unfollowArtist, saveArtist } from '../actions/index';
 
 class ArtistPage extends Component {
   componentWillMount() {
@@ -22,7 +24,7 @@ class ArtistPage extends Component {
     )
   }
 
-  renderList() {
+  renderArtist() {
     let imageDiv = {
       width: '35%',
       float: 'left',
@@ -31,8 +33,29 @@ class ArtistPage extends Component {
     let imageStyle = {
       width: '100%',
     };
-    console.log('artists :: ', this.props.artists);
-    console.log('props:: ', this.props);
+    if (!this.props.artists) {
+      return <div>Artist Not Listed</div>;
+    }
+    const artistsArr = this.props.artists.filter((artist) => {
+      return artist.id === Number(this.props.params.artistId);
+    });
+    console.log('artistsArr:: ', artistsArr);
+    const artist = artistsArr[0];
+    return (
+      <Paper>
+        <div style={imageDiv}>
+            <img src={artist.image} style={imageStyle}></img>
+        </div>
+        <div>
+          <h2>{artist.name}</h2>
+        </div>
+        <div>
+          <h6>Upcoming Events</h6>
+          <p>Place</p>
+          <p>Date</p>
+        </div>
+      </Paper>
+    )
     // return this.props.events.futureEvents.slice(1).map((event) => {
     //   let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
     //   let time = event.date.slice(11, 16);
@@ -58,9 +81,9 @@ class ArtistPage extends Component {
   render() {
     return (
       <div>
-        <h1>Events Feed</h1>
+        <h1>Artist Page</h1>
         <ul className="list-group col-sm-16">
-          {this.renderList()}
+          {this.renderArtist()}
         </ul>
       </div>
     )
@@ -74,7 +97,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ unfollowArtist, saveArtist }, dispatch);
+  return bindActionCreators({getArtistCalendar, unfollowArtist, saveArtist }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistPage);
