@@ -14,7 +14,7 @@ class Journal extends Component {
   }
 
   renderList() {
-    let token = localStorage.getItem('token');
+    let id = localStorage.getItem('id');
     let imageDiv = {
       width: '30%',
       float: 'left',
@@ -23,7 +23,8 @@ class Journal extends Component {
     let imageStyle = {
       width: '100%',
     };
-
+// /${event.tm_id}
+  console.log('EVENTS OBJECT IN JOURNAL: ', this.props.events);
     return this.props.events.pastEvents.map((event) => {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
@@ -31,7 +32,7 @@ class Journal extends Component {
       return (
         <Paper style={imageDiv} zDepth={2}>
         <div key={event.id}>
-          <Link to={`/journal/${event.tm_id}/${token}`}>
+          <Link to={`/journal/${id}/${event.id}`}>
             <img src={event.image} style={imageStyle}/>
           </Link>
           <span><strong>{event.name}</strong></span>

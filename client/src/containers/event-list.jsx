@@ -13,7 +13,7 @@ class EventList extends Component {
 
   renderUpcoming() {
     let imageDiv = {
-      width: '35%',
+      width: '30%',
       float: 'left',
       height: '248px',
       margin: '10px',
