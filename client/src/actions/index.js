@@ -281,6 +281,7 @@ module.exports = {
   logoutUser() {
     console.log('loggingout')
     localStorage.removeItem('token')
+    localStorage.removeItem('id')
     hashHistory.push('/login')
   },
   searchArtistEvents(query) {
