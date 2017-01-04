@@ -12,6 +12,11 @@ class UserPage extends Component {
 
   renderProfileBar() {
     console.log('THIS IS THE EVENTS OBJECT IN USER PAGE: ', this.props.events);
+    if(!this.props.events.userInfo) {
+      return (
+        <div>Loading...</div>
+      )
+    }
     return (
       <div>
         <h1>
