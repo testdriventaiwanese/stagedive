@@ -134,6 +134,26 @@ module.exports = {
       payload: resultObj,
     }
   },
+  removeArtist(artist_mbid) {
+    let resultObj;
+    resultObj = {
+      mbid: artist_mbid
+    }
+
+    console.log('removeEvent resultObj:: ', resultObj)
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
+    axios.post('/api/artists/deleteartist', resultObj, config)
+    .then(() => {
+      hashHistory.replace('/');
+    });
+
+    return {
+      type:REMOVE_ARTIST,
+      payload: resultObj,
+    }
+  },
   getEvents() {
     const config = {
       headers: { authHeader: localStorage.getItem('token') },
