@@ -111,19 +111,11 @@ module.exports = {
       payload: artistObj,
     };
   },
-  removeEvent(result) {
-    let resultObj;
-    console.log('removeEvent result:: ', result);
-    resultObj = {
-      tm_id: result.tm_id,
-      userId: localStorage.getItem('token'),
-    }
-
-    console.log('removeEvent resultObj:: ', resultObj)
+  removeEvent(tm_id) {
     const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
-    axios.post('/api/events/deleteevent', resultObj, config)
+    axios.post('/api/events/deleteevent', tm_id, config)
     .then(() => {
       hashHistory.replace('/');
     });

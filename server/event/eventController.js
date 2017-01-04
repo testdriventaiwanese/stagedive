@@ -134,7 +134,7 @@ module.exports = {
       });
     },
 
-    deleteEvent({ body: { tm_id, userId } }, res) {
+    deleteEvent({ body: { tm_id } }, res) {
       const id = jwt.decode(userId, process.env.JWT_SECRET);
       const params = [tm_id, id.sub];
       eventModel.events.deleteEvent(params, (results) => {

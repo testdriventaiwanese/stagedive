@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
-// import { selectEvent } from '../actions/index';
-import { getEvents, removeEvent } from '../actions/index';
+import { getEvents } from '../actions/index';
 
 class EventList extends Component {
   componentWillMount() {
@@ -44,7 +43,9 @@ class EventList extends Component {
             <span>{date}</span>
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
-            <p onClick={() => this.props.removeEvent(event)}>Remove Event</p>
+            <Link to={`/event/${event.id}`}>
+              <RaisedButton label='View Event Details' secondary />
+            </Link>
           </div>
         </Paper>
       );
@@ -80,7 +81,6 @@ class EventList extends Component {
             <span>{date}</span>
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
-            <button onClick={() => this.props.removeEvent(event)}>Remove Event</button>
             <Link to={`/event/${event.id}`}>
               <RaisedButton label='View Event Details' secondary />
             </Link>
@@ -111,7 +111,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent, getEvents }, dispatch);
+  return bindActionCreators({ getEvents }, dispatch);
 }
 
 
