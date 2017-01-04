@@ -65,9 +65,9 @@ module.exports = {
         }
       });
     },
-    deleteArtist({ body: { bit_id, userId } }, res) {
-      const id = jwt.decode(userId, process.env.JWT_SECRET);
-      const params = [bit_id, id.sub];
+    deleteArtist(req, res) {
+      const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
+      const params = [req.body.mbid, id.sub];
       artistsModel.artists.deleteArtist(params, (results) => {
         if (!results) {
           console.log('Issue in removing events');

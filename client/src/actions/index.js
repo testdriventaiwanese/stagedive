@@ -89,8 +89,6 @@ module.exports = {
     };
   },
   saveArtist(bandsintown, songkick) {
-    console.log('save artist bandsintown? ', bandsintown)
-    console.log('save artist songkick? ', songkick)
     const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
@@ -112,15 +110,10 @@ module.exports = {
       payload: artistObj,
     };
   },
-  removeEvent(result) {
-    let resultObj;
-    console.log('removeEvent result:: ', result);
-    resultObj = {
-      tm_id: result.tm_id,
-      userId: localStorage.getItem('token'),
+  removeEvent(tm_id) {
+    const resultObj = {
+      tm_id,
     }
-
-    console.log('removeEvent resultObj:: ', resultObj)
     const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
@@ -128,9 +121,8 @@ module.exports = {
     .then(() => {
       hashHistory.replace('/');
     });
-
     return {
-      type:REMOVE_EVENT,
+      type: REMOVE_EVENT,
       payload: resultObj,
     }
   },
@@ -283,20 +275,6 @@ module.exports = {
     localStorage.removeItem('token')
     localStorage.removeItem('id')
     hashHistory.push('/login')
-  },
-  searchArtistEvents(query) {
-    const config = {
-      headers: {
-        authHeader: localStorage.getItem('token'),
-        mbid: query,
-      },
-    };
-    const request = axios.get('/api/songkick/getevents', config);
-    console.log('REQUEST FROM SONGKICK ARTIST EVENTS: ', request);
-    // return {
-    //   type: SEARCH_ARTISTS_EVENTS,
-    //   payload: request,
-    // };
   },
   searchArtists(query) {
     const config = {

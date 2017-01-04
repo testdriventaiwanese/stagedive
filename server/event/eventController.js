@@ -134,9 +134,9 @@ module.exports = {
       });
     },
 
-    deleteEvent({ body: { tm_id } }, res) {
-      const id = jwt.decode(userId, process.env.JWT_SECRET);
-      const params = [tm_id, id.sub];
+    deleteEvent(req, res) {
+      const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
+      const params = [req.body.tm_id, id.sub];
       eventModel.events.deleteEvent(params, (results) => {
         if (!results) {
           console.log('Issue in removing events');
