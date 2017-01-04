@@ -39,7 +39,6 @@ router.post('/artists/search', artistsController.artists.search);
 router.get('/bandsintown/getartist', bandsintown.getArtist);
 
 // songkick api call
-router.get('/songkick/getevents', songkick.getEvents);
 router.get('/songkick/getartist', songkick.getArtist);
 router.get('/songkick/getartistcalendar', songkick.getArtistCalendar);
 
