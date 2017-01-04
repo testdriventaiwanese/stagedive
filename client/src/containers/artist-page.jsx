@@ -4,8 +4,10 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 // import { selectEvent } from '../actions/index';
 import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
 
-import { getArtistCalendar, unfollowArtist, saveArtist } from '../actions/index';
+
+import { getArtistCalendar, removeArtist, saveArtist } from '../actions/index';
 
 class ArtistPage extends Component {
   componentWillMount() {
@@ -48,6 +50,7 @@ class ArtistPage extends Component {
             <div>{event.start.date}</div>
             <div>{event.start.time}</div>
           </div>
+
         </Paper>
       )
     })
@@ -68,6 +71,7 @@ class ArtistPage extends Component {
       return artist.mbid === this.props.params.artistId;
     });
     const artist = artistsArr[0];
+    console.log('artist:: ', artist);
 
     return (
       <Paper>
@@ -77,6 +81,11 @@ class ArtistPage extends Component {
         </div>
         <div>
           <h5><strong>Calendar</strong></h5>
+            <RaisedButton
+              label="Remove Event"
+              secondary
+              onClick={() => this.props.removeArtist(artist.mbid)}
+            />
           <div className="list-group col-sm-16">{this.renderCalendar()}</div>
         </div>
       </Paper>
@@ -101,7 +110,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({getArtistCalendar, unfollowArtist, saveArtist }, dispatch);
+  return bindActionCreators({getArtistCalendar, removeArtist, saveArtist }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistPage);
