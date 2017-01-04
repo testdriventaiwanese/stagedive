@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-// import { selectEvent } from '../actions/index';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-
-
 import { getArtistCalendar, removeArtist, saveArtist } from '../actions/index';
 
 class ArtistPage extends Component {
@@ -19,24 +16,12 @@ class ArtistPage extends Component {
     this.props.getArtistCalendar(artist);
   }
 
-  renderProfileBar() {
-    return (
-      <div>
-        <h1>
-          {this.props.events.userInfo.fullname}
-        </h1>
-        <button onClick={() => this.props.saveArtist(this.props.artists.userInfo.id)}>Follow</button>
-        <button onClick={() => this.props.unfollowArtist(this.props.artists.userInfo.id)}>Unfollow</button>
-      </div>
-    )
-  }
-
   renderCalendar() {
     if(!this.props.artistCalendar.data){
       return(
         <Paper>
           <div>
-            Loading Calendar..
+            No Upcoming Events!
           </div>
         </Paper>
       )
@@ -110,7 +95,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({getArtistCalendar, removeArtist, saveArtist }, dispatch);
+  return bindActionCreators({getArtistCalendar, removeArtist }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistPage);
