@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Paper from 'material-ui/Paper';
 // import { selectEvent } from '../actions/index';
 import { getEvents, removeEvent, getUserInfo } from '../actions/index';
 import AppBar from '../containers/app-bar';
@@ -13,7 +14,7 @@ class Journal extends Component {
 
   renderList() {
     let imageDiv = {
-      width: '35%',
+      width: '30%',
       float: 'left',
       height: '248px',
     };
@@ -21,37 +22,44 @@ class Journal extends Component {
       width: '100%',
     };
 
-    const dateStr = this.props.userInfo[0].createdOn.slice(0,19);
-    let currentDate = new Date();
-
-    let pastEvents = this.props.events.events.filter((event) => {
-      let eventDate = new Date(event.date.slice(0,19));
-      console.log('CURRENT DATE: ', currentDate, 'EVENT DATE: ', eventDate);
-      return eventDate < currentDate;
-    });
-    return pastEvents.map((event) => {
+    return this.props.events.pastEvents.map((event) => {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
       return (
-        <div key={event.id} className="list-group-item">
-          <div style={imageDiv}>
+        <div key={event.id}>
+          <Paper style={imageDiv} zDepth={2}>
               <img src={event.image} style={imageStyle}/>
-          </div>
-          <div>
-            <p><strong>{event.name}</strong></p>
-            <p>{event.venue}</p>
-            <span>{event.city}</span>
-            <p>{event.country}</p>
-            <span>Date: {date}</span>
-            <p>Time: {time}</p>
-            <p onClick={() => this.props.removeEvent(event)}>Remove Event</p>
-          </div>
+              <p><strong>{event.name}</strong></p>
+              <span>Date: {date}</span>
+          </Paper>
         </div>
       );
     });
   }
+
+
+  // <figure className='grid-figure'>
+  //         <div className='grid-photo-wrap'>
+  //           <Link to={`/view/${post.code}`}>
+  //             <img src={post.display_src} alt={post.caption} className='grid-photo'/>
+  //           </Link>
+  //         </div>
+  //         <figCaption>
+  //           <p>{post.caption}</p>
+  //           <div className='control-buttons'>
+  //             <button onClick={this.props.increment.bind(null, i)} className='likes'>
+  //               &hearts; {post.likes}
+  //             </button>
+  //             <Link to={`/view/${post.code}`} className='button'>
+  //               <span className='speech-bubble'></span>
+  //               {comments[post.code] ? comments[post.code].length : 0}
+  //             </Link>
+  //           </div>
+  //         </figCaption>
+  //       </figure>
+
   render() {
-    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
+    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events.pastEvents);
     return (
       <div>
         <h1>Concert Journal</h1>
