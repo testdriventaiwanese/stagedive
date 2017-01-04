@@ -210,7 +210,7 @@ module.exports = {
       return { data: [] };
     });
     return {
-      type: 'GET_ARTISTS',
+      type: GET_ARTISTS,
       payload: request,
     };
   },
