@@ -26,8 +26,6 @@ class EventList extends Component {
     if(this.props.events.futureEvents.length > 0) {
       let event = this.props.events.futureEvents[0];
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
-      // let dateObj = new Date(event.date.slice(0,10));
-      // let date = dateObj.toString();
       let time = event.date.slice(11, 16);
       return (
         <Paper className="list-group-item" zDepth={2}>
@@ -65,8 +63,6 @@ class EventList extends Component {
 
     return this.props.events.futureEvents.slice(1).map((event) => {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
-      // let dateObj = new Date(event.date.slice(0,10));
-      // let date = dateObj.toString();
       let time = event.date.slice(11, 16);
       return (
         <Paper key={event.id} className="list-group-item" zDepth={2}>
@@ -89,9 +85,7 @@ class EventList extends Component {
       );
     });
   }
-//          onClick={() => this.props.selectEvent(event)}
   render() {
-    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events.futureEvents);
     return (
       <div>
         <div>{this.renderUpcoming()}</div>

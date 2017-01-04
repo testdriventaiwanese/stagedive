@@ -135,7 +135,6 @@ module.exports = {
     },
 
     deleteEvent(req, res) {
-      console.log('req body from delete: ', req.body)
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
       const params = [req.body.tm_id, id.sub];
       eventModel.events.deleteEvent(params, (results) => {

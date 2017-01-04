@@ -276,20 +276,6 @@ module.exports = {
     localStorage.removeItem('id')
     hashHistory.push('/login')
   },
-  searchArtistEvents(query) {
-    const config = {
-      headers: {
-        authHeader: localStorage.getItem('token'),
-        mbid: query,
-      },
-    };
-    const request = axios.get('/api/songkick/getevents', config);
-    console.log('REQUEST FROM SONGKICK ARTIST EVENTS: ', request);
-    // return {
-    //   type: SEARCH_ARTISTS_EVENTS,
-    //   payload: request,
-    // };
-  },
   searchArtists(query) {
     const config = {
       headers: {
