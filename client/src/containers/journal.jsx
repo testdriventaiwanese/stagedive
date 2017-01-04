@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 // import { selectEvent } from '../actions/index';
 import { getEvents, removeEvent, getUserInfo } from '../actions/index';
@@ -28,9 +29,11 @@ class Journal extends Component {
       return (
         <Paper style={imageDiv} zDepth={2}>
         <div key={event.id}>
-              <img src={event.image} style={imageStyle}/>
-              <span><strong>{event.name}</strong></span>
-              <p>Date: {date}</p>
+          <Link to={`/journal/${event.id}`}>
+            <img src={event.image} style={imageStyle}/>
+          </Link>
+          <span><strong>{event.name}</strong></span>
+          <p>Date: {date}</p>
         </div>
       </Paper>
       );
@@ -59,7 +62,7 @@ class Journal extends Component {
   //       </figure>
 
   render() {
-    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events.pastEvents);
+    console.log('THESE ARE THE USERINFO IN RENDER:', this.props.userInfo);
     return (
       <div>
         <h1>Concert Journal</h1>
