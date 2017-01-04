@@ -77,7 +77,7 @@ class SearchResults extends Component {
     console.log('THIS IS THE ARTISTS SEARCH: ', this.props.artists)
     if(this.props.artists.bandsintown !== undefined || this.props.artists.songkick !== undefined){
       bandsintown = this.props.artists.bandsintown.data;
-      if(this.props.artists.songkick.data.resultsPage.results.artist !== undefined) {
+      if(this.props.artists.songkick.data.resultsPage.results.artist !== undefined && songkick.identifier.length > 0) {
         songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
         return (
           <Paper key={songkick.identifier[0].mbid} zDepth={2}>
