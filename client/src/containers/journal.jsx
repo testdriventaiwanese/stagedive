@@ -26,13 +26,13 @@ class Journal extends Component {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
       return (
+        <Paper style={imageDiv} zDepth={2}>
         <div key={event.id}>
-          <Paper style={imageDiv} zDepth={2}>
               <img src={event.image} style={imageStyle}/>
-              <p><strong>{event.name}</strong></p>
-              <span>Date: {date}</span>
-          </Paper>
+              <span><strong>{event.name}</strong></span>
+              <p>Date: {date}</p>
         </div>
+      </Paper>
       );
     });
   }
