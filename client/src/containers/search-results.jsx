@@ -70,6 +70,7 @@ class SearchResults extends Component {
     if(this.props.artists.bandsintown !== undefined || this.props.artists.songkick !== undefined){
       bandsintown = this.props.artists.bandsintown.data;
       songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
+      console.log('mbid: ', songkick.identifier[0].mbid)
     }
     if (!bandsintown) {
       return (
@@ -88,7 +89,9 @@ class SearchResults extends Component {
           <div style={imageDiv}>
             <img src={bandsintown.image_url} style={imageStyle} alt="artist headshot" />
           </div>
-          <div>{songkick.displayName}</div>
+          <Link to={`/artists/${songkick.identifier[0].mbid}`}>
+            <div>{songkick.displayName}</div>
+          </Link>
           <div>On Tour until: {songkick.onTourUntil}</div>
           <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
           <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
