@@ -22,6 +22,7 @@ export const UNFOLLOW = 'UNFOLLOW';
 export const GET_FRIENDS = 'GET_FRIENDS';
 export const GET_USER_EVENTS = 'GET_USER_EVENTS';
 export const GET_ARTIST_CALENDAR = 'GET_ARTIST_CALENDAR';
+export const REMOVE_ARTIST = 'REMOVE_ARTIST';
 
 module.exports = {
   selectEvent(event) {
