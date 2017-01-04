@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
-import { getArtists, unfollowArtist } from '../actions/index';
+import { getArtists, removeArtist } from '../actions/index';
 
 class Artists extends Component {
   componentDidMount() {
@@ -47,7 +48,11 @@ class Artists extends Component {
               <p>{artist.events}</p>
               <p>On Tour until: {artist.onTourUntil}</p>
               <p>Remaining Tour Dates: {artist.upcoming_events}</p>
-
+                <RaisedButton
+                  label="Remove Artist"
+                  secondary
+                  onClick={() => this.props.removeArtist(artist.mbid)}
+                />
             </div>
           </div>
         </Paper>
@@ -74,7 +79,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getArtists, unfollowArtist }, dispatch);
+  return bindActionCreators({ getArtists, removeArtist }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Artists);

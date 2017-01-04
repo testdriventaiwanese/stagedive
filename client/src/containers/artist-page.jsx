@@ -82,7 +82,7 @@ class ArtistPage extends Component {
         <div>
           <h5><strong>Calendar</strong></h5>
             <RaisedButton
-              label="Remove Event"
+              label="Remove Artist"
               secondary
               onClick={() => this.props.removeArtist(artist.mbid)}
             />
