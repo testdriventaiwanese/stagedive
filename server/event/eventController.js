@@ -16,7 +16,6 @@ module.exports = {
     },
     getOtherUserEvents(req, res) {
       const otherUserId = req.headers.userid;
-      console.log('OTHER USER ID IN EVENTCONTROLLER: ', otherUserId);
       eventModel.events.getUserEvents(otherUserId, (results) => {
         if (!results) {
           console.log('ERROR in getting all');

@@ -13,8 +13,7 @@ module.exports = {
       });
     },
     getFriendsEvents(params, callback) {
-      const query = 'SELECT id_events, id_users FROM users_events INNER JOIN users_friends ON users_friends.id_user=18 AND users_events.id_users=users_friends.id_friend';
-      const queryStr = 'SELECT id_friend FROM users_friends WHERE id_user = ?';
+      const queryStr = 'SELECT id_events, id_users FROM users_events INNER JOIN users_friends ON users_friends.id_user= ? AND users_events.id_users=users_friends.id_friend';
       const queryStr2 = 'SELECT * FROM events INNER JOIN users_events ON (users_events.id_users = ? and events.id=users_events.id_events)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
