@@ -14,6 +14,7 @@ class Journal extends Component {
   }
 
   renderList() {
+    let token = localStorage.getItem('token');
     let imageDiv = {
       width: '30%',
       float: 'left',
@@ -26,10 +27,11 @@ class Journal extends Component {
     return this.props.events.pastEvents.map((event) => {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
+      let userId = this.props.userInfo
       return (
         <Paper style={imageDiv} zDepth={2}>
         <div key={event.id}>
-          <Link to={`/journal/${event.id}`}>
+          <Link to={`/journal/${event.tm_id}/${token}`}>
             <img src={event.image} style={imageStyle}/>
           </Link>
           <span><strong>{event.name}</strong></span>
@@ -39,27 +41,6 @@ class Journal extends Component {
       );
     });
   }
-
-
-  // <figure className='grid-figure'>
-  //         <div className='grid-photo-wrap'>
-  //           <Link to={`/view/${post.code}`}>
-  //             <img src={post.display_src} alt={post.caption} className='grid-photo'/>
-  //           </Link>
-  //         </div>
-  //         <figCaption>
-  //           <p>{post.caption}</p>
-  //           <div className='control-buttons'>
-  //             <button onClick={this.props.increment.bind(null, i)} className='likes'>
-  //               &hearts; {post.likes}
-  //             </button>
-  //             <Link to={`/view/${post.code}`} className='button'>
-  //               <span className='speech-bubble'></span>
-  //               {comments[post.code] ? comments[post.code].length : 0}
-  //             </Link>
-  //           </div>
-  //         </figCaption>
-  //       </figure>
 
   render() {
     console.log('THESE ARE THE USERINFO IN RENDER:', this.props.userInfo);
