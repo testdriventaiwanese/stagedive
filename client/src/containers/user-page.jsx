@@ -11,6 +11,7 @@ class UserPage extends Component {
   }
 
   renderProfileBar() {
+    console.log('THIS IS THE EVENTS OBJECT IN USER PAGE: ', this.props.events);
     return (
       <div>
         <h1>
@@ -97,7 +98,7 @@ class UserPage extends Component {
   }
 //          onClick={() => this.props.selectEvent(event)}
   render() {
-    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events.futureEvents);
+    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
     return (
       <div>
         <div>{this.renderUpcoming()}</div>
