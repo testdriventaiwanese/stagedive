@@ -13,7 +13,10 @@ class JournalSingle extends Component {
 
   render() {
     console.log('THIS IS THE PARAMS: ', this.props.params);
-    const i = this.props.events.pastEvents.findIndex((event) => event.tm_id === this.props.params.eventTmId);
+    const i = this.props.events.pastEvents.findIndex((event) => {
+      console.log('THIS IS EVENT WITHIN FINDINDEX: ', event.id);
+      return event.id === Number(this.props.params.eventId);});
+    console.log('this is the props params event id: ', this.props.params.eventId, ' index: ', i)
     let event = this.props.events.pastEvents[i];
     let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
     let time = event.date.slice(11, 16);

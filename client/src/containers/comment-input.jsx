@@ -25,7 +25,7 @@ class CommentInput extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.addComment(this.state.term);
+    this.props.addComment(this.state.term, userId, friendId, eventId);
     this.setState({ term: '' });
     // hashHistory.push('/results');
   }
@@ -37,12 +37,12 @@ class CommentInput extends Component {
           <form onSubmit={this.onFormSubmit} className="input-group">
             <TextField
               style={{ color: 'white' }}
-              placeholder="Search for events, artist, or friends!"
+              placeholder="Add comment"
               value={this.state.term}
               onChange={this.onInputChange}
             />
             <span className="button-line">
-              <FlatButton type="submit" label="Search" backgroundColor="#616161" style={{ color: 'white' }} />
+              <FlatButton type="submit" label="Add" backgroundColor="#616161" style={{ color: 'white' }} />
             </span>
           </form>
         </MuiThemeProvider>
@@ -53,7 +53,8 @@ class CommentInput extends Component {
 
 function mapStateToProps(state) {
   return {
-    userInfo: state.userEvents,
+    friendInfo: state.userEvents,
+    userInfo: state.getUserInfo,
   };
 }
 
