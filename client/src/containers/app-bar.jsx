@@ -13,8 +13,8 @@ import SearchBar from './searchbar';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getUserInfo, logoutUser } from '../actions/index';
 import { Link } from 'react-router';
+import { getUserInfo, logoutUser } from '../actions/index';
 
 class NavBar extends Component {
   constructor(props) {
@@ -64,9 +64,11 @@ class NavBar extends Component {
           <MenuItem onTouchTap={this.handleToggle}>Back</MenuItem>
           <Link to={"/"} style={{ color: 'black' }}><MenuItem>Home</MenuItem></Link>
           <Link to={"account"} style={{ color: 'black' }}><MenuItem>My Account</MenuItem></Link>
+          <Link to={"newsfeed"} style={{ color: 'black' }}><MenuItem>News Feed</MenuItem></Link>
           <Link to={"my-events"} style={{ color: 'black' }}><MenuItem>My Events</MenuItem></Link>
           <Link to={"journal"} style={{ color: 'black' }}><MenuItem>Concert Journal</MenuItem></Link>
           <Link to={"explore"} style={{ color: 'black' }}><MenuItem>Explore</MenuItem></Link>
+
         </Drawer>
         <AppBar
           title="ConcertWallet"
