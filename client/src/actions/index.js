@@ -118,10 +118,10 @@ module.exports = {
     const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
-    // axios.post('/api/events/deleteevent', resultObj, config)
-    // .then(() => {
-    //   hashHistory.replace('/');
-    // });
+    axios.post('/api/events/deleteevent', resultObj, config)
+    .then(() => {
+      hashHistory.replace('/');
+    });
     return {
       type: REMOVE_EVENT,
       tm_id,
