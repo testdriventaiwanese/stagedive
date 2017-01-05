@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 
 class JournalPhoto extends Component {
   render() {
+    const { event, i, comments } = this.props;
     let id = localStorage.getItem('id');
     let imageDiv = {
       width: '30%',
@@ -33,4 +34,4 @@ class JournalPhoto extends Component {
   }
 }
 
-export default Photo;
+export default JournalPhoto;
