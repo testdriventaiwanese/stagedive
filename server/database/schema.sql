@@ -113,8 +113,9 @@ DROP TABLE IF EXISTS `comments`;
 
 CREATE TABLE `comments` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `id_users` INTEGER NOT NULL,
-  `id_events` INTEGER NOT NULL,
+  `id_user` INTEGER NOT NULL,
+  `id_friend` INTEGER NOT NULL,
+  `id_event` INTEGER NOT NULL,
   `text` VARCHAR(255) NOT NULL,
   `createdOn` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -131,8 +132,9 @@ ALTER TABLE `users_friends` ADD FOREIGN KEY (id_user) REFERENCES `users` (`id`);
 ALTER TABLE `users_friends` ADD FOREIGN KEY (id_friend) REFERENCES `users` (`id`);
 ALTER TABLE `users_artists` ADD FOREIGN KEY (id_artists) REFERENCES `artists` (`id`);
 ALTER TABLE `users_artists` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
-ALTER TABLE `comments` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
-ALTER TABLE `comments` ADD FOREIGN KEY (id_events) REFERENCES `events` (`id`);
+ALTER TABLE `comments` ADD FOREIGN KEY (id_user) REFERENCES `users` (`id`);
+ALTER TABLE `comments` ADD FOREIGN KEY (id_friend) REFERENCES `users` (`id`);
+ALTER TABLE `comments` ADD FOREIGN KEY (id_event) REFERENCES `events` (`id`);
 
 
 -- ---

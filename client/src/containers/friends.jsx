@@ -23,7 +23,7 @@ class Friends extends Component {
       )
     }
 
-    return this.props.friends.map((friend) => {
+    return this.props.friends.map((friend, i) => {
       return (
         <Paper key={friend.id} zDepth={2}>
           <div>
@@ -31,7 +31,7 @@ class Friends extends Component {
               <div onClick={() => this.props.getOtherUserEvents(friend)}>{friend.fullname}</div>
             </Link>
             <div>{friend.email}</div>
-            <button onClick={() => this.props.unfollow(friend.id)}>Unfollow</button>
+            <button onClick={() => this.props.unfollow(friend.id, i)}>Unfollow</button>
           </div>
           <br />
         </Paper>
