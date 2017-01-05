@@ -4,14 +4,14 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 // import { selectEvent } from '../actions/index';
-import { getEvents, removeEvent, getUserInfo, getUserEvents } from '../actions/index';
+import { removeEvent, getUserEvents } from '../actions/index';
 import JournalPhoto from './containers/journal-photo';
 
 class Journal extends Component {
   componentWillMount() {
-    this.props.getUserInfo();
-    //CHECK IF USER IS SELF OR FRIEND
-    this.props.getEvents();
+    //GETS USER EVENTS
+    let userId = this.props.userInfo.userInfo.id;
+    this.props.getUserEvents(userId);
   }
 
 //   renderList() {
@@ -25,8 +25,8 @@ class Journal extends Component {
 //       width: '100%',
 //     };
 // // /${event.tm_id}
-//   console.log('EVENTS OBJECT IN JOURNAL: ', this.props.events);
-  //   return this.props.events.pastEvents.map((event) => {
+//   console.log('EVENTS OBJECT IN JOURNAL: ', this.props.userInfo);
+  //   return this.props.userInfo.pastEvents.map((event) => {
   //     let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
   //     let time = event.date.slice(11, 16);
   //     let userId = this.props.userInfo
@@ -50,7 +50,7 @@ class Journal extends Component {
       <div>
         <h1>Concert Journal</h1>
         <ul className="list-group col-sm-16">
-          {this.props.events.pastEvents.map(event, i) => <JournalPhoto {...this.props} key={i} i={i} event={event} /> }
+          {this.props.userInfo.pastEvents.map(event, i) => <JournalPhoto {...this.props} key={i} i={i} event={event} /> }
         </ul>
       </div>
     );
@@ -59,15 +59,13 @@ class Journal extends Component {
 
 function mapStateToProps(state) {
   return {
-    events: state.getEvents,
-    userInfo: state.getUserInfo,
     comments: state.getEventComments,
-    friendInfo: state.userEvents,
+    userInfo: state.userEvents,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent, getEvents, getUserInfo, getUserEvents }, dispatch);
+  return bindActionCreators({ removeEvent, getUserEvents }, dispatch);
 }
 
 
