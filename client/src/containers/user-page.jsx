@@ -6,8 +6,7 @@ import { Link } from 'react-router';
 import { getUserEvents, removeEvent, addFollower, unfollow } from '../actions/index';
 
 class UserPage extends Component {
-  componentWillMount() {
-    // this.props.getUserEvents();
+  componentDidMount() {
   }
 
   renderProfileBar() {

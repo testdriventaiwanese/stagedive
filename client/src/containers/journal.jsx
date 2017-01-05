@@ -8,8 +8,9 @@ import { removeEvent, getUserEvents } from '../actions/index';
 import JournalPhoto from './journal-photo';
 
 class Journal extends Component {
-  componentWillMount() {
+  componentDidMount() {
     //GETS USER EVENTS
+    console.log('COMPONENT DID MOUNT IN JOURNAL CALLED:');
     let userId = this.props.userInfo.userInfo.id;
     this.props.getUserEvents(userId);
   }
@@ -45,12 +46,13 @@ class Journal extends Component {
   // }
 
   render() {
+    let journalPhotos = this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={event.id} i={i} event={event} /> );
     console.log('THESE ARE THE USERINFO IN RENDER:', this.props.userInfo);
     return (
       <div>
         <h1>Concert Journal</h1>
         <ul className="list-group col-sm-16">
-          {this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={i} i={i} event={event} />)}
+          {journalPhotos}
         </ul>
       </div>
     );
@@ -58,6 +60,7 @@ class Journal extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('MAP STATE TO PROPS CALLED IN JOURNAL');
   return {
     comments: state.getEventComments,
     userInfo: state.userEvents,
