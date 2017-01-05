@@ -69,6 +69,7 @@ module.exports = {
       });
     },
     deleteArtist(params, callback) {
+      console.log('DELETE ARTIST PARAMS:: ', params)
       const queryStr = 'SELECT id FROM artists WHERE mbid = ?';
       const queryStr2 = 'SELECT id_users FROM users_artists WHERE id_artists = ?';
       const queryStr3 = 'DELETE FROM users_artists WHERE id_artists = ? AND id_users = ?';

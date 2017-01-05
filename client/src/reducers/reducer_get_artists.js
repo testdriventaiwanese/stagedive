@@ -5,7 +5,7 @@ export default function (state = [], action) {
       return action.payload.data.length === 0 ? [] : action.payload.data;
     case 'REMOVE_ARTIST':
       console.log('REMOVE ARTIST ACTIOn:: ', action);
-      console.log('REMOVE ARTIST STATE:: ', ...state);
+      console.log('REMOVE ARTIST STATE:: ', ...state.slice(0, action.i));
       return [
         ...state.slice(0, action.i),
         ...state.slice(action.i + 1),

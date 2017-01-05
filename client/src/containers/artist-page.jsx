@@ -69,7 +69,7 @@ class ArtistPage extends Component {
             <RaisedButton
               label="Remove Artist"
               secondary
-              onClick={() => this.props.removeArtist(artist.mbid)}
+              onClick={() => this.props.removeArtist(artist.mbid, 0)}
             />
           <div className="list-group col-sm-16">{this.renderCalendar()}</div>
         </div>
@@ -95,7 +95,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({getArtistCalendar, removeArtist }, dispatch);
+  return bindActionCreators({ getArtistCalendar, removeArtist }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistPage);
