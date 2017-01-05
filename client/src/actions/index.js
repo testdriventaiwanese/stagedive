@@ -369,4 +369,21 @@ module.exports = {
       payload: request,
     }
   },
+  addEventComment(comment, userId, friendId, eventId) {
+    let commentObj = {
+      comment,
+      userId,
+      friendId,
+      eventId,
+    }
+    console.log('THIS THE COMMENT OBJ: ', commentObj);
+    const request = axios.post('/api/events/comments');
+  },
+  getEventComments(userId, eventId) {
+    let reqObj = {
+      userId,
+      eventId,
+    }
+    const request = axios.get('/api/events/comments');
+  },
 };

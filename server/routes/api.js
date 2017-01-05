@@ -28,6 +28,9 @@ router.get('/events/showlocalevents', eventController.events.showLocalEvents);
 router.get('/events/showrelatedevents', eventController.events.showRelatedEvents);
 router.post('/events/deleteevent', eventController.events.deleteEvent);
 
+//BELOW FOR ADAM TO ADD COMMENTS IN BACK
+// router.post('/api/events/comments', eventController.events.addComment);
+
 // artist calls
 router.get('/artists/getall', artistsController.artists.getUserArtists);
 router.post('/artists/addartist', artistsController.artists.addArtist);
