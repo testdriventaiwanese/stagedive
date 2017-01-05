@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 // import { selectEvent } from '../actions/index';
 import { userEvents, removeEvent, addEventComment, getEventComments } from '../actions/index';
-import AppBar from '../containers/app-bar';
+import Comments from './comments';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
@@ -21,11 +21,11 @@ class JournalSingle extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  componentWillMount() {
-    let userId = this.props.userInfo.id;
-    let eventId = this.props.params.eventId;
-    getEventComments(userId, eventId);
-  }
+  // componentWillMount() {
+  //   let userId = this.props.userInfo.id;
+  //   let eventId = this.props.params.eventId;
+  //   getEventComments(userId, eventId);
+  // }
 
   onInputChange(event) {
     this.setState({term: event.target.value});
@@ -64,8 +64,8 @@ class JournalSingle extends Component {
   // }
 
   render() {
-    const i = this.props.events.pastEvents.findIndex((event) => event.id === Number(this.props.params.eventId));
-    let event = this.props.events.pastEvents[i];
+    const i = this.props.userInfo.pastEvents.findIndex((event) => event.id === Number(this.props.params.eventId));
+    let event = this.props.userInfo.pastEvents[i];
     let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
     let time = event.date.slice(11, 16);
     let userId = this.props.userInfo
@@ -88,6 +88,9 @@ class JournalSingle extends Component {
             <span><strong>{event.name}</strong></span>
             <p>Date: {date}</p>
           </div>
+          <div>
+            <Comments />
+          </div>
         </Paper>
         </ul>
       </div>
@@ -98,7 +101,7 @@ class JournalSingle extends Component {
 // <div>{this.renderCommentInput()}</div>
 function mapStateToProps(state) {
   return {
-    events: state.userEvents,
+    userInfo: state.userEvents,
   };
 }
 
