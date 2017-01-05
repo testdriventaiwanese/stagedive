@@ -3,6 +3,7 @@ export default function (state = [], action) {
     case 'FRIENDS_EVENTS':
     console.log('THIS IS THE GET FRIENDS EVENTS REDUCER: ', action.payload);
       let userInfo = action.payload.data.userNames;
+      let friendsEvents = action.payload.data.friendEvents;
       let events = action.payload.data.events.length === 0 ? [] : action.payload.data.events;
       let currentDate = new Date();
       let futureEvents = events.sort((a, b) => {
@@ -16,6 +17,7 @@ export default function (state = [], action) {
       })
       return {
         events,
+        friendsEvents,
         futureEvents,
         userInfo,
       };
