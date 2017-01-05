@@ -2,8 +2,9 @@ const express = require('express');
 const userController = require('../user/userController');
 const eventController = require('../event/eventController');
 const artistsController = require('../artists/artistsController');
+const commentsController = require('../comments/commentsController');
 const bandsintown = require('../API/bandsInTown');
-const songkick = require('../API/songkick')
+const songkick = require('../API/songkick');
 
 const router = new express.Router();
 
@@ -28,9 +29,11 @@ router.get('/events/showlocalevents', eventController.events.showLocalEvents);
 router.get('/events/showrelatedevents', eventController.events.showRelatedEvents);
 router.post('/events/deleteevent', eventController.events.deleteEvent);
 
-//BELOW FOR ADAM TO ADD COMMENTS IN BACK
+// comment calls
 // router.post('/api/events/comments', eventController.events.addComment);
-
+router.get('/comments/getcomments', commentsController.comments.getComments);
+router.post('/comments/addcomment', commentsController.comments.addComment);
+router.post('/comments/removecomment', commentsController.comments.removeComment);
 // artist calls
 router.get('/artists/getall', artistsController.artists.getUserArtists);
 router.post('/artists/addartist', artistsController.artists.addArtist);
