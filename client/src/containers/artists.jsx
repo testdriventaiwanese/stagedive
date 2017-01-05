@@ -32,7 +32,7 @@ class Artists extends Component {
         </Paper>
       );
     }
-    return this.props.artists.map((artist) => {
+    return this.props.artists.map((artist, i) => {
       console.log('artists.jsx artist:: ', artist);
       return (
         <Paper key={artist.id} className="list-group-item" zDepth={2}>
@@ -48,6 +48,11 @@ class Artists extends Component {
               <p>{artist.events}</p>
               <p>On Tour until: {artist.onTourUntil}</p>
               <p>Remaining Tour Dates: {artist.upcoming_events}</p>
+                <RaisedButton
+                  label="Remove Artist"
+                  secondary
+                  onClick={() => this.props.removeArtist(artist.mbid, i)}
+                />
             </div>
           </div>
         </Paper>
@@ -74,7 +79,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getArtists }, dispatch);
+  return bindActionCreators({ getArtists, removeArtist }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Artists);
