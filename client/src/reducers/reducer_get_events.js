@@ -17,13 +17,6 @@ export default function(state = { events: [], futureEvents: [] }, action) {
         events,
         futureEvents,
       }
-    case 'REMOVE_EVENT':
-
-        futureEvents = [...state.futureEvents.slice(0, action.i), ...state.futureEvents.slice(action.i + 1)];
-        console.log('FUTURE EVENTS 2', futureEvents)
-        return {
-          futureEvents,
-        }
     default:
       return state;
   }
