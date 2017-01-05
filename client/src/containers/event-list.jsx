@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 import { getUserEvents, getUserInfo, removeEvent } from '../actions/index';
 
 class EventList extends Component {
-  componentWillMount() {
+  componentDidMount() {
     let id = localStorage.getItem('id');
     let user = { id }
     this.props.getUserInfo();

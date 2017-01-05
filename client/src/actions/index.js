@@ -346,6 +346,8 @@ module.exports = {
         userInfo: user,
       }
     };
+    console.log('GET USER EVENT HAS BEEN CALLED IN ACTIONS')
+
     const request = axios.get('/api/events/getuserevents', config)
     .catch((res) => {
       return {data: []};
@@ -387,6 +389,7 @@ module.exports = {
     const request = axios.post('/api/comments/addcomment');
   },
   getEventComments(userId, eventId) {
+    console.log('GET EVENT COMMENTS HAS BEEN CALLED IN ACTIONS')
     let commentObj = {
       eventId,
     }
