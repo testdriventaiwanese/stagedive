@@ -251,7 +251,7 @@ module.exports = {
     const unfollowObj = {
       userId,
     };
-    let unfollowResult = axios.post('/api/users/unfollow', unfollowObj, config);
+    // let unfollowResult = axios.post('/api/users/unfollow', unfollowObj, config);
     return {
       type: 'UNFOLLOW',
       userId,

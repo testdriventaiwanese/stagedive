@@ -13,7 +13,7 @@ import LogIn from './reducer_log_in';
 import RemoveEvent from './reducer_remove_event';
 import SearchArtists from './reducer_search_artists';
 import SearchUsers from './reducer_search_users';
-import Unfollow from './reducer_unfollow';
+// import Unfollow from './reducer_unfollow';
 import UserEvents from './reducer_get_user_events';
 import GetArtistCalendar from './reducer_get_artist_calendar';
 import RemoveArtist from './reducer_remove_artist';
@@ -34,7 +34,7 @@ const rootReducer = combineReducers({
   removeEvent: RemoveEvent,
   searchArtists: SearchArtists,
   searchUsers: SearchUsers,
-  unfollow: Unfollow,
+  // unfollow: Unfollow,
   userEvents: UserEvents,
   getArtistCalendar: GetArtistCalendar,
   removeArtist: RemoveArtist,

@@ -78,8 +78,6 @@ class UserPage extends Component {
 
     return this.props.events.futureEvents.slice(1).map((event) => {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
-      // let dateObj = new Date(event.date.slice(0,10));
-      // let date = dateObj.toString();
       let time = event.date.slice(11, 16);
       return (
         <div key={event.id} className="list-group-item">
@@ -100,9 +98,7 @@ class UserPage extends Component {
       );
     });
   }
-//          onClick={() => this.props.selectEvent(event)}
   render() {
-    console.log('THESE ARE THE EVENTS IN RENDER:', this.props.events);
     return (
       <div>
         <div>{this.renderProfileBar()}</div>
