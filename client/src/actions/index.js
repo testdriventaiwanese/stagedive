@@ -130,10 +130,9 @@ module.exports = {
       i,
     }
   },
-  removeArtist(artist_mbid) {
-    let resultObj;
-    resultObj = {
-      mbid: artist_mbid
+  removeArtist(artist_mbid, i) {
+    const resultObj = {
+      artist_mbid,
     }
 
     console.log('removeEvent resultObj:: ', resultObj)
@@ -147,7 +146,8 @@ module.exports = {
 
     return {
       type:REMOVE_ARTIST,
-      payload: resultObj,
+      artist_mbid,
+      i,
     }
   },
   getEvents() {
