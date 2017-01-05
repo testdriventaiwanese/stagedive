@@ -13,7 +13,7 @@ module.exports = {
         } else {
           res.status(200).send(results);
         }
-      }
+      });
     },
     addComment({ body: {
       id_events,
@@ -34,7 +34,7 @@ module.exports = {
         } else {
           res.status(200).send(results);
         }
-      }
+      })
     },
     removeComment(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
@@ -46,7 +46,7 @@ module.exports = {
         } else {
           res.status(200).send(results);
         }
-      }
+      });
     },
   },
 };

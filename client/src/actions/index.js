@@ -110,20 +110,22 @@ module.exports = {
       payload: artistObj,
     };
   },
-  removeEvent(tm_id) {
+  removeEvent(tm_id, i) {
+    console.log('REMOVEEVENT CALLED AND WHAT IS PASSED:: ', tm_id)
     const resultObj = {
       tm_id,
     }
     const config = {
       headers: { authHeader: localStorage.getItem('token') },
     };
-    axios.post('/api/events/deleteevent', resultObj, config)
-    .then(() => {
-      hashHistory.replace('/');
-    });
+    // axios.post('/api/events/deleteevent', resultObj, config)
+    // .then(() => {
+    //   hashHistory.replace('/');
+    // });
     return {
       type: REMOVE_EVENT,
-      payload: resultObj,
+      tm_id,
+      i,
     }
   },
   removeArtist(artist_mbid) {
