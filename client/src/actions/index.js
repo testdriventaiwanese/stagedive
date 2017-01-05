@@ -369,21 +369,29 @@ module.exports = {
       payload: request,
     }
   },
-  addEventComment(comment, userId, friendId, eventId) {
+  addEventComment(comment, commentId, userId, friendId, eventId) {
     let commentObj = {
       comment,
-      userId,
+      commentId,
       friendId,
       eventId,
     }
-    console.log('THIS THE COMMENT OBJ: ', commentObj);
-    const request = axios.post('/api/events/comments');
+    const config = {
+      headers: { authheader: localStorage.getItem('token') },
+    };
+    console.log('THIS THE COMMENT OBJ: ', commentObj, config);
+    const request = axios.post('/api/comments/addcomment');
   },
   getEventComments(userId, eventId) {
-    let reqObj = {
-      userId,
+    let commentObj = {
       eventId,
     }
-    const request = axios.get('/api/events/comments');
+    const config = {
+      headers: { authheader: localStorage.getItem('token') },
+    };
+    const request = axios.get('/api/comments/getcomments', commentObj, config);
   },
+  removeEventComment() {
+    const request = axios.post('/api/comments/removecomment');
+  }
 };
