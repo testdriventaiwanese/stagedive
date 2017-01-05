@@ -357,6 +357,7 @@ module.exports = {
     }
   },
   getArtistCalendar(artist) {
+    console.log('GET ARTIST CALENDAR:: ', artist);
     const config = {
       headers: {
         authHeader: localStorage.getItem('token'),

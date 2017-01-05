@@ -8,12 +8,18 @@ import { getArtistCalendar, removeArtist, saveArtist } from '../actions/index';
 
 class ArtistPage extends Component {
   componentWillMount() {
+    console.log('ARTISTPAGE:: ',this.props.params.artistId);
+    console.log('ARTISTPAGE:: ', this.props)
     const artistsArr = this.props.artists.filter((artist) => {
       return artist.mbid === this.props.params.artistId;
     });
     const artist = artistsArr[0];
-
-    this.props.getArtistCalendar(artist);
+    const search = {mbid: this.props.params.artistId}
+    if(!artist) {
+      this.props.getArtistCalendar(search)
+    } else {
+      this.props.getArtistCalendar(artist);
+    }
   }
 
   renderCalendar() {
@@ -55,8 +61,27 @@ class ArtistPage extends Component {
     const artistsArr = this.props.artists.filter((artist) => {
       return artist.mbid === this.props.params.artistId;
     });
-    const artist = artistsArr[0];
-    console.log('artist:: ', artist);
+    let artist = artistsArr[0];
+    const search = {mbid: this.props.params.artistId}
+    if(!artist) {
+      this.props.getArtistCalendar(search)
+    } else {
+      this.props.getArtistCalendar(artist);
+    }
+
+    if(!this.props.artistCalendar.data) {
+      return (
+        <div>Loading..</div>
+      )
+    }
+    const musician = this.props.artistCalendar.data
+    console.log('artist calendar:: ',musician.resultsPage.results.event[0].performance[0].displayName);
+    const realName = musician.resultsPage.results.event[0].performance[0].displayName;
+    console.log('ARTIST NAME:: ', realName);
+    artist = {
+      name: realName,
+      image: undefined,
+    }
 
     return (
       <Paper>

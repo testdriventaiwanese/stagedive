@@ -1,4 +1,4 @@
-export default function(state = { events: [], futureEvents: [] }, action) {
+export default function(state = [], action) {
   switch(action.type) {
     case 'GET_ARTIST_CALENDAR':
     console.log('THIS IS THE GET ARTIST CALENDAR REDUCER: ', action.payload);
