@@ -14,12 +14,26 @@ module.exports = {
     },
     getFriendsEvents(params, callback) {
       const queryStr = 'SELECT id_events, id_users FROM users_events INNER JOIN users_friends ON users_friends.id_user= ? AND users_events.id_users=users_friends.id_friend';
-      const queryStr2 = 'SELECT * FROM events INNER JOIN users_events ON (users_events.id_users = ? and events.id=users_events.id_events)';
+      const queryStr2 = 'SELECT id, fullname FROM users INNER JOIN users_friends ON users_friends.id_user= ? AND users.id=users_friends.id_friend';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/eventModel.js getFriendsEvents : ', err);
         } else {
-          callback(results);
+          const friendsEvents = results.map((event) => event.id_events).join(', ');
+          db.query(queryStr2, params, (err, userResults) => {
+            if (err) {
+              console.log('Error in server/eventModel.js getFriendsEvents : ', err);
+            } else {
+              const queryStr3 = `SELECT * FROM events WHERE id IN (${friendsEvents})`;
+              db.query(queryStr3, (err, eventResults) => {
+                if (err) {
+                  console.log('Error in server/eventModel.js getFriendsEvents : ', err);
+                } else {
+                  callback({ userNames: userResults, friendEvents: results, events: eventResults });
+                }
+              });
+            }
+          });
         }
       });
     },

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getFriendsEvents, removeEvent } from '../actions/index';
 import RaisedButton from 'material-ui/RaisedButton';
+import { getFriendsEvents } from '../actions/index';
 
 class FriendsEventList extends Component {
   componentWillMount() {
@@ -10,6 +10,7 @@ class FriendsEventList extends Component {
   }
 
   renderList() {
+    console.log('THESE ARE THE EVENTS IN FRIENDS EVENTS RENDER:', this.props.events);
     let imageDiv = {
       width: '35%',
       float: 'left',
@@ -18,7 +19,10 @@ class FriendsEventList extends Component {
     let imageStyle = {
       width: '100%',
     };
-    return this.props.events.map((event) => {
+    if(!this.props.events.futureEvents) {
+      return <div>Loading News Feed...</div>
+    }
+    return this.props.events.futureEvents.map((event) => {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
       return (
@@ -31,20 +35,18 @@ class FriendsEventList extends Component {
             <p>{event.venue}</p>
             <span>{event.city}</span>
             <p>{event.country}</p>
-            <span>Date: {date}</span>
+            <span>{date}</span>
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
-            <p onClick={() => this.props.removeEvent(event)}>Remove Event</p>
           </div>
         </div>
       );
     });
   }
   render() {
-    console.log('THESE ARE THE EVENTS IN FRIENDS EVENTS RENDER:', this.props.events);
     return (
       <div>
-        <h1>Events Feed</h1>
+        <h1>News Feed</h1>
         <ul className="list-group col-sm-16">
           {this.renderList()}
         </ul>
@@ -60,7 +62,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getFriendsEvents, removeEvent }, dispatch);
+  return bindActionCreators({ getFriendsEvents }, dispatch);
 }
 
 

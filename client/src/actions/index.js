@@ -1,16 +1,15 @@
 import { hashHistory } from 'react-router';
 import axios from 'axios';
-import APIKEYS from './APIKEYS.js';
+import APIKEYS from './APIKEYS';
 
 const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
-
-// import {searchArtists} from '../../../server/API/bandsInTown.js';
 
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
 export const SAVE_EVENT = 'SAVE_EVENT';
 export const SAVE_ARTIST = 'SAVE_ARTIST';
 export const GET_EVENTS = 'GET_EVENTS';
+export const FRIENDS_EVENTS = 'FRIENDS_EVENTS';
 export const GET_ARTISTS = 'GET_ARTISTS';
 export const GET_USERINFO = 'GET_USERINFO';
 export const SIGN_UP = 'SIGN_UP';
@@ -152,7 +151,7 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/events/getAll', config)
-    .catch((res) => {
+    .catch(() => {
       return {data: []};
     });
     return {
@@ -165,9 +164,9 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/events/getfriendsevents', config)
-    .catch((res) => {
-      return {data: []};
-    });
+      .catch(() => {
+        return { data: [] };
+      });
     return {
       type: FRIENDS_EVENTS,
       payload: request,
