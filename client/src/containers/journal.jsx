@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 // import { selectEvent } from '../actions/index';
 import { removeEvent, getUserEvents } from '../actions/index';
-import JournalPhoto from './containers/journal-photo';
+import JournalPhoto from './journal-photo';
 
 class Journal extends Component {
   componentWillMount() {
@@ -50,7 +50,7 @@ class Journal extends Component {
       <div>
         <h1>Concert Journal</h1>
         <ul className="list-group col-sm-16">
-          {this.props.userInfo.pastEvents.map(event, i) => <JournalPhoto {...this.props} key={i} i={i} event={event} /> }
+          {this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={i} i={i} event={event} />)}
         </ul>
       </div>
     );

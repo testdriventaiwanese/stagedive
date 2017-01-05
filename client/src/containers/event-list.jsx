@@ -4,13 +4,14 @@ import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
-import { getUserEvents, removeEvent } from '../actions/index';
+import { getUserEvents, getUserInfo, removeEvent, getEvents } from '../actions/index';
 
 class EventList extends Component {
   componentWillMount() {
     let id = localStorage.getItem('id');
     let user = { id }
     this.props.getUserInfo();
+    this.props.getEvents();
     this.props.getUserEvents(user);
   }
 
@@ -124,7 +125,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getUserEvents, removeEvent }, dispatch);
+  return bindActionCreators({ getUserEvents, getUserInfo, removeEvent, getEvents }, dispatch);
 }
 
 
