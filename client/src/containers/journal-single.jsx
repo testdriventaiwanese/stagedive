@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper';
 // import { selectEvent } from '../actions/index';
 import { getEvents, removeEvent, getUserInfo, addEventComment, getEventComments } from '../actions/index';
 import AppBar from '../containers/app-bar';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -40,26 +41,26 @@ class JournalSingle extends Component {
     // hashHistory.push('/results');
   }
 
-  renderCommentInput() {
-    console.log('PROPS IN COMMENTBOX: ', this.props.params);
-    return (
-      <span>
-        <MuiThemeProvider>
-          <form onSubmit={this.onFormSubmit} className="input-group">
-            <TextField
-              style={{ color: 'white' }}
-              placeholder="Add comment"
-              value={this.state.term}
-              onChange={this.onInputChange}
-            />
-            <span className="button-line">
-              <FlatButton type="submit" label="Add" backgroundColor="#616161" style={{ color: 'white' }} />
-            </span>
-          </form>
-        </MuiThemeProvider>
-      </span>
-    );
-  }
+  // renderCommentInput() {
+  //   console.log('PROPS IN COMMENTBOX: ', this.props.params);
+  //   return (
+  //     <span>
+  //       <MuiThemeProvider>
+  //         <form onSubmit={this.onFormSubmit} className="input-group">
+  //           <TextField
+  //             style={{ color: 'white' }}
+  //             placeholder="Add comment"
+  //             value={this.state.term}
+  //             onChange={this.onInputChange}
+  //           />
+  //           <span className="button-line">
+  //             <FlatButton type="submit" label="Add" backgroundColor="#616161" style={{ color: 'white' }} />
+  //           </span>
+  //         </form>
+  //       </MuiThemeProvider>
+  //     </span>
+  //   );
+  // }
 
   render() {
     const i = this.props.events.pastEvents.findIndex((event) => event.id === Number(this.props.params.eventId));
@@ -86,7 +87,6 @@ class JournalSingle extends Component {
             <span><strong>{event.name}</strong></span>
             <p>Date: {date}</p>
           </div>
-          <div>{this.renderCommentInput()}</div>
         </Paper>
         </ul>
       </div>
@@ -94,6 +94,7 @@ class JournalSingle extends Component {
   }
 }
 
+// <div>{this.renderCommentInput()}</div>
 function mapStateToProps(state) {
   return {
     events: state.getEvents,
