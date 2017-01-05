@@ -52,14 +52,8 @@ class CommentInput extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    // userInfo: state.getUserInfo,
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ addComment }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommentInput);
+export default connect(null, mapDispatchToProps)(CommentInput);

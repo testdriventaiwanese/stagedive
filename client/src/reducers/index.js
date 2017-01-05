@@ -17,7 +17,7 @@ import Unfollow from './reducer_unfollow';
 import UserEvents from './reducer_get_user_events';
 import GetArtistCalendar from './reducer_get_artist_calendar';
 import RemoveArtist from './reducer_remove_artist';
-
+import GetEventComments from './reducer_get_event_comments';
 
 const rootReducer = combineReducers({
   activeEvent: ActiveEvent,
@@ -38,6 +38,7 @@ const rootReducer = combineReducers({
   userEvents: UserEvents,
   getArtistCalendar: GetArtistCalendar,
   removeArtist: RemoveArtist,
+  getEventComments: GetEventComments,
 });
 
 export default rootReducer;
