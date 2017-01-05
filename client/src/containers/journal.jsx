@@ -10,9 +10,9 @@ import JournalPhoto from './journal-photo';
 class Journal extends Component {
   componentDidMount() {
     //GETS USER EVENTS
-    console.log('COMPONENT DID MOUNT IN JOURNAL CALLED:');
-    let userId = this.props.userInfo.userInfo.id;
-    this.props.getUserEvents(userId);
+      let id = this.props.userInfo.userInfo.id;
+      let user = { id };
+      this.props.getUserEvents(user);
   }
 
 //   renderList() {

@@ -346,13 +346,13 @@ module.exports = {
         userInfo: user,
       }
     };
-    console.log('GET USER EVENT HAS BEEN CALLED IN ACTIONS')
 
     const request = axios.get('/api/events/getuserevents', config)
     .catch((res) => {
+      console.log('THIS IS THE CATCH IN GET USER EVENTS: ', res);
       return {data: []};
     });
-
+    console.log('REQUEST FOR GET USER EVENTS: ', request);
     return {
       type: GET_USER_EVENTS,
       payload: request,
