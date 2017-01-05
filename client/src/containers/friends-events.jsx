@@ -10,7 +10,6 @@ class FriendsEventList extends Component {
   }
 
   renderList() {
-    console.log('THESE ARE THE EVENTS IN FRIENDS EVENTS RENDER:', this.props.events);
     let imageDiv = {
       width: '35%',
       float: 'left',
@@ -22,6 +21,10 @@ class FriendsEventList extends Component {
     if(!this.props.events.futureEvents) {
       return <div>Loading News Feed...</div>
     }
+    const userInfo = this.props.events.userInfo;
+    const friendsEvents = this.props.events.friendsEvents;
+    console.log('USERS in newsfeed: ', userInfo);
+    console.log('FRIENDS in newsfeed: ', friendsEvents);
     return this.props.events.futureEvents.map((event) => {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
