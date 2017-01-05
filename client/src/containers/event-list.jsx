@@ -4,11 +4,14 @@ import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
-import { getEvents } from '../actions/index';
+import { getUserEvents } from '../actions/index';
 
 class EventList extends Component {
   componentWillMount() {
-    this.props.getEvents();
+    let id = localStorage.getItem('id');
+    let user = { id }
+    this.props.getUserInfo();
+    this.props.getUserEvents(user);
   }
 
   renderUpcoming() {

@@ -22,6 +22,8 @@ export const GET_FRIENDS = 'GET_FRIENDS';
 export const GET_USER_EVENTS = 'GET_USER_EVENTS';
 export const GET_ARTIST_CALENDAR = 'GET_ARTIST_CALENDAR';
 export const REMOVE_ARTIST = 'REMOVE_ARTIST';
+export const GET_EVENT_COMMENTS = 'GET_EVENT_COMMENTS';
+
 
 module.exports = {
   selectEvent(event) {
@@ -334,7 +336,7 @@ module.exports = {
       })
     });
   },
-  getOtherUserEvents(user) {
+  getUserEvents(user) {
     const config = {
       headers: {
         authHeader: localStorage.getItem('token'),
@@ -390,6 +392,10 @@ module.exports = {
       headers: { authheader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/comments/getcomments', commentObj, config);
+    return {
+      type: GET_EVENT_COMMENTS,
+      payload: request,
+    }
   },
   removeEventComment() {
     const request = axios.post('/api/comments/removecomment');

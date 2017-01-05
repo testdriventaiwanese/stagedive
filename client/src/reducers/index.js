@@ -38,7 +38,7 @@ const rootReducer = combineReducers({
   userEvents: UserEvents,
   getArtistCalendar: GetArtistCalendar,
   removeArtist: RemoveArtist,
-  getComments: GetEventComments,
+  getEventComments: GetEventComments,
 });
 
 export default rootReducer;

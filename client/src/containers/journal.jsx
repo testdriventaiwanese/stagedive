@@ -4,12 +4,13 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 // import { selectEvent } from '../actions/index';
-import { getEvents, removeEvent, getUserInfo } from '../actions/index';
+import { getEvents, removeEvent, getUserInfo, getUserEvents } from '../actions/index';
 import JournalPhoto from './containers/journal-photo';
 
 class Journal extends Component {
   componentWillMount() {
     this.props.getUserInfo();
+    //CHECK IF USER IS SELF OR FRIEND
     this.props.getEvents();
   }
 
@@ -60,12 +61,13 @@ function mapStateToProps(state) {
   return {
     events: state.getEvents,
     userInfo: state.getUserInfo,
-
+    comments: state.getEventComments,
+    friendInfo: state.userEvents,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent, getEvents, getUserInfo }, dispatch);
+  return bindActionCreators({ removeEvent, getEvents, getUserInfo, getUserEvents }, dispatch);
 }
 
 
