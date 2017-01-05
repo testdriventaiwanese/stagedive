@@ -2,7 +2,8 @@ export default function(state = { events: [], futureEvents: [] }, action) {
   console.log('ACTION TYPE IN REDUCER: ', action.type);
   switch(action.type) {
     case 'GET_USER_EVENTS':
-    console.log('THIS IS THE GET USER EVENTS REDUCER: ', action.payload);
+    console.log('THIS IS THE ACTION PAYLOAD IN GET USER EVENTS: ', action);
+
       let userInfo = action.payload.config.headers.userInfo;
 
       let events = action.payload.data.length === 0 ? [] : action.payload.data;
@@ -21,8 +22,8 @@ export default function(state = { events: [], futureEvents: [] }, action) {
         let eventDate = new Date(event.date.slice(0,10));
         return eventDate <= currentDate;
       });
-      console.log("FUTURE EVENTS: ", futureEvents, "PAST EVENTS", pastEvents, "ALL EVENTS: ", events);
-      console.log('SORTED EVENTS: ', sortedEvents);
+      // console.log("FUTURE EVENTS: ", futureEvents, "PAST EVENTS", pastEvents, "ALL EVENTS: ", events);
+      // console.log('SORTED EVENTS: ', sortedEvents);
       return {
         events,
         futureEvents,

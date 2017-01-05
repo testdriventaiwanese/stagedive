@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 // import { selectEvent } from '../actions/index';
-import { getEvents, removeEvent, getUserInfo, addEventComment, getEventComments } from '../actions/index';
+import { userEvents, removeEvent, addEventComment, getEventComments } from '../actions/index';
 import AppBar from '../containers/app-bar';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -22,7 +22,7 @@ class JournalSingle extends Component {
   }
 
   componentWillMount() {
-    let userId = localStorage.getItem('id');
+    let userId = this.props.userInfo.id;
     let eventId = this.props.params.eventId;
     getEventComments(userId, eventId);
   }
@@ -36,6 +36,7 @@ class JournalSingle extends Component {
     event.preventDefault();
     let userId = localStorage.getItem('id');
     let eventId = this.props.params.eventId;
+    let friendId = us
     this.props.addEventComment(this.state.term, userId, userId, eventId);
     this.setState({ term: '' });
     // hashHistory.push('/results');
@@ -97,13 +98,12 @@ class JournalSingle extends Component {
 // <div>{this.renderCommentInput()}</div>
 function mapStateToProps(state) {
   return {
-    events: state.getEvents,
-    userInfo: state.getUserInfo,
+    events: state.userEvents,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent, getEvents, getUserInfo, addEventComment, getEventComments }, dispatch);
+  return bindActionCreators({ removeEvent, userEvents, addEventComment, getEventComments }, dispatch);
 }
 
 

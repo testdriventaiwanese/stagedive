@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { hashHistory, Link } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import { saveEvent, addFollower, saveArtist, getOtherUserEvents } from '../actions/index';
+import { saveEvent, addFollower, saveArtist, getUserEvents } from '../actions/index';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -25,7 +25,7 @@ class SearchResults extends Component {
   }
 
   onProfileClick(user) {
-    this.props.getOtherUserEvents(user);
+    this.props.getUserEvents(user);
   }
 
   renderEvents() {
@@ -185,7 +185,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ saveEvent, addFollower, saveArtist, getOtherUserEvents }, dispatch);
+  return bindActionCreators({ saveEvent, addFollower, saveArtist, getUserEvents }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
