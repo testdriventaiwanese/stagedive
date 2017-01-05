@@ -60,9 +60,7 @@ class EventList extends Component {
     let imageStyle = {
       width: '100%',
     };
-    console.log('renderList this.props.events.futureEvents:: ', this.props.events.futureEvents.slice(1))
     return this.props.events.futureEvents.slice(1).map((event) => {
-      console.log('renderList event:: ', event)
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
       return (
