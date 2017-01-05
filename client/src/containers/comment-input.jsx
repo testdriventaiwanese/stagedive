@@ -31,6 +31,7 @@ class CommentInput extends Component {
   }
 
   render() {
+    console.log('PROPS IN COMMENTBOX: ', this.props.params);
     return (
       <span>
         <MuiThemeProvider>
@@ -53,8 +54,7 @@ class CommentInput extends Component {
 
 function mapStateToProps(state) {
   return {
-    friendInfo: state.userEvents,
-    userInfo: state.getUserInfo,
+    // userInfo: state.getUserInfo,
   };
 }
 
