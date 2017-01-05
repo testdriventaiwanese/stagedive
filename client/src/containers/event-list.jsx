@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
-import { getEvents } from '../actions/index';
+import { getEvents, removeEvent } from '../actions/index';
 
 class EventList extends Component {
   componentWillMount() {
@@ -22,7 +22,12 @@ class EventList extends Component {
       width: '100%',
     };
     let sortByDate = [];
+    if(!this.props.events.futureEvents) {
+      return (
 
+        <div>Loading</div>
+      )
+    }
     if(this.props.events.futureEvents.length > 0) {
       let event = this.props.events.futureEvents[0];
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
@@ -41,6 +46,11 @@ class EventList extends Component {
             <span>{date}</span>
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
+              <RaisedButton
+                  label="Remove Event"
+                  secondary
+                  onClick={() => this.props.removeEvent(event.tm_id, 0)}
+              />
             <Link to={`/event/${event.id}`}>
               <RaisedButton label='View Event Details' secondary />
             </Link>
@@ -60,7 +70,8 @@ class EventList extends Component {
     let imageStyle = {
       width: '100%',
     };
-    return this.props.events.futureEvents.slice(1).map((event) => {
+    return this.props.events.futureEvents.slice(1).map((event, i) => {
+      console.log('event:: ', event);
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
       return (
@@ -76,6 +87,11 @@ class EventList extends Component {
             <span>{date}</span>
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
+              <RaisedButton
+                  label="Remove Event"
+                  secondary
+                  onClick={() => this.props.removeEvent(event.tm_id, i + 1)}
+              />
             <Link to={`/event/${event.id}`}>
               <RaisedButton label='View Event Details' secondary />
             </Link>
@@ -83,6 +99,7 @@ class EventList extends Component {
         </Paper>
       );
     });
+
   }
   render() {
     return (
@@ -104,7 +121,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getEvents }, dispatch);
+  return bindActionCreators({ getEvents, removeEvent }, dispatch);
 }
 
 

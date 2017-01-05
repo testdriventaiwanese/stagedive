@@ -13,15 +13,17 @@ export default function(state = { events: [], futureEvents: [] }, action) {
         let eventDate = new Date(event.date.slice(0,10));
         return eventDate > currentDate;
       });
-      let pastEvents = sortedEvents.filter((event) => {
-        let eventDate = new Date(event.date.slice(0,10));
-        return eventDate <= currentDate;
-      });
       return {
         events,
         futureEvents,
-        pastEvents,
       }
+    case 'REMOVE_EVENT':
+
+        futureEvents = [...state.futureEvents.slice(0, action.i), ...state.futureEvents.slice(action.i + 1)];
+        console.log('FUTURE EVENTS 2', futureEvents)
+        return {
+          futureEvents,
+        }
     default:
       return state;
   }

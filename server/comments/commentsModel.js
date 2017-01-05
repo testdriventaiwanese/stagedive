@@ -15,18 +15,22 @@ module.exports = {
     removeComment(params, callback) {
       const queryStr = 'DELETE FROM comments WHERE id = ?'
       db.query(queryStr, params, (err, results) => {
-        console.log('Error in server/commentsModel.js removeComment : ', err);
-      } else {
+        if (err) {
+          console.log('Error in server/commentsModel.js removeComment : ', err);
+        } else {
         callback(results);
-      }
+        }
+      });
     },
     addComment(params, callback) {
       const queryStr = 'INSERT INTO comments (id_user, id_friend, id_event, text) VALUES (?, ?, ?, ?)'
       db.query(queryStr, params, (err, results) => {
-        console.log('Error in server/commentsModel.js addComment : ', err);
-      } else {
-        callback(results);
-      }
+        if(err) {
+          console.log('Error in server/commentsModel.js addComment : ', err);
+        } else {
+          callback(results);
+        }
+      });  
     },
   },
 };
