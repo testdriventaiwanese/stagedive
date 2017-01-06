@@ -17,19 +17,19 @@ class EventDetail extends Component {
     const event = eventArr[0];
     const saleTimes = JSON.parse(event.sale_date);
     const artistInfo = JSON.parse(event.artist_name);
-    let imageDiv = {
+    const imageDiv = {
       width: '45%',
       float: 'center',
       height: '248px',
       margin: '10px',
     };
-    let imageStyle = {
+    const imageStyle = {
       width: '100%',
     };
     return (
       <Paper key={event.id} className="list-group-item" zDepth={2}>
         <div style={imageDiv}>
-            <img src={event.image} style={imageStyle}></img>
+          <img src={event.image} style={imageStyle} alt="event shot" />
         </div>
         <div>
           <h2>{event.name}</h2>
