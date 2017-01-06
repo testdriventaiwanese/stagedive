@@ -14,6 +14,7 @@ import EventDetail from './containers/event-detail';
 import ArtistPage from './containers/artist-page';
 import JournalSingle from './containers/journal-single';
 import FriendsEventList from './containers/friends-events';
+import Token from './containers/token';
 // import Explore from './containers/explore';
 
 export default(
@@ -30,5 +31,6 @@ export default(
     <Route path="/event/:eventId" component={EventDetail} />
     <Route path="/artists/:artistId" component={ArtistPage} />
     <Route path="/journal/:userId/:eventId" component={JournalSingle} />
+    <Route path="/token/:token" component={Token} />
   </Route>
 );

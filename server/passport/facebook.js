@@ -10,9 +10,11 @@ module.exports = new PassportFacebookStrategy({
 }, (accessToken, refreshToken, profile, done) => {
     console.log('FACEBOOK PASSPORT PROFILE: ', profile);
   userModel.users.getPassword(profile.emails[0].value, (results) => {
-    console.log('facebook auth results: ', results);
+    if(results.length > 0 && results.password !== null){
+      return done('Error, email has already been used');
+    }
     if (results.length === 0) {
-      return done('Error, no user found');
+      //'ADD USERS HERE'
     }
 
     const payload = {
