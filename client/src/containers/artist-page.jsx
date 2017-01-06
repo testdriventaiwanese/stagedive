@@ -32,7 +32,9 @@ class ArtistPage extends Component {
         </Paper>
       )
     }
-    return this.props.artistCalendar.data.resultsPage.results.event.map((event) => {
+
+    let events = this.props.artistCalendar.data.resultsPage.results.event || [];
+    return events.map((event) => {
       return(
         <Paper key={event.id}>
           <div>
@@ -63,11 +65,6 @@ class ArtistPage extends Component {
     });
     let artist = artistsArr[0];
     const search = {mbid: this.props.params.artistId}
-    if(!artist) {
-      this.props.getArtistCalendar(search)
-    } else {
-      this.props.getArtistCalendar(artist);
-    }
 
     if(!this.props.artistCalendar.data) {
       return (
@@ -75,8 +72,8 @@ class ArtistPage extends Component {
       )
     }
     const musician = this.props.artistCalendar.data
-    console.log('artist calendar:: ',musician.resultsPage.results.event[0].performance[0].displayName);
-    const realName = musician.resultsPage.results.event[0].performance[0].displayName;
+    console.log('artist calendar:: ',musician);
+    const realName = !musician.resultsPage.results.event ? '' : musician.resultsPage.results.event[0].performance[0].displayName;
     console.log('ARTIST NAME:: ', realName);
     artist = {
       name: realName,
