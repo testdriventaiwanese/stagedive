@@ -33,7 +33,7 @@ module.exports = {
       });
     },
     addOne(params, callback) {
-      const queryStr = 'INSERT INTO users (email, password, fullname) VALUES (?, ?, ?)';
+      const queryStr = 'INSERT INTO users (email, password, fullname, profile_photo) VALUES (?, ?, ?, ?)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/userModel.js addOne : ', err);
