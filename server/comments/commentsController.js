@@ -15,6 +15,7 @@ module.exports = {
           console.log('ERROR in getting comments');
           res.sendStatus(401);
         } else {
+          console.log('results in get comments: ', results);
           res.status(200).send(results);
         }
       });
