@@ -26,7 +26,6 @@ module.exports = {
       friendId,
       text,
     }, headers }, res) {
-      console.log('ADD COMMENT CONTROLLER CALLED: ')
       const id = jwt.decode(headers.authheader, process.env.JWT_SECRET);
       const params = [
         id.sub,

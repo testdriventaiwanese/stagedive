@@ -389,7 +389,7 @@ module.exports = {
     const request = axios.post('/api/comments/addcomment', commentObj, config);
   },
   getEventComments(userId, eventId) {
-    let commentObj = {
+    const commentObj = {
       eventId,
       userId,
     };

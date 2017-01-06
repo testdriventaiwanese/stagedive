@@ -12,37 +12,36 @@ class Comments extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {term: ''};
+    this.state = { term: '' };
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   onInputChange(event) {
-    this.setState({term: event.target.value});
-
+    this.setState({ term: event.target.value });
   }
 
   onFormSubmit(event) {
     event.preventDefault();
-    let userId = localStorage.getItem('id');
-    let friendId = this.props.userInfo.userInfo.id;
-    let eventId = this.props.params.eventId;
+    const userId = localStorage.getItem('id');
+    const friendId = this.props.userInfo.userInfo.id;
+    const eventId = this.props.params.eventId;
     this.props.addEventComment(eventId, userId, friendId, this.state.term);
     this.setState({ term: '' });
     // hashHistory.push('/results');
   }
 
-  renderComment(comment, i) {
-    return (
-      <div className='comment' key={i}>
-        <p>
-          <strong>{comment.user}</strong>
-          {comment.text}
-        </p>
-      </div>
-    )
-  }
+  // renderComment(comment, i) {
+  //   return (
+  //     <div key={i}>
+  //       <p>
+  //         <strong>{comment.user}</strong>
+  //         {comment.text}
+  //       </p>
+  //     </div>
+  //   );
+  // }
   // <button className='remove-comment' onClick={this.props.removeComment.bind(null, this.props.params.postId, i)}>&times;</button>
 
   renderAddComment() {
@@ -71,7 +70,7 @@ class Comments extends Component {
       <div>
         {this.renderAddComment()}
       </div>
-    )
+    );
   }
 }
 
