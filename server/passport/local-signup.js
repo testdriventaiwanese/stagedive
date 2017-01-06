@@ -22,7 +22,7 @@ module.exports = new PassportLocalStrategy({
       return done('Username already exists');
     }
     bcrypt.hash(userData.password, null, null, ((err, hash) => {
-      const params = [userData.email, hash, userData.fullname];
+      const params = [userData.email, hash, userData.fullname, null];
       userModel.users.addOne(params, (resp) => {
         if (!resp) {
           console.log('Issue in adding to database');

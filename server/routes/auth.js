@@ -19,7 +19,7 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
-  return passport.authenticate('local-login', (err, token, userData) => {
+  return passport.authenticate('local-login', (err, token, userId) => {
     if (err) {
       return res.status(400).json({
         success: false,
@@ -31,7 +31,7 @@ router.post('/login', (req, res, next) => {
       success: true,
       message: 'You have successfully logged in!',
       token,
-      user: userData
+      userId,
     });
   })(req, res, next);
 });
@@ -39,20 +39,14 @@ router.post('/login', (req, res, next) => {
 router.get('/facebook', passport.authenticate('facebook-login', { scope: 'email' } ));
 
 router.get('/facebook/callback', (req, res, next) => {
-  passport.authenticate('facebook-login', (err, token, userData) => {
+  passport.authenticate('facebook-login', (err, token, userId) => {
     if (err) {
       return res.status(400).json({
         message: 'Error with facebook login.',
       });
     }
-    const tokenStr = encodeURIComponent(token);
+    const tokenStr = encodeURIComponent(token + userId);
     res.redirect(`/#/token/${tokenStr}`);
-    // res.send('<html>Hello this works facebook </html>');
-    // return res.json({
-    //   message: 'You have successfully logged in!',
-    //   token,
-    //   user: userData,
-    // });
   })(req, res, next);
 });
 
