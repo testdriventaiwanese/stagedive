@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-  import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { addEventComment } from '../actions/index';
+import { addEventComment, removeEventComment } from '../actions/index';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
@@ -29,7 +29,6 @@ class Comments extends Component {
     const eventId = this.props.params.eventId;
     this.props.addEventComment(eventId, userId, friendId, this.state.term);
     this.setState({ term: '' });
-    // hashHistory.push('/results');
   }
 
   renderComments() {
@@ -43,11 +42,16 @@ class Comments extends Component {
         console.log('USER OBJ: ', userObj);
         return (
           <div key={comment.id}>
-            <p>
-              <strong>{userObj[0].fullname}: </strong>
-              {comment.text}
-            </p>
-          </div>
+            <div>
+              <button onClick={() => this.props.removeEventComment(comment.id)}>x</button>
+            </div>
+            <div>
+              <p>
+                <strong>{userObj[0].fullname}: </strong>
+                {comment.text}
+              </p>
+            </div>
+            </div>
         )
       })
     )
@@ -55,7 +59,6 @@ class Comments extends Component {
   // <button className='remove-comment' onClick={this.props.removeComment.bind(null, this.props.params.postId, i)}>&times;</button>
 
   renderAddComment() {
-    console.log('PROPS IN COMMENTBOX: ', this.props);
     return (
       <span>
         <MuiThemeProvider>
@@ -90,7 +93,7 @@ class Comments extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addEventComment }, dispatch);
+  return bindActionCreators({ addEventComment, removeEventComment }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(Comments);
