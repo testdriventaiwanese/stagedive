@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+  import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { addComment } from '../actions/index';
+import { addEventComment } from '../actions/index';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
@@ -25,13 +25,28 @@ class Comments extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.addComment(this.state.term, userId, friendId, eventId);
+    let userId = localStorage.getItem('id');
+    let friendId = this.props.userInfo.userInfo.id;
+    let eventId = this.props.params.eventId;
+    this.props.addEventComment(eventId, userId, friendId, this.state.term);
     this.setState({ term: '' });
     // hashHistory.push('/results');
   }
 
-  renderForm() {
-    console.log('PROPS IN COMMENTBOX: ', this.props.params);
+  renderComment(comment, i) {
+    return (
+      <div className='comment' key={i}>
+        <p>
+          <strong>{comment.user}</strong>
+          {comment.text}
+        </p>
+      </div>
+    )
+  }
+  // <button className='remove-comment' onClick={this.props.removeComment.bind(null, this.props.params.postId, i)}>&times;</button>
+
+  renderAddComment() {
+    console.log('PROPS IN COMMENTBOX: ', this.props);
     return (
       <span>
         <MuiThemeProvider>
@@ -54,20 +69,14 @@ class Comments extends Component {
   render() {
     return (
       <div>
-        {this.renderForm()}
+        {this.renderAddComment()}
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    // userInfo: state.getUserInfo,
-  };
-}
-
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addComment }, dispatch);
+  return bindActionCreators({ addEventComment }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(Comments);

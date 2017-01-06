@@ -376,28 +376,30 @@ module.exports = {
       payload: request,
     }
   },
-  addEventComment(comment, commentId, userId, friendId, eventId) {
+  addEventComment(eventId, userId, friendId, text) {
     let commentObj = {
-      comment,
-      commentId,
+      id_events: eventId,
+      userId,
       friendId,
-      eventId,
+      text,
     }
     const config = {
       headers: { authheader: localStorage.getItem('token') },
     };
-    console.log('THIS THE COMMENT OBJ: ', commentObj, config);
-    const request = axios.post('/api/comments/addcomment');
+    const request = axios.post('/api/comments/addcomment', commentObj, config);
   },
   getEventComments(userId, eventId) {
-    console.log('GET EVENT COMMENTS HAS BEEN CALLED IN ACTIONS')
     let commentObj = {
       eventId,
-    }
+      userId,
+    };
     const config = {
       headers: { authheader: localStorage.getItem('token') },
     };
+    console.log('COMMENTOBJ IN GET COMMENTS: ', commentObj);
+
     const request = axios.get('/api/comments/getcomments', commentObj, config);
+
     return {
       type: GET_EVENT_COMMENTS,
       payload: request,
