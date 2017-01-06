@@ -8,14 +8,11 @@ class PostIndex extends Component {
     return (
       <div>
         <div>
-        </div>
-        <div>
           <EventList />
           <Friends />
           <Artists />
         </div>
-    </div>
-
+      </div>
     );
   }
 }

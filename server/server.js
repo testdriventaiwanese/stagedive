@@ -5,6 +5,7 @@ require('dotenv').config();
 require('./database/config.js');
 const path = require('path');
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const app = express();
@@ -15,6 +16,13 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 // pass the passport middleware
 app.use(passport.initialize());
+// express session middleware
+app.use(session({
+  secret: 'shhitsasecret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 
 // serve static files
 app.use(express.static(path.join(__dirname, '/../client/')));

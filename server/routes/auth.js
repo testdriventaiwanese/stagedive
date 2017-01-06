@@ -42,12 +42,12 @@ router.get('/facebook/callback', (req, res, next) => {
   passport.authenticate('facebook-login', (err, token, userData) => {
     if (err) {
       return res.status(400).json({
-        message: 'Could not process the form.',
+        message: 'Error with facebook login.',
       });
     }
-    res.set('token', token);
-    // console.log(res);
-    res.redirect('/#/');
+    const tokenStr = encodeURIComponent(token);
+    res.redirect(`/#/token/${tokenStr}`);
+    // res.send('<html>Hello this works facebook </html>');
     // return res.json({
     //   message: 'You have successfully logged in!',
     //   token,
@@ -55,21 +55,5 @@ router.get('/facebook/callback', (req, res, next) => {
     // });
   })(req, res, next);
 });
-
-// router.get('/facebook/callback', (req, res, next) => {
-//   return passport.authenticate('facebook-login', (err, token, userData) => {
-//     if (err) {
-//       return res.status(400).json({
-//         success: false,
-//         message: 'Facebook Signup unsucessful',
-//       });
-//     }
-//
-//     return res.json({
-//       success: true,
-//       message: 'Facebook login success!',
-//     })
-//   })
-// })
 
 module.exports = router;
