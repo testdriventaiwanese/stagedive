@@ -1,14 +1,34 @@
 const db = require('../database/config');
 
+const findUserNameWithId = function(query, callback) {
+  db.query(query, userID, function(err, results) {
+    if(err) {
+      console.log('Error in finding username in room');
+    }
+    else {
+      callback(results);
+    }
+  })
+}
+
 module.exports = {
   comments: {
     getComments(params, callback) {
       const queryStr = 'SELECT * FROM comments WHERE id_event = ?';
-      db.query(queryStr, params, (err, results) => {
+      db.query(queryStr, params, (err, comments) => {
         if (err) {
           console.log('Error in server/commentsModel.js getComments : ', err);
         } else {
-          callback(results);
+          console.log('RESULTS IN GET COMMENTS: ', comments);
+          const nameIds = comments.map((comment) => comment.id_user).join(', ');
+          const queryStr2 = `SELECT id, fullname, profile_photo FROM users WHERE id IN (${nameIds})`;
+          db.query(queryStr2, (error, posterInfo) => {
+            if (error) {
+              console.log('Error in server/eventModel.js getFriendsEvents : ', err);
+            } else {
+              callback({ comments, posterInfo });
+            }
+          });
         }
       });
     },
@@ -30,7 +50,7 @@ module.exports = {
         } else {
           callback(results);
         }
-      });  
+      });
     },
   },
 };
