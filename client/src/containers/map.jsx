@@ -25,6 +25,25 @@ export class Map extends React.Component {
 
       const { google } = this.props;
       const maps = google.maps;
+      console.log('loadMap maps:: ', maps)
+
+
+      // const lol = maps.Marker({
+      //   position: navigator.geolocation.getCurrentPosition((pos) => {
+      //     const zoom = 14;
+      //     crd = pos.coords;
+      //     console.log(`Latitude : ${crd.latitude}`);
+      //     console.log(`Longitude: ${crd.longitude}`);
+      //     const center = new maps.LatLng(crd.latitude, crd.longitude)
+      //     const mapConfig = Object.assign({}, {
+      //       center: center,
+      //       zoom: zoom,
+      //     });
+      //   }),
+      //   map: new maps.Map(node, this.mapConfig)
+      // })
+
+      console.log('FIGURE WHAT TO DO HERE WITH THE MAPS!');
       const mapRef = this.refs.map;
       console.log('mapRef:: ', mapRef);
       const node = ReactDOM.findDOMNode(mapRef);
@@ -35,11 +54,23 @@ export class Map extends React.Component {
         console.log(`Latitude : ${crd.latitude}`);
         console.log(`Longitude: ${crd.longitude}`);
         const center = new maps.LatLng(crd.latitude, crd.longitude)
+
         const mapConfig = Object.assign({}, {
           center: center,
-          zoom: zoom
+          zoom: zoom,
+
         })
+        var marker = new maps.Marker({
+          position: center,
+          map: mapRef,
+          title: 'YOU Are HERE!',
+        })
+
+
+
         this.map = new maps.Map(node, mapConfig);
+        marker.setMap(this.map);
+        console.log('marker:: ', marker);
         console.log('this.map::', this.map);
         return this.map
       })
@@ -48,8 +79,8 @@ export class Map extends React.Component {
   }
   render() {
     const style = {
-      width: '100vw',
-      height: '100vh'
+      width: '50%',
+      height: '75%'
     }
     return (
       <div ref='map' style={style}>
@@ -73,5 +104,7 @@ export class MapComponent extends React.Component {
     );
   }
 }
+
+
 
 export default GoogleApiWrapper({ apiKey: GOOGLEMAPSAPIKEY })(MapComponent);
