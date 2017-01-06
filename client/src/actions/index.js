@@ -420,8 +420,11 @@ module.exports = {
       payload: request,
     }
   },
-  removeEventComment() {
-    const request = axios.post('/api/comments/removecomment');
+  removeEventComment(commentId) {
+    const obj = {
+      commentId,
+    };
+    const request = axios.post('/api/comments/removecomment', obj);
   },
   redirectFacebookClick() {
     console.log('action index.js getting called for redirect');
