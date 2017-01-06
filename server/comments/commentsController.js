@@ -3,9 +3,14 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
   comments: {
-    getComments(req, res) {
-      const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
-      const params = [req.body.eventId, id.sub]
+    getComments({ body: {
+      eventId,
+      userId,
+    }, headers }, res) {
+      console.log('GET COMMENTS CALLED IN BACK');
+      const id = jwt.decode(headers.authheader, process.env.JWT_SECRET);
+      const params = [eventId, id.sub]
+      console.log('PARAMS GOT IN GET COMMENTS: ', params);
       commentsModel.comments.getComments(params, (results) => {
         if(!results) {
           console.log('ERROR in getting comments');
@@ -17,6 +22,7 @@ module.exports = {
     },
     addComment({ body: {
       id_events,
+      userId,
       friendId,
       text,
     }, headers }, res) {
@@ -27,6 +33,7 @@ module.exports = {
         id_events,
         text,
       ];
+      console.log('PARAMS IN COMMENTSCONTROLLER GOT: ', params);
       commentsModel.comments.addComment(params, (results) => {
         if(!results) {
           console.log('ERROR in getting comments');

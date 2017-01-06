@@ -14,8 +14,6 @@ class JournalPhoto extends Component {
     let imageStyle = {
       width: '100%',
     };
-// /${event.tm_id}
-  console.log('event IN JOURNAL PHOTO: ', event);
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
       let userId = this.props.userInfo
