@@ -32,16 +32,20 @@ class Comments extends Component {
     // hashHistory.push('/results');
   }
 
-  // renderComment(comment, i) {
-  //   return (
-  //     <div key={i}>
-  //       <p>
-  //         <strong>{comment.user}</strong>
-  //         {comment.text}
-  //       </p>
-  //     </div>
-  //   );
-  // }
+  renderComments() {
+    return (
+      this.props.comments.map((comment) => {
+        return (
+          <div key={comment.id}>
+            <p>
+              <strong>{comment.id_user}</strong>
+              {comment.text}
+            </p>
+          </div>
+        )
+      })
+    )
+  }
   // <button className='remove-comment' onClick={this.props.removeComment.bind(null, this.props.params.postId, i)}>&times;</button>
 
   renderAddComment() {
@@ -68,7 +72,12 @@ class Comments extends Component {
   render() {
     return (
       <div>
-        {this.renderAddComment()}
+        <div>
+          {this.renderComments()}
+        </div>
+        <div>
+          {this.renderAddComment()}
+        </div>
       </div>
     );
   }

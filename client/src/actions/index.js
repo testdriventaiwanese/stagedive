@@ -24,7 +24,6 @@ export const GET_ARTIST_CALENDAR = 'GET_ARTIST_CALENDAR';
 export const REMOVE_ARTIST = 'REMOVE_ARTIST';
 export const GET_EVENT_COMMENTS = 'GET_EVENT_COMMENTS';
 
-
 module.exports = {
   selectEvent(event) {
     return {
@@ -384,9 +383,21 @@ module.exports = {
       text,
     }
     const config = {
-      headers: { authheader: localStorage.getItem('token') },
+      headers: {
+        authheader: localStorage.getItem('token'),
+        eventId,
+        userId,
+       },
     };
-    const request = axios.post('/api/comments/addcomment', commentObj, config);
+    const request = axios.post('/api/comments/addcomment', commentObj, config)
+    .then((res) => {
+      return axios.get('/api/comments/getcomments', config);
+    });
+
+    return {
+      type: GET_EVENT_COMMENTS,
+      payload: request,
+    }
   },
   getEventComments(userId, eventId) {
     const commentObj = {
@@ -394,11 +405,15 @@ module.exports = {
       userId,
     };
     const config = {
-      headers: { authheader: localStorage.getItem('token') },
+      headers: {
+        authheader: localStorage.getItem('token'),
+        eventId,
+        userId,
+      },
     };
-    console.log('COMMENTOBJ IN GET COMMENTS: ', commentObj);
+    console.log('CONFIG: ', config);
 
-    const request = axios.get('/api/comments/getcomments', commentObj, config);
+    const request = axios.get('/api/comments/getcomments', config);
 
     return {
       type: GET_EVENT_COMMENTS,

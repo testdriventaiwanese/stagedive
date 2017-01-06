@@ -3,13 +3,12 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
   comments: {
-    getComments({ body: {
-      eventId,
-      userId,
-    }, headers }, res) {
-      console.log('GET COMMENTS CALLED IN BACK');
-      const id = jwt.decode(headers.authheader, process.env.JWT_SECRET);
-      const params = [eventId, id.sub]
+    getComments({ headers: {
+      eventid,
+      userid,
+    } } , res) {
+      // const id = jwt.decode(headers.authheader, process.env.JWT_SECRET);
+      const params = [eventid, userid]
       console.log('PARAMS GOT IN GET COMMENTS: ', params);
       commentsModel.comments.getComments(params, (results) => {
         if(!results) {
