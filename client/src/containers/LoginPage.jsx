@@ -1,31 +1,21 @@
 import React, { PropTypes } from 'react';
-import Auth from '../modules/Auth';
-import { logIn } from '../actions/index'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { browserHistory } from 'react-router';
-
+import { hashHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
+import Auth from '../modules/Auth';
+import { logIn, redirectFacebookClick } from '../actions/index'
+
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
 
-    const storedMessage = localStorage.getItem('successMessage');
-    let successMessage = '';
-
-    if (storedMessage) {
-      successMessage = storedMessage;
-      localStorage.removeItem('successMessage');
-    }
-
     this.state = {
-      errors: {},
-      successMessage,
       email: '',
       password: '',
     };
@@ -41,7 +31,6 @@ class LoginPage extends React.Component {
     }
     event.preventDefault();
     this.props.logIn(resultObj)
-    // browserHistory.push('/');
   }
 
   onEmailChange(event) {
@@ -59,15 +48,10 @@ class LoginPage extends React.Component {
           <Card className="container">
             <form action="/" onSubmit={this.onSubmit}>
               <h2 className="card-heading">Login</h2>
-
-              {this.state.successMessage && <p className="success-message">{this.state.successMessage}</p>}
-              {this.state.errors.summary && <p className="error-message">{this.state.errors.summary}</p>}
-
               <div className="field-line">
                 <TextField
                   floatingLabelText="Email"
                   name="email"
-                  errorText={this.state.errors.email}
                   onChange={this.onEmailChange}
                   value={this.state.email}
                 />
@@ -79,7 +63,6 @@ class LoginPage extends React.Component {
                   type="password"
                   name="password"
                   onChange={this.onPasswordChange}
-                  errorText={this.state.errors.password}
                   value={this.state.password}
                 />
               </div>
@@ -88,6 +71,11 @@ class LoginPage extends React.Component {
                 <RaisedButton type="submit" label="Log in" primary />
               </div>
 
+              <a href="/auth/facebook" target="_blank">
+                <RaisedButton label='Facebook' onClick={() => this.props.redirectFacebookClick()} primary />
+              </a>
+
+
               <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
             </form>
           </Card>
@@ -95,15 +83,10 @@ class LoginPage extends React.Component {
     </MuiThemeProvider>
     );
   }
-
 }
 
-LoginPage.contextTypes = {
-  router: PropTypes.object.isRequired
-};
-
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ logIn }, dispatch);
+  return bindActionCreators({ logIn, redirectFacebookClick }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(LoginPage);

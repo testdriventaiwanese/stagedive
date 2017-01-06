@@ -401,5 +401,9 @@ module.exports = {
   },
   removeEventComment() {
     const request = axios.post('/api/comments/removecomment');
+  },
+  redirectFacebookClick() {
+    console.log('action index.js getting called for redirect');
+    hashHistory.push('/');
   }
 };

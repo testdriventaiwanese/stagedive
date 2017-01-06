@@ -24,14 +24,16 @@ app.use(express.static(path.join(__dirname, '/../node_modules')));
 // load passport strategies
 const localSignupStrategy = require('./passport/local-signup');
 const localLoginStrategy = require('./passport/local-login');
+const facebookLoginStrategy = require('./passport/facebook');
 
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
+passport.use('facebook-login', facebookLoginStrategy);
 
 // pass the authenticaion checker middleware
 const authCheckMiddleware = require('./passport/auth-check');
 
-app.use('/api', authCheckMiddleware);
+// app.use('/api', authCheckMiddleware);
 
 // routes
 const authRoutes = require('./routes/auth');
