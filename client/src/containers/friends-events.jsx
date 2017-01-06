@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import { getFriendsEvents } from '../actions/index';
 
@@ -11,36 +10,38 @@ class FriendsEventList extends Component {
   }
 
   renderList() {
-    let imageDiv = {
+    const imageDiv = {
       width: '35%',
       float: 'left',
       height: '248px',
       margin: '10px',
     };
-    let imageStyle = {
+    const imageStyle = {
       width: '100%',
     };
-    if(!this.props.events.futureEvents) {
-      return <div>Loading News Feed...</div>
+    if (!this.props.events.futureEvents) {
+      return (
+        <div>Loading News Feed...</div>
+      );
     }
     const userInfo = this.props.events.userInfo;
     const friendsEvents = this.props.events.friendsEvents;
     return this.props.events.futureEvents.map((event) => {
-      let eventUser = friendsEvents.filter((friend) => {
+      const eventUser = friendsEvents.filter((friend) => {
         return friend.id_events === event.id;
-      })
-      let name = userInfo.filter((user) => {
-        return user.id === eventUser[0].id_users;
-      })
-      let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
-      let time = event.date.slice(11, 16);
+      }).map((val) => val.id_users);
+      const name = userInfo.filter((user) => {
+        return eventUser.indexOf(user.id) > -1;
+      }).map((name) => name.fullname);
+      const date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
+      const time = event.date.slice(11, 16);
       return (
         <Paper key={event.id} className="list-group-item">
           <div style={imageDiv}>
-              <img src={event.image} style={imageStyle}></img>
+            <img src={event.image} style={imageStyle} alt="event shot" />
           </div>
           <div>
-            <p>{name[0].fullname} is going to:</p>
+            <p>{name.join(', ')} going to:</p>
             <p><strong>{event.name}</strong></p>
             <p>{event.venue}</p>
             <span>{event.city}</span>
