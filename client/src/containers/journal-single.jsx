@@ -48,7 +48,7 @@ class JournalSingle extends Component {
     let event = this.props.userInfo.pastEvents[i];
     let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
     let time = event.date.slice(11, 16);
-    let userId = this.props.userInfo
+    let userId = this.props.userInfo;
     let imageDiv = {
       width: '60%',
       float: 'left',

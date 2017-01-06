@@ -33,12 +33,18 @@ class Comments extends Component {
   }
 
   renderComments() {
+    console.log('PROPS IN COMMENTS: ', this.props);
     return (
-      this.props.comments.map((comment) => {
+      this.props.comments.comments.map((comment) => {
+        const userId = comment.id_user;
+        const userObj = this.props.comments.posterInfo.filter((poster) => {
+          return poster.id === userId;
+        });
+        console.log('USER OBJ: ', userObj);
         return (
           <div key={comment.id}>
             <p>
-              <strong>{comment.id_user}</strong>
+              <strong>{userObj[0].fullname}: </strong>
               {comment.text}
             </p>
           </div>
