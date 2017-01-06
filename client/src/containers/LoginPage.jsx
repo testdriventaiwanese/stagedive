@@ -71,7 +71,7 @@ class LoginPage extends React.Component {
                 <RaisedButton type="submit" label="Log in" primary />
               </div>
 
-              <a href="/auth/facebook" target="_blank">
+              <a href="/auth/facebook">
                 <RaisedButton label='Facebook' onClick={() => this.props.redirectFacebookClick()} primary />
               </a>
 
