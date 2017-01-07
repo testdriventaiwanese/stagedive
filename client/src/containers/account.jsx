@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { getUserInfo } from '../actions/index';
+import Auth from '../modules/auth';
+
 
 class Account extends Component {
+  componentWillMount() {
+    if (!Auth.isUserAuthenticated()) {
+      hashHistory.push('/login');
+    }
+  }
   componentDidMount() {
     this.props.getUserInfo();
   }

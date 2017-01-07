@@ -2,14 +2,12 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { hashHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-import Auth from '../modules/auth';
-import { logIn, redirectFacebookClick } from '../actions/index'
+import { logIn, redirectFacebookClick } from '../actions/index';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -25,20 +23,20 @@ class LoginPage extends React.Component {
   }
 
   onSubmit(event) {
-    let resultObj = {
+    const resultObj = {
       email: this.state.email,
       password: this.state.password,
-    }
+    };
     event.preventDefault();
     this.props.logIn(resultObj)
   }
 
   onEmailChange(event) {
-    this.setState({ email: event.target.value })
+    this.setState({ email: event.target.value });
   }
 
   onPasswordChange(event) {
-    this.setState({ password: event.target.value })
+    this.setState({ password: event.target.value });
   }
 
   render() {
@@ -79,8 +77,8 @@ class LoginPage extends React.Component {
               <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
             </form>
           </Card>
-      </div>
-    </MuiThemeProvider>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

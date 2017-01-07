@@ -66,7 +66,7 @@ class EventDetail extends Component {
 
 function mapStateToProps(state) {
   return {
-    event: state.getEvents,
+    event: state.userEvents,
   };
 }
 

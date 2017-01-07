@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
+import { hashHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import { getArtistCalendar, removeArtist, saveArtist, searchArtists } from '../actions/index';
+import Auth from '../modules/auth';
 
 class ArtistPage extends Component {
   componentWillMount() {
-    console.log('ARTISTPAGE:: ',this.props.params.artistId);
-    console.log('ARTISTPAGE:: ', this.props)
+    if (!Auth.isUserAuthenticated()) {
+      hashHistory.push('/login');
+    }
     const artistsArr = this.props.artists.filter((artist) => {
       return artist.mbid === this.props.params.artistId;
     });
