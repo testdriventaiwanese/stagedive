@@ -137,7 +137,9 @@ module.exports = {
   },
   getEvents() {
     const request = axios.get('/api/events/getAll', config)
-    .catch(() => { data: [] } );
+      .catch(() => {
+        return { data: [] };
+      });
     return {
       type: GET_EVENTS,
       payload: request,
@@ -145,7 +147,9 @@ module.exports = {
   },
   getFriendsEvents() {
     const request = axios.get('/api/events/getfriendsevents', config)
-      .catch(() => { data: [] } );
+      .catch(() => {
+        return { data: [] };
+      });
     return {
       type: FRIENDS_EVENTS,
       payload: request,
@@ -153,7 +157,9 @@ module.exports = {
   },
   getUserInfo() {
     const request = axios.get('/api/users/getinfo', config)
-      .catch(() => { data: [] } );
+      .catch(() => {
+        return { data: [] };
+      });
     return {
       type: GET_USERINFO,
       payload: request,
@@ -161,7 +167,9 @@ module.exports = {
   },
   getFriends() {
     const getFriendsRequest = axios.get('/api/users/getfriends', config)
-      .catch(() => { data: [] } );
+      .catch(() => {
+        return { data: [] };
+      });
     return {
       type: GET_FRIENDS,
       payload: getFriendsRequest,
@@ -169,7 +177,9 @@ module.exports = {
   },
   getArtists() {
     const request = axios.get('/api/artists/getall', config)
-    .catch(() => { data: [] } );
+      .catch(() => {
+        return { data: [] };
+      });
     return {
       type: GET_ARTISTS,
       payload: request,
@@ -194,7 +204,9 @@ module.exports = {
       .then(() => {
         hashHistory.push('/');
       })
-      .catch(() => { data: [] });
+      .catch(() => {
+        return { data: [] };
+      });
   },
   unfollow(userId, index) {
     const unfollowObj = {
@@ -250,8 +262,12 @@ module.exports = {
     return {
       type: SEARCH_ARTISTS,
       payload: axios.all([bandsintownArtistSearch(), songkickArtistSearch()])
-      .then(axios.spread((bandsintown, songkick) => { bandsintown, songkick } ))
-      .catch(() => { bandsintown: [], songkick: [] } ),
+      .then(axios.spread((bandsintown, songkick) => {
+        return { bandsintown, songkick };
+      }))
+      .catch(() => {
+        return { bandsintown: [], songkick: [] };
+      }),
     };
   },
   searchNearby(google, map, request) {
@@ -289,7 +305,9 @@ module.exports = {
       }
     };
     const request = axios.get('/api/songkick/getartistcalendar', getArtistConfig)
-    .catch(() => { data: [] } );
+      .catch(() => {
+        return { data: [] };
+      });
     return {
       type: GET_ARTIST_CALENDAR,
       payload: request,
