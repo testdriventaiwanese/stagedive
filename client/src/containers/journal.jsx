@@ -12,7 +12,7 @@ class Journal extends Component {
     if (!Auth.isUserAuthenticated()) {
       hashHistory.push('/login');
     }
-    let id = this.props.userInfo.userInfo;
+    let id = this.props.params.userId;
     let user = { id };
     this.props.getUserEvents(user);
   }

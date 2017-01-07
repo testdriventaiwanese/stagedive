@@ -6,7 +6,10 @@ import { Link } from 'react-router';
 import { getUserEvents, removeEvent, addFollower, unfollow } from '../actions/index';
 
 class UserPage extends Component {
-  componentDidMount() {
+  componentWillMount() {
+    console.log('WILL MOUNT CALLED');
+    const user = { id: this.props.params.userId }
+    this.props.getUserEvents(user);
   }
 
   renderProfileBar() {
@@ -16,13 +19,14 @@ class UserPage extends Component {
         <div>Loading...</div>
       )
     }
+    console.log('PROSP IN USERPAGE: ', this.props);
     return (
       <div>
         <h1>
           {this.props.events.userInfo.fullname}
         </h1>
-        <button onClick={() => this.props.addFollower(this.props.events.userInfo.id)}>Follow</button>
-        <button onClick={() => this.props.unfollow(this.props.events.userInfo.id)}>UnFollow</button>
+        <button onClick={() => this.props.addFollower(this.props.params.userId)}>Follow</button>
+        <button onClick={() => this.props.unfollow(this.props.params.userId)}>UnFollow</button>
       </div>
     )
   }
@@ -98,8 +102,12 @@ class UserPage extends Component {
     });
   }
   render() {
+    const id = this.props.params.userId;
     return (
       <div>
+        <Link to={`journal/${id}`}>
+          <button>Concert Journal</button>
+        </Link>
         <div>{this.renderProfileBar()}</div>
         <div>{this.renderUpcoming()}</div>
         <h1>Events Feed</h1>
