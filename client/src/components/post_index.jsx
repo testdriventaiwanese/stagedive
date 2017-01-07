@@ -13,8 +13,11 @@ class PostIndex extends Component {
     }
   }
   render() {
+    let background = {
+      background: '#FAFAFA',
+    }
     return (
-      <div>
+      <div style={background}>
         <div>
           <EventList />
           <Friends />
