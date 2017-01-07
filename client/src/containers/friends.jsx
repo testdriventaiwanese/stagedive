@@ -9,7 +9,7 @@ import { Link } from 'react-router';
 
 
 class Friends extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.getFriends();
   }
 

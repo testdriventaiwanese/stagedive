@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import { Link, hashHistory } from 'react-router';
 import { getUserEvents, getUserInfo, removeEvent, getEvents } from '../actions/index';
@@ -29,8 +29,9 @@ class EventList extends Component {
     let sortByDate = [];
     if(!this.props.events.futureEvents) {
       return (
-
-        <div>Loading</div>
+        <div align='center'>
+          <CircularProgress size={60} />
+        </div>
       )
     }
     if(this.props.events.futureEvents.length > 0) {
@@ -85,10 +86,10 @@ class EventList extends Component {
         <Card key={event.id} className="list-group-item" zDepth={1}>
           <CardMedia
             overlay={ <CardTitle
-              title={event.name}
-              subtitle={event.city}
-              /> }
-            >
+            title={event.name}
+            subtitle={event.city}
+            /> }
+          >
             <img src={event.image} style={imageStyle}/>
           </CardMedia>
           <CardText>
