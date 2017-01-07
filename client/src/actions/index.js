@@ -155,7 +155,7 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/events/getAll', config)
-    .then(() => {
+    .catch(() => {
       return {data: []};
     });
     return {
@@ -168,7 +168,7 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/events/getfriendsevents', config)
-      .then(() => {
+      .catch(() => {
         return { data: [] };
       });
     return {
@@ -181,7 +181,7 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     let request = axios.get('/api/users/getinfo', config)
-      .then(() => {
+      .catch(() => {
         return {data: []};
       });
 
@@ -195,7 +195,7 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     let getFriendsRequest = axios.get('/api/users/getfriends', config)
-      .then(() => {
+      .catch(() => {
         return {data: []};
       });
 
@@ -209,7 +209,7 @@ module.exports = {
       headers: { authheader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/artists/getall', config)
-    .then(() => {
+    .catch(() => {
       return { data: [] };
     });
     return {
@@ -225,7 +225,7 @@ module.exports = {
       query: userQuery,
     };
     let searchUserResult = axios.post('/api/users/finduser', userQueryObj, config)
-      .then(() => {
+      .catch(() => {
         return { data: [] };
       });
     return {
@@ -339,13 +339,7 @@ module.exports = {
         userInfo: user,
       }
     };
-
     const request = axios.get('/api/events/getuserevents', config)
-    .then((res) => {
-      console.log('THIS IS THE CATCH IN GET USER EVENTS: ', res);
-      return {data: []};
-    });
-    console.log('REQUEST FOR GET USER EVENTS: ', request);
     return {
       type: GET_USER_EVENTS,
       payload: request,
@@ -360,7 +354,7 @@ module.exports = {
       }
     };
     const request = axios.get('/api/songkick/getartistcalendar', config)
-    .then((res) => {
+    .catch(() => {
       return {data: []};
     });
     return {
@@ -461,7 +455,7 @@ module.exports = {
       });
   },
   getLocalEvents(id) {
-    
+
     const config = {
       headers: {
         authHeader: localStorage.getItem('token'),
@@ -469,7 +463,7 @@ module.exports = {
       }
     }
     const request = axios.get('/api/songkick/getlocalevents', config)
-    .then((res) => {
+    .catch((res) => {
       console.log('GET LOCAL EVENTS RES:: ', res);
       return {}
     });
