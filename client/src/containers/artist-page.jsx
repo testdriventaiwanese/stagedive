@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import { getArtistCalendar, removeArtist, saveArtist } from '../actions/index';
+import { getArtistCalendar, removeArtist, saveArtist, searchArtists } from '../actions/index';
 
 class ArtistPage extends Component {
   componentWillMount() {
@@ -112,12 +112,13 @@ class ArtistPage extends Component {
 function mapStateToProps(state) {
   return {
     artists: state.getArtists,
+    artistImage: state.searchArtists,
     artistCalendar: state.getArtistCalendar,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getArtistCalendar, removeArtist }, dispatch);
+  return bindActionCreators({ getArtistCalendar, removeArtist, searchArtists }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistPage);
