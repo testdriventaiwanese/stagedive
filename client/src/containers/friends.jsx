@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
+import Avatar from 'material-ui/Avatar';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import { getFriends, unfollow, getOtherUserEvents } from '../actions/index';
 import { Link } from 'react-router';
 
@@ -14,27 +16,35 @@ class Friends extends Component {
   renderFriends() {
     if(this.props.friends.length === 0) {
       return (
-        <Paper zDepth={2}>
-          <div>
+        <Card zDepth={1}>
+          <CardText>
             You're not following any friends!
-          </div>
+          </CardText>
           <br />
-        </Paper>
+        </Card>
       )
     }
 
     return this.props.friends.map((friend, i) => {
+      let avatar = <Avatar>{friend.fullname.slice(0,1)}</Avatar>;
+      if (friend.profile_photo){
+        avatar = <Avatar src={friend.profile_photo} />;
+      }
       return (
-        <Paper key={friend.id} zDepth={2}>
-          <div>
-            <Link to={`/view/${friend.id}`}>
-              <div onClick={() => this.props.getOtherUserEvents(friend)}>{friend.fullname}</div>
-            </Link>
-            <div>{friend.email}</div>
+        <Card key={friend.id} zDepth={1}>
+          <Link to={`/view/${friend.id}`}>
+            <CardHeader
+              title={friend.fullname}
+              subtitle={friend.email}
+              avatar={avatar}
+              onClick={() => this.props.getOtherUserEvents(friend)}
+            />
+          </Link>
+          <CardActions>
             <button onClick={() => this.props.unfollow(friend.id, i)}>Unfollow</button>
-          </div>
+          </CardActions>
           <br />
-        </Paper>
+        </Card>
       );
     });
   }
