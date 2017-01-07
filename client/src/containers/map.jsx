@@ -9,49 +9,94 @@ import { getLocalEvents, getLocation } from '../actions/index';
 
 
 class Map extends React.Component {
+
   componentDidUpdate(prevProps, prevState) {
-    console.log('prevProps:: ', prevProps);
     console.log('prevState:: ', prevState);
     if (prevProps.google !== this.props.google) {
       this.loadMap();
     }
+    console.log('prevProps:: ', prevProps);
   }
+
+
   loadMap() {
-    console.log('loading map')
-    console.log('loadMap this.props:: ', this.props);
-    console.log('loadMapthis.props.google:: ', this.props.google)
+    // console.log('loading map')
+    // console.log('loadMap this.props:: ', this.props);
+    // console.log('loadMapthis.props.google:: ', this.props.google)
     const { google } = this.props;
     if (this.props && this.props.google) {
-      console.log('loadMap this.props:: ', this.props);
-      console.log('loadMapthis.props.google:: ', this.props.google)
+      // console.log('loadMap this.props:: ', this.props);
+      // console.log('loadMapthis.props.google:: ', this.props.google)
 
       const { google } = this.props;
       const maps = google.maps;
-      console.log('loadMap maps:: ', maps)
+      // console.log('loadMap maps:: ', maps)
 
 
-      var locations = [
+      let locations = [
         ['Webster Hall', 40.73169140, -73.98929022],
         ['Highline Ballroom', 40.73988960, -73.99769460],
         ['Playstation Theatre', 40.75720100, -73.98576300],
         ['Gramercy Theatre', 40.738602000, -73.982597000],
         ];
 
-      console.log('FIGURE WHAT TO DO HERE WITH THE MAPS!');
+      // console.log('FIGURE WHAT TO DO HERE WITH THE MAPS!');
       const mapRef = this.refs.map;
-      console.log('mapRef:: ', mapRef);
+      // console.log('mapRef:: ', mapRef);
       const node = ReactDOM.findDOMNode(mapRef);
       let crd;
       const position = navigator.geolocation.getCurrentPosition((pos) => {
         const zoom = 12;
         crd = pos.coords;
-        console.log(`Latitude : ${crd.latitude}`);
-        console.log(`Longitude: ${crd.longitude}`);
-        console.log(`crd:`, crd)
-        const localEvents = getLocation(crd)
-          .then((metroId) => {
-            this.props.getLocalEvents(metroId)
-          });
+        // console.log(`Latitude : ${crd.latitude}`);
+        // console.log(`Longitude: ${crd.longitude}`);
+        // console.log(`crd:`, crd)
+        getLocation(crd)
+            .then((val) => {
+              const localEvents = val.type;
+              return localEvents;
+            })
+            .then((location) => {
+              return this.props.getLocalEvents(location);
+            })
+            .then((value) => {
+              console.log('.THEN VALUE:: ', value)
+              console.log('.THEN LOCALEVENTS:: ', this.props.localEvents.payload);
+              return this.props.localEvents.payload.resultsPage;
+            })
+            .then((events) => {
+              return events.filter((value) => {
+                return value.status === 'ok';
+              }).map((value) => {
+                return {
+                  displayName: value.displayName,
+                  venue: value.venue.displayName,
+                  longitude: value.venue.lng,
+                  latitude: value.venue.lat,
+                  uri: value.uri,
+                  date: value.start.date,
+                  time: value.start.time,
+                }
+              }).filter((startTime) => {
+                return startTime.time !== null;
+              })
+            })
+            .then((concert) => {
+              console.log('CONCERTS IN PROMISE:: ', concert);
+              let val;
+              return concert.map((value) => {
+                return new google.maps.Marker({
+                  position: new google.maps.LatLng(value.latitude, value.longitude),
+                  map:mapRef,
+                })
+              })
+            })
+            .then((mark) => {
+              return mark.forEach((marking) => {
+                return marking.setMap(this.map);
+              });
+            })
+
 
         const center = new maps.LatLng(crd.latitude, crd.longitude)
 
@@ -68,29 +113,29 @@ class Map extends React.Component {
           title: 'YOU Are HERE!',
         })
 
-        var markeringStuff = [];
+        // var markeringStuff = [];
+        //
+        // for (var i = 0; i < locations.length; i++) {
+        //   let value = new google.maps.Marker({
+        //     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        //     map: mapRef,
+        //   });
+        //   markeringStuff.push(value);
+        // };
 
-        for (var i = 0; i < locations.length; i++) {
-          let value = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-            map: mapRef,
-          });
-          markeringStuff.push(value);
-        };
+        // markeringStuff.forEach((value) => {
+        //   return value.setMap(this.map);
+        // })
 
-        markeringStuff.forEach((value) => {
-          return value.setMap(this.map);
-        })
-
-        console.log('DUMMYDATA:: ', markeringStuff);
-        console.log('CURRENTLOCATION:: ', currentLocation)
+        // console.log('DUMMYDATA:: ', markeringStuff);
+        // console.log('CURRENTLOCATION:: ', currentLocation)
 
         currentLocation.setMap(this.map);
         // console.log('marker:: ');
         console.log('this.map::', this.map);
         return this.map
       })
-      console.log('position:: ', position);
+      // console.log('position:: ', position);
     }
 
 
@@ -108,8 +153,6 @@ class Map extends React.Component {
     )
   }
 }
-
-
 
 export class MapComponent extends React.Component {
   render() {
@@ -132,14 +175,11 @@ const googleWrapped = GoogleApiWrapper({ apiKey: GOOGLEMAPSAPIKEY })(MapComponen
 
 function mapStateToProps(state) {
   return {
-    getLocalEvents: state.getLocalEvents,
+    localEvents: state.getLocalEvents,
   };
 }
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getLocation, getLocalEvents }, dispatch);
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(googleWrapped);
+export default connect(mapStateToProps, { getLocation, getLocalEvents })(googleWrapped);
 
 
 // const test = GoogleApiWrapper({ apiKey: GOOGLEMAPSAPIKEY })(MapComponent);
