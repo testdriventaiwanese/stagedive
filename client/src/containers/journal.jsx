@@ -12,13 +12,16 @@ class Journal extends Component {
     if (!Auth.isUserAuthenticated()) {
       hashHistory.push('/login');
     }
+    let id = this.props.params.userId;
+    let user = { id };
+    this.props.getUserEvents(user);
   }
-  componentDidMount() {
-    //GETS USER EVENTS
-      let id = this.props.userInfo.userInfo.id;
-      let user = { id };
-      this.props.getUserEvents(user);
-  }
+  // componentDidMount() {
+  //   //GETS USER EVENTS
+  //     let id = this.props.userInfo.userInfo;
+  //     let user = { id };
+  //     this.props.getUserEvents(user);
+  // }
 
   render() {
     let journalPhotos = this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={event.id} i={i} event={event} /> );

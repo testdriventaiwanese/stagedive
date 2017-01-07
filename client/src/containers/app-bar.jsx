@@ -46,6 +46,7 @@ class NavBar extends Component {
   }
 
   render() {
+    const id = localStorage.getItem('id');
     return (
       <div>
         {Auth.isUserAuthenticated() ? (
@@ -57,7 +58,7 @@ class NavBar extends Component {
             <Link to={"account"} style={{ color: 'black' }}><MenuItem>My Account</MenuItem></Link>
             <Link to={"newsfeed"} style={{ color: 'black' }}><MenuItem>News Feed</MenuItem></Link>
             <Link to={"my-events"} style={{ color: 'black' }}><MenuItem>My Events</MenuItem></Link>
-            <Link to={"journal"} style={{ color: 'black' }}><MenuItem>Concert Journal</MenuItem></Link>
+            <Link to={`journal/${id}`} style={{ color: 'black' }}><MenuItem>Concert Journal</MenuItem></Link>
             <Link to={"explore"} style={{ color: 'black' }}><MenuItem>Explore</MenuItem></Link>
           </Drawer>
         ) : (

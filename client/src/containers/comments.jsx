@@ -25,7 +25,7 @@ class Comments extends Component {
   onFormSubmit(event) {
     event.preventDefault();
     const userId = localStorage.getItem('id');
-    const friendId = this.props.userInfo.userInfo.id;
+    const friendId = this.props.userInfo.userInfo;
     const eventId = this.props.params.eventId;
     this.props.addEventComment(eventId, userId, friendId, this.state.term);
     this.setState({ term: '' });
