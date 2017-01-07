@@ -461,7 +461,7 @@ module.exports = {
       });
   },
   getLocalEvents(id) {
-    
+
     const config = {
       headers: {
         authHeader: localStorage.getItem('token'),
@@ -470,8 +470,10 @@ module.exports = {
     }
     const request = axios.get('/api/songkick/getlocalevents', config)
     .then((res) => {
-      console.log('GET LOCAL EVENTS RES:: ', res);
-      return {}
+      console.log('GET LOCAL EVENTS RESULTSPAGE:: ', res.data.resultsPage.results.event);
+      return {
+        resultsPage: res.data.resultsPage.results.event,
+      }
     });
 
     return {
