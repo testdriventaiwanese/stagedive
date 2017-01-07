@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 class JournalPhoto extends Component {
   render() {
     const { event, i, comments } = this.props;
-    let id = localStorage.getItem('id');
+    let id = this.props.params.userId;
     let imageDiv = {
       width: '30%',
       float: 'left',
