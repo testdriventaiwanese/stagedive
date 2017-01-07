@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import { Link, hashHistory } from 'react-router';
 import { getUserEvents, getUserInfo, removeEvent, getEvents } from '../actions/index';
 import Auth from '../modules/auth';
@@ -42,12 +43,13 @@ class EventList extends Component {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
       return (
-        <Paper className="list-group-item" zDepth={2}>
+        <Card className="list-group-item" zDepth={1}>
           <h1>Upcoming Event</h1>
-          <div style={imageDiv}>
-            <img src={event.image} style={imageStyle}></img>
-          </div>
-          <div>
+          <CardMedia
+            overlay={ <CardTitle title={event.name} subtitle={event.city} />} >
+            <img src={event.image} style={imageStyle}/>
+          </CardMedia>
+          <CardText>
             <p><strong>{event.name}</strong></p>
             <p>{event.venue}</p>
             <span>{event.city}</span>
@@ -55,40 +57,48 @@ class EventList extends Component {
             <span>{date}</span>
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
-              <RaisedButton
-                  label="Remove Event"
-                  secondary
-                  onClick={() => this.props.removeEvent(event.tm_id, 0)}
-              />
+          </CardText>
+          <CardActions>
+            <RaisedButton
+                label="Remove Event"
+                secondary
+                onClick={() => this.props.removeEvent(event.tm_id, 0)}
+            />
             <Link to={`/event/${event.id}`}>
               <RaisedButton label='View Event Details' secondary />
             </Link>
-          </div>
-        </Paper>
+          </CardActions>
+        </Card>
       );
     }
   }
 
   renderList() {
-    let imageDiv = {
+    const imageDiv = {
       width: '35%',
       float: 'left',
       height: '248px',
       margin: '10px',
     };
-    let imageStyle = {
+    const imageStyle = {
       width: '100%',
     };
     return this.props.events.futureEvents.slice(1).map((event, i) => {
-      console.log('event:: ', event);
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
       return (
-        <Paper key={event.id} className="list-group-item" zDepth={2}>
-          <div style={imageDiv}>
-              <img src={event.image} style={imageStyle}></img>
-          </div>
-          <div>
+        <Card key={event.id} className="list-group-item" zDepth={1}>
+          <CardMedia
+            overlay={ <CardTitle
+              title={event.name}
+              subtitle={event.city}
+              /> }
+              actAsExpander={true}
+              showExpandableButton={true}
+            >
+            <img src={event.image} style={imageStyle}/>
+          </CardMedia>
+          <CardText expandable={true}>
             <p><strong>{event.name}</strong></p>
             <p>{event.venue}</p>
             <span>{event.city}</span>
@@ -96,28 +106,29 @@ class EventList extends Component {
             <span>{date}</span>
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
-              <RaisedButton
-                  label="Remove Event"
-                  secondary
-                  onClick={() => this.props.removeEvent(event.tm_id, i + 1)}
-              />
+          </CardText>
+          <CardActions expandable={true}>
+            <RaisedButton
+                label="Remove Event"
+                secondary
+                onClick={() => this.props.removeEvent(event.tm_id, i + 1)}
+            />
             <Link to={`/event/${event.id}`}>
               <RaisedButton label='View Event Details' secondary />
             </Link>
-          </div>
-        </Paper>
+          </CardActions>
+        </Card>
       );
     });
-
   }
   render() {
     return (
       <div>
         <div>{this.renderUpcoming()}</div>
         <h1>Events Feed</h1>
-        <ul className="list-group col-sm-16">
+        <div className="list-group col-sm-16">
           {this.renderList()}
-        </ul>
+        </div>
       </div>
     )
   }
