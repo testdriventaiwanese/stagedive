@@ -12,8 +12,6 @@ class EventList extends Component {
     if (!Auth.isUserAuthenticated()) {
       hashHistory.push('/login');
     }
-  }
-  componentDidMount() {
     const id = localStorage.getItem('id');
     const user = { id };
     this.props.getUserInfo();
