@@ -8,13 +8,13 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-
-import SearchBar from './searchbar';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { getUserInfo, logoutUser } from '../actions/index';
+
+import Auth from '../modules/auth';
+import SearchBar from './searchbar';
 
 class NavBar extends Component {
   constructor(props) {
@@ -23,25 +23,10 @@ class NavBar extends Component {
       logged: false,
       open: false,
     };
-    this.checkLogged = this.checkLogged.bind(this);
     this.onClickLogin = this.onClickLogin.bind(this);
     this.onClickSignup = this.onClickSignup.bind(this);
+    this.onClickLogout = this.onClickLogout.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-  }
-
-  componentWillMount() {
-    this.props.getUserInfo()
-    .then((res) => {
-      this.checkLogged();
-    });
-  }
-
-  checkLogged () {
-    if (this.props.info.length === 0) {
-      this.setState({ logged: false });
-    } else {
-      this.setState({ logged: true });
-    }
   }
 
   onClickLogin(event) {
@@ -49,6 +34,11 @@ class NavBar extends Component {
   }
   onClickSignup(event) {
     hashHistory.push('/signup');
+  }
+  onClickLogout(event) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    hashHistory.push('/login');
   }
 
   handleToggle() {
@@ -58,33 +48,41 @@ class NavBar extends Component {
   render() {
     return (
       <div>
-        <Drawer
-          open={this.state.open}
-          style={{ backgroundColor: '#424242' }}>
-          <MenuItem onTouchTap={this.handleToggle}>Back</MenuItem>
-          <Link to={"/"} style={{ color: 'black' }}><MenuItem>Home</MenuItem></Link>
-          <Link to={"account"} style={{ color: 'black' }}><MenuItem>My Account</MenuItem></Link>
-          <Link to={"newsfeed"} style={{ color: 'black' }}><MenuItem>News Feed</MenuItem></Link>
-          <Link to={"my-events"} style={{ color: 'black' }}><MenuItem>My Events</MenuItem></Link>
-          <Link to={"journal"} style={{ color: 'black' }}><MenuItem>Concert Journal</MenuItem></Link>
-          <Link to={"explore"} style={{ color: 'black' }}><MenuItem>Explore</MenuItem></Link>
-
-        </Drawer>
+        {Auth.isUserAuthenticated() ? (
+          <Drawer
+            open={this.state.open}
+            style={{ backgroundColor: '#424242' }}>
+            <MenuItem onTouchTap={this.handleToggle}>Back</MenuItem>
+            <Link to={"/"} style={{ color: 'black' }}><MenuItem>Home</MenuItem></Link>
+            <Link to={"account"} style={{ color: 'black' }}><MenuItem>My Account</MenuItem></Link>
+            <Link to={"newsfeed"} style={{ color: 'black' }}><MenuItem>News Feed</MenuItem></Link>
+            <Link to={"my-events"} style={{ color: 'black' }}><MenuItem>My Events</MenuItem></Link>
+            <Link to={"journal"} style={{ color: 'black' }}><MenuItem>Concert Journal</MenuItem></Link>
+            <Link to={"explore"} style={{ color: 'black' }}><MenuItem>Explore</MenuItem></Link>
+          </Drawer>
+        ) : (
+          <Drawer
+            open={this.state.open}
+            style={{ backgroundColor: '#424242' }}>
+            <MenuItem onTouchTap={this.handleToggle}>Back</MenuItem>
+            <Link to={"login"} style={{ color: 'black' }}><MenuItem>Log In</MenuItem></Link>
+            <Link to={"signup"} style={{ color: 'black' }}><MenuItem>Sign up</MenuItem></Link>
+          </Drawer>
+        )}
         <AppBar
           title="ConcertWallet"
           style={{backgroundColor: '#424242'}}
           onLeftIconButtonTouchTap={this.handleToggle}
-          iconElementRight={this.state.logged ?
+          iconElementRight={Auth.isUserAuthenticated() ?
             //If logged in, show logout button
             <div>
               <SearchBar />
-              <FlatButton onClick={() => this.props.logoutUser()} label="Logout" style={{ color: 'white' }} />
+              <FlatButton onClick={this.onClickLogout} label="Logout" style={{ color: 'white' }} />
             </div> :
             //If not logged in, show login/signup
             <div>
-                <SearchBar />
-                <FlatButton onClick={this.onClickLogin} label="Login" style={{ color: 'white' }} />
-                <FlatButton onClick={this.onClickSignup} label="Signup" style={{ color: 'white' }} />
+              <FlatButton onClick={this.onClickLogin} label="Login" style={{ color: 'white' }} />
+              <FlatButton onClick={this.onClickSignup} label="Signup" style={{ color: 'white' }} />
             </div>
           }
         />
@@ -93,40 +91,4 @@ class NavBar extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    info: state.getUserInfo,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getUserInfo, logoutUser }, dispatch);
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
-
-//Might need below for modularize/code cleanup
-// class Login extends Component {
-//   static muiName = 'FlatButton';
-//
-//   render() {
-//     return (
-//       <div>
-//         <FlatButton {...this.props} label="Login" />
-//         <FlatButton {...this.props} label="Signup" />
-//
-//       </div>
-//     );
-//   }
-// }
-
-// class Logout extends Component {
-//   static muiName = 'FlatButton';
-//
-//   render() {
-//     return (
-//       <FlatButton onClick={() => this.props.logoutUser()} label="Logout" />
-//     );
-//   }
-// }
+export default NavBar;
