@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 import { getArtists, removeArtist } from '../actions/index';
 
 class Artists extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.getArtists();
   }
 
