@@ -63,15 +63,24 @@ class Map extends React.Component {
 
               let val;
               return concert.map((value) => {
-                return new google.maps.Marker({
-                  position: new google.maps.LatLng(value.latitude, value.longitude),
-                  map:mapRef,
-                })
+                return {
+                  infowindow: new google.maps.InfoWindow({
+                    content: '<div>' + '<p><strong>' + value.displayName + '</strong></p>' + '<p>' + value.venue + '</p>' + '<p>' + value.date + '</p>' + '<p>' + value.time + '</p>' + '</div>'
+                  }),
+                  markers: new google.maps.Marker({
+                    position: new google.maps.LatLng(value.latitude, value.longitude),
+                    map: mapRef,
+                  }),
+                }
               })
             })
             .then((mark) => {
+              console.log('MARK IN PROMISES:: ', mark);
               return mark.forEach((marking) => {
-                return marking.setMap(this.map);
+                  marking.markers.setMap(this.map);
+                  marking.markers.addListener('click', function() {
+                    marking.infowindow.open(marking.markers.map, marking.markers);
+                  });
               });
             })
 
