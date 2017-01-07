@@ -23,6 +23,7 @@ export const GET_USER_EVENTS = 'GET_USER_EVENTS';
 export const GET_ARTIST_CALENDAR = 'GET_ARTIST_CALENDAR';
 export const REMOVE_ARTIST = 'REMOVE_ARTIST';
 export const GET_EVENT_COMMENTS = 'GET_EVENT_COMMENTS';
+export const GET_LOCAL_EVENTS = 'GET_LOCAL_EVENTS';
 
 module.exports = {
   selectEvent(event) {
@@ -154,7 +155,7 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/events/getAll', config)
-    .catch(() => {
+    .then(() => {
       return {data: []};
     });
     return {
@@ -167,7 +168,7 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/events/getfriendsevents', config)
-      .catch(() => {
+      .then(() => {
         return { data: [] };
       });
     return {
@@ -180,7 +181,7 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     let request = axios.get('/api/users/getinfo', config)
-      .catch(() => {
+      .then(() => {
         return {data: []};
       });
 
@@ -194,7 +195,7 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     let getFriendsRequest = axios.get('/api/users/getfriends', config)
-      .catch(() => {
+      .then(() => {
         return {data: []};
       });
 
@@ -208,7 +209,7 @@ module.exports = {
       headers: { authheader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/artists/getall', config)
-    .catch(() => {
+    .then(() => {
       return { data: [] };
     });
     return {
@@ -224,7 +225,7 @@ module.exports = {
       query: userQuery,
     };
     let searchUserResult = axios.post('/api/users/finduser', userQueryObj, config)
-      .catch(() => {
+      .then(() => {
         return { data: [] };
       });
     return {
@@ -340,7 +341,7 @@ module.exports = {
     };
 
     const request = axios.get('/api/events/getuserevents', config)
-    .catch((res) => {
+    .then((res) => {
       console.log('THIS IS THE CATCH IN GET USER EVENTS: ', res);
       return {data: []};
     });
@@ -359,10 +360,9 @@ module.exports = {
       }
     };
     const request = axios.get('/api/songkick/getartistcalendar', config)
-    .catch((res) => {
+    .then((res) => {
       return {data: []};
     });
-
     return {
       type: GET_ARTIST_CALENDAR,
       payload: request,
@@ -436,5 +436,47 @@ module.exports = {
   redirectFacebookClick() {
     console.log('action index.js getting called for redirect');
     hashHistory.push('/');
-  }
+  },
+  getLocation(query) {
+    console.log('query:: ', query)
+    console.log('query.latitude:: ', query.latitude)
+    console.log('query.longitude:: ', query.longitude)
+    const config = {
+      headers: {
+        authHeader: localStorage.getItem('token'),
+        latitude: query.latitude,
+        longitude: query.longitude,
+      }
+    }
+
+    console.log('config:: ', config)
+
+    return axios.get('/api/songkick/getlocation', config)
+      .then((res) => {
+        console.log('GET LOCATION RES:: ', res.data.resultsPage.results.location[0].metroArea.id);
+        const metroId = res.data.resultsPage.results.location[0].metroArea.id
+        return {
+          type: metroId
+        };
+      });
+  },
+  getLocalEvents(id) {
+    
+    const config = {
+      headers: {
+        authHeader: localStorage.getItem('token'),
+        id,
+      }
+    }
+    const request = axios.get('/api/songkick/getlocalevents', config)
+    .then((res) => {
+      console.log('GET LOCAL EVENTS RES:: ', res);
+      return {}
+    });
+
+    return {
+      type: GET_LOCAL_EVENTS,
+      payload: request,
+    }
+  },
 };

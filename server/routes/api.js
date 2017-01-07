@@ -34,6 +34,7 @@ router.post('/events/deleteevent', eventController.events.deleteEvent);
 router.get('/comments/getcomments', commentsController.comments.getComments);
 router.post('/comments/addcomment', commentsController.comments.addComment);
 router.post('/comments/removecomment', commentsController.comments.removeComment);
+
 // artist calls
 router.get('/artists/getall', artistsController.artists.getUserArtists);
 router.post('/artists/addartist', artistsController.artists.addArtist);
@@ -47,6 +48,7 @@ router.get('/bandsintown/getartist', bandsintown.getArtist);
 // songkick api call
 router.get('/songkick/getartist', songkick.getArtist);
 router.get('/songkick/getartistcalendar', songkick.getArtistCalendar);
-
+router.get('/songkick/getlocalevents', songkick.getLocalEvents);
+router.get('/songkick/getlocation', songkick.getLocation);
 
 module.exports = router;
