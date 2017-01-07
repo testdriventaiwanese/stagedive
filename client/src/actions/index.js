@@ -24,7 +24,7 @@ export const GET_EVENT_COMMENTS = 'GET_EVENT_COMMENTS';
 export const GET_LOCAL_EVENTS = 'GET_LOCAL_EVENTS';
 export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS'
 
-const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
+const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=Music&';
 const config = {
   headers: { authHeader: localStorage.getItem('token') },
 };
