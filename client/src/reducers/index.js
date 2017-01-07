@@ -19,6 +19,7 @@ import GetArtistCalendar from './reducer_get_artist_calendar';
 // import RemoveArtist from './reducer_remove_artist';
 import GetEventComments from './reducer_get_event_comments';
 import GetLocalEvents from './reducer_get_local_events';
+import ShowLocalEvents from './reducer_show_local_events';
 
 const rootReducer = combineReducers({
   activeEvent: ActiveEvent,
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   // removeArtist: RemoveArtist,
   getEventComments: GetEventComments,
   getLocalEvents: GetLocalEvents,
+  showLocalEvents: ShowLocalEvents,
 });
 
 export default rootReducer;
