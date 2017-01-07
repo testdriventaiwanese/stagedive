@@ -7,7 +7,11 @@ import Auth from '../modules/auth';
 
 
 class PostIndex extends Component {
-
+  componentWillMount() {
+    if (!Auth.isUserAuthenticated()) {
+      hashHistory.push('/login');
+    }
+  }
   render() {
     return (
       <div>
