@@ -7,7 +7,7 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-import { logIn, redirectFacebookClick } from '../actions/index';
+import { logIn } from '../actions/index';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -70,7 +70,7 @@ class LoginPage extends React.Component {
               </div>
 
               <a href="/auth/facebook">
-                <RaisedButton label='Facebook' onClick={() => this.props.redirectFacebookClick()} primary />
+                <RaisedButton label='Facebook' primary />
               </a>
 
 
@@ -84,7 +84,7 @@ class LoginPage extends React.Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ logIn, redirectFacebookClick }, dispatch);
+  return bindActionCreators({ logIn }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(LoginPage);

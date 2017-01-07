@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Paper from 'material-ui/Paper';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import CircularProgress from 'material-ui/CircularProgress';
+import Avatar from 'material-ui/Avatar';
+
 import { getFriendsEvents } from '../actions/index';
 
 class FriendsEventList extends Component {
@@ -21,7 +24,9 @@ class FriendsEventList extends Component {
     };
     if (!this.props.events.futureEvents) {
       return (
-        <div>Loading News Feed...</div>
+        <div align='center'>
+          <CircularProgress size={60} />
+        </div>
       );
     }
     const userInfo = this.props.events.userInfo;
@@ -36,12 +41,19 @@ class FriendsEventList extends Component {
       const date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       const time = event.date.slice(11, 16);
       return (
-        <Paper key={event.id} className="list-group-item">
-          <div style={imageDiv}>
-            <img src={event.image} style={imageStyle} alt="event shot" />
-          </div>
-          <div>
-            <p>{name.join(', ')} going to:</p>
+        <Card key={event.id} className="list-group-item">
+          <CardHeader
+            title={name.join(', ')}
+            subtitle='going to:'
+            avatar={<Avatar>{name.join(', ').slice(0,1)}</Avatar>}
+            onClick={() => this.props.getOtherUserEvents(friend)}
+          />
+          <CardMedia
+            overlay={<CardTitle title={event.name} subtitle={event.city} />}
+          >
+            <img src={event.image} style={imageStyle} />
+          </CardMedia>
+          <CardText>
             <p><strong>{event.name}</strong></p>
             <p>{event.venue}</p>
             <span>{event.city}</span>
@@ -49,8 +61,8 @@ class FriendsEventList extends Component {
             <span>{date}</span>
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
-          </div>
-        </Paper>
+          </CardText>
+        </Card>
       );
     });
   }
@@ -58,9 +70,9 @@ class FriendsEventList extends Component {
     return (
       <div>
         <h1>News Feed</h1>
-        <ul className="list-group col-sm-16">
+        <div className="list-group col-sm-16">
           {this.renderList()}
-        </ul>
+        </div>
       </div>
     );
   }
