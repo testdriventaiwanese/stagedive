@@ -43,7 +43,7 @@ class Comments extends Component {
         return (
           <div key={comment.id}>
             <div>
-              <button onClick={() => this.props.removeEventComment(comment.id)}>x</button>
+              <button onClick={() => this.props.removeEventComment(comment)}>x</button>
             </div>
             <div>
               <p>
