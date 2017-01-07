@@ -3,25 +3,31 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import { getUserEvents, getUserInfo, removeEvent, getEvents } from '../actions/index';
+import Auth from '../modules/auth';
 
 class EventList extends Component {
+  componentWillMount() {
+    if (!Auth.isUserAuthenticated()) {
+      hashHistory.push('/login');
+    }
+  }
   componentDidMount() {
-    let id = localStorage.getItem('id');
-    let user = { id }
+    const id = localStorage.getItem('id');
+    const user = { id };
     this.props.getUserInfo();
     this.props.getUserEvents(user);
   }
 
   renderUpcoming() {
-    let imageDiv = {
+    const imageDiv = {
       width: '30%',
       float: 'left',
       height: '248px',
       margin: '10px',
     };
-    let imageStyle = {
+    const imageStyle = {
       width: '100%',
     };
     let sortByDate = [];

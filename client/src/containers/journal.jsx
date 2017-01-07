@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
+import { hashHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
-// import { selectEvent } from '../actions/index';
 import { removeEvent, getUserEvents } from '../actions/index';
 import JournalPhoto from './journal-photo';
+import Auth from '../modules/auth';
 
 class Journal extends Component {
+  componentWillMount() {
+    if (!Auth.isUserAuthenticated()) {
+      hashHistory.push('/login');
+    }
+  }
   componentDidMount() {
     //GETS USER EVENTS
       let id = this.props.userInfo.userInfo.id;
