@@ -398,9 +398,11 @@ module.exports = {
       }
     }
     const request = axios.get('/api/songkick/getlocalevents', config)
-    .catch((res) => {
-      console.log('GET LOCAL EVENTS RES:: ', res);
-      return {}
+    .then((res) => {
+      console.log('GET LOCAL EVENTS RESULTSPAGE:: ', res.data.resultsPage.results.event);
+      return {
+        resultsPage: res.data.resultsPage.results.event,
+      }
     });
 
     return {
