@@ -8,6 +8,7 @@ module.exports = new PassportFacebookStrategy({
   callbackURL: 'http://localhost:5000/auth/facebook/callback',
   profileFields: ['id', 'displayName', 'picture', 'email'],
 }, (accessToken, refreshToken, profile, done) => {
+  console.log('Facebook Profile Data: ', profile);
   userModel.users.getPassword(profile.emails[0].value, (results) => {
     if (results.length > 0 && results.password) {
       return done('Error, email has already been used');

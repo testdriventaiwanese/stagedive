@@ -25,6 +25,7 @@ class Account extends Component {
         <div>Member Since: {this.props.info[0].createdOn.slice(0,10)}</div>
         <div>Username: {this.props.info[0].email}</div>
         <div>Name on account: {this.props.info[0].fullname}</div>
+        <img src={this.props.info[0].profile_photo} alt='facebook headshot' />
       </div>
     );
   }
