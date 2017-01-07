@@ -8,7 +8,7 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-import Auth from '../modules/Auth';
+import Auth from '../modules/auth';
 import { logIn, redirectFacebookClick } from '../actions/index'
 
 class LoginPage extends React.Component {

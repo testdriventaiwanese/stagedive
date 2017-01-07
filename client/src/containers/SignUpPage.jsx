@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
-import { signUp } from '../actions/index'
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
-
 import { Card, CardText } from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+
+import { signUp } from '../actions/index'
 
 class SignUpPage extends React.Component {
 

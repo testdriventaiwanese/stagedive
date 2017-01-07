@@ -5,9 +5,9 @@ require('dotenv').config();
 require('./database/config.js');
 const path = require('path');
 const express = require('express');
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+
 const app = express();
 
 app.use(bodyParser.urlencoded({
@@ -16,13 +16,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 // pass the passport middleware
 app.use(passport.initialize());
-// express session middleware
-app.use(session({
-  secret: 'shhitsasecret',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
-}));
+
 
 // serve static files
 app.use(express.static(path.join(__dirname, '/../client/')));
@@ -41,7 +35,7 @@ passport.use('facebook-login', facebookLoginStrategy);
 // pass the authenticaion checker middleware
 const authCheckMiddleware = require('./passport/auth-check');
 
-// app.use('/api', authCheckMiddleware);
+app.use('/api', authCheckMiddleware);
 
 // routes
 const authRoutes = require('./routes/auth');
@@ -64,5 +58,5 @@ app.listen(port, (err) => {
     //   weeklyReminder(); // function lives in emailHelper.js
     //   reminded = true;
     // }
-    console.log('Server is listening to port : ', port);
+  console.log('Server is listening to port : ', port);
 });

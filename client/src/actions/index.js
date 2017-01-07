@@ -292,12 +292,6 @@ module.exports = {
       payload: resultObj,
     };
   },
-  logoutUser() {
-    console.log('loggingout')
-    localStorage.removeItem('token')
-    localStorage.removeItem('id')
-    hashHistory.push('/login')
-  },
   searchArtists(query) {
     const config = {
       headers: {
