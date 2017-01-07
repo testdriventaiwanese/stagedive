@@ -9,7 +9,7 @@ class Account extends Component {
   }
 
   renderInfo() {
-    if(this.props.info.length === 0){
+    if (this.props.info.length === 0) {
       return <div>Loading...</div>
     }
     return (
@@ -18,7 +18,7 @@ class Account extends Component {
         <div>Username: {this.props.info[0].email}</div>
         <div>Name on account: {this.props.info[0].fullname}</div>
       </div>
-    )
+    );
   }
 
   render() {
