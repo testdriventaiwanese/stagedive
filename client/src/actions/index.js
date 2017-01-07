@@ -281,8 +281,7 @@ module.exports = {
     };
     axios.post('/auth/login', resultObj).then((res) => {
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('id', res.data.user.id);
-      return;
+      localStorage.setItem('id', res.data.userId);
     })
     .then(() => {
       hashHistory.push('/');
