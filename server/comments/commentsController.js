@@ -45,6 +45,7 @@ module.exports = {
     },
     removeComment(req, res) {
       // const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
+      console.log('req.body.commentId in back:', req.body.commentId);
       const params = [req.body.commentId];
       commentsModel.comments.removeComment(params, (results) => {
         if(!results) {
