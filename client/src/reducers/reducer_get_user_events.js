@@ -2,7 +2,8 @@ export default function(state = { events: [], futureEvents: [] }, action) {
   console.log('ACTION TYPE IN REDUCER: ', action.type);
   switch(action.type) {
     case 'GET_USER_EVENTS':
-      let userInfo = action.payload.config.headers.userInfo;
+      console.log('config thats erroring out: ', action.payload);
+      let userInfo = action.payload.config.headers.userId;
 
       let events = action.payload.data.length === 0 ? [] : action.payload.data;
 
@@ -28,14 +29,16 @@ export default function(state = { events: [], futureEvents: [] }, action) {
         userInfo,
       }
     case 'REMOVE_EVENT':
-      futureEvents = [...state.futureEvents.slice(0, action.i), ...state.futureEvents.slice(action.i + 1)];
-        console.log('FUTURE EVENTS 2', futureEvents)
-        return {
-            events: state.events,
-            futureEvents,
-            pastEvents: state.pastEvents,
-            userInfo: state.userInfo,
-          }
+      futureEvents = [
+        ...state.futureEvents.slice(0, action.i),
+        ...state.futureEvents.slice(action.i + 1)
+      ];
+      return {
+        events: state.events,
+        futureEvents,
+        pastEvents: state.pastEvents,
+        userInfo: state.userInfo,
+      }
     default:
       return state;
   }
