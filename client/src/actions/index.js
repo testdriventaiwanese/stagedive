@@ -25,9 +25,6 @@ export const GET_LOCAL_EVENTS = 'GET_LOCAL_EVENTS';
 export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS'
 
 const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=Music&';
-const config = {
-  headers: { authHeader: localStorage.getItem('token') },
-};
 
 module.exports = {
   selectEvent(event) {
@@ -80,6 +77,9 @@ module.exports = {
         sale_date: JSON.stringify(event.sales.public) || null,
       };
     }
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
     axios.post('/api/events/addevent', eventObj, config)
     .then(() => {
       hashHistory.push('/');
@@ -99,6 +99,9 @@ module.exports = {
       onTourUntil: songkick.onTourUntil,
       upcoming_events: bandsintown.upcoming_event_count,
     };
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
     axios.post('/api/artists/addartist', artistObj, config)
       .then(() => {
         hashHistory.push('/');
@@ -111,6 +114,9 @@ module.exports = {
   removeEvent(tm_id, i) {
     const resultObj = {
       tm_id,
+    };
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
     };
     axios.post('/api/events/deleteevent', resultObj, config)
       .then(() => {
@@ -126,6 +132,9 @@ module.exports = {
     const resultObj = {
       artist_mbid,
     };
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
     axios.post('/api/artists/deleteartist', resultObj, config)
       .then(() => {
         hashHistory.replace('/');
@@ -137,6 +146,9 @@ module.exports = {
     };
   },
   getEvents() {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
     const request = axios.get('/api/events/getAll', config)
       .catch(() => {
         return { data: [] };
@@ -147,6 +159,9 @@ module.exports = {
     };
   },
   getFriendsEvents() {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
     const request = axios.get('/api/events/getfriendsevents', config)
       .catch(() => {
         return { data: [] };
@@ -157,6 +172,9 @@ module.exports = {
     };
   },
   getUserInfo() {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
     const request = axios.get('/api/users/getinfo', config)
       .catch(() => {
         return { data: [] };
@@ -167,6 +185,9 @@ module.exports = {
     };
   },
   getFriends() {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
     const getFriendsRequest = axios.get('/api/users/getfriends', config)
       .catch(() => {
         return { data: [] };
@@ -177,6 +198,9 @@ module.exports = {
     };
   },
   getArtists() {
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
     const request = axios.get('/api/artists/getall', config)
       .catch(() => {
         return { data: [] };
@@ -190,6 +214,9 @@ module.exports = {
     const userQueryObj = {
       query: userQuery,
     };
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
+    };
     const searchUserResult = axios.post('/api/users/finduser', userQueryObj, config)
       .catch(() => { data: [] } );
     return {
@@ -200,6 +227,9 @@ module.exports = {
   addFollower(userId) {
     const addFollowObj = {
       userId,
+    };
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
     };
     const addFollowerResult = axios.post('/api/users/addfollow', addFollowObj, config)
       .then(() => {
@@ -212,6 +242,9 @@ module.exports = {
   unfollow(userId, index) {
     const unfollowObj = {
       userId,
+    };
+    const config = {
+      headers: { authHeader: localStorage.getItem('token') },
     };
     const unfollowResult = axios.post('/api/users/unfollow', unfollowObj, config);
     return {

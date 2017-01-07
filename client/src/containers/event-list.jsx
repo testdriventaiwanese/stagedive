@@ -10,9 +10,6 @@ import Auth from '../modules/auth';
 
 class EventList extends Component {
   componentWillMount() {
-    if (!Auth.isUserAuthenticated()) {
-      hashHistory.push('/login');
-    }
     const id = localStorage.getItem('id');
     const user = { id };
     this.props.getUserInfo();
@@ -91,12 +88,10 @@ class EventList extends Component {
               title={event.name}
               subtitle={event.city}
               /> }
-              actAsExpander={true}
-              showExpandableButton={true}
             >
             <img src={event.image} style={imageStyle}/>
           </CardMedia>
-          <CardText expandable={true}>
+          <CardText>
             <p><strong>{event.name}</strong></p>
             <p>{event.venue}</p>
             <span>{event.city}</span>
@@ -105,7 +100,7 @@ class EventList extends Component {
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
           </CardText>
-          <CardActions expandable={true}>
+          <CardActions>
             <RaisedButton
                 label="Remove Event"
                 secondary
