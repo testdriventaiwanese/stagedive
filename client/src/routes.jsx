@@ -24,7 +24,7 @@ export default(
     <Route path="results" component={SearchResults} />
     <Route path="login" component={LogIn} />
     <Route path="account" component={Account} />
-    <Route path="journal" component={Journal} />
+    <Route path="/journal/:userId" component={Journal} />
     <Route path="explore" component={MapComponent} />
     <Route path="newsfeed" component={FriendsEventList} />
     <Route path="/view/:userId" component={UserPage} />
