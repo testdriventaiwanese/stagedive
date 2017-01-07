@@ -22,6 +22,7 @@ export const GET_ARTIST_CALENDAR = 'GET_ARTIST_CALENDAR';
 export const REMOVE_ARTIST = 'REMOVE_ARTIST';
 export const GET_EVENT_COMMENTS = 'GET_EVENT_COMMENTS';
 export const GET_LOCAL_EVENTS = 'GET_LOCAL_EVENTS';
+export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS'
 
 const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?';
 const config = {
@@ -410,4 +411,12 @@ module.exports = {
       payload: request,
     }
   },
+  showLocalEvents(concerts) {
+    console.log(concerts);
+
+    return {
+      type: SHOW_LOCAL_EVENTS,
+      payload: concerts,
+    }
+  }
 };
