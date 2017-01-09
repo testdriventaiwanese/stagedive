@@ -22,7 +22,6 @@ class EventList extends Component {
     const imageDiv = {
       width: '30%',
       float: 'left',
-      height: '248px',
       margin: '10px',
     };
     const imageStyle = {
@@ -44,7 +43,7 @@ class EventList extends Component {
       const artist = JSON.parse(event.artist_name).map((performer) => performer.name);
       const date = momentDate.toString() + ' ' + est.toString().slice(34);
       return (
-        <Card className="list-group-item" zDepth={1}>
+        <Card className="list-group-item" zDepth={1} style={imageDiv} >
           <h1>Upcoming Event</h1>
           <CardMedia
             overlay={ <CardTitle title={event.name} subtitle={event.city + ', ' + momentFromNow.toString()} />} >
@@ -79,9 +78,8 @@ class EventList extends Component {
   renderList() {
     const id = localStorage.getItem('id');
     const imageDiv = {
-      width: '35%',
+      width: '65%',
       float: 'left',
-      height: '248px',
       margin: '10px',
     };
     const imageStyle = {
@@ -95,7 +93,7 @@ class EventList extends Component {
       const date = momentDate.toString() + ' ' + est.toString().slice(34);
       const artist = JSON.parse(event.artist_name).map((performer) => performer.name);
       return (
-        <Card key={event.id} className="list-group-item" zDepth={1}>
+        <Card key={event.id} className="list-group-item" zDepth={1} style={imageDiv}>
           <CardMedia
             overlay={ <CardTitle
             title={event.name}

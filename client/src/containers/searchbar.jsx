@@ -42,9 +42,6 @@ class SearchBar extends Component {
               value={this.state.term}
               onChange={this.onInputChange}
             />
-            <span className="button-line">
-              <FlatButton type="submit" label="Search" backgroundColor="#616161" style={{ color: 'white' }} />
-            </span>
           </form>
         </MuiThemeProvider>
       </span>

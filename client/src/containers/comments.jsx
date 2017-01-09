@@ -7,6 +7,8 @@ import { addEventComment, removeEventComment } from '../actions/index';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import IconButton from 'material-ui/IconButton';
 
 class Comments extends Component {
   constructor(props) {
@@ -41,17 +43,17 @@ class Comments extends Component {
       this.props.comments.comments.map((comment) => {
         const userId = comment.id_user;
         let userObj = this.props.comments.posterInfo.filter((poster) => {
-          console.log('USEROBJ FILTER:', poster.id, userId);
           return poster.id === userId;
         });
         if(userObj.length === 0) {
           userObj = [{ fullname: comment.fullname }];
         }
-        console.log('USER OBJ: ', userObj);
         return (
-          <div key={comment.id}>
+          <div key={comment.id} style={{ margin: "0px 0px 0px 15px" }}>
             <div>
-              <button onClick={() => this.props.removeEventComment(comment)}>x</button>
+              <IconButton onClick={() => this.props.removeEventComment(comment)}
+                style={{ float: 'right', height: '0px' }}
+              ><NavigationClose /></IconButton>
             </div>
             <div>
               <p>
@@ -72,7 +74,7 @@ class Comments extends Component {
         <MuiThemeProvider>
           <form onSubmit={this.onFormSubmit} className="input-group">
             <TextField
-              style={{ color: 'white' }}
+              style={{ color: 'white', width: '100%', margin: "0px 10px 0px 10px" }}
               placeholder="Add comment"
               value={this.state.term}
               onChange={this.onInputChange}
