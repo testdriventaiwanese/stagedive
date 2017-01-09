@@ -43,12 +43,29 @@ module.exports = {
       });
     },
     addComment(params, callback) {
+      let commentId;
       const queryStr = 'INSERT INTO comments (id_user, id_friend, id_event, text) VALUES (?, ?, ?, ?)'
       db.query(queryStr, params, (err, results) => {
         if(err) {
           console.log('Error in server/commentsModel.js addComment : ', err);
+        }
+        else{
+          console.log('COMMENT RESULTS: ', results);
+          commentId = results.insertId;
+        }
+      });
+      const findUserNameQuery = `SELECT id, fullname, profile_photo FROM users WHERE id IN (${params[0]})`
+      console.log('PARAMS IN ADD COMMENT: ', params);
+      db.query(findUserNameQuery, (error, posterInfo) => {
+        if(error) {
+          console.log('Error in finding username of add comment');
         } else {
-          callback(results);
+          console.log('POSTER INFO IN ADD COMMENT: ', posterInfo);
+          let response = {
+            posterInfo,
+            commentId,
+          }
+          callback(response);
         }
       });
     },

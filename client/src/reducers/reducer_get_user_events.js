@@ -1,8 +1,8 @@
-export default function(state = { events: [], futureEvents: [] }, action) {
+export default function(state = { events: [], futureEvents: [], pastEvents: [] }, action) {
   console.log('ACTION TYPE IN REDUCER: ', action.type);
   switch(action.type) {
     case 'GET_USER_EVENTS':
-      console.log('config thats erroring out: ', action.payload);
+      console.log('GET USER EVENTS PAYLOAD ', action.payload);
       let userInfo = action.payload.config.headers.userId;
 
       let events = action.payload.data.length === 0 ? [] : action.payload.data;

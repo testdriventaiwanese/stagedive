@@ -21,7 +21,7 @@ module.exports = {
       });
     },
     addComment({ body: {
-      id_events,
+      id_event,
       userId,
       friendId,
       text,
@@ -30,7 +30,7 @@ module.exports = {
       const params = [
         id.sub,
         friendId,
-        id_events,
+        id_event,
         text,
       ];
       console.log('PARAMS IN COMMENTSCONTROLLER GOT: ', params);
@@ -39,7 +39,26 @@ module.exports = {
           console.log('ERROR in getting comments');
           res.sendStatus(401);
         } else {
-          res.status(200).send(results);
+          console.log('RESULTS IN ADD COMMENT USERNAME: ', results);
+          let createdOn = new Date();
+          let id_friend = friendId;
+          let id_user = userId;
+
+          const comment = {
+            createdOn,
+            id: results.commentId,
+            id_event,
+            id_friend,
+            id_user,
+            text,
+          }
+
+          const posterInfo = {
+            fullname: results.posterInfo[0].fullname,
+            id: results.posterInfo[0].id,
+            profile_photo: results.posterInfo[0].profile_photo,
+          }
+          res.status(200).send({comment, posterInfo});
         }
       })
     },

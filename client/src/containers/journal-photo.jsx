@@ -17,7 +17,7 @@ class JournalPhoto extends Component {
     };
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
-      let userId = this.props.userInfo.userInfo
+      let userId = this.props.userInfo.userInfo;
       return (
         <Paper style={imageDiv}>
           <GridTile
