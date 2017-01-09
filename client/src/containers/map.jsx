@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { GoogleApiWrapper, Marker} from 'google-maps-react';
 import AppBar from './app-bar';
-import GOOGLEMAPSAPIKEY from './GOOGLEMAPSAPIKEY.js';
 import ReactDOM from 'react-dom';
 import { getLocalEvents, getLocation, showLocalEvents } from '../actions/index';
 import Paper from 'material-ui/Paper';
@@ -155,7 +154,7 @@ export class MapComponent extends React.Component {
   }
 }
 
-const googleWrapped = GoogleApiWrapper({ apiKey: GOOGLEMAPSAPIKEY })(MapComponent);
+const googleWrapped = GoogleApiWrapper({ apiKey: process.env.GAPI_KEY })(MapComponent);
 
 function mapStateToProps(state) {
   return {
