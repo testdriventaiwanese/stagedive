@@ -18,6 +18,10 @@ class Comments extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
+  componentWillMount () {
+
+  }
+
   onInputChange(event) {
     this.setState({ term: event.target.value });
   }
@@ -36,9 +40,13 @@ class Comments extends Component {
     return (
       this.props.comments.comments.map((comment) => {
         const userId = comment.id_user;
-        const userObj = this.props.comments.posterInfo.filter((poster) => {
+        let userObj = this.props.comments.posterInfo.filter((poster) => {
+          console.log('USEROBJ FILTER:', poster.id, userId);
           return poster.id === userId;
         });
+        if(userObj.length === 0) {
+          userObj = [{ fullname: comment.fullname }];
+        }
         console.log('USER OBJ: ', userObj);
         return (
           <div key={comment.id}>
