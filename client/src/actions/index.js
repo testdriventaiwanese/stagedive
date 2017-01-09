@@ -68,7 +68,7 @@ module.exports = {
         venue_address: event._embedded.venues[0].address.line1 || null,
         city: event._embedded.venues[0].city.name || null,
         zipcode: event._embedded.venues[0].postalCode || null,
-        image: event._embedded.attractions[0].images[3].url || null,
+        image: event._embedded.attractions[0].images[0].url || null,
         genre: event.classifications[0].genre.name || null,
         subgenre: event.classifications[0].subGenre.name || null,
         latitude: latitude,
