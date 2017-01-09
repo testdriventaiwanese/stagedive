@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper';
 import {GridList, GridTile} from 'material-ui/GridList';
 import { removeEvent, getUserEvents } from '../actions/index';
 import JournalPhoto from './journal-photo';
+import CircularProgress from 'material-ui/CircularProgress';
 import Auth from '../modules/auth';
 
 class Journal extends Component {
@@ -36,6 +37,16 @@ class Journal extends Component {
         overflowY: 'auto',
       },
     };
+
+    // console.log('PROPS JOURNAL : ', this.props);
+    if(this.props.userInfo.pastEvents.length === 0) {
+      return (
+        <div align='center'>
+          <CircularProgress size={60} />
+        </div>
+      )
+    }
+
     const journalPhotos = this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={event.id} i={i} event={event} /> );
     return (
       <div style={styles.root}>

@@ -21,7 +21,11 @@ export const GET_ARTIST_CALENDAR = 'GET_ARTIST_CALENDAR';
 export const REMOVE_ARTIST = 'REMOVE_ARTIST';
 export const GET_EVENT_COMMENTS = 'GET_EVENT_COMMENTS';
 export const GET_LOCAL_EVENTS = 'GET_LOCAL_EVENTS';
-export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS';
+export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS'
+export const ADD_EVENT_COMMENT = 'ADD_EVENT_COMMENT';
+export const REMOVE_EVENT_COMMENT = 'REMOVE_EVENT_COMMENT';
+
+const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=Music&';
 
 module.exports = {
   searchEvents(query) {
@@ -322,6 +326,7 @@ module.exports = {
         userInfo: user,
       },
     };
+    console.log('GET USER EVENTS CALLED');
     const request = axios.get('/api/events/getuserevents', userEventsConfig)
     return {
       type: GET_USER_EVENTS,
@@ -346,7 +351,7 @@ module.exports = {
   },
   addEventComment(eventId, userId, friendId, text) {
     let commentObj = {
-      id_events: eventId,
+      id_event: eventId,
       userId,
       friendId,
       text,
@@ -358,11 +363,13 @@ module.exports = {
         userId,
       },
     };
-    const request = axios.post('/api/comments/addcomment', commentObj, addEventCommentConfig)
-      .then(() => axios.get('/api/comments/getcomments', addEventCommentConfig));
+
+    const request = axios.post('/api/comments/addcomment', commentObj, addEventCommentConfig);
+
+    //   .then(() => axios.get('/api/comments/getcomments', addEventCommentConfig));
 
     return {
-      type: GET_EVENT_COMMENTS,
+      type: ADD_EVENT_COMMENT,
       payload: request,
     }
   },
@@ -391,11 +398,11 @@ module.exports = {
         userId: comment.id_friend,
       },
     };
-    const request = axios.post('/api/comments/removecomment', commentObj, removeEventCommentConfig)
-      .then(() => axios.get('/api/comments/getcomments', removeEventCommentConfig));
+    const request = axios.post('/api/comments/removecomment', commentObj, removeEventCommentConfig);
+
     return {
-      type: GET_EVENT_COMMENTS,
-      payload: request,
+      type: REMOVE_EVENT_COMMENT,
+      payload: commentObj,
     }
   },
   getLocation(query) {

@@ -4,12 +4,13 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 // import { selectEvent } from '../actions/index';
-import { userEvents, removeEvent, addEventComment, getEventComments } from '../actions/index';
+import { getUserEvents, removeEvent, addEventComment, getEventComments } from '../actions/index';
 import Comments from './comments';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class JournalSingle extends Component {
   constructor(props) {
@@ -25,8 +26,16 @@ class JournalSingle extends Component {
     let userId = this.props.params.userId;
     let eventId = this.props.params.eventId;
     console.log('PROPS: ', this.props);
+    this.props.getUserEvents({id: userId});
     this.props.getEventComments(userId, eventId);
   }
+
+  // componentDidUpdate() {
+  //   let userId = this.props.params.userId;
+  //   let eventId = this.props.params.eventId;
+  //   console.log('PROPS: ', this.props);
+  //   this.props.getEventComments(userId, eventId);
+  // }
 
   onInputChange(event) {
     this.setState({term: event.target.value});
@@ -44,37 +53,49 @@ class JournalSingle extends Component {
   }
 
   render() {
-    const i = this.props.userInfo.pastEvents.findIndex((event) => event.id === Number(this.props.params.eventId));
-    let event = this.props.userInfo.pastEvents[i];
-    let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
-    let time = event.date.slice(11, 16);
-    let userId = this.props.userInfo.userInfo;
-    let imageDiv = {
-      width: '60%',
-      float: 'left',
-      height: '248px',
-    };
-    let imageStyle = {
-      width: '100%',
-    };
-    console.log('GET EVENT COMMENTS IN JOURNAL SINGLE: ', this.props.comments);
-    return (
-      <div>
-        <h1>Concert Journal</h1>
-        <ul className="list-group col-sm-16">
-          <Paper style={imageDiv} zDepth={2}>
-          <div key={event.id} style={imageStyle}>
-            <img src={event.image} style={imageStyle} />
-            <span><strong>{event.name}</strong></span>
-            <p>Date: {date}</p>
-          </div>
-          <div>
-            <Comments {...this.props} />
-          </div>
-        </Paper>
-        </ul>
-      </div>
-    );
+    let pastEvents = [];
+    console.log('PROPS JOURNAL SINGLE: ', this.props);
+    if(this.props.userInfo.pastEvents.length > 0) {
+      pastEvents = this.props.userInfo.pastEvents;
+      const i = pastEvents.findIndex((event) => event.id === Number(this.props.params.eventId));
+      let event = pastEvents[i];
+      let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
+      let time = event.date.slice(11, 16);
+      let userId = this.props.userInfo.userInfo;
+      let imageDiv = {
+        width: '60%',
+        float: 'left',
+        height: '248px',
+      };
+      let imageStyle = {
+        width: '100%',
+      };
+      console.log('GET EVENT COMMENTS IN JOURNAL SINGLE: ', this.props.comments);
+      return (
+        <div>
+          <h1>Concert Journal</h1>
+          <ul className="list-group col-sm-16">
+            <Paper style={imageDiv} zDepth={2}>
+              <div key={event.id} style={imageStyle}>
+                <img src={event.image} style={imageStyle} />
+                <span><strong>{event.name}</strong></span>
+                <p>Date: {date}</p>
+              </div>
+              <div>
+                <Comments {...this.props} />
+              </div>
+            </Paper>
+          </ul>
+        </div>
+      );
+    }
+    else {
+      return (
+        <div align='center'>
+          <CircularProgress size={60} />
+        </div>
+      )
+    }
   }
 }
 
@@ -86,7 +107,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent, userEvents, addEventComment, getEventComments }, dispatch);
+  return bindActionCreators({ removeEvent, getUserEvents, addEventComment, getEventComments }, dispatch);
 }
 
 
