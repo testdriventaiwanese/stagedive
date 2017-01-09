@@ -10,13 +10,10 @@ import GetFriends from './reducer_get_friends';
 import GetArtists from './reducer_get_artists';
 import SignUp from './reducer_sign_up';
 import LogIn from './reducer_log_in';
-// import RemoveEvent from './reducer_remove_event';
 import SearchArtists from './reducer_search_artists';
 import SearchUsers from './reducer_search_users';
-// import Unfollow from './reducer_unfollow';
 import UserEvents from './reducer_get_user_events';
 import GetArtistCalendar from './reducer_get_artist_calendar';
-// import RemoveArtist from './reducer_remove_artist';
 import GetEventComments from './reducer_get_event_comments';
 import GetLocalEvents from './reducer_get_local_events';
 import ShowLocalEvents from './reducer_show_local_events';
@@ -33,13 +30,10 @@ const rootReducer = combineReducers({
   getArtists: GetArtists,
   signUp: SignUp,
   logIn: LogIn,
-  // removeEvent: RemoveEvent,
   searchArtists: SearchArtists,
   searchUsers: SearchUsers,
-  // unfollow: Unfollow,
   userEvents: UserEvents,
   getArtistCalendar: GetArtistCalendar,
-  // removeArtist: RemoveArtist,
   getEventComments: GetEventComments,
   getLocalEvents: GetLocalEvents,
   showLocalEvents: ShowLocalEvents,
