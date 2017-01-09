@@ -3,10 +3,37 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import IconMenu from 'material-ui/IconMenu';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import { Link } from 'react-router';
+
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Snackbar from 'material-ui/Snackbar';
+
 import { removeEvent, getUserEvents } from '../actions/index';
 
 
 class EventDetail extends Component {
+  constructor(props) {
+    super(props);
+     this.state = {
+       open: false,
+     };
+   }
+
+   handleTouchTap = () => {
+     this.setState({
+       open: true,
+     });
+   };
+
+   handleRequestClose = () => {
+     this.setState({
+       open: false,
+     });
+   };
   componentWillMount() {
     console.log("this.props.params:: ", this.props);
     const userid = Number(this.props.params.userId);
@@ -30,13 +57,34 @@ class EventDetail extends Component {
       margin: '10px',
     };
     const imageStyle = {
-      width: '100%',
+      width: '90%',
+      height: '90%',
     };
     return (
       <Paper key={event.id} className="list-group-item" zDepth={2}>
         <div style={imageDiv}>
           <img src={event.image} style={imageStyle} alt="event shot" />
         </div>
+        <CardActions>
+          <IconMenu
+            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+          >
+            <MenuItem
+              primaryText="Remove Event"
+              secondary
+              onTouchTap={this.handleTouchTap}
+              onClick={() => this.props.removeEvent(event.tm_id, 0)}
+              />
+              <Snackbar
+                open={this.state.open}
+                message="Event Removed"
+                autoHideDuration={4000}
+                onRequestClose={this.handleRequestClose}
+              />
+          </IconMenu>
+        </CardActions>
         <div>
           <h2>{event.name}</h2>
           <p>{artistInfo.name}</p>
@@ -49,11 +97,6 @@ class EventDetail extends Component {
             <p><a href={event.event_url}>Buy Tickets</a></p>
           </div>
         </div>
-        <RaisedButton
-          label="Remove Event"
-          secondary
-          onClick={() => this.props.removeEvent(event.tm_id)}
-        />
       </Paper>
     );
   }
