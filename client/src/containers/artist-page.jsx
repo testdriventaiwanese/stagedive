@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { hashHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import { getArtistCalendar, removeArtist, saveArtist, searchArtists } from '../actions/index';
+import { getArtistCalendar, removeArtist, saveArtist, searchArtists, getArtists } from '../actions/index';
 import Auth from '../modules/auth';
 
 class ArtistPage extends Component {
@@ -13,8 +13,11 @@ class ArtistPage extends Component {
       hashHistory.push('/login');
     }
     const artistsArr = this.props.artists.filter((artist) => {
-      return artist.mbid === this.props.params.artistId;
+      if(artist.mbid === this.props.params.artistId) {
+        return artist;
+      }
     });
+
     const artist = artistsArr[0];
     const search = {mbid: this.props.params.artistId}
     if(!artist) {
@@ -58,35 +61,37 @@ class ArtistPage extends Component {
     };
     let imageStyle = {
       width: '100%',
+      height: '90%',
     };
     if (!this.props.artists) {
       return <div>Artist Not Listed</div>;
     }
     const artistsArr = this.props.artists.filter((artist) => {
+      console.log('artistsarrartist:: ', artist);
       return artist.mbid === this.props.params.artistId;
     });
     let artist = artistsArr[0];
-    const search = {mbid: this.props.params.artistId}
-
     if(!this.props.artistCalendar.data) {
       return (
         <div>Loading..</div>
       )
     }
-    const musician = this.props.artistCalendar.data
-    console.log('artist calendar:: ',musician);
-    const realName = !musician.resultsPage.results.event ? '' : musician.resultsPage.results.event[0].performance[0].displayName;
+    const image = this.props.artists.filter((name) => { return name.mbid === this.props.params.artistId }).map((img) => {return img.image});
+    console.log('image:: ', image)
+    const musician = this.props.artistCalendar.data.resultsPage.results.event[0].performance.map((performer) => { return performer.artist}).map((id) => {return {name: id.displayName, mbid: !id.identifier[0] ? null : id.identifier[0].mbid } }).filter((mb, i)=> { if(mb.mbid === this.props.params.artistId) {return mb.name}});
+    console.log('musician:: ',musician);
+    const realName = !musician[0] ? '' : musician[0].name;
     console.log('ARTIST NAME:: ', realName);
     artist = {
       name: realName,
-      image: undefined,
+      // image: artist.image,
     }
 
     return (
       <Paper>
-        <h1>{artist.name}</h1>
+        <h1>{realName}</h1>
         <div style={imageDiv}>
-            <img src={artist.image} style={imageStyle}></img>
+            <img src={image[0]} style={imageStyle}></img>
         </div>
         <div>
           <h5><strong>Calendar</strong></h5>
@@ -101,6 +106,9 @@ class ArtistPage extends Component {
     )
   }
   render() {
+    console.log('this.props.artists:: ', this.props.artists);
+    console.log('this.props.params.artistId', this.props.params.artistId);
+    console.log('this.props. Artist Calendar:: ', this.props.artistCalendar)
     return (
       <div>
         <ul className="list-group col-sm-16">
@@ -120,7 +128,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getArtistCalendar, removeArtist, searchArtists }, dispatch);
+  return bindActionCreators({ getArtistCalendar, removeArtist, searchArtists, getArtists }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistPage);

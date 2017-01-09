@@ -20,6 +20,7 @@ class Artists extends Component {
     };
     const imageStyle = {
       width: '100%',
+      height: '90%',
     };
     if (this.props.artists.length === 0) {
 
@@ -33,6 +34,7 @@ class Artists extends Component {
       );
     }
     return this.props.artists.map((artist, i) => {
+      console.log('PROPS.ARTISTS:: ', this.props.artists)
       console.log('artists.jsx artist:: ', artist);
       return (
         <Paper key={artist.id} className="list-group-item" zDepth={2}>
