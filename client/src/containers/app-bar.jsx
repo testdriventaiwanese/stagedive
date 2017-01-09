@@ -7,6 +7,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import AccountMenu from 'material-ui/svg-icons/navigation/expand-more';
 
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import { hashHistory } from 'react-router';
@@ -81,8 +82,17 @@ class NavBar extends Component {
         <SearchBar />
           {Auth.isUserAuthenticated() ?
             //If logged in, show logout button
-            <div style={{float: 'right'}}>
-                <FlatButton onClick={this.onClickLogout} label="Logout" style={{ color: 'black' }} />
+            <div>
+              <IconMenu
+                iconButtonElement={<IconButton><AccountMenu /></IconButton>}
+                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+              >
+              <Link to={"account"} style={{ color: 'black' }}>
+                <MenuItem primaryText="My Account" />
+              </Link>
+                <MenuItem onClick={this.onClickLogout} primaryText="Sign out" />
+              </IconMenu>
             </div> :
             //If not logged in, show login/signup
             <div>
