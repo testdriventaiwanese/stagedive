@@ -4,7 +4,7 @@ module.exports = {
   searchTicketmaster: (req, res) => {
     const searchQuery = req.headers.tmquery;
     request.get({
-      url: `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=Music&keyword=${searchQuery}&&apikey=${process.env.TICKETMASTERKEY}`,
+      url: `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=Music&keyword=${searchQuery}&&apikey=${process.env.TICKETMASTER_API}`,
       method: 'GET',
     }, (err, resp, body) => {
       if (err) {
