@@ -29,7 +29,6 @@ const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?class
 
 module.exports = {
   searchEvents(query) {
-    console.log('SEARCH EVENTS:: ', query);
     const config = {
       headers: {
         authHeader: localStorage.getItem('token'),
@@ -406,9 +405,6 @@ module.exports = {
     }
   },
   getLocation(query) {
-    console.log('query:: ', query)
-    console.log('query.latitude:: ', query.latitude)
-    console.log('query.longitude:: ', query.longitude)
     const config = {
       headers: {
         authHeader: localStorage.getItem('token'),
@@ -416,12 +412,8 @@ module.exports = {
         longitude: query.longitude,
       }
     }
-
-    console.log('config:: ', config)
-
     return axios.get('/api/songkick/getlocation', config)
       .then((res) => {
-        console.log('GET LOCATION RES:: ', res.data.resultsPage.results.location[0].metroArea.id);
         const metroId = res.data.resultsPage.results.location[0].metroArea.id
         return {
           type: metroId
@@ -437,7 +429,6 @@ module.exports = {
     }
     const request = axios.get('/api/songkick/getlocalevents', config)
     .then((res) => {
-      console.log('GET LOCAL EVENTS RESULTSPAGE:: ', res.data.resultsPage.results.event);
       return {
         resultsPage: res.data.resultsPage.results.event,
       }
@@ -449,8 +440,6 @@ module.exports = {
     }
   },
   showLocalEvents(concerts) {
-    console.log(concerts);
-
     return {
       type: SHOW_LOCAL_EVENTS,
       payload: concerts,
