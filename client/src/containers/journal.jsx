@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { hashHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
+import {GridList, GridTile} from 'material-ui/GridList';
 import { removeEvent, getUserEvents } from '../actions/index';
 import JournalPhoto from './journal-photo';
 import Auth from '../modules/auth';
@@ -24,13 +25,27 @@ class Journal extends Component {
   // }
 
   render() {
-    let journalPhotos = this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={event.id} i={i} event={event} /> );
+    const styles = {
+      root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+      },
+      gridList: {
+        width: 1000,
+        overflowY: 'auto',
+      },
+    };
+    const journalPhotos = this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={event.id} i={i} event={event} /> );
     return (
-      <div>
-        <h1>Concert Journal</h1>
-        <ul className="list-group col-sm-16">
-          {journalPhotos}
-        </ul>
+      <div style={styles.root}>
+        <GridList
+          cols={3}
+          cellHeight={250}
+          style={styles.gridList}
+        >
+        {journalPhotos}
+        </GridList>
       </div>
     );
   }
