@@ -25,6 +25,7 @@ export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS';
 
 module.exports = {
   searchEvents(query) {
+    console.log('SEARCH EVENTS:: ', query);
     const config = {
       headers: {
         authHeader: localStorage.getItem('token'),
