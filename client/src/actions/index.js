@@ -1,6 +1,5 @@
 import { hashHistory } from 'react-router';
 import axios from 'axios';
-import APIKEYS from './APIKEYS';
 
 export const SEARCH_EVENTS = 'SEARCH_EVENTS';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
@@ -22,23 +21,20 @@ export const GET_ARTIST_CALENDAR = 'GET_ARTIST_CALENDAR';
 export const REMOVE_ARTIST = 'REMOVE_ARTIST';
 export const GET_EVENT_COMMENTS = 'GET_EVENT_COMMENTS';
 export const GET_LOCAL_EVENTS = 'GET_LOCAL_EVENTS';
-export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS'
-
-const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=Music&';
+export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS';
 
 module.exports = {
-  selectEvent(event) {
-    return {
-      type: EVENT_SELECTED,
-      payload: event,
-    };
-  },
   searchEvents(query) {
-    const url = `${TM_ROOT_URL}keyword=${query}&&apikey=${APIKEYS.TM}`;
-    const request = axios.get(url);
+    const config = {
+      headers: {
+        authHeader: localStorage.getItem('token'),
+        tmquery: query,
+      },
+    };
+    const tmRequest = axios.get('/api/ticketmaster/searchticketmaster', config);
     return {
       type: SEARCH_EVENTS,
-      payload: request,
+      payload: tmRequest,
     };
   },
   saveEvent(event) {

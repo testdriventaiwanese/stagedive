@@ -5,6 +5,7 @@ const artistsController = require('../artists/artistsController');
 const commentsController = require('../comments/commentsController');
 const bandsintown = require('../API/bandsInTown');
 const songkick = require('../API/songkick');
+const ticketmaster = require('../API/ticketmaster');
 
 const router = new express.Router();
 
@@ -50,5 +51,8 @@ router.get('/songkick/getartist', songkick.getArtist);
 router.get('/songkick/getartistcalendar', songkick.getArtistCalendar);
 router.get('/songkick/getlocalevents', songkick.getLocalEvents);
 router.get('/songkick/getlocation', songkick.getLocation);
+
+// ticketmaster api call
+router.get('/ticketmaster/searchticketmaster', ticketmaster.searchTicketmaster);
 
 module.exports = router;
