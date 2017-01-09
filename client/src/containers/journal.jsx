@@ -14,16 +14,10 @@ class Journal extends Component {
     if (!Auth.isUserAuthenticated()) {
       hashHistory.push('/login');
     }
-    let id = this.props.params.userId;
-    let user = { id };
+    const id = this.props.params.userId;
+    const user = { id };
     this.props.getUserEvents(user);
   }
-  // componentDidMount() {
-  //   //GETS USER EVENTS
-  //     let id = this.props.userInfo.userInfo;
-  //     let user = { id };
-  //     this.props.getUserEvents(user);
-  // }
 
   render() {
     const styles = {
@@ -38,7 +32,6 @@ class Journal extends Component {
       },
     };
 
-    // console.log('PROPS JOURNAL : ', this.props);
     if(this.props.userInfo.pastEvents.length === 0) {
       return (
         <div align='center'>
@@ -53,6 +46,7 @@ class Journal extends Component {
         <GridList
           cols={3}
           cellHeight={250}
+          padding={20}
           style={styles.gridList}
         >
         {journalPhotos}
