@@ -4,11 +4,36 @@ import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Snackbar from 'material-ui/Snackbar';
+
 import { Link, hashHistory } from 'react-router';
 import { getUserEvents, getUserInfo, removeEvent, getEvents } from '../actions/index';
 import Auth from '../modules/auth';
 
 class EventList extends Component {
+  constructor(props) {
+    super(props);
+     this.state = {
+       open: false,
+     };
+   }
+
+   handleTouchTap = () => {
+     this.setState({
+       open: true,
+     });
+   };
+
+   handleRequestClose = () => {
+     this.setState({
+       open: false,
+     });
+   };
+
   componentWillMount() {
     const id = localStorage.getItem('id');
     const user = { id };
@@ -18,6 +43,10 @@ class EventList extends Component {
 
   renderUpcoming() {
     const id = localStorage.getItem('id');
+    const menuStyle = {
+      float: 'right',
+      height: '0%',
+    }
     const imageDiv = {
       width: '30%',
       float: 'left',
@@ -42,10 +71,32 @@ class EventList extends Component {
       return (
         <Card className="list-group-item" zDepth={1}>
           <h1>Upcoming Event</h1>
-          <CardMedia
-            overlay={ <CardTitle title={event.name} subtitle={event.city} />} >
+          <CardMedia overlay={ <CardTitle title={event.name} subtitle={event.city} />} >
             <img src={event.image} style={imageStyle}/>
           </CardMedia>
+          <CardActions>
+            <IconMenu
+              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+              anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+              targetOrigin={{horizontal: 'right', vertical: 'top'}}
+            >
+            <Link to={`/event/${id}/${event.id}`}>
+              <MenuItem primaryText="View Event Details" secondary/>
+            </Link>
+              <MenuItem
+                primaryText="Remove Event"
+                secondary
+                onTouchTap={this.handleTouchTap}
+                onClick={() => this.props.removeEvent(event.tm_id, 0)}
+                />
+                <Snackbar
+                  open={this.state.open}
+                  message="Removed Event"
+                  autoHideDuration={4000}
+                  onRequestClose={this.handleRequestClose}
+                />
+            </IconMenu>
+          </CardActions>
           <CardText>
             <p><strong>{event.name}</strong></p>
             <p>{event.venue}</p>
@@ -55,16 +106,7 @@ class EventList extends Component {
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
           </CardText>
-          <CardActions>
-            <RaisedButton
-                label="Remove Event"
-                secondary
-                onClick={() => this.props.removeEvent(event.tm_id, 0)}
-            />
-          <Link to={`/event/${id}/${event.id}`}>
-              <RaisedButton label='View Event Details' secondary />
-            </Link>
-          </CardActions>
+
         </Card>
       );
     }
@@ -81,6 +123,10 @@ class EventList extends Component {
     const imageStyle = {
       width: '100%',
     };
+    const menuStyle = {
+      float: 'right',
+      height: '0%',
+    }
     return this.props.events.futureEvents.slice(1).map((event, i) => {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
@@ -94,6 +140,30 @@ class EventList extends Component {
           >
             <img src={event.image} style={imageStyle}/>
           </CardMedia>
+            <CardActions>
+              <IconMenu
+                style={menuStyle}
+                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+              >
+              <Link to={`/event/${id}/${event.id}`}>
+                <MenuItem primaryText="View Event Details" secondary/>
+              </Link>
+                <MenuItem
+                  primaryText="Remove Event"
+                  secondary
+                  onTouchTap={this.handleTouchTap}
+                  onClick={() => this.props.removeEvent(event.tm_id, 0)}
+                  />
+                  <Snackbar
+                    open={this.state.open}
+                    message="Event Removed"
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
+                  />
+              </IconMenu>
+            </CardActions>
           <CardText>
             <p><strong>{event.name}</strong></p>
             <p>{event.venue}</p>
@@ -103,16 +173,6 @@ class EventList extends Component {
             <p>Time: {time}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
           </CardText>
-          <CardActions>
-            <RaisedButton
-                label="Remove Event"
-                secondary
-                onClick={() => this.props.removeEvent(event.tm_id, i + 1)}
-            />
-          <Link to={`/event/${id}/${event.id}`}>
-              <RaisedButton label='View Event Details' secondary />
-            </Link>
-          </CardActions>
         </Card>
       );
     });
