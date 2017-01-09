@@ -72,18 +72,19 @@ class NavBar extends Component {
         )}
         <AppBar
           title="ConcertWallet"
-          style={{backgroundColor: '#424242'}}
+          style={{backgroundColor: 'white'}}
+          titleStyle={{color: 'black'}}
           onLeftIconButtonTouchTap={this.handleToggle}
           iconElementRight={Auth.isUserAuthenticated() ?
             //If logged in, show logout button
             <div>
               <SearchBar />
-              <FlatButton onClick={this.onClickLogout} label="Logout" style={{ color: 'white' }} />
+              <FlatButton onClick={this.onClickLogout} label="Logout" style={{ color: 'black' }} />
             </div> :
             //If not logged in, show login/signup
             <div>
-              <FlatButton onClick={this.onClickLogin} label="Login" style={{ color: 'white' }} />
-              <FlatButton onClick={this.onClickSignup} label="Signup" style={{ color: 'white' }} />
+              <FlatButton onClick={this.onClickLogin} label="Login" style={{ color: 'black' }} />
+              <FlatButton onClick={this.onClickSignup} label="Signup" style={{ color: 'black' }} />
             </div>
           }
         />

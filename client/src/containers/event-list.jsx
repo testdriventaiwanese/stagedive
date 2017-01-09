@@ -20,7 +20,6 @@ class EventList extends Component {
     const imageDiv = {
       width: '30%',
       float: 'left',
-      height: '248px',
       margin: '10px',
     };
     const imageStyle = {
@@ -39,7 +38,7 @@ class EventList extends Component {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
       return (
-        <Card className="list-group-item" zDepth={1}>
+        <Card className="list-group-item" zDepth={1} style={imageDiv} >
           <h1>Upcoming Event</h1>
           <CardMedia
             overlay={ <CardTitle title={event.name} subtitle={event.city} />} >
@@ -71,9 +70,8 @@ class EventList extends Component {
 
   renderList() {
     const imageDiv = {
-      width: '35%',
+      width: '65%',
       float: 'left',
-      height: '248px',
       margin: '10px',
     };
     const imageStyle = {
@@ -83,7 +81,7 @@ class EventList extends Component {
       let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
       let time = event.date.slice(11, 16);
       return (
-        <Card key={event.id} className="list-group-item" zDepth={1}>
+        <Card key={event.id} className="list-group-item" zDepth={1} style={imageDiv}>
           <CardMedia
             overlay={ <CardTitle
             title={event.name}
