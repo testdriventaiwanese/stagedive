@@ -65,7 +65,6 @@ class JournalSingle extends Component {
       let imageDiv = {
         width: '60%',
         float: 'left',
-        height: '248px',
       };
       let imageStyle = {
         width: '100%',

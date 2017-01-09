@@ -4,9 +4,11 @@ import Drawer from 'material-ui/Drawer';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import AccountMenu from 'material-ui/svg-icons/navigation/expand-more';
+
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
@@ -26,7 +28,7 @@ class NavBar extends Component {
     this.onClickLogin = this.onClickLogin.bind(this);
     this.onClickSignup = this.onClickSignup.bind(this);
     this.onClickLogout = this.onClickLogout.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
+    this.handleLeftNavToggle = this.handleLeftNavToggle.bind(this);
   }
 
   onClickLogin(event) {
@@ -41,7 +43,7 @@ class NavBar extends Component {
     hashHistory.push('/login');
   }
 
-  handleToggle() {
+  handleLeftNavToggle() {
     this.setState({ open: !this.state.open });
   }
 
@@ -51,9 +53,8 @@ class NavBar extends Component {
       <div>
         {Auth.isUserAuthenticated() ? (
           <Drawer
-            open={this.state.open}
-            style={{ backgroundColor: '#424242' }}>
-            <MenuItem onTouchTap={this.handleToggle}>Back</MenuItem>
+            open={this.state.open}>
+            <MenuItem onTouchTap={this.handleLeftNavToggle}>Back</MenuItem>
             <Link to={"/"} style={{ color: 'black' }}><MenuItem>Home</MenuItem></Link>
             <Link to={"account"} style={{ color: 'black' }}><MenuItem>My Account</MenuItem></Link>
             <Link to={"newsfeed"} style={{ color: 'black' }}><MenuItem>News Feed</MenuItem></Link>
@@ -65,28 +66,41 @@ class NavBar extends Component {
           <Drawer
             open={this.state.open}
             style={{ backgroundColor: '#424242' }}>
-            <MenuItem onTouchTap={this.handleToggle}>Back</MenuItem>
+            <MenuItem onTouchTap={this.handleLeftNavToggle}>Back</MenuItem>
             <Link to={"login"} style={{ color: 'black' }}><MenuItem>Log In</MenuItem></Link>
             <Link to={"signup"} style={{ color: 'black' }}><MenuItem>Sign up</MenuItem></Link>
           </Drawer>
         )}
+
         <AppBar
           title="ConcertWallet"
-          style={{backgroundColor: '#424242'}}
-          onLeftIconButtonTouchTap={this.handleToggle}
-          iconElementRight={Auth.isUserAuthenticated() ?
+          style={{backgroundColor: 'white'}}
+          titleStyle={{color: 'black'}}
+          onLeftIconButtonTouchTap={this.handleLeftNavToggle}
+        >
+
+        <SearchBar />
+          {Auth.isUserAuthenticated() ?
             //If logged in, show logout button
             <div>
-              <SearchBar />
-              <FlatButton onClick={this.onClickLogout} label="Logout" style={{ color: 'white' }} />
+              <IconMenu
+                iconButtonElement={<IconButton><AccountMenu /></IconButton>}
+                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+              >
+              <Link to={"account"} style={{ color: 'black' }}>
+                <MenuItem primaryText="My Account" />
+              </Link>
+                <MenuItem onClick={this.onClickLogout} primaryText="Sign out" />
+              </IconMenu>
             </div> :
             //If not logged in, show login/signup
             <div>
-              <FlatButton onClick={this.onClickLogin} label="Login" style={{ color: 'white' }} />
-              <FlatButton onClick={this.onClickSignup} label="Signup" style={{ color: 'white' }} />
+              <FlatButton onClick={this.onClickLogin} label="Login" style={{ color: 'black' }} />
+              <FlatButton onClick={this.onClickSignup} label="Signup" style={{ color: 'black' }} />
             </div>
           }
-        />
+      </AppBar>
       </div>
     );
   }
