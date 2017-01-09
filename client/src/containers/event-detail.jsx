@@ -3,18 +3,24 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import { removeEvent } from '../actions/index';
+import { removeEvent, getUserEvents } from '../actions/index';
 
 
 class EventDetail extends Component {
+  componentWillMount() {
+    console.log("this.props.params:: ", this.props);
+    const userid = Number(this.props.params.userId);
+    this.props.getUserEvents({id: userid});
+  }
   renderEvent() {
-    if (!this.props.event) {
+    if (!this.props.event.events[0]) {
       return <div>Event Not Listed</div>;
     }
     const eventArr = this.props.event.events.filter((event) => {
       return event.id === Number(this.props.params.eventId);
     });
     const event = eventArr[0];
+    console.log('event:: ', event)
     const saleTimes = JSON.parse(event.sale_date);
     const artistInfo = JSON.parse(event.artist_name);
     const imageDiv = {
@@ -53,6 +59,7 @@ class EventDetail extends Component {
   }
 
   render() {
+    console.log('this.props.event:: ', this.props.event);
     return (
       <div>
         <h3>Event Details</h3>
@@ -70,9 +77,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent }, dispatch);
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(EventDetail);
+export default connect(mapStateToProps, { removeEvent, getUserEvents })(EventDetail);

@@ -17,6 +17,7 @@ class EventList extends Component {
   }
 
   renderUpcoming() {
+    const id = localStorage.getItem('id');
     const imageDiv = {
       width: '30%',
       float: 'left',
@@ -60,7 +61,7 @@ class EventList extends Component {
                 secondary
                 onClick={() => this.props.removeEvent(event.tm_id, 0)}
             />
-            <Link to={`/event/${event.id}`}>
+          <Link to={`/event/${id}/${event.id}`}>
               <RaisedButton label='View Event Details' secondary />
             </Link>
           </CardActions>
@@ -70,6 +71,7 @@ class EventList extends Component {
   }
 
   renderList() {
+    const id = localStorage.getItem('id');
     const imageDiv = {
       width: '35%',
       float: 'left',
@@ -107,7 +109,7 @@ class EventList extends Component {
                 secondary
                 onClick={() => this.props.removeEvent(event.tm_id, i + 1)}
             />
-            <Link to={`/event/${event.id}`}>
+          <Link to={`/event/${id}/${event.id}`}>
               <RaisedButton label='View Event Details' secondary />
             </Link>
           </CardActions>

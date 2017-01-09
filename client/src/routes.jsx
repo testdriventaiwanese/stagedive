@@ -28,7 +28,7 @@ export default(
     <Route path="explore" component={MapComponent} />
     <Route path="newsfeed" component={FriendsEventList} />
     <Route path="/view/:userId" component={UserPage} />
-    <Route path="/event/:eventId" component={EventDetail} />
+    <Route path="/event/:userId/:eventId" component={EventDetail} />
     <Route path="/artists/:artistId" component={ArtistPage} />
     <Route path="/journal/:userId/:eventId" component={JournalSingle} />
     <Route path="/token/:token" component={Token} />
