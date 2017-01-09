@@ -44,9 +44,8 @@ class EventList extends Component {
       const date = momentDate.toString() + ' ' + est.toString().slice(34);
       return (
         <Card className="list-group-item" zDepth={1} style={imageDiv} >
-          <h1>Upcoming Event</h1>
-          <CardMedia
-            overlay={ <CardTitle title={event.name} subtitle={event.city + ', ' + momentFromNow.toString()} />} >
+          <h5>Upcoming Event {momentFromNow.toString()}</h5>
+          <CardMedia>
             <img src={event.image} style={imageStyle}/>
           </CardMedia>
           <CardText>
@@ -66,7 +65,7 @@ class EventList extends Component {
                 secondary
                 onClick={() => this.props.removeEvent(event.tm_id, 0)}
             />
-          <Link to={`/event/${id}/${event.id}`}>
+            <Link to={`/event/${id}/${event.id}`}>
               <RaisedButton label='View Event Details' secondary />
             </Link>
           </CardActions>
@@ -103,7 +102,6 @@ class EventList extends Component {
             <img src={event.image} style={imageStyle} />
           </CardMedia>
           <CardText>
-            <p><strong>{event.name}</strong></p>
             <p>Listed Acts: {artist.join(', ')}</p>
             <p>{event.venue}</p>
             <p>{event.venue_address}</p>
