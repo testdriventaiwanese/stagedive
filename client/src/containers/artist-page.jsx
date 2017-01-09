@@ -12,6 +12,7 @@ class ArtistPage extends Component {
     if (!Auth.isUserAuthenticated()) {
       hashHistory.push('/login');
     }
+    this.props.getArtists();
     const artistsArr = this.props.artists.filter((artist) => {
       if(artist.mbid === this.props.params.artistId) {
         return artist;
@@ -60,7 +61,7 @@ class ArtistPage extends Component {
       height: '248px',
     };
     let imageStyle = {
-      width: '100%',
+      width: '90%',
       height: '90%',
     };
     if (!this.props.artists) {
@@ -78,20 +79,21 @@ class ArtistPage extends Component {
     }
     const image = this.props.artists.filter((name) => { return name.mbid === this.props.params.artistId }).map((img) => {return img.image});
     console.log('image:: ', image)
+
     const musician = this.props.artistCalendar.data.resultsPage.results.event[0].performance.map((performer) => { return performer.artist}).map((id) => {return {name: id.displayName, mbid: !id.identifier[0] ? null : id.identifier[0].mbid } }).filter((mb, i)=> { if(mb.mbid === this.props.params.artistId) {return mb.name}});
     console.log('musician:: ',musician);
     const realName = !musician[0] ? '' : musician[0].name;
     console.log('ARTIST NAME:: ', realName);
     artist = {
       name: realName,
-      // image: artist.image,
+      picture: !image[0] ? this.props.artistImage.bandsintown.data.image_url : image[0],
     }
 
     return (
       <Paper>
-        <h1>{realName}</h1>
+        <h1>{artist.name}</h1>
         <div style={imageDiv}>
-            <img src={image[0]} style={imageStyle}></img>
+            <img src={artist.picture} style={imageStyle}></img>
         </div>
         <div>
           <h5><strong>Calendar</strong></h5>
@@ -109,6 +111,8 @@ class ArtistPage extends Component {
     console.log('this.props.artists:: ', this.props.artists);
     console.log('this.props.params.artistId', this.props.params.artistId);
     console.log('this.props. Artist Calendar:: ', this.props.artistCalendar)
+    console.log('ARTISTS IMAGE:: ', this.props.artistImage)
+
     return (
       <div>
         <ul className="list-group col-sm-16">

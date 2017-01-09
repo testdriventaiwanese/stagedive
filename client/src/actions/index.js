@@ -318,6 +318,7 @@ module.exports = {
     });
   },
   getUserEvents(user) {
+    console.log('getUserEvents user:: ', user)
     const userEventsConfig = {
       headers: {
         authHeader: localStorage.getItem('token'),
