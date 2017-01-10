@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { hashHistory, Link } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import { saveEvent, addFollower, saveArtist, getUserEvents } from '../actions/index';
-import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import moment from 'moment';
+import Avatar from 'material-ui/Avatar';
 
 class SearchResults extends Component {
   constructor(props) {
@@ -29,37 +33,66 @@ class SearchResults extends Component {
   }
 
   renderEvents() {
+    const imageDiv = {
+      width: '35%',
+      position: 'relative',
+      width: '220px',
+      margin: '10px',
+    };
+    const imageStyle = {
+      width: '60%',
+    };
     if (this.props.events.length === 0) {
       return (
-        <Paper zDepth={2}>
+        <Card zDepth={1}>
           <div>
             No Events Found
           </div>
           <br />
-        </Paper>
+        </Card>
       )
     }
     return this.props.events.map((event) => {
       console.log('event : ', event);
-      const city = () => {
-        return event._embedded.venues[0].city.name ? event._embedded.venues[0].city.name : '';
-      };
-      const cityValue = city();
-      // const country = '';
-      const country = () => (event._embedded.venues[0].country.name ? event._embedded.venues[0].country.name : '');
-      const countryValue = country();
-      const mid = () => (event._embedded.venues[0].country.name ? ', ' : '');
-      const midValue = mid();
+      let city = null;
+      if (event._embedded.venues[0].city.name) {
+        city = event._embedded.venues[0].city.name;
+      };event._embedded.venues[0]
+      let venueName = null;
+      let stateCountryName = null;
+      let venueStateOrCountry = null;
+      if (event._embedded.venues[0].name) {
+        venueName = event._embedded.venues[0].name;
+      }
+      if (event._embedded.venues[0].state) {
+        stateCountryName = event._embedded.venues[0].city.name;
+        venueStateOrCountry = event._embedded.venues[0].state.stateCode;
+      } else if (event._embedded.venues[0].country) {
+        stateCountryName = event._embedded.venues[0].city.name;
+        venueStateOrCountry = event._embedded.venues[0].country.name;
+      }
+      let image = null;
+      if (event.images){
+        image = event.images[3].url || null;
+      }
+      const momentDate = moment(event.dates.start.dateTime).format('LLLL');
 
       return (
-        <Paper key={event.id} onClick={() => this.props.saveEvent(event)} zDepth={2}>
-          <div>
-            <div>{event.name}</div>
-            <div>{cityValue}{midValue}{countryValue}</div>
-            <div>{event.dates.start.localDate}</div>
-          </div>
+        <Card key={event.id} >
+          <FloatingActionButton style={{float:'right', margin:'10px'}}>
+            <ContentAdd onClick={() => this.props.saveEvent(event)} />
+          </FloatingActionButton>
+          <CardText>
+            <h4><strong>{event.name}</strong></h4>
+            <br />
+            <span>{venueName}</span>
+            <br />
+            <span>{`${stateCountryName}, ${venueStateOrCountry}`}</span>
+            <br />
+            <span>Event date: {momentDate.toString()}</span>
+          </CardText>
           <br />
-        </Paper>
+        </Card>
       );
     });
   }
@@ -75,79 +108,70 @@ class SearchResults extends Component {
     };
     let bandsintown = this.props.artists.bandsintown;
     let songkick = this.props.artists.songkick;
-    console.log('THIS IS THE ARTISTS SEARCH: ', this.props.artists)
     if(this.props.artists.bandsintown !== undefined || this.props.artists.songkick !== undefined){
       bandsintown = this.props.artists.bandsintown.data;
       if(this.props.artists.songkick.data.resultsPage.results.artist !== undefined && this.props.artists.songkick.data.resultsPage.results.artist !== undefined) {
         songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
         return (
-          <Paper key={songkick.identifier[0].mbid} zDepth={2}>
-            <div>
-              <div style={imageDiv}>
-                <img src={bandsintown.image_url} style={imageStyle} alt="artist headshot" />
-              </div>
-              <Link to={`/artists/${songkick.identifier[0].mbid}`}>
-                <div>{songkick.displayName}</div>
-              </Link>
-              <div>On Tour until: {songkick.onTourUntil}</div>
-              <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
-              <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
-              <div>Number of upcoming events: {bandsintown.upcoming_event_count}</div>
-              <RaisedButton
-                label='Follow Artist'
-                secondary
-                onClick={() => this.props.saveArtist(bandsintown, songkick)}
-              />
-            </div>
-            <br />
-          </Paper>
+          <Card key={songkick.identifier[0].mbid} zDepth={1}>
+            <CardMedia style={imageDiv}>
+              <img src={bandsintown.image_url} style={imageStyle} alt="artist headshot" />
+            </CardMedia>
+            <Link to={`/artists/${songkick.identifier[0].mbid}`}>
+              <div>{songkick.displayName}</div>
+            </Link>
+            <div>On Tour until: {songkick.onTourUntil}</div>
+            <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
+            <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
+            <div>Number of upcoming events: {bandsintown.upcoming_event_count}</div>
+            <RaisedButton
+              label='Follow Artist'
+              secondary
+              onClick={() => this.props.saveArtist(bandsintown, songkick)}
+            />
+          </Card>
         );
       } else {
         return (
-          <Paper zDepth={2}>
+          <Card zDepth={1}>
             <div>
               No Artists Found
             </div>
             <br />
-          </Paper>
+          </Card>
         );
       }
   }
 }
 
   renderUsers() {
-    const imageDiv = {
-      width: '35%',
-      float: 'left',
-      height: '248px',
-    };
-    const imageStyle = {
-      width: '100%',
-    };
     if (this.props.users.length === 0) {
       return (
-        <Paper zDepth={2}>
+        <Card zDepth={1}>
           <div>
             No Users Found
           </div>
           <br />
-        </Paper>
+        </Card>
       )
     }
 
     return this.props.users.map((user, index) => {
+      let avatar = <Avatar>{user.fullname.slice(0,1)}</Avatar>;
+      if (user.profile_photo){
+        avatar = <Avatar src={user.profile_photo} />;
+      }
       return (
-        <Paper key={user.id} zDepth={2}>
-          <div>
-            <div>{user.fullname}</div>
-            <div>{user.email}</div>
-            <Link to={`/view/${user.id}`}>
-              <button onClick={this.onProfileClick(user)}>See Profile</button>
-            </Link>
-            <button onClick={() => this.props.addFollower(user.id)}>Follow</button>
-          </div>
-          <br />
-        </Paper>
+        <Card key={user.id} zDepth={1}>
+          <CardHeader
+            title={ <Link to={`/view/${user.id}`} onClick={() => this.onProfileClick(user)}>{user.fullname}</Link>}
+            subtitle={user.email}
+            avatar={avatar}
+          />
+          <FloatingActionButton style={{float:'right', margin:'10px'}}>
+            <ContentAdd onClick={() => this.props.addFollower(user.id)} />
+          </FloatingActionButton>
+        </Card>
       );
     });
   }
