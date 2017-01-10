@@ -8,6 +8,7 @@ import { saveEvent, addFollower, saveArtist, getUserEvents } from '../actions/in
 import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import moment from 'moment';
 import Avatar from 'material-ui/Avatar';
 
@@ -179,7 +180,9 @@ class SearchResults extends Component {
   render() {
     return (
       <div>
-        <button onClick={hashHistory.goBack}>Back</button>
+        <FloatingActionButton style={{float:'left', margin:'10px'}}>
+          <ArrowBack onClick={hashHistory.goBack} />
+        </FloatingActionButton>
         <h1>Search Results</h1>
           <Tabs
             value={this.state.value}

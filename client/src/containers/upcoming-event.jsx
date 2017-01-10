@@ -47,11 +47,6 @@ class UpcomingEvent extends Component {
       float: 'right',
       height: '0%',
     }
-    const divStyle = {
-      width: '33%',
-      float: 'left',
-      margin: '0px 10px 10px 0px',
-    };
     const imageStyle = {
       width: '100%',
     };
@@ -85,7 +80,7 @@ class UpcomingEvent extends Component {
         venueStateOrCountry = venue.country.countryCode;
       }
       return (
-        <Card className="list-group-item" zDepth={1} style={divStyle} >
+        <Card className="list-group-item" zDepth={1} >
           <h5>Upcoming Event {momentFromNow.toString()}
             <IconMenu
               style={{float: 'right', margin: '-15px'}}
