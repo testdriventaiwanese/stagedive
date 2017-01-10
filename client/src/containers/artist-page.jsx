@@ -103,7 +103,7 @@ class ArtistPage extends Component {
         <div>Loading..</div>
       )
     }
-    let image = this.props.artists.filter((name) => { return name.mbid === this.props.params.artistId }).map((img) => {return img.image});
+    let image = this.props.artists.filter((name) => { return name.mbid === this.props.params.artistId }).map((img) => {return img});
     let musician = !this.props.artistCalendar.data.results ? '' : this.props.artistCalendar.data.resultsPage.results.event[0].performance.map((performer) => { return performer.artist}).map((id) => {return {name: id.displayName, mbid: !id.identifier[0] ? null : id.identifier[0].mbid } }).filter((mb, i)=> { if(mb.mbid === this.props.params.artistId) {return mb.name}});
     console.log('musician:: ',musician);
     const artistImageFromSearch = this.props.artistImage.songkick.data.resultsPage.results.artist[0];
@@ -119,15 +119,21 @@ class ArtistPage extends Component {
     artist = {
       name: realName,
       mbid: musicId,
-      picture: image[0],
+      picture: image[0].image,
+      facebook: image[0].facebook,
+      upcomingEvents: image[0].upcoming_events,
     }
-
+    console.log('artist:: ', artist)
     return (
-      <Paper>
-        <h1>{artist.name}</h1>
+      <div>
+      <Card>
         <div style={imageDiv}>
             <img src={artist.picture} style={imageStyle}></img>
+            <h1>{artist.name}</h1>
+            <p>Upcoming: {artist.upcomingEvents}</p>
+            <p><a href={artist.facebook}>Facebook</a></p>
         </div>
+      </Card>
         <CardActions>
           <IconMenu
             style={menuStyle}
@@ -147,7 +153,7 @@ class ArtistPage extends Component {
           <h5><strong>Calendar</strong></h5>
           <div className="list-group col-sm-16">{this.renderCalendar()}</div>
         </div>
-      </Paper>
+      </div>
     )
   }
   render() {
