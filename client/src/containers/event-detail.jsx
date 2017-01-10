@@ -11,8 +11,98 @@ import { Link } from 'react-router';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Snackbar from 'material-ui/Snackbar';
 import moment from 'moment';
-import { removeEvent, getUserEvents } from '../actions/index';
+import { getLocation, removeEvent, getUserEvents } from '../actions/index';
+import { GoogleApiWrapper, Marker} from 'google-maps-react';
+import ReactDOM from 'react-dom';
 
+
+class Map extends React.Component {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.google !== this.props.google) {
+      this.loadMap();
+    }
+  }
+  loadMap() {
+    const { google } = this.props;
+    if (!this.props.event.events[0]) {
+      return <div>Event Not Listed</div>;
+    }
+    const eventArr = this.props.event.events.filter((event) => {
+      return event.id === Number(this.props.params.eventId);
+    });
+    const eventLatLng = {
+      latitude: Number(eventArr[0].latitude),
+      longitude: Number(eventArr[0].longitude),
+    }
+    if (this.props && this.props.google) {
+      const { google } = this.props;
+      const maps = google.maps;
+      const mapRef = this.refs.map;
+      const node = ReactDOM.findDOMNode(mapRef);
+      let crd;
+      // const eventMarker = function(array) {
+      //   console.log(array);
+      //   return array.map((val) => {
+      //     return {
+      //       latitude: Number(val.latitude),
+      //       longitude: Number(val.longitude),
+      //     }
+      //   })
+      //   .then((value) => {
+      //     console.log('value:: ', value)
+      //   })
+      // }
+      const position = navigator.geolocation.getCurrentPosition((pos) => {
+        const zoom = 1;
+        crd = pos.coords;
+
+        // const lol = eventMarker(eventArr)
+
+        console.log('this is a test:: ', eventLatLng)
+
+        const eventMarker = new maps.Marker({
+            position: new maps.LatLng(eventLatLng.latitude, eventLatLng.longitude),
+            map: mapRef,
+          })
+
+        const center = new maps.LatLng(crd.latitude, crd.longitude)
+
+        const mapConfig = Object.assign({}, {
+          center: center,
+          zoom: zoom,
+        })
+
+        this.map = new maps.Map(node, mapConfig);
+
+        var currentLocation = new maps.Marker({
+          position: center,
+          map: mapRef,
+        })
+        console.log('currentLocation:: ', currentLocation)
+
+        currentLocation.setMap(this.map)
+        .then((value) => {
+          eventMarker.setMap(this.map);
+        })
+
+        return this.map
+      })
+    }
+  }
+
+  render() {
+    const style = {
+      width: '50%',
+      height: '50%'
+    }
+
+    return (
+        <div ref='map' style={style}>
+          Loading..
+        </div>
+    )
+  }
+}
 
 class EventDetail extends Component {
   constructor(props) {
@@ -41,10 +131,13 @@ class EventDetail extends Component {
     if (!this.props.event.events[0]) {
       return <div>Event Not Listed</div>;
     }
+    //
     const eventArr = this.props.event.events.filter((event) => {
       return event.id === Number(this.props.params.eventId);
     });
+    //
     const event = eventArr[0];
+    console.log('RENDER EVENT:: ', event)
     const momentDate = moment(event.date).format('LLLL');
     const momentFromNow = moment(event.date).fromNow();
     const est = moment(event.date)._d;
@@ -76,6 +169,10 @@ class EventDetail extends Component {
       width: '90%',
       height: '90%',
     };
+    const mapStyle = {
+        width: '100vw',
+        height: '100vh',
+    }
     return (
       <Card key={event.id} className="list-group-item" zDepth={1}>
         <CardMedia>
@@ -101,6 +198,11 @@ class EventDetail extends Component {
               />
           </IconMenu>
         </CardActions>
+
+        <div ref="map" style={mapStyle}>
+          <Map {...this.props} object={[]} />
+        </div>
+
         <CardText>
           <p><strong>{event.name}</strong></p>
           <p>Listed acts: {artist.join(', ')}</p>
@@ -117,6 +219,7 @@ class EventDetail extends Component {
   }
 
   render() {
+    console.log('this.props.event:: ', this.props.event)
     return (
       <div>
         <h3>Event Details</h3>
@@ -128,10 +231,13 @@ class EventDetail extends Component {
   }
 }
 
+
 function mapStateToProps(state) {
   return {
     event: state.userEvents,
   };
 }
 
-export default connect(mapStateToProps, { removeEvent, getUserEvents })(EventDetail);
+const googleWrapped = GoogleApiWrapper({ apiKey: process.env.GAPI_KEY })(EventDetail);
+
+export default connect(mapStateToProps, { getLocation, removeEvent, getUserEvents })(googleWrapped);

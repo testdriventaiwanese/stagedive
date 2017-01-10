@@ -2,7 +2,6 @@ import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { GoogleApiWrapper, Marker} from 'google-maps-react';
-import AppBar from './app-bar';
 import ReactDOM from 'react-dom';
 import { getLocalEvents, getLocation, showLocalEvents } from '../actions/index';
 import Paper from 'material-ui/Paper';
@@ -90,7 +89,6 @@ class Map extends React.Component {
           zoom: zoom,
         })
 
-        this.map = new maps.Map(node, mapConfig);
 
         var currentLocation = new maps.Marker({
           position: center,
