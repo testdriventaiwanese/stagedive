@@ -174,7 +174,7 @@ class EventList extends Component {
         venueStateOrCountry = venue.country.countryCode;
       }
       return (
-        <Card key={event.id} className="list-group-item" zDepth={1} style={imageDiv}>
+        <Card key={event.id} className="list-group-item" zDepth={1}>
           <CardMedia
             overlay={ <CardTitle
             title={event.name}
