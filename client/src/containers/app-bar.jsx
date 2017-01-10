@@ -81,6 +81,7 @@ class NavBar extends Component {
             width={150}
             docked={false}
             open={this.state.open}
+            zDepth={1}
             onRequestChange={(open) => this.setState({open})}>
             <MenuItem style={{height: appBarHeight}}></MenuItem>
             <Link to={"/"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Home</MenuItem></Link>

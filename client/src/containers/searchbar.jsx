@@ -38,7 +38,7 @@ class SearchBar extends Component {
       <div>
         <MuiThemeProvider>
           <form onSubmit={this.onFormSubmit}>
-              <SearchIcon style={{ margin: '10px 0 0 0' }}/>
+              <SearchIcon style={{ margin: '13px 0 0 0' }}/>
               <TextField
                 style={{ color: 'white' }}
                 placeholder="Search events / artist / friends"

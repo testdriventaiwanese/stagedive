@@ -4,7 +4,7 @@ import EventList from '../containers/event-list';
 import Friends from '../containers/friends';
 import Artists from '../containers/artists';
 import Auth from '../modules/auth';
-
+import UpcomingEvent from '../containers/upcoming-event';
 
 class PostIndex extends Component {
   componentWillMount() {
@@ -13,16 +13,12 @@ class PostIndex extends Component {
     }
   }
   render() {
-    let background = {
-      background: '#FAFAFA',
-    }
     return (
       <div>
-        <div>
+          <UpcomingEvent />
           <EventList />
           <Friends />
           <Artists />
-        </div>
       </div>
     );
   }
