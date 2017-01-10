@@ -27,17 +27,15 @@ class JournalPhoto extends Component {
     const est = moment(event.date)._d;
     const userId = this.props.userInfo.userInfo;
     return (
-      <Card>
-        <Link to={`/journal/${userId}/${event.id}`}>
-          <GridTile
-            key={event.id}
-            title={event.name}
-            subtitle={momentFromNow.toString()}
-          >
-            <img src={image} style={imageStyle} />
-          </GridTile>
-        </Link>
-      </Card>
+      <Link to={`/journal/${userId}/${event.id}`}>
+        <GridTile
+          key={event.id}
+          title={event.name}
+          subtitle={momentFromNow.toString()}
+        >
+          <img src={image} style={imageStyle} />
+        </GridTile>
+      </Link>
     );
   }
 }
