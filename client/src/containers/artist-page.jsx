@@ -34,9 +34,6 @@ class ArtistPage extends Component {
      });
    };
   componentWillMount() {
-    if (!Auth.isUserAuthenticated()) {
-      hashHistory.push('/login');
-    }
     this.props.getArtists();
     const artistsArr = this.props.artists.filter((artist) => {
       if(artist.mbid === this.props.params.artistId) {
@@ -84,10 +81,10 @@ class ArtistPage extends Component {
       width: '35%',
       float: 'left',
       height: '248px',
+      margin: '10px',
     };
     let imageStyle = {
-      width: '90%',
-      height: '90%',
+      width: '100%',
     };
     let menuStyle = {
       height: '0%',
@@ -106,18 +103,23 @@ class ArtistPage extends Component {
         <div>Loading..</div>
       )
     }
-    const image = this.props.artists.filter((name) => { return name.mbid === this.props.params.artistId }).map((img) => {return img.image});
-    console.log('image:: ', image)
-
-    const musician = !this.props.artistCalendar.data.results ? '' : this.props.artistCalendar.data.resultsPage.results.event[0].performance.map((performer) => { return performer.artist}).map((id) => {return {name: id.displayName, mbid: !id.identifier[0] ? null : id.identifier[0].mbid } }).filter((mb, i)=> { if(mb.mbid === this.props.params.artistId) {return mb.name}});
+    let image = this.props.artists.filter((name) => { return name.mbid === this.props.params.artistId }).map((img) => {return img.image});
+    let musician = !this.props.artistCalendar.data.results ? '' : this.props.artistCalendar.data.resultsPage.results.event[0].performance.map((performer) => { return performer.artist}).map((id) => {return {name: id.displayName, mbid: !id.identifier[0] ? null : id.identifier[0].mbid } }).filter((mb, i)=> { if(mb.mbid === this.props.params.artistId) {return mb.name}});
     console.log('musician:: ',musician);
+    const artistImageFromSearch = this.props.artistImage.songkick.data.resultsPage.results.artist[0];
+    if (!musician) {
+      musician = [{name: artistImageFromSearch.displayName, mbid: artistImageFromSearch.identifier[0].mbid}];
+    }
+    if (image.length === 0) {
+      image = [this.props.artistImage.bandsintown.data.image_url];
+    }
+    console.log('image: ', image)
     const realName = !musician[0] ? artist.name : musician[0].name;
     const musicId = !musician[0] ? artist.mbid : musician[0].mbid;
-    console.log('ARTIST NAME:: ', realName);
     artist = {
       name: realName,
       mbid: musicId,
-      picture: !image[0] ? this.props.artistImage.bandsintown.data.image_url : image[0],
+      picture: image[0],
     }
 
     return (
@@ -149,11 +151,6 @@ class ArtistPage extends Component {
     )
   }
   render() {
-    console.log('this.props.artists:: ', this.props.artists);
-    console.log('this.props.params.artistId', this.props.params.artistId);
-    console.log('this.props. Artist Calendar:: ', this.props.artistCalendar)
-    console.log('ARTISTS IMAGE:: ', this.props.artistImage)
-
     return (
       <div>
         <ul className="list-group col-sm-16">

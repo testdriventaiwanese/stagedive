@@ -44,7 +44,6 @@ class Artists extends Component {
     };
     const imageStyle = {
       width: '100%',
-      height: '90%',
     };
     const menuStyle = {
       float: 'right',

@@ -57,32 +57,30 @@ class Friends extends Component {
       }
       return (
         <Card key={friend.id} zDepth={1}>
-          <IconMenu style={{float:'right'}}
+          <IconMenu
+            style={{float:'right', position:'relative', zIndex:2}}
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
             anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
-          >
+            >
             <MenuItem
               primaryText="Unfollow"
               secondary
               onTouchTap={this.handleTouchTap}
               onClick={() => this.props.unfollow(friend.id, i)}
               />
-              <Snackbar
-                open={this.state.open}
-                message="Unfollowed"
-                autoHideDuration={4000}
-                onRequestClose={this.handleRequestClose}
+            <Snackbar
+              open={this.state.open}
+              message="Unfollowed"
+              autoHideDuration={4000}
+              onRequestClose={this.handleRequestClose}
               />
           </IconMenu>
-          <Link to={`/view/${friend.id}`}>
-            <CardHeader
-              title={friend.fullname}
-              subtitle={friend.email}
-              avatar={avatar}
-              onClick={() => this.props.getOtherUserEvents(friend)}
+          <CardHeader
+            title={ <Link to={`/view/${friend.id}`} onClick={() => this.props.getOtherUserEvents(friend)}>{friend.fullname}</Link>}
+            subtitle={friend.email}
+            avatar={avatar}
             />
-          </Link>
         </Card>
       );
     });
