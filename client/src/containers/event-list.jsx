@@ -219,7 +219,7 @@ class EventList extends Component {
     return (
       <div>
         <div>{this.renderUpcoming()}</div>
-        <div className="list-group col-sm-16">
+        <div>
           {this.renderList()}
         </div>
       </div>

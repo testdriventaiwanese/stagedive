@@ -17,7 +17,7 @@ class PostIndex extends Component {
       background: '#FAFAFA',
     }
     return (
-      <div style={background}>
+      <div>
         <div>
           <EventList />
           <Friends />
