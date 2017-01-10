@@ -24,6 +24,7 @@ export const GET_LOCAL_EVENTS = 'GET_LOCAL_EVENTS';
 export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS'
 export const ADD_EVENT_COMMENT = 'ADD_EVENT_COMMENT';
 export const REMOVE_EVENT_COMMENT = 'REMOVE_EVENT_COMMENT';
+export const REFRESH_EVENT_COMMENTS = 'REFRESH_EVENT_COMMENTS';
 
 const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=Music&';
 
@@ -314,7 +315,6 @@ module.exports = {
     });
   },
   getUserEvents(user) {
-    console.log('getUserEvents user:: ', user)
     const userEventsConfig = {
       headers: {
         authHeader: localStorage.getItem('token'),
@@ -322,7 +322,6 @@ module.exports = {
         userInfo: user,
       },
     };
-    console.log('GET USER EVENTS CALLED');
     const request = axios.get('/api/events/getuserevents', userEventsConfig)
     return {
       type: GET_USER_EVENTS,
@@ -400,6 +399,13 @@ module.exports = {
       type: REMOVE_EVENT_COMMENT,
       payload: commentObj,
     }
+  },
+  refreshEventComments() {
+    const obj = { comments: [], posterInfo: [] }
+    return {
+      type: REFRESH_EVENT_COMMENTS,
+      payload: obj,
+    };
   },
   getLocation(query) {
     const config = {
