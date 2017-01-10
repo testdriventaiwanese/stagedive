@@ -11,18 +11,22 @@ import { Link } from 'react-router';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Snackbar from 'material-ui/Snackbar';
 import moment from 'moment';
-import { getLocation, removeEvent, getUserEvents } from '../actions/index';
+import { getLocation, removeEvent, getUserEvents, getDistanceInfo } from '../actions/index';
 import { GoogleApiWrapper, Marker} from 'google-maps-react';
 import ReactDOM from 'react-dom';
 
 
 class Map extends React.Component {
+  componentWillMount() {
+    this.loadMap();
+  }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.google !== this.props.google) {
       this.loadMap();
     }
   }
   loadMap() {
+    let travelInfo;
     const { google } = this.props;
     if (!this.props.event.events[0]) {
       return <div>Event Not Listed</div>;
@@ -40,62 +44,51 @@ class Map extends React.Component {
       const mapRef = this.refs.map;
       const node = ReactDOM.findDOMNode(mapRef);
       let crd;
-      // const eventMarker = function(array) {
-      //   console.log(array);
-      //   return array.map((val) => {
-      //     return {
-      //       latitude: Number(val.latitude),
-      //       longitude: Number(val.longitude),
-      //     }
-      //   })
-      //   .then((value) => {
-      //     console.log('value:: ', value)
-      //   })
-      // }
       const position = navigator.geolocation.getCurrentPosition((pos) => {
-        const zoom = 1;
+        const zoom = 2;
         crd = pos.coords;
 
-        // const lol = eventMarker(eventArr)
-
         console.log('this is a test:: ', eventLatLng)
-
+        const locations = [[crd.latitude, crd.longitude], [eventLatLng.latitude, eventLatLng.longitude]]
         const eventMarker = new maps.Marker({
             position: new maps.LatLng(eventLatLng.latitude, eventLatLng.longitude),
             map: mapRef,
           })
+        const userLocation = new maps.LatLng(crd.latitude, crd.longitude)
 
-        const center = new maps.LatLng(crd.latitude, crd.longitude)
+        const bound = new google.maps.LatLngBounds();
 
+
+        console.log('locations:: ', locations)
+        locations.forEach((val, i) => {
+          bound.extend(new google.maps.LatLng(val[0], val[1]));
+        });
+
+        console.log('boundGetCenteR:: ', bound);
         const mapConfig = Object.assign({}, {
-          center: center,
+          center: bound.getCenter(),
           zoom: zoom,
         })
-
         this.map = new maps.Map(node, mapConfig);
-
         var currentLocation = new maps.Marker({
-          position: center,
+          position: userLocation,
           map: mapRef,
         })
-        console.log('currentLocation:: ', currentLocation)
-
         currentLocation.setMap(this.map)
-        .then((value) => {
-          eventMarker.setMap(this.map);
-        })
+        eventMarker.setMap(this.map)
 
-        return this.map
+        this.props.getDistanceInfo(locations)
+
       })
     }
+
   }
 
   render() {
     const style = {
-      width: '50%',
-      height: '50%'
+      width: '100%',
+      height: '100%'
     }
-
     return (
         <div ref='map' style={style}>
           Loading..
@@ -169,12 +162,17 @@ class EventDetail extends Component {
       margin: '10px',
     };
     const imageStyle = {
-      width: '90%',
-      height: '90%',
+      width: '50%',
+      height: '50%',
     };
     const mapStyle = {
-        width: '100vw',
-        height: '100vh',
+        width: '35vw',
+        height: '50vh',
+        float: 'right',
+    }
+    const menuStyle = {
+      float: 'right',
+      height: '0%',
     }
     return (
       <Card key={event.id} className="list-group-item" zDepth={1}>
@@ -183,6 +181,7 @@ class EventDetail extends Component {
         </CardMedia>
         <CardActions>
           <IconMenu
+            style={menuStyle}
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
             anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -204,6 +203,7 @@ class EventDetail extends Component {
 
         <div ref="map" style={mapStyle}>
           <Map {...this.props} object={[]} />
+          {this.renderDistanceInfo()}
         </div>
 
         <CardText>
@@ -222,8 +222,20 @@ class EventDetail extends Component {
     );
   }
 
+  renderDistanceInfo() {
+    if(!this.props.distance.distance || !this.props.distance.duration) {
+      <div>Calculating...</div>
+    }
+    return (
+      <div>
+        <div>You are {this.props.distance.distance} from here</div>
+        <div>It will take you {this.props.distance.duration} to get here</div>
+      </div>
+    )
+  }
+
   render() {
-    console.log('this.props.event:: ', this.props.event)
+    console.log('this.props.distance:: ', this.props.distance)
     return (
       <div>
         <h3>Event Details</h3>
@@ -239,9 +251,10 @@ class EventDetail extends Component {
 function mapStateToProps(state) {
   return {
     event: state.userEvents,
+    distance: state.getDistanceInfo,
   };
 }
 
 const googleWrapped = GoogleApiWrapper({ apiKey: process.env.GAPI_KEY })(EventDetail);
 
-export default connect(mapStateToProps, { getLocation, removeEvent, getUserEvents })(googleWrapped);
+export default connect(mapStateToProps, { getDistanceInfo, getLocation, removeEvent, getUserEvents })(googleWrapped);
