@@ -12,10 +12,10 @@ export default class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div className="background">
-          <AppBar />
-          {this.props.children}
-        </div>
+          <div>
+            <AppBar />
+            {this.props.children}
+          </div>
       </MuiThemeProvider>
     );
   }

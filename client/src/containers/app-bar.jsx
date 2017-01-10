@@ -8,7 +8,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import AccountMenu from 'material-ui/svg-icons/navigation/expand-more';
-
+import LeftNavMenu from 'material-ui/svg-icons/navigation/menu';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
@@ -48,34 +48,52 @@ class NavBar extends Component {
   }
 
   render() {
+    const appBarHeight = '70px';
     const id = localStorage.getItem('id');
+    const divBarStyle = {
+      width: 'inherit',
+      height: appBarHeight,
+    }
     const appBarStyle = {
       // display: 'flex',
       // flexDirection: 'row',
+      position: 'fixed',
+      top: '0',
+      left: '0',
+      right: '0',
+      zIndex: '9999',
+      width: '100%',
+      height: 'inherit',
       backgroundColor: 'white',
 
     }
     const searchBarStyle = {
-      marginRight: '34%',
+      marginRight: '33%',
+    }
+    const drawerStyle = {
+      top: '200px',
     }
     return (
       <div>
         {Auth.isUserAuthenticated() ? (
           <Drawer
+            style={drawerStyle}
+            width={150}
             docked={false}
             open={this.state.open}
+            zDepth={1}
             onRequestChange={(open) => this.setState({open})}>
-            <MenuItem onTouchTap={this.handleLeftNavToggle}>Back</MenuItem>
-            <Link to={"/"} style={{ color: 'black' }}><MenuItem>Home</MenuItem></Link>
-            <Link to={"account"} style={{ color: 'black' }}><MenuItem>My Account</MenuItem></Link>
-            <Link to={"newsfeed"} style={{ color: 'black' }}><MenuItem>News Feed</MenuItem></Link>
-            <Link to={"my-events"} style={{ color: 'black' }}><MenuItem>My Events</MenuItem></Link>
-            <Link to={`journal/${id}`} style={{ color: 'black' }}><MenuItem>Concert Journal</MenuItem></Link>
-            <Link to={"explore"} style={{ color: 'black' }}><MenuItem>Explore</MenuItem></Link>
+            <MenuItem style={{height: appBarHeight}}></MenuItem>
+            <Link to={"/"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Home</MenuItem></Link>
+            <Link to={"newsfeed"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>News Feed</MenuItem></Link>
+            <Link to={`journal/${id}`} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Concert Journal</MenuItem></Link>
+            <Link to={"explore"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Explore</MenuItem></Link>
           </Drawer>
         ) : (
           <Drawer
+            style={drawerStyle}
             docked={false}
+            width={150}
             open={this.state.open}
             onRequestChange={(open) => this.setState({open})}>
             <MenuItem onTouchTap={this.handleLeftNavToggle}>Back</MenuItem>
@@ -83,11 +101,13 @@ class NavBar extends Component {
             <Link to={"signup"} style={{ color: 'black' }}><MenuItem>Sign up</MenuItem></Link>
           </Drawer>
         )}
+        <div style={divBarStyle}>
           <AppBar
             title="ConcertWallet"
             style={appBarStyle}
-            titleStyle={{color: 'black'}}
+            titleStyle={{ color: 'black', fontFamily: 'Oleo Script, cursive', fontSize: '30px' }}
             onLeftIconButtonTouchTap={this.handleLeftNavToggle}
+            iconStyleLeft={{backgroundColor: 'black'}}
             >
             <div style={searchBarStyle}>
               <SearchBar />
@@ -113,6 +133,7 @@ class NavBar extends Component {
               </div>
             }
           </AppBar>
+        </div>
       </div>
     );
   }
