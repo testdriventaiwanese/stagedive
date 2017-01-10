@@ -55,10 +55,21 @@ class SearchResults extends Component {
     }
     return this.props.events.map((event) => {
       console.log('event : ', event);
+      const largestPic = (imageArray) => {
+        let largest = 0;
+        let index;
+        imageArray.forEach((image, i) => {
+          if(image.width > largest) {
+            largest = image.width;
+            index = i;
+          }
+        });
+        return imageArray[index].url;
+      }
       let city = null;
       if (event._embedded.venues[0].city.name) {
         city = event._embedded.venues[0].city.name;
-      };event._embedded.venues[0]
+      };
       let venueName = null;
       let stateCountryName = null;
       let venueStateOrCountry = null;
@@ -74,7 +85,7 @@ class SearchResults extends Component {
       }
       let image = null;
       if (event.images){
-        image = event.images[3].url || null;
+        image = largestPic(event.images) || null;
       }
       const momentDate = moment(event.dates.start.dateTime).format('LLLL');
 
