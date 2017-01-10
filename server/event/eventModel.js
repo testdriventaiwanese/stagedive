@@ -39,7 +39,7 @@ module.exports = {
     },
     addEvent(userId, params, callback) {
       const queryStr = 'SELECT id FROM events WHERE tm_id = ?';
-      const queryStr2 = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, venue_address, city, zipcode, image, genre, subgenre, latitude, longitude, country, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      const queryStr2 = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, image, genre, latitude, longitude, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
       const queryStr3 = 'INSERT INTO users_events (id_users, id_events) VALUES (?, ?)';
       db.query(queryStr, params[0], (err, eventResults) => {
         if (err) {
