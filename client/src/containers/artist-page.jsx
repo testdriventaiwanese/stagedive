@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { hashHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -13,6 +15,24 @@ import { getArtistCalendar, removeArtist, saveArtist, searchArtists, getArtists 
 import Auth from '../modules/auth';
 
 class ArtistPage extends Component {
+  constructor(props) {
+    super(props);
+     this.state = {
+       open: false,
+     };
+   }
+
+   handleTouchTap = () => {
+     this.setState({
+       open: true,
+     });
+   };
+
+   handleRequestClose = () => {
+     this.setState({
+       open: false,
+     });
+   };
   componentWillMount() {
     if (!Auth.isUserAuthenticated()) {
       hashHistory.push('/login');
@@ -69,6 +89,10 @@ class ArtistPage extends Component {
       width: '90%',
       height: '90%',
     };
+    let menuStyle = {
+      height: '0%',
+      float: 'right',
+    }
     if (!this.props.artists) {
       return <div>Artist Not Listed</div>;
     }
@@ -102,13 +126,23 @@ class ArtistPage extends Component {
         <div style={imageDiv}>
             <img src={artist.picture} style={imageStyle}></img>
         </div>
+        <CardActions>
+          <IconMenu
+            style={menuStyle}
+            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+          >
+            <MenuItem
+              primaryText="Unfollow"
+              secondary
+              onTouchTap={this.handleTouchTap}
+              onClick={() => this.props.removeArtist(artist.mbid, 0)}
+              />
+          </IconMenu>
+        </CardActions>
         <div>
           <h5><strong>Calendar</strong></h5>
-            <RaisedButton
-              label="Remove Artist"
-              secondary
-              onClick={() => this.props.removeArtist(artist.mbid, 0)}
-            />
           <div className="list-group col-sm-16">{this.renderCalendar()}</div>
         </div>
       </Paper>
