@@ -49,6 +49,18 @@ class EventList extends Component {
       height: '0%',
     }
 
+    const largestPic = (imageArray) => {
+      let largest = 0;
+      let index;
+      imageArray.forEach((image, i) => {
+        if(image.width > largest) {
+          largest = image.width;
+          index = i;
+        }
+      });
+      return imageArray[index].url;
+    }
+
     if(!this.props.events.futureEvents) {
       return (
         <div>
@@ -65,7 +77,7 @@ class EventList extends Component {
       const date = momentDate.toString() + ' ' + est.toString().slice(34);
       let image = null;
       if(event.image){
-        image = JSON.parse(event.image)[3].url || null;
+        image = largestPic(JSON.parse(event.image)) || null;
       };
       const venue = JSON.parse(event.venue)[0];
       let venueName = null;
