@@ -13,7 +13,6 @@ class FriendsEventList extends Component {
   componentWillMount() {
     this.props.getFriendsEvents();
   }
-
   renderList() {
     const imageDiv = {
       width: '35%',
