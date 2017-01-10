@@ -3,12 +3,37 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
+import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import { getFriends, unfollow, getOtherUserEvents } from '../actions/index';
 import { Link } from 'react-router';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Snackbar from 'material-ui/Snackbar';
 
+import { getFriends, unfollow, getOtherUserEvents } from '../actions/index';
 
 class Friends extends Component {
+  constructor(props) {
+    super(props);
+     this.state = {
+       open: false,
+     };
+   }
+
+   handleTouchTap = () => {
+     this.setState({
+       open: true,
+     });
+   };
+
+   handleRequestClose = () => {
+     this.setState({
+       open: false,
+     });
+   };
+
   componentWillMount() {
     this.props.getFriends();
   }
@@ -32,6 +57,24 @@ class Friends extends Component {
       }
       return (
         <Card key={friend.id} zDepth={1}>
+          <IconMenu style={{float:'right'}}
+            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+          >
+            <MenuItem
+              primaryText="Unfollow"
+              secondary
+              onTouchTap={this.handleTouchTap}
+              onClick={() => this.props.unfollow(friend.id, i)}
+              />
+              <Snackbar
+                open={this.state.open}
+                message="Unfollowed"
+                autoHideDuration={4000}
+                onRequestClose={this.handleRequestClose}
+              />
+          </IconMenu>
           <Link to={`/view/${friend.id}`}>
             <CardHeader
               title={friend.fullname}
@@ -40,10 +83,6 @@ class Friends extends Component {
               onClick={() => this.props.getOtherUserEvents(friend)}
             />
           </Link>
-          <CardActions>
-            <button onClick={() => this.props.unfollow(friend.id, i)}>Unfollow</button>
-          </CardActions>
-          <br />
         </Card>
       );
     });

@@ -157,8 +157,11 @@ class EventDetail extends Component {
       venueName = venue.country.name;
       venueStateOrCountry = venue.country.countryCode;
     }
-    const genre = JSON.parse(event.genre);
-    console.log('genre event detail:: ', genre);
+    const genreParse = JSON.parse(event.genre);
+    let genre = null;
+    if(genreParse.genre.name !== undefined){
+      genre = genreParse.genre.name;
+    }
     const imageDiv = {
       width: '45%',
       float: 'center',
@@ -204,7 +207,7 @@ class EventDetail extends Component {
         </div>
 
         <CardText>
-          <p><strong>{event.name}</strong></p>
+          <h1>{event.name}</h1>
           <p>Listed acts: {artist.join(', ')}</p>
           <p>{venue.name}</p>
           <p>Location: {venue.address.line1}</p>
@@ -212,6 +215,7 @@ class EventDetail extends Component {
           <p>{venueName + ', ' + venueStateOrCountry}</p>
           <p>Post code: {venue.postalCode}</p>
           <p>Event Start: {date}</p>
+          <p>{genre}</p>
           <p><a href={event.event_url}>Buy Tickets</a></p>
         </CardText>
       </Card>
