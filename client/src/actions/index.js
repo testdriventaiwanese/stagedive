@@ -64,17 +64,12 @@ module.exports = {
         artist_name: JSON.stringify(event._embedded.attractions) || null,
         date: event.dates.start.dateTime || null,
         event_url: event.url || null,
-        venue: () => (event._embedded.venues[0].name ? event._embedded.venues[0].name : null),
-        venue_address: event._embedded.venues[0].address.line1 || null,
-        city: event._embedded.venues[0].city.name || null,
-        zipcode: event._embedded.venues[0].postalCode || null,
-        image: event._embedded.attractions[0].images[0].url || null,
-        genre: event.classifications[0].genre.name || null,
-        subgenre: event.classifications[0].subGenre.name || null,
+        venue: JSON.stringify(event._embedded.venues) || null,
+        image: JSON.stringify(event._embedded.attractions[0].images) || null,
+        genre: JSON.stringify(event.classifications[0]) || null,
         latitude: latitude,
         longitude: longitude,
-        country: event._embedded.venues[0].country.name || null,
-        sale_date: JSON.stringify(event.sales.public) || null,
+        sale_date: JSON.stringify(event.sales) || null,
       };
     }
     const config = {

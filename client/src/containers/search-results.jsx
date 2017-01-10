@@ -40,6 +40,7 @@ class SearchResults extends Component {
       )
     }
     return this.props.events.map((event) => {
+      console.log('event : ', event);
       const city = () => {
         return event._embedded.venues[0].city.name ? event._embedded.venues[0].city.name : '';
       };

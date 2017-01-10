@@ -54,19 +54,13 @@ module.exports = {
       date,
       event_url,
       venue,
-      venue_address,
-      city,
-      zipcode,
       image,
       genre,
-      subgenre,
       latitude,
       longitude,
-      country,
       sale_date,
     }, headers }, res) {
       const userId = jwt.decode(headers.authheader, process.env.JWT_SECRET);
-      console.log(userId);
       const params = [
         tm_id,
         name,
@@ -74,15 +68,10 @@ module.exports = {
         date,
         event_url,
         venue,
-        venue_address,
-        city,
-        zipcode,
         image,
         genre,
-        subgenre,
         latitude,
         longitude,
-        country,
         sale_date,
       ];
       eventModel.events.addEvent(userId.sub, params, (results) => {
