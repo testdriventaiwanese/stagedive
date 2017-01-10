@@ -130,7 +130,18 @@ class EventDetail extends Component {
     const eventArr = this.props.event.events.filter((event) => {
       return event.id === Number(this.props.params.eventId);
     });
-    //
+
+    const largestPic = (imageArray) => {
+      let largest = 0;
+      let index;
+      imageArray.forEach((image, i) => {
+        if(image.width > largest) {
+          largest = image.width;
+          index = i;
+        }
+      });
+      return imageArray[index].url;
+    }
     const event = eventArr[0];
     console.log('RENDER EVENT:: ', event)
     const momentDate = moment(event.date).format('LLLL');
@@ -140,7 +151,7 @@ class EventDetail extends Component {
     const date = momentDate.toString() + ' ' + est.toString().slice(34);
     let image = null;
     if(event.image){
-      image = JSON.parse(event.image)[3].url || null;
+      image = largestPic(JSON.parse(event.image)) || null;
     };
     const venue = JSON.parse(event.venue)[0];
     let venueName = null;
