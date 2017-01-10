@@ -6,6 +6,8 @@ import { searchEvents, searchArtists, searchUsers } from '../actions/index';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import SearchIcon from 'material-ui/svg-icons/action/search';
+import {List, ListItem} from 'material-ui/List';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -33,18 +35,20 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <span>
+      <div>
         <MuiThemeProvider>
-          <form onSubmit={this.onFormSubmit} className="input-group">
-            <TextField
-              style={{ color: 'white' }}
-              placeholder="Search for events, artist, or friends!"
-              value={this.state.term}
-              onChange={this.onInputChange}
-            />
+          <form onSubmit={this.onFormSubmit}>
+              <SearchIcon style={{ margin: '10px 0 0 0' }}/>
+              <TextField
+                style={{ color: 'white' }}
+                placeholder="Search events / artist / friends"
+                value={this.state.term}
+                onChange={this.onInputChange}
+              >
+              </TextField>
           </form>
         </MuiThemeProvider>
-      </span>
+      </div>
     );
   }
 }

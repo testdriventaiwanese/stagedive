@@ -235,7 +235,6 @@ class EventList extends Component {
     return (
       <div>
         <div>{this.renderUpcoming()}</div>
-        <h1>Events Feed</h1>
         <div className="list-group col-sm-16">
           {this.renderList()}
         </div>
