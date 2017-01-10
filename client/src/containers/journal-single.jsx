@@ -25,12 +25,11 @@ class JournalSingle extends Component {
   componentWillMount() {
     let userId = this.props.params.userId;
     let eventId = this.props.params.eventId;
-    console.log('PROPS: ', this.props);
     this.props.getUserEvents({id: userId});
     this.props.getEventComments(userId, eventId);
   }
 
-  // componentDidUpdate() {
+  // componentDidMount() {
   //   let userId = this.props.params.userId;
   //   let eventId = this.props.params.eventId;
   //   console.log('PROPS: ', this.props);
