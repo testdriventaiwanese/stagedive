@@ -53,6 +53,17 @@ class JournalSingle extends Component {
 
   render() {
     let pastEvents = [];
+    const largestPic = (imageArray) => {
+      let largest = 0;
+      let index;
+      imageArray.forEach((image, i) => {
+        if(image.width > largest) {
+          largest = image.width;
+          index = i;
+        }
+      });
+      return imageArray[index].url;
+    }
     console.log('PROPS JOURNAL SINGLE: ', this.props);
     if(this.props.userInfo.pastEvents.length > 0) {
       pastEvents = this.props.userInfo.pastEvents;
@@ -63,7 +74,7 @@ class JournalSingle extends Component {
       const userId = this.props.userInfo.userInfo;
       let image = null;
       if(event.image){
-        image = JSON.parse(event.image)[3].url || null;
+        image = largestPic(JSON.parse(event.image)) || null;
       };
       let imageDiv = {
         width: '60%',

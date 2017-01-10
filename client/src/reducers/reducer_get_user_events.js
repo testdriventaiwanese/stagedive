@@ -1,4 +1,4 @@
-export default function(state = { events: [], futureEvents: [], pastEvents: [] }, action) {
+export default function(state = { events: null, futureEvents: null, pastEvents: null }, action) {
   switch (action.type) {
     case 'GET_USER_EVENTS':
       const userInfo = action.payload.config.headers.userId;
