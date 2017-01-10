@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
 import Avatar from 'material-ui/Avatar';
+import moment from 'moment';
+
 
 import { getFriendsEvents } from '../actions/index';
 
@@ -38,29 +40,42 @@ class FriendsEventList extends Component {
       const name = userInfo.filter((user) => {
         return eventUser.indexOf(user.id) > -1;
       }).map((name) => name.fullname);
-      const date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
-      const time = event.date.slice(11, 16);
+      const momentDate = moment(event.date).format('LLLL');
+      const momentFromNow = moment(event.date).fromNow();
+      const est = moment(event.date)._d;
+      const artist = JSON.parse(event.artist_name).map((performer) => performer.name);
+      const date = momentDate.toString() + ' ' + est.toString().slice(34);
+      let image = null;
+      if(event.image){
+        image = JSON.parse(event.image)[3].url || null;
+      };
+      const venue = JSON.parse(event.venue)[0];
+      let venueName = null;
+      let venueStateOrCountry = null;
+      if (venue.state) {
+        venueName = venue.state.name;
+        venueStateOrCountry = venue.state.stateCode;
+      } else if (venue.country) {
+        venueName = venue.country.name;
+        venueStateOrCountry = venue.country.countryCode;
+      }
       return (
         <Card key={event.id} className="list-group-item">
           <CardHeader
             title={name.join(', ')}
-            subtitle='going to:'
+            subtitle={`going to in ${momentFromNow.toString()}`}
             avatar={<Avatar>{name.join(', ').slice(0,1)}</Avatar>}
             onClick={() => this.props.getOtherUserEvents(friend)}
           />
-          <CardMedia
-            overlay={<CardTitle title={event.name} subtitle={event.city} />}
-          >
-            <img src={event.image} style={imageStyle} />
+          <CardMedia>
+            <img src={image} />
           </CardMedia>
           <CardText>
-            <p><strong>{event.name}</strong></p>
-            <p>{event.venue}</p>
-            <span>{event.city}</span>
-            <p>{event.country}</p>
-            <span>{date}</span>
-            <p>Time: {time}</p>
-            <p><a href={event.event_url}>Buy Tickets</a></p>
+            <span><strong>Listed acts: </strong>{artist.join(', ')}</span>
+            <br />
+            <span><strong>Venue: </strong>{venue.name}</span>
+            <br />
+            <span><strong>Event Start: </strong>{date}</span>
           </CardText>
         </Card>
       );
