@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
@@ -12,34 +11,30 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Snackbar from 'material-ui/Snackbar';
 
-import { getFriends, unfollow, getOtherUserEvents } from '../actions/index';
+import { getFriends, unfollow, getUserEvents } from '../actions/index';
 
 class Friends extends Component {
   constructor(props) {
     super(props);
-     this.state = {
-       open: false,
-     };
-   }
-
-   handleTouchTap = () => {
-     this.setState({
-       open: true,
-     });
-   };
-
-   handleRequestClose = () => {
-     this.setState({
-       open: false,
-     });
-   };
-
+    this.state = {
+      open: false,
+    };
+  }
   componentWillMount() {
     this.props.getFriends();
   }
-
+  handleTouchTap() {
+    this.setState({
+      open: true,
+    });
+  }
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  }
   renderFriends() {
-    if(this.props.friends.length === 0) {
+    if (this.props.friends.length === 0) {
       return (
         <Card zDepth={1}>
           <CardText>
@@ -47,12 +42,12 @@ class Friends extends Component {
           </CardText>
           <br />
         </Card>
-      )
+      );
     }
 
     return this.props.friends.map((friend, i) => {
-      let avatar = <Avatar>{friend.fullname.slice(0,1)}</Avatar>;
-      if (friend.profile_photo){
+      let avatar = <Avatar>{friend.fullname.slice(0, 1)}</Avatar>;
+      if (friend.profile_photo) {
         avatar = <Avatar src={friend.profile_photo} />;
       }
       return (
@@ -77,7 +72,7 @@ class Friends extends Component {
               />
           </IconMenu>
           <CardHeader
-            title={ <Link to={`/view/${friend.id}`} onClick={() => this.props.getOtherUserEvents(friend)}>{friend.fullname}</Link>}
+            title={ <Link to={`/view/${friend.id}`} onClick={() => this.props.getUserEvents(friend)}>{friend.fullname}</Link>}
             subtitle={friend.email}
             avatar={avatar}
             />
@@ -104,7 +99,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getFriends, unfollow, getOtherUserEvents }, dispatch);
+  return bindActionCreators({ getFriends, unfollow, getUserEvents }, dispatch);
 }
 
 

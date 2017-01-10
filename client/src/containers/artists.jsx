@@ -62,7 +62,7 @@ class Artists extends Component {
     }
     return this.props.artists.map((artist, i) => {
       return (
-        <Card key={artist.id} className="list-group-item" zDepth={2}>
+        <Card key={artist.id} className="list-group-item" zDepth={1}>
           <CardMedia style={imageDiv}>
             <img src={artist.image} style={imageStyle} alt="artist headshot" />
           </CardMedia>
