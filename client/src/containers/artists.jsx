@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -52,53 +53,53 @@ class Artists extends Component {
     if (this.props.artists.length === 0) {
 
       return (
-        <Paper zDepth={2}>
+        <Card zDepth={2}>
           <div>
             You're not following any artists!
           </div>
           <br />
-        </Paper>
+        </Card>
       );
     }
     return this.props.artists.map((artist, i) => {
       return (
-        <Paper key={artist.id} className="list-group-item" zDepth={2}>
-          <div>
-            <div style={imageDiv}>
-              <img src={artist.image} style={imageStyle} alt="artist headshot" />
-            </div>
-            <CardActions>
-              <IconMenu
-                style={menuStyle}
-                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-                targetOrigin={{horizontal: 'right', vertical: 'top'}}
-              >
-                <MenuItem
-                  primaryText="Unfollow"
-                  secondary
-                  onTouchTap={this.handleTouchTap}
-                  onClick={() => this.props.removeArtist(artist.mbid, i)}
-                  />
-                  <Snackbar
-                    open={this.state.open}
-                    message="Artist Unfollowed"
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
-                  />
-              </IconMenu>
-            </CardActions>
-            <div>
-              <Link to={`/artists/${artist.mbid}`}>
-                <div><strong>{artist.name}</strong></div>
-              </Link>
-              <p>{artist.facebook}</p>
-              <p>{artist.events}</p>
-              <p>On Tour until: {artist.onTourUntil}</p>
-              <p>Remaining Tour Dates: {artist.upcoming_events}</p>
-            </div>
-          </div>
-        </Paper>
+        <Card key={artist.id} className="list-group-item" zDepth={2}>
+          <CardMedia style={imageDiv}>
+            <img src={artist.image} style={imageStyle} alt="artist headshot" />
+          </CardMedia>
+          <CardActions>
+            <IconMenu
+              style={menuStyle}
+              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+              anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+              targetOrigin={{horizontal: 'right', vertical: 'top'}}
+            >
+              <MenuItem
+                primaryText="Unfollow"
+                secondary
+                onTouchTap={this.handleTouchTap}
+                onClick={() => this.props.removeArtist(artist.mbid, i)}
+                />
+                <Snackbar
+                  open={this.state.open}
+                  message="Artist Unfollowed"
+                  autoHideDuration={4000}
+                  onRequestClose={this.handleRequestClose}
+                />
+            </IconMenu>
+          </CardActions>
+          <CardText>
+            <Link to={`/artists/${artist.mbid}`}>
+              <h3>{artist.name}</h3>
+            </Link>
+            <p>On Tour until: {artist.onTourUntil}</p>
+            <p>Remaining Tour Dates: {artist.upcoming_events}</p>
+          </CardText>
+          <CardActions>
+            <a href={artist.facebook}><FlatButton label={`${artist.name}'s Facebook Page`} secondary /></a>
+            <a href={artist.events}><FlatButton label='Upcoming Events' secondary /></a>
+          </CardActions>
+        </Card>
       );
     });
   }

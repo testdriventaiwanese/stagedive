@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import IconMenu from 'material-ui/IconMenu';
+import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -90,49 +91,41 @@ class EventList extends Component {
           <CardMedia>
             <img src={image} style={imageStyle} />
           </CardMedia>
-          <CardActions>
-            <IconMenu
-              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-              anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-              targetOrigin={{horizontal: 'right', vertical: 'top'}}
-            >
+          <IconMenu
+            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+          >
             <Link to={`/event/${id}/${event.id}`}>
-              <MenuItem primaryText="View Event Details" secondary/>
+              <MenuItem primaryText="View Event Details" secondary />
             </Link>
-              <MenuItem
-                primaryText="Remove Event"
-                secondary
-                onTouchTap={this.handleTouchTap}
-                onClick={() => this.props.removeEvent(event.tm_id, 0)}
-                />
-                <Snackbar
-                  open={this.state.open}
-                  message="Removed Event"
-                  autoHideDuration={4000}
-                  onRequestClose={this.handleRequestClose}
-                />
-            </IconMenu>
-          </CardActions>
+            <MenuItem
+              primaryText="Remove Event"
+              secondary
+              onTouchTap={this.handleTouchTap}
+              onClick={() => this.props.removeEvent(event.tm_id, 0)}
+              />
+              <Snackbar
+                open={this.state.open}
+                message="Removed Event"
+                autoHideDuration={4000}
+                onRequestClose={this.handleRequestClose}
+              />
+          </IconMenu>
           <CardText>
-            <p><strong>{event.name}</strong></p>
-            <p>Listed acts: {artist.join(', ')}</p>
-            <p>{venue.name}</p>
-            <p>Location: {venue.address.line1}</p>
-            <span>{venue.city.name}</span>
-            <p>{venueName + ', ' + venueStateOrCountry}</p>
-            <p>Post code: {venue.postalCode}</p>
-            <p>Event Start: {date}</p>
-            <p><a href={event.event_url}>Buy Tickets</a></p>
+            <h5><strong>{event.name}</strong></h5>
+            <br />
+            <span><strong>Listed acts: </strong>{artist.join(', ')}</span>
+            <br />
+            <span><strong>Venue: </strong>{venue.name}</span>
+            <br />
+            <span><strong>Event Start: </strong>{date}</span>
           </CardText>
           <CardActions>
-            <RaisedButton
-                label="Remove Event"
-                secondary
-                onClick={() => this.props.removeEvent(event.tm_id, 0)}
-            />
             <Link to={`/event/${id}/${event.id}`}>
-              <RaisedButton label='View Event Details' secondary />
+              <FlatButton label='Event Details' secondary />
             </Link>
+            <a href={event.event_url}><FlatButton label='Buy Tickets' secondary /></a>
           </CardActions>
         </Card>
       );
@@ -183,49 +176,40 @@ class EventList extends Component {
           >
             <img src={image} style={imageStyle} />
           </CardMedia>
-            <CardActions>
-              <IconMenu
-                style={menuStyle}
-                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-                targetOrigin={{horizontal: 'right', vertical: 'top'}}
-              >
-              <Link to={`/event/${id}/${event.id}`}>
-                <MenuItem primaryText="View Event Details" secondary/>
-              </Link>
-                <MenuItem
-                  primaryText="Remove Event"
-                  secondary
-                  onTouchTap={this.handleTouchTap}
-                  onClick={() => this.props.removeEvent(event.tm_id, 0)}
-                  />
-                  <Snackbar
-                    open={this.state.open}
-                    message="Event Removed"
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
-                  />
-              </IconMenu>
-            </CardActions>
+          <IconMenu
+            style={menuStyle}
+            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+          >
+          <Link to={`/event/${id}/${event.id}`}>
+            <MenuItem primaryText="View Event Details" secondary/>
+          </Link>
+            <MenuItem
+              primaryText="Remove Event"
+              secondary
+              onTouchTap={this.handleTouchTap}
+              onClick={() => this.props.removeEvent(event.tm_id, 0)}
+              />
+              <Snackbar
+                open={this.state.open}
+                message="Event Removed"
+                autoHideDuration={4000}
+                onRequestClose={this.handleRequestClose}
+              />
+          </IconMenu>
           <CardText>
-            <p>Listed acts: {artist.join(', ')}</p>
-            <p>{venue.name}</p>
-            <p>Location: {venue.address.line1}</p>
-            <span>{venue.city.name}</span>
-            <p>{venueName + ', ' + venueStateOrCountry}</p>
-            <p>Post code: {venue.postalCode}</p>
-            <p>Event Start: {date}</p>
-            <p><a href={event.event_url}>Buy Tickets</a></p>
+            <span><strong>Listed acts: </strong>{artist.join(', ')}</span>
+            <br />
+            <span><strong>Venue: </strong>{venue.name}</span>
+            <br />
+            <span><strong>Event Start: </strong>{date}</span>
           </CardText>
           <CardActions>
-            <RaisedButton
-                label="Remove Event"
-                secondary
-                onClick={() => this.props.removeEvent(event.tm_id, i + 1)}
-            />
             <Link to={`/event/${id}/${event.id}`}>
-              <RaisedButton label='View Event Details' secondary />
+              <FlatButton label='Event Details' secondary />
             </Link>
+            <a href={event.event_url}><FlatButton label='Buy Tickets' secondary /></a>
           </CardActions>
         </Card>
       );
