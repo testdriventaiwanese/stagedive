@@ -53,8 +53,7 @@ class UpcomingEvent extends Component {
     let sortByDate = [];
     if(!this.props.events.futureEvents) {
       return (
-        <div align='center'>
-          <CircularProgress size={60} />
+        <div>
         </div>
       )
     }

@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Snackbar from 'material-ui/Snackbar';
+import LinearProgress from 'material-ui/LinearProgress';
 import { Link, hashHistory } from 'react-router';
 import moment from 'moment';
 import { getUserEvents, getUserInfo, removeEvent, getEvents } from '../actions/index';
@@ -47,6 +48,15 @@ class EventList extends Component {
       float: 'right',
       height: '0%',
     }
+
+    if(!this.props.events.futureEvents) {
+      return (
+        <div>
+          <LinearProgress mode="indeterminate" />
+        </div>
+      )
+    }
+
     return this.props.events.futureEvents.slice(1).map((event, i) => {
       const momentDate = moment(event.date).format('LLLL');
       const momentFromNow = moment(event.date).fromNow();
