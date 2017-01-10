@@ -24,7 +24,7 @@ module.exports = new PassportFacebookStrategy({
           const info = {
             sub: userInfo[0].id,
           }
-          const userToken = jwt.sign(info, process.env.JWT_SECRET);
+          const userToken = jwt.sign(info, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 });
           const userId = userInfo[0].id;
           return done(null, userToken, userId);
         });
@@ -33,7 +33,7 @@ module.exports = new PassportFacebookStrategy({
       const payload = {
         sub: results[0].id,
       };
-      const token = jwt.sign(payload, process.env.JWT_SECRET);
+      const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 });
       const data = results[0].id;
       return done(null, token, data);
     }
