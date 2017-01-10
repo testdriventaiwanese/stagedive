@@ -100,25 +100,25 @@ class Map extends React.Component {
 class EventDetail extends Component {
   constructor(props) {
     super(props);
-     this.state = {
-       open: false,
-     };
-   }
-
-   handleTouchTap = () => {
-     this.setState({
-       open: true,
-     });
-   };
-
-   handleRequestClose = () => {
-     this.setState({
-       open: false,
-     });
-   };
+    this.state = {
+      open: false,
+    };
+  }
   componentWillMount() {
     const userid = Number(this.props.params.userId);
     this.props.getUserEvents({id: userid});
+  }
+
+  handleTouchTap() {
+    this.setState({
+      open: true,
+    });
+  }
+
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
   }
   renderEvent() {
     if (!this.props.event.events[0]) {
@@ -235,7 +235,6 @@ class EventDetail extends Component {
   }
 
   render() {
-    console.log('this.props.distance:: ', this.props.distance)
     return (
       <div>
         <h3>Event Details</h3>

@@ -7,18 +7,19 @@ import { getUserEvents, removeEvent, addFollower, unfollow } from '../actions/in
 
 class UserPage extends Component {
   componentWillMount() {
-    console.log('WILL MOUNT CALLED');
     const user = { id: this.props.params.userId }
     this.props.getUserEvents(user);
   }
 
   renderProfileBar() {
-    console.log('THIS IS THE EVENTS OBJECT IN USER PAGE: ', this.props.events);
     if(!this.props.events.userInfo) {
       return (
         <div>Loading...</div>
       )
     }
+    let userName = this.props.friends.filter((friend) => {
+      return friend.id === this.props.events.userInfo;
+    })
     console.log('PROSP IN USERPAGE: ', this.props);
     return (
       <div>
@@ -122,6 +123,7 @@ class UserPage extends Component {
 function mapStateToProps(state) {
   return {
     events: state.userEvents,
+    friends: state.getFriends,
   };
 }
 

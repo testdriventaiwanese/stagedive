@@ -18,37 +18,28 @@ import Auth from '../modules/auth';
 class EventList extends Component {
   constructor(props) {
     super(props);
-     this.state = {
-       open: false,
-     };
-   }
-
-   handleTouchTap = () => {
-     this.setState({
-       open: true,
-     });
-   };
-
-   handleRequestClose = () => {
-     this.setState({
-       open: false,
-     });
-   };
-
+    this.state = {
+      open: false,
+    };
+  }
   componentWillMount() {
     const id = localStorage.getItem('id');
     const user = { id };
     this.props.getUserInfo();
     this.props.getUserEvents(user);
   }
-
+  handleTouchTap() {
+    this.setState({
+      open: true,
+    });
+  }
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  }
   renderList() {
     const id = localStorage.getItem('id');
-    const divStyle = {
-      width: '65%',
-      float: 'right',
-      marginBottom: '10px',
-    };
     const imageStyle = {
       width: '100%',
     };
@@ -77,63 +68,57 @@ class EventList extends Component {
         venueStateOrCountry = venue.country.countryCode;
       }
       return (
-        <div style={divStyle}>
-          <Card key={event.id} className="list-group-item" zDepth={1}>
-            <CardMedia
-              overlay={ <CardTitle
-                title={event.name}
-                subtitle={venue.city.name + ', ' + momentFromNow.toString()}
-                />}
-                >
-                <img src={image} style={imageStyle} />
-              </CardMedia>
-              <IconMenu
-                style={menuStyle}
-                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-                targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                >
-                <Link to={`/event/${id}/${event.id}`}>
-                  <MenuItem primaryText="View Event Details" secondary/>
-                </Link>
-                <MenuItem
-                  primaryText="Remove Event"
-                  secondary
-                  onTouchTap={this.handleTouchTap}
-                  onClick={() => this.props.removeEvent(event.tm_id, 0)}
-                  />
-                <Snackbar
-                  open={this.state.open}
-                  message="Event Removed"
-                  autoHideDuration={4000}
-                  onRequestClose={this.handleRequestClose}
-                  />
-              </IconMenu>
-              <CardText>
-                <span><strong>Listed acts: </strong>{artist.join(', ')}</span>
-                <br />
-                <span><strong>Venue: </strong>{venue.name}</span>
-                <br />
-                <span><strong>Event Start: </strong>{date}</span>
-              </CardText>
-              <CardActions>
-                <Link to={`/event/${id}/${event.id}`}>
-                  <FlatButton label='Event Details' secondary />
-                </Link>
-                <a href={event.event_url}><FlatButton label='Buy Tickets' secondary /></a>
-              </CardActions>
-            </Card>
-
-        </div>
+        <Card key={event.id} className="list-group-item" zDepth={1}>
+          <CardMedia
+            overlay={ <CardTitle
+              title={event.name}
+              subtitle={venue.city.name + ', ' + momentFromNow.toString()}
+              />}
+              >
+              <img src={image} style={imageStyle} />
+            </CardMedia>
+            <IconMenu
+              style={menuStyle}
+              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+              anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+              targetOrigin={{horizontal: 'right', vertical: 'top'}}
+              >
+              <Link to={`/event/${id}/${event.id}`}>
+                <MenuItem primaryText="View Event Details" secondary/>
+              </Link>
+              <MenuItem
+                primaryText="Remove Event"
+                secondary
+                onTouchTap={this.handleTouchTap}
+                onClick={() => this.props.removeEvent(event.tm_id, 0)}
+                />
+              <Snackbar
+                open={this.state.open}
+                message="Event Removed"
+                autoHideDuration={4000}
+                onRequestClose={this.handleRequestClose}
+                />
+            </IconMenu>
+            <CardText>
+              <span><strong>Listed acts: </strong>{artist.join(', ')}</span>
+              <br />
+              <span><strong>Venue: </strong>{venue.name}</span>
+              <br />
+              <span><strong>Event Start: </strong>{date}</span>
+            </CardText>
+            <CardActions>
+              <Link to={`/event/${id}/${event.id}`}>
+                <FlatButton label='Event Details' secondary />
+              </Link>
+              <a href={event.event_url}><FlatButton label='Buy Tickets' secondary /></a>
+            </CardActions>
+          </Card>
       );
     });
   }
   render() {
-    const divStyle = {
-      marginTop: '10px'
-    }
     return (
-        <div style={divStyle}>
+        <div>
           {this.renderList()}
         </div>
     )
