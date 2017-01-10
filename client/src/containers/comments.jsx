@@ -20,10 +20,6 @@ class Comments extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  componentWillMount () {
-
-  }
-
   onInputChange(event) {
     this.setState({ term: event.target.value });
   }
@@ -38,7 +34,6 @@ class Comments extends Component {
   }
 
   renderComments() {
-    console.log('PROPS IN COMMENTS: ', this.props);
     return (
       this.props.comments.comments.map((comment) => {
         const userId = comment.id_user;

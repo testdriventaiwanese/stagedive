@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { hashHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
 import {GridList, GridTile} from 'material-ui/GridList';
-import { removeEvent, getUserEvents } from '../actions/index';
+import { removeEvent, getUserEvents, refreshEventComments } from '../actions/index';
 import JournalPhoto from './journal-photo';
 import CircularProgress from 'material-ui/CircularProgress';
 import Auth from '../modules/auth';
@@ -17,6 +17,7 @@ class Journal extends Component {
     const id = this.props.params.userId;
     const user = { id };
     this.props.getUserEvents(user);
+    this.props.refreshEventComments();
   }
 
   render() {
@@ -64,7 +65,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent, getUserEvents }, dispatch);
+  return bindActionCreators({ removeEvent, getUserEvents, refreshEventComments }, dispatch);
 }
 
 
