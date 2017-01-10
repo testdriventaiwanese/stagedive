@@ -8,6 +8,8 @@ import { saveEvent, addFollower, saveArtist, getUserEvents } from '../actions/in
 import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import moment from 'moment';
+import Avatar from 'material-ui/Avatar';
 
 class SearchResults extends Component {
   constructor(props) {
@@ -31,6 +33,15 @@ class SearchResults extends Component {
   }
 
   renderEvents() {
+    const imageDiv = {
+      width: '35%',
+      position: 'relative',
+      width: '220px',
+      margin: '10px',
+    };
+    const imageStyle = {
+      width: '60%',
+    };
     if (this.props.events.length === 0) {
       return (
         <Card zDepth={1}>
@@ -67,12 +78,12 @@ class SearchResults extends Component {
       const momentDate = moment(event.dates.start.dateTime).format('LLLL');
 
       return (
-        <Card key={event.id} zDepth={1}>
-          <CardMedia>
-            <img src={image} />
-          </CardMedia>
+        <Card key={event.id} >
+          <FloatingActionButton style={{float:'right', margin:'10px'}}>
+            <ContentAdd onClick={() => this.props.saveEvent(event)} />
+          </FloatingActionButton>
           <CardText>
-            <h3><strong>{event.name}</strong></h3>
+            <h4><strong>{event.name}</strong></h4>
             <br />
             <span>{venueName}</span>
             <br />
@@ -80,9 +91,6 @@ class SearchResults extends Component {
             <br />
             <span>Event date: {momentDate.toString()}</span>
           </CardText>
-          <FloatingActionButton>
-            <ContentAdd onClick={() => this.props.saveEvent(event)} />
-          </FloatingActionButton>
           <br />
         </Card>
       );
@@ -105,25 +113,22 @@ class SearchResults extends Component {
       if(this.props.artists.songkick.data.resultsPage.results.artist !== undefined && this.props.artists.songkick.data.resultsPage.results.artist !== undefined) {
         songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
         return (
-          <Card key={songkick.identifier[0].mbid} zDepth={2}>
-            <div>
-              <div style={imageDiv}>
-                <img src={bandsintown.image_url} style={imageStyle} alt="artist headshot" />
-              </div>
-              <Link to={`/artists/${songkick.identifier[0].mbid}`}>
-                <div>{songkick.displayName}</div>
-              </Link>
-              <div>On Tour until: {songkick.onTourUntil}</div>
-              <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
-              <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
-              <div>Number of upcoming events: {bandsintown.upcoming_event_count}</div>
-              <RaisedButton
-                label='Follow Artist'
-                secondary
-                onClick={() => this.props.saveArtist(bandsintown, songkick)}
-              />
-            </div>
-            <br />
+          <Card key={songkick.identifier[0].mbid} zDepth={1}>
+            <CardMedia style={imageDiv}>
+              <img src={bandsintown.image_url} style={imageStyle} alt="artist headshot" />
+            </CardMedia>
+            <Link to={`/artists/${songkick.identifier[0].mbid}`}>
+              <div>{songkick.displayName}</div>
+            </Link>
+            <div>On Tour until: {songkick.onTourUntil}</div>
+            <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
+            <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
+            <div>Number of upcoming events: {bandsintown.upcoming_event_count}</div>
+            <RaisedButton
+              label='Follow Artist'
+              secondary
+              onClick={() => this.props.saveArtist(bandsintown, songkick)}
+            />
           </Card>
         );
       } else {
@@ -157,13 +162,13 @@ class SearchResults extends Component {
         avatar = <Avatar src={user.profile_photo} />;
       }
       return (
-        <Card key={user.id} zDepth={2}>
+        <Card key={user.id} zDepth={1}>
           <CardHeader
             title={ <Link to={`/view/${user.id}`} onClick={() => this.onProfileClick(user)}>{user.fullname}</Link>}
             subtitle={user.email}
             avatar={avatar}
           />
-          <FloatingActionButton>
+          <FloatingActionButton style={{float:'right', margin:'10px'}}>
             <ContentAdd onClick={() => this.props.addFollower(user.id)} />
           </FloatingActionButton>
         </Card>
