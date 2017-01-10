@@ -24,6 +24,7 @@ export const GET_LOCAL_EVENTS = 'GET_LOCAL_EVENTS';
 export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS'
 export const ADD_EVENT_COMMENT = 'ADD_EVENT_COMMENT';
 export const REMOVE_EVENT_COMMENT = 'REMOVE_EVENT_COMMENT';
+export const GET_DISTANCE_INFO = 'GET_DISTANCE_INFO';
 
 const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=Music&';
 
@@ -441,5 +442,27 @@ module.exports = {
       type: SHOW_LOCAL_EVENTS,
       payload: concerts,
     }
-  }
+  },
+  getDistanceInfo(locations) {
+    const mapCoords = {
+          originLatitude: locations[0][0],
+          originLongitude: locations[0][1],
+          destinationLatitude: locations[1][0],
+          destinationLongitude: locations[1][1],
+    }
+    const config = {
+      authHeader: localStorage.getItem('token'),
+    }
+    const request = axios.post('/api/distance/getdistanceinfo', mapCoords, config)
+    .then((res) => {
+      return {
+        distance: res.data.rows[0].elements[0].distance.text,
+        duration: res.data.rows[0].elements[0].duration.text,
+      }
+    });
+    return {
+      type: GET_DISTANCE_INFO,
+      payload: request,
+    }
+  },
 };

@@ -6,6 +6,7 @@ const commentsController = require('../comments/commentsController');
 const bandsintown = require('../API/bandsInTown');
 const songkick = require('../API/songkick');
 const ticketmaster = require('../API/ticketmaster');
+const distance = require('../API/distance');
 
 const router = new express.Router();
 
@@ -54,5 +55,8 @@ router.get('/songkick/getlocation', songkick.getLocation);
 
 // ticketmaster api call
 router.get('/ticketmaster/searchticketmaster', ticketmaster.searchTicketmaster);
+
+// googlemapsmatrix api call
+router.post('/distance/getdistanceinfo', distance.getDistanceInfo);
 
 module.exports = router;
