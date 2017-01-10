@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import moment from 'moment';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import { removeEvent, getUserEvents } from '../actions/index';
 
 
 class EventDetail extends Component {
   componentWillMount() {
-    console.log("this.props.params:: ", this.props);
     const userid = Number(this.props.params.userId);
     this.props.getUserEvents({id: userid});
   }
@@ -20,9 +21,27 @@ class EventDetail extends Component {
       return event.id === Number(this.props.params.eventId);
     });
     const event = eventArr[0];
-    console.log('event:: ', event)
-    const saleTimes = JSON.parse(event.sale_date);
-    const artistInfo = JSON.parse(event.artist_name);
+    const momentDate = moment(event.date).format('LLLL');
+    const momentFromNow = moment(event.date).fromNow();
+    const est = moment(event.date)._d;
+    const artist = JSON.parse(event.artist_name).map((performer) => performer.name);
+    const date = momentDate.toString() + ' ' + est.toString().slice(34);
+    let image = null;
+    if(event.image){
+      image = JSON.parse(event.image)[3].url || null;
+    };
+    const venue = JSON.parse(event.venue)[0];
+    let venueName = null;
+    let venueStateOrCountry = null;
+    if (venue.state) {
+      venueName = venue.state.name;
+      venueStateOrCountry = venue.state.stateCode;
+    } else if (venue.country) {
+      venueName = venue.country.name;
+      venueStateOrCountry = venue.country.countryCode;
+    }
+    const genre = JSON.parse(event.genre);
+    console.log('genre event detail:: ', genre);
     const imageDiv = {
       width: '45%',
       float: 'center',
@@ -33,28 +52,27 @@ class EventDetail extends Component {
       width: '100%',
     };
     return (
-      <Paper key={event.id} className="list-group-item" zDepth={2}>
-        <div style={imageDiv}>
-          <img src={event.image} style={imageStyle} alt="event shot" />
-        </div>
-        <div>
-          <h2>{event.name}</h2>
-          <p>{artistInfo.name}</p>
-          <p>{event.city}</p>
-          <p>{event.country}</p>
-          <p>Event Date: {event.date}</p>
-          <div>
-            <h6>Tickets</h6>
-            <p>On sale date: {saleTimes.startDateTime}</p>
-            <p><a href={event.event_url}>Buy Tickets</a></p>
-          </div>
-        </div>
+      <Card key={event.id} className="list-group-item" zDepth={1}>
+        <CardMedia>
+          <img src={image} style={imageStyle} />
+        </CardMedia>
+        <CardText>
+          <p><strong>{event.name}</strong></p>
+          <p>Listed acts: {artist.join(', ')}</p>
+          <p>{venue.name}</p>
+          <p>Location: {venue.address.line1}</p>
+          <span>{venue.city.name}</span>
+          <p>{venueName + ', ' + venueStateOrCountry}</p>
+          <p>Post code: {venue.postalCode}</p>
+          <p>Event Start: {date}</p>
+          <p><a href={event.event_url}>Buy Tickets</a></p>
+        </CardText>
         <RaisedButton
           label="Remove Event"
           secondary
           onClick={() => this.props.removeEvent(event.tm_id)}
         />
-      </Paper>
+    </Card>
     );
   }
 

@@ -42,20 +42,34 @@ class EventList extends Component {
       const est = moment(event.date)._d;
       const artist = JSON.parse(event.artist_name).map((performer) => performer.name);
       const date = momentDate.toString() + ' ' + est.toString().slice(34);
+      let image = null;
+      if(event.image){
+        image = JSON.parse(event.image)[3].url || null;
+      };
+      const venue = JSON.parse(event.venue)[0];
+      let venueName = null;
+      let venueStateOrCountry = null;
+      if (venue.state) {
+        venueName = venue.state.name;
+        venueStateOrCountry = venue.state.stateCode;
+      } else if (venue.country) {
+        venueName = venue.country.name;
+        venueStateOrCountry = venue.country.countryCode;
+      }
       return (
         <Card className="list-group-item" zDepth={1} style={imageDiv} >
           <h5>Upcoming Event {momentFromNow.toString()}</h5>
           <CardMedia>
-            <img src={event.image} style={imageStyle}/>
+            <img src={image} style={imageStyle} />
           </CardMedia>
           <CardText>
             <p><strong>{event.name}</strong></p>
             <p>Listed acts: {artist.join(', ')}</p>
-            <p>{event.venue}</p>
-            <p>{event.venue_address}</p>
-            <span>{event.city}</span>
-            <p>{event.country}</p>
-            <p>Post code: {event.zipcode}</p>
+            <p>{venue.name}</p>
+            <p>Location: {venue.address.line1}</p>
+            <span>{venue.city.name}</span>
+            <p>{venueName + ', ' + venueStateOrCountry}</p>
+            <p>Post code: {venue.postalCode}</p>
             <p>Event Start: {date}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
           </CardText>
@@ -86,28 +100,41 @@ class EventList extends Component {
     };
     return this.props.events.futureEvents.slice(1).map((event, i) => {
       const momentDate = moment(event.date).format('LLLL');
-      const momentNoDay = moment(event.date).format('LLL');
       const momentFromNow = moment(event.date).fromNow();
       const est = moment(event.date)._d;
-      const date = momentDate.toString() + ' ' + est.toString().slice(34);
       const artist = JSON.parse(event.artist_name).map((performer) => performer.name);
+      const date = momentDate.toString() + ' ' + est.toString().slice(34);
+      let image = null;
+      if(event.image){
+        image = JSON.parse(event.image)[3].url || null;
+      };
+      const venue = JSON.parse(event.venue)[0];
+      let venueName = null;
+      let venueStateOrCountry = null;
+      if (venue.state) {
+        venueName = venue.state.name;
+        venueStateOrCountry = venue.state.stateCode;
+      } else if (venue.country) {
+        venueName = venue.country.name;
+        venueStateOrCountry = venue.country.countryCode;
+      }
       return (
         <Card key={event.id} className="list-group-item" zDepth={1} style={imageDiv}>
           <CardMedia
             overlay={ <CardTitle
             title={event.name}
-            subtitle={event.city + ', ' + momentFromNow.toString()}
+            subtitle={venue.city.name + ', ' + momentFromNow.toString()}
             />}
           >
-            <img src={event.image} style={imageStyle} />
+            <img src={image} style={imageStyle} />
           </CardMedia>
           <CardText>
-            <p>Listed Acts: {artist.join(', ')}</p>
-            <p>{event.venue}</p>
-            <p>{event.venue_address}</p>
-            <span>{event.city}</span>
-            <p>{event.country}</p>
-            <p>Post code: {event.zipcode}</p>
+            <p>Listed acts: {artist.join(', ')}</p>
+            <p>{venue.name}</p>
+            <p>Location: {venue.address.line1}</p>
+            <span>{venue.city.name}</span>
+            <p>{venueName + ', ' + venueStateOrCountry}</p>
+            <p>Post code: {venue.postalCode}</p>
             <p>Event Start: {date}</p>
             <p><a href={event.event_url}>Buy Tickets</a></p>
           </CardText>
@@ -117,7 +144,7 @@ class EventList extends Component {
                 secondary
                 onClick={() => this.props.removeEvent(event.tm_id, i + 1)}
             />
-          <Link to={`/event/${id}/${event.id}`}>
+            <Link to={`/event/${id}/${event.id}`}>
               <RaisedButton label='View Event Details' secondary />
             </Link>
           </CardActions>

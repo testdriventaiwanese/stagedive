@@ -1,24 +1,24 @@
 export default function(state = { events: [], futureEvents: [], pastEvents: [] }, action) {
   console.log('ACTION TYPE IN REDUCER: ', action.type);
-  switch(action.type) {
+  switch (action.type) {
     case 'GET_USER_EVENTS':
       console.log('GET USER EVENTS PAYLOAD ', action.payload);
-      let userInfo = action.payload.config.headers.userId;
+      const userInfo = action.payload.config.headers.userId;
 
-      let events = action.payload.data.length === 0 ? [] : action.payload.data;
+      const events = action.payload.data.length === 0 ? [] : action.payload.data;
 
-      let currentDate = new Date();
-      let sortedEvents = events.sort((a, b) => {
-        let aDate = new Date(a.date.slice(0,10));
-        let bDate = new Date(b.date.slice(0,10));
+      const currentDate = new Date();
+      const sortedEvents = events.sort((a, b) => {
+        const aDate = new Date(a.date.slice(0, 10));
+        const bDate = new Date(b.date.slice(0, 10));
         return aDate - bDate;
-      })
+      });
       let futureEvents = sortedEvents.filter((event) => {
-        let eventDate = new Date(event.date.slice(0,10));
+        const eventDate = new Date(event.date.slice(0, 10));
         return eventDate > currentDate;
       });
-      let pastEvents = sortedEvents.filter((event) => {
-        let eventDate = new Date(event.date.slice(0,10));
+      const pastEvents = sortedEvents.filter((event) => {
+        const eventDate = new Date(event.date.slice(0, 10));
         return eventDate <= currentDate;
       });
 
