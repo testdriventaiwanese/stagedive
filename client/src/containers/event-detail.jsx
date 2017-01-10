@@ -17,8 +17,10 @@ import ReactDOM from 'react-dom';
 
 
 class Map extends React.Component {
-  componentWillMount() {
-    this.loadMap();
+  componentDidMount() {
+    setTimeout(() => {
+      this.loadMap();
+    }, 300)
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.google !== this.props.google) {
@@ -78,7 +80,7 @@ class Map extends React.Component {
         eventMarker.setMap(this.map)
 
         this.props.getDistanceInfo(locations)
-
+        console.log('MAPPPPPP:: ', this.map)
       })
     }
 

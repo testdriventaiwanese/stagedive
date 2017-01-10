@@ -8,6 +8,11 @@ import Paper from 'material-ui/Paper';
 
 
 class Map extends React.Component {
+  componentDidMount() {
+    setTimeout(() => {
+      this.loadMap();
+    }, 300)
+  }
   componentDidUpdate(prevProps, prevState) {
     console.log('prevState:: ', prevState);
     if (prevProps.google !== this.props.google) {
@@ -15,6 +20,11 @@ class Map extends React.Component {
     }
     console.log('prevProps:: ', prevProps);
   }
+
+  componentWillUnmount () {
+    clearTimeout(this.timeout)
+  }
+
   loadMap() {
     const { google } = this.props;
     if (this.props && this.props.google) {
