@@ -8,6 +8,7 @@ import { removeEvent, getUserEvents, refreshEventComments } from '../actions/ind
 import JournalPhoto from './journal-photo';
 import CircularProgress from 'material-ui/CircularProgress';
 import Auth from '../modules/auth';
+import LinearProgress from 'material-ui/LinearProgress';
 
 class Journal extends Component {
   componentWillMount() {
@@ -26,17 +27,22 @@ class Journal extends Component {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
+        marginTop: '10px',
       },
       gridList: {
         width: 1000,
         overflowY: 'auto',
       },
+      loadBar: {
+        width: '100%',
+        left: '0',
+      }
     };
 
-    if(this.props.userInfo.pastEvents.length === 0) {
+    if (!this.props.userInfo.pastEvents) {
       return (
-        <div align='center'>
-          <CircularProgress size={60} />
+        <div align='center' style={styles.loadBar}>
+          <LinearProgress mode="indeterminate" />
         </div>
       )
     }
@@ -50,7 +56,7 @@ class Journal extends Component {
           padding={20}
           style={styles.gridList}
         >
-        {journalPhotos}
+          {journalPhotos}
         </GridList>
       </div>
     );

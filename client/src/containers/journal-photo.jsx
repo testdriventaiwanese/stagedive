@@ -7,6 +7,10 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 
 
 class JournalPhoto extends Component {
+  componentWillMount() {
+
+  }
+
   render() {
     const { event, i, comments } = this.props;
     const id = this.props.params.userId;
@@ -19,8 +23,19 @@ class JournalPhoto extends Component {
       textAlign: 'center',
     };
     let image = null;
+    const largestPic = (imageArray) => {
+      let largest = 0;
+      let index;
+      imageArray.forEach((image, i) => {
+        if(image.width > largest) {
+          largest = image.width;
+          index = i;
+        }
+      });
+      return imageArray[index].url;
+    }
     if(event.image){
-      image = JSON.parse(event.image)[3].url || null;
+      image = largestPic(JSON.parse(event.image)) || null;
     };
     const momentDate = moment(event.date).format('LLLL');
     const momentFromNow = moment(event.date).fromNow();
