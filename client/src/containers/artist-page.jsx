@@ -4,6 +4,11 @@ import { bindActionCreators } from 'redux';
 import { hashHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Snackbar from 'material-ui/Snackbar';
 import { getArtistCalendar, removeArtist, saveArtist, searchArtists, getArtists } from '../actions/index';
 import Auth from '../modules/auth';
 
@@ -68,7 +73,7 @@ class ArtistPage extends Component {
       return <div>Artist Not Listed</div>;
     }
     const artistsArr = this.props.artists.filter((artist) => {
-      console.log('artistsarrartist:: ', artist);
+      console.log('artist in artistsArr:: ', artist);
       return artist.mbid === this.props.params.artistId;
     });
     let artist = artistsArr[0];
@@ -80,12 +85,14 @@ class ArtistPage extends Component {
     const image = this.props.artists.filter((name) => { return name.mbid === this.props.params.artistId }).map((img) => {return img.image});
     console.log('image:: ', image)
 
-    const musician = this.props.artistCalendar.data.resultsPage.results.event[0].performance.map((performer) => { return performer.artist}).map((id) => {return {name: id.displayName, mbid: !id.identifier[0] ? null : id.identifier[0].mbid } }).filter((mb, i)=> { if(mb.mbid === this.props.params.artistId) {return mb.name}});
+    const musician = !this.props.artistCalendar.data.results ? '' : this.props.artistCalendar.data.resultsPage.results.event[0].performance.map((performer) => { return performer.artist}).map((id) => {return {name: id.displayName, mbid: !id.identifier[0] ? null : id.identifier[0].mbid } }).filter((mb, i)=> { if(mb.mbid === this.props.params.artistId) {return mb.name}});
     console.log('musician:: ',musician);
-    const realName = !musician[0] ? '' : musician[0].name;
+    const realName = !musician[0] ? artist.name : musician[0].name;
+    const musicId = !musician[0] ? artist.mbid : musician[0].mbid;
     console.log('ARTIST NAME:: ', realName);
     artist = {
       name: realName,
+      mbid: musicId,
       picture: !image[0] ? this.props.artistImage.bandsintown.data.image_url : image[0],
     }
 
@@ -131,8 +138,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getArtistCalendar, removeArtist, searchArtists, getArtists }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ArtistPage);
+export default connect(mapStateToProps, { getArtistCalendar, removeArtist, searchArtists, getArtists })(ArtistPage);

@@ -129,6 +129,7 @@ module.exports = {
     };
   },
   removeArtist(artist_mbid, i) {
+    console.log('artist_mbid:: ', artist_mbid)
     const resultObj = {
       artist_mbid,
     };
