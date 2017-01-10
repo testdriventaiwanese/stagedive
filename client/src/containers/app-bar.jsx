@@ -49,11 +49,22 @@ class NavBar extends Component {
 
   render() {
     const id = localStorage.getItem('id');
+    const appBarStyle = {
+      // display: 'flex',
+      // flexDirection: 'row',
+      backgroundColor: 'white',
+
+    }
+    const searchBarStyle = {
+      marginRight: '34%',
+    }
     return (
       <div>
         {Auth.isUserAuthenticated() ? (
           <Drawer
-            open={this.state.open}>
+            docked={false}
+            open={this.state.open}
+            onRequestChange={(open) => this.setState({open})}>
             <MenuItem onTouchTap={this.handleLeftNavToggle}>Back</MenuItem>
             <Link to={"/"} style={{ color: 'black' }}><MenuItem>Home</MenuItem></Link>
             <Link to={"account"} style={{ color: 'black' }}><MenuItem>My Account</MenuItem></Link>
@@ -64,43 +75,44 @@ class NavBar extends Component {
           </Drawer>
         ) : (
           <Drawer
+            docked={false}
             open={this.state.open}
-            style={{ backgroundColor: '#424242' }}>
+            onRequestChange={(open) => this.setState({open})}>
             <MenuItem onTouchTap={this.handleLeftNavToggle}>Back</MenuItem>
             <Link to={"login"} style={{ color: 'black' }}><MenuItem>Log In</MenuItem></Link>
             <Link to={"signup"} style={{ color: 'black' }}><MenuItem>Sign up</MenuItem></Link>
           </Drawer>
         )}
-
-        <AppBar
-          title="ConcertWallet"
-          style={{backgroundColor: 'white'}}
-          titleStyle={{color: 'black'}}
-          onLeftIconButtonTouchTap={this.handleLeftNavToggle}
-        >
-
-        <SearchBar />
-          {Auth.isUserAuthenticated() ?
-            //If logged in, show logout button
-            <div>
-              <IconMenu
-                iconButtonElement={<IconButton><AccountMenu /></IconButton>}
-                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-                targetOrigin={{horizontal: 'right', vertical: 'top'}}
-              >
-              <Link to={"account"} style={{ color: 'black' }}>
-                <MenuItem primaryText="My Account" />
-              </Link>
-                <MenuItem onClick={this.onClickLogout} primaryText="Sign out" />
-              </IconMenu>
-            </div> :
-            //If not logged in, show login/signup
-            <div>
-              <FlatButton onClick={this.onClickLogin} label="Login" style={{ color: 'black' }} />
-              <FlatButton onClick={this.onClickSignup} label="Signup" style={{ color: 'black' }} />
+          <AppBar
+            title="ConcertWallet"
+            style={appBarStyle}
+            titleStyle={{color: 'black'}}
+            onLeftIconButtonTouchTap={this.handleLeftNavToggle}
+            >
+            <div style={searchBarStyle}>
+              <SearchBar />
             </div>
-          }
-      </AppBar>
+            {Auth.isUserAuthenticated() ?
+              //If logged in, show logout button
+              <div>
+                <IconMenu
+                  iconButtonElement={<IconButton><AccountMenu /></IconButton>}
+                  anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                  targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                  >
+                  <Link to={"account"} style={{ color: 'black' }}>
+                    <MenuItem primaryText="My Account" />
+                  </Link>
+                  <MenuItem onClick={this.onClickLogout} primaryText="Sign out" />
+                </IconMenu>
+              </div> :
+              //If not logged in, show login/signup
+              <div>
+                <FlatButton onClick={this.onClickLogin} label="Login" style={{ color: 'black' }} />
+                <FlatButton onClick={this.onClickSignup} label="Signup" style={{ color: 'black' }} />
+              </div>
+            }
+          </AppBar>
       </div>
     );
   }

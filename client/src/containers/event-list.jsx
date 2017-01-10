@@ -103,7 +103,6 @@ class EventList extends Component {
             <img src={event.image} style={imageStyle} />
           </CardMedia>
           <CardText>
-            <p><strong>{event.name}</strong></p>
             <p>Listed Acts: {artist.join(', ')}</p>
             <p>{event.venue}</p>
             <p>{event.venue_address}</p>
@@ -131,7 +130,6 @@ class EventList extends Component {
     return (
       <div>
         <div>{this.renderUpcoming()}</div>
-        <h1>Events Feed</h1>
         <div className="list-group col-sm-16">
           {this.renderList()}
         </div>

@@ -52,7 +52,7 @@ class Comments extends Component {
           <div key={comment.id} style={{ margin: "0px 0px 0px 15px" }}>
             <div>
               <IconButton onClick={() => this.props.removeEventComment(comment)}
-                style={{ float: 'right', height: '0px' }}
+                style={{ float: 'right', height: '0px', position: 'relative' }}
               ><NavigationClose /></IconButton>
             </div>
             <div>
