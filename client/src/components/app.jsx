@@ -10,15 +10,9 @@ injectTapEventPlugin();
 export default class App extends Component {
 
   render() {
-    let background = {
-      background: '#FAFAFA',
-      top: '0',
-      left: '0',
-      right: '0',
-    }
     return (
       <MuiThemeProvider>
-        <div style={background}>
+        <div>
           <div>
             <AppBar />
             {this.props.children}
