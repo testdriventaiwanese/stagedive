@@ -59,9 +59,13 @@ class JournalSingle extends Component {
       pastEvents = this.props.userInfo.pastEvents;
       const i = pastEvents.findIndex((event) => event.id === Number(this.props.params.eventId));
       let event = pastEvents[i];
-      let date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
-      let time = event.date.slice(11, 16);
-      let userId = this.props.userInfo.userInfo;
+      const date = event.date.slice(5, 10) + '-' + event.date.slice(0, 4);
+      const time = event.date.slice(11, 16);
+      const userId = this.props.userInfo.userInfo;
+      let image = null;
+      if(event.image){
+        image = JSON.parse(event.image)[3].url || null;
+      };
       let imageDiv = {
         width: '60%',
         float: 'left',
@@ -69,14 +73,13 @@ class JournalSingle extends Component {
       let imageStyle = {
         width: '100%',
       };
-      console.log('GET EVENT COMMENTS IN JOURNAL SINGLE: ', this.props.comments);
       return (
         <div>
           <h1>Concert Journal</h1>
           <ul className="list-group col-sm-16">
-            <Paper style={imageDiv} zDepth={2}>
+            <Paper style={imageDiv} zDepth={1}>
               <div key={event.id} style={imageStyle}>
-                <img src={event.image} style={imageStyle} />
+                <img src={image} style={imageStyle} />
                 <span><strong>{event.name}</strong></span>
                 <p>Date: {date}</p>
               </div>
