@@ -5,6 +5,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import CircularProgress from 'material-ui/CircularProgress';
 import Avatar from 'material-ui/Avatar';
 import moment from 'moment';
+import LinearProgress from 'material-ui/LinearProgress';
 
 
 import { getFriendsEvents } from '../actions/index';
@@ -35,13 +36,22 @@ class FriendsEventList extends Component {
       });
       return imageArray[index].url;
     }
-
     if (!this.props.events.futureEvents) {
       return (
-        <div align='center'>
-          <CircularProgress size={60} />
+        <div>
+          <LinearProgress mode="indeterminate" />
         </div>
       );
+    }
+    if(this.props.events.futureEvents.length === 0) {
+      return (
+        <Card className="list-group-item" zDepth={1}>
+          <CardText>
+            <span>No upcoming events</span>
+            <br />
+          </CardText>
+        </Card>  
+      )
     }
     const userInfo = this.props.events.userInfo;
     const friendsEvents = this.props.events.friendsEvents;

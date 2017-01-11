@@ -1,7 +1,6 @@
-export default function (state = [], action) {
+export default function (state = { events: null, friendsEvents: null, futureEvents: null, userInfo: null }, action) {
   switch (action.type) {
     case 'FRIENDS_EVENTS':
-    console.log('THIS IS THE GET FRIENDS EVENTS REDUCER: ', action.payload);
       let userInfo = action.payload.data.userNames;
       let friendsEvents = action.payload.data.friendEvents;
       let events = action.payload.data.events.length === 0 ? [] : action.payload.data.events;

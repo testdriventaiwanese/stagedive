@@ -2,6 +2,7 @@ export default function(state = { events: null, futureEvents: null, pastEvents: 
   switch (action.type) {
     case 'GET_USER_EVENTS':
       const userInfo = action.payload.config.headers.userId;
+      const userObj = action.payload.config.headers.userInfo;
       const events = action.payload.data.length === 0 ? [] : action.payload.data;
 
       const currentDate = new Date();
@@ -24,6 +25,7 @@ export default function(state = { events: null, futureEvents: null, pastEvents: 
         futureEvents,
         pastEvents,
         userInfo,
+        userObj,
       }
     case 'REMOVE_EVENT':
       futureEvents = [
