@@ -5,14 +5,18 @@ import { hashHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-
+import Avatar from 'material-ui/Avatar';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Snackbar from 'material-ui/Snackbar';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import { getArtistCalendar, removeArtist, saveArtist, searchArtists, getArtists } from '../actions/index';
 import Auth from '../modules/auth';
+import FlatButton from 'material-ui/FlatButton';
+import moment from 'moment'
 
 class ArtistPage extends Component {
   constructor(props) {
@@ -51,6 +55,13 @@ class ArtistPage extends Component {
   }
 
   renderCalendar() {
+    let innerEvents = {
+      padding: '10px',
+    }
+    let eventDetails = {
+      fontSize: '10pt',
+      marginLeft: '15px',
+    }
     if(!this.props.artistCalendar.data){
       return(
         <Paper>
@@ -62,14 +73,22 @@ class ArtistPage extends Component {
     }
 
     let events = this.props.artistCalendar.data.resultsPage.results.event || [];
+
     return events.map((event) => {
+      const momentDate = moment(event.start.date).format('LL');
+      const est = moment(event.date)._d;
+      const date = momentDate.toString() + ' ' + est.toString().slice(39);
+      const time = moment(event.start.time, 'HH:mm:ss').format('h:mm A')
+
       return(
-        <Card key={event.id}>
-          <div>
-            <div>{event.displayName}</div>
-            <div>{event.location.city}</div>
-            <div>{event.start.date}</div>
-            <div>{event.start.time}</div>
+        <Card key={event.id} >
+          <div style={innerEvents}>
+            <div><strong>{event.displayName}</strong></div>
+            <div style={eventDetails}>
+              <div>{event.location.city}</div>
+              <div>{date}</div>
+              <div>{time}</div>
+            </div>
           </div>
 
         </Card>
@@ -77,22 +96,47 @@ class ArtistPage extends Component {
     })
   }
   renderArtist() {
-    let avatarStyle = {
+
+
+    let artistStyle = {
       width: '35%',
       float: 'left',
-      height: '248px',
       margin: '10px',
-      position: 'fixed',
     };
+    let avatarStyle = {
+      height: '350px',
+      width: '350px',
+      marginLeft: '15px',
+      marginRight: '10px',
+      marginTop: '10px',
+      marginBottom: '10px',
+    }
     let calendarStyle = {
       float: 'right',
-      width: '45%',
+      width: '60%',
+      height: '1100px',
+      overflow: 'scroll',
+    }
+    let calTitle = {
+      marginLeft: '375px',
+      marginTop: '20px',
     }
     let imageStyle = {
-      width: '100%',
+      width: '90%',
+      marginLeft: '19px',
+      marginRight: '10px',
+      marginTop: '15px',
+      marginBottom: '10px',
+      borderRadius: '5px',
     };
     let menuStyle = {
       height: '0%',
+      float: 'right',
+    }
+    let artistTextStyle = {
+      margin: '10px'
+    }
+    let flatButtonStyle = {
       float: 'right',
     }
     if (!this.props.artists) {
@@ -151,11 +195,11 @@ class ArtistPage extends Component {
     let artist = {
       name: artistsArr[0].name,
       facebook: artistsArr[0].facebook,
-      upcomingEvents: artistsArr[0].upcomingEvents,
+      upcomingEvents: !artistsArr[0].upcomingEvents ? artistsArr[0].upcoming_events : artistsArr[0].upcomingEvents,
       image: artistsArr[0].image,
     };
 
-    console.log('3 artistsArr[0]', artistsArr[0])
+    console.log('3 artistsArr[0]', artistsArr[0].upcoming_events)
 
     console.log('artist:: ', artist)
     if(!this.props.artistCalendar.data) {
@@ -166,40 +210,30 @@ class ArtistPage extends Component {
 
     return (
       <div>
-      <Card>
-        <div style={avatarStyle}>
+      <Card style={artistStyle}>
+        <div>
             <img src={artist.image} style={imageStyle}></img>
-            <h1>{artist.name}</h1>
+            <div style={artistTextStyle}>
+            <h1><strong>{artist.name}</strong></h1>
             <p>Upcoming: {artist.upcomingEvents}</p>
             <p><a href={artist.facebook}>Facebook</a></p>
+              <div style={flatButtonStyle}>
+                <FlatButton onClick={() => this.props.saveArtist(bandsintown, songkick)}>Follow</FlatButton>
+                <FlatButton onClick={() => this.props.removeArtist(this.props.params.artistId, 0)}> Unfollow</FlatButton>
+              </div>
+            </div>
         </div>
       </Card>
-        <CardActions>
-          <IconMenu
-            style={menuStyle}
-            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-          >
-            <MenuItem
-              primaryText="Unfollow"
-              secondary
-              onTouchTap={this.handleTouchTap}
-              onClick={() => this.props.removeArtist(artist.mbid, 0)}
-              />
-          </IconMenu>
-        </CardActions>
-        <div style={calendarStyle}>
-          <h5><strong>Calendar</strong></h5>
-          <div className="list-group col-sm-16">{this.renderCalendar()}</div>
+        <div>
+          <div style={calTitle}>
+          <h1><strong>Calendar</strong></h1>
+          </div>
+          <div className="list-group col-sm-16" style={calendarStyle}>{this.renderCalendar()}</div>
         </div>
       </div>
     )
   }
   render() {
-    // console.log('render this.props.artists::: ', this.props.artists )
-    // console.log('render this.props.artistSearch:: ', this.props.artistSearch)
-    // console.log('render')
     return (
       <div>
         <ul className="list-group col-sm-16">
