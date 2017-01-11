@@ -77,12 +77,17 @@ class ArtistPage extends Component {
     })
   }
   renderArtist() {
-    let imageDiv = {
+    let avatarStyle = {
       width: '35%',
       float: 'left',
       height: '248px',
       margin: '10px',
+      position: 'fixed',
     };
+    let calendarStyle = {
+      float: 'right',
+      width: '45%',
+    }
     let imageStyle = {
       width: '100%',
     };
@@ -119,21 +124,21 @@ class ArtistPage extends Component {
     }
     console.log('2 artistsArr[0]:: ', artistsArr[0]);
     console.log('!!!!!!  !!!!!! !!!!! artistSearch:: ', this.props.artistSearch)
-    artistsArr.push({
-        name: this.props.artistSearch.bandsintown.data.name,
-        facebook: this.props.artistSearch.bandsintown.data.facebook_page_url,
-        upcomingEvents: this.props.artistSearch.bandsintown.data.upcoming_event_count,
-        image: this.props.artistSearch.bandsintown.data.image_url,
-      })
-      console.log('3 artistsArr[0]', artistsArr[0])
-
-    if(this.props.params.artistId === this.props.artistSearch.songkick.data.resultsPage.results.artist[0].identifier[0].mbid) {
-      artistArr.push({
-        name: this.props.artistSearch.bandsintown.data.name,
-        facebook: this.props.artistSearch.bandsintown.data.facebook_page_url,
-        upcomingEvents: this.props.artistSearch.bandsintown.data.upcoming_events,
-        image: this.props.artistSearch.bandsintown.data.image_url,
-      });
+    if(this.props.artistSearch.bandsintown) {
+      artistsArr.push({
+          name: this.props.artistSearch.bandsintown.data.name,
+          facebook: this.props.artistSearch.bandsintown.data.facebook_page_url,
+          upcomingEvents: this.props.artistSearch.bandsintown.data.upcoming_event_count,
+          image: this.props.artistSearch.bandsintown.data.image_url,
+        })
+      if(this.props.params.artistId === this.props.artistSearch.songkick.data.resultsPage.results.artist[0].identifier[0].mbid) {
+        artistsArr.push({
+          name: this.props.artistSearch.bandsintown.data.name,
+          facebook: this.props.artistSearch.bandsintown.data.facebook_page_url,
+          upcomingEvents: this.props.artistSearch.bandsintown.data.upcoming_events,
+          image: this.props.artistSearch.bandsintown.data.image_url,
+        });
+      }
     }
     console.log('4 artistsArr[0]', artistsArr[0])
 
@@ -159,6 +164,7 @@ class ArtistPage extends Component {
       )
     }
 
+<<<<<<< HEAD
 
 
     // let musician = !this.props.artistCalendar.data.results ? '' : this.props.artistCalendar.data.resultsPage.results.event[0].performance.map((performer) => { return performer.artist}).map((id) => {return {name: id.displayName, mbid: !id.identifier[0] ? null : id.identifier[0].mbid } }).filter((mb, i)=> { if(mb.mbid === this.props.params.artistId) {return mb.name}});
@@ -192,6 +198,12 @@ class ArtistPage extends Component {
       <div>
       <Card>
         <div style={imageDiv}>
+=======
+    return (
+      <div>
+      <Card>
+        <div style={avatarStyle}>
+>>>>>>> artistPage
             <img src={artist.image} style={imageStyle}></img>
             <h1>{artist.name}</h1>
             <p>Upcoming: {artist.upcomingEvents}</p>
@@ -213,7 +225,7 @@ class ArtistPage extends Component {
               />
           </IconMenu>
         </CardActions>
-        <div>
+        <div style={calendarStyle}>
           <h5><strong>Calendar</strong></h5>
           <div className="list-group col-sm-16">{this.renderCalendar()}</div>
         </div>
