@@ -28,450 +28,472 @@ export const REMOVE_EVENT_COMMENT = 'REMOVE_EVENT_COMMENT';
 export const REFRESH_EVENT_COMMENTS = 'REFRESH_EVENT_COMMENTS';
 export const GET_DISTANCE_INFO = 'GET_DISTANCE_INFO';
 
-module.exports = {
-  searchEvents(query) {
-    const config = {
-      headers: {
-        authHeader: localStorage.getItem('token'),
-        tmquery: query,
-      },
+export function searchEvents(query) {
+  const config = {
+    headers: {
+      authHeader: localStorage.getItem('token'),
+      tmquery: query,
+    },
+  };
+  const tmRequest = axios.get('/api/ticketmaster/searchticketmaster', config);
+  return {
+    type: SEARCH_EVENTS,
+    payload: tmRequest,
+  };
+}
+
+export function saveEvent(event) {
+  let eventObj;
+  if (!event._embedded) {
+    eventObj = {
+      tm_id: event.id || null,
+      name: event.name || null,
+      date: event.dates.start.dateTime || null,
+      event_url: event.url || null,
+      sale_date: JSON.stringify(event.sales.public) || null,
     };
-    const tmRequest = axios.get('/api/ticketmaster/searchticketmaster', config);
-    return {
-      type: SEARCH_EVENTS,
-      payload: tmRequest,
-    };
-  },
-  saveEvent(event) {
-    let eventObj;
-    if (!event._embedded) {
-      eventObj = {
-        tm_id: event.id || null,
-        name: event.name || null,
-        date: event.dates.start.dateTime || null,
-        event_url: event.url || null,
-        sale_date: JSON.stringify(event.sales.public) || null,
-      };
-    } else {
-      let latitude = null;
-      let longitude = null;
-      if (event._embedded.venues[0].location) {
-        latitude = event._embedded.venues[0].location.latitude || null;
-        longitude = event._embedded.venues[0].location.longitude || null;
-      }
-      eventObj = {
-        tm_id: event.id || null,
-        name: event.name || null,
-        artist_name: JSON.stringify(event._embedded.attractions) || null,
-        date: event.dates.start.dateTime || null,
-        event_url: event.url || null,
-        venue: JSON.stringify(event._embedded.venues) || null,
-        image: JSON.stringify(event._embedded.attractions[0].images) || null,
-        genre: JSON.stringify(event.classifications[0]) || null,
-        latitude: latitude,
-        longitude: longitude,
-        sale_date: JSON.stringify(event.sales) || null,
-      };
+  } else {
+    let latitude = null;
+    let longitude = null;
+    if (event._embedded.venues[0].location) {
+      latitude = event._embedded.venues[0].location.latitude || null;
+      longitude = event._embedded.venues[0].location.longitude || null;
     }
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
+    eventObj = {
+      tm_id: event.id || null,
+      name: event.name || null,
+      artist_name: JSON.stringify(event._embedded.attractions) || null,
+      date: event.dates.start.dateTime || null,
+      event_url: event.url || null,
+      venue: JSON.stringify(event._embedded.venues) || null,
+      image: JSON.stringify(event._embedded.attractions[0].images) || null,
+      genre: JSON.stringify(event.classifications[0]) || null,
+      latitude: latitude,
+      longitude: longitude,
+      sale_date: JSON.stringify(event.sales) || null,
     };
-    axios.post('/api/events/addevent', eventObj, config)
+  }
+  const config = {
+    headers: { authHeader: localStorage.getItem('token') },
+  };
+  axios.post('/api/events/addevent', eventObj, config)
+  .then(() => {
+    hashHistory.push('/');
+  });
+  return {
+    type: SAVE_EVENT,
+    payload: eventObj,
+  };
+}
+
+export function saveArtist(bandsintown, songkick) {
+  const artistObj = {
+    mbid: songkick.identifier[0].mbid,
+    name: songkick.displayName,
+    image: bandsintown.image_url,
+    events: songkick.uri,
+    facebook: bandsintown.facebook_page_url,
+    onTourUntil: songkick.onTourUntil,
+    upcoming_events: bandsintown.upcoming_event_count,
+  };
+  const config = {
+    headers: { authHeader: localStorage.getItem('token') },
+  };
+  axios.post('/api/artists/addartist', artistObj, config)
     .then(() => {
       hashHistory.push('/');
     });
-    return {
-      type: SAVE_EVENT,
-      payload: eventObj,
-    };
-  },
-  saveArtist(bandsintown, songkick) {
-    const artistObj = {
-      mbid: songkick.identifier[0].mbid,
-      name: songkick.displayName,
-      image: bandsintown.image_url,
-      events: songkick.uri,
-      facebook: bandsintown.facebook_page_url,
-      onTourUntil: songkick.onTourUntil,
-      upcoming_events: bandsintown.upcoming_event_count,
-    };
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    axios.post('/api/artists/addartist', artistObj, config)
-      .then(() => {
-        hashHistory.push('/');
-      });
-    return {
-      type: SAVE_ARTIST,
-      payload: artistObj,
-    };
-  },
-  removeEvent(tm_id, i) {
-    const resultObj = {
-      tm_id,
-    };
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    axios.post('/api/events/deleteevent', resultObj, config)
-      .then(() => {
-        hashHistory.replace('/');
-      });
-    return {
-      type: REMOVE_EVENT,
-      tm_id,
-      i,
-    };
-  },
-  removeArtist(artist_mbid, i) {
-    console.log('artist_mbid:: ', artist_mbid)
-    const resultObj = {
-      artist_mbid,
-    };
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    axios.post('/api/artists/deleteartist', resultObj, config)
-      .then(() => {
-        hashHistory.replace('/');
-      });
-    return {
-      type: REMOVE_ARTIST,
-      artist_mbid,
-      i,
-    };
-  },
-  getFriendsEvents() {
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    const request = axios.get('/api/events/getfriendsevents', config)
-    console.log('get FREINDS EVENTS CALLED')
-    return {
-      type: FRIENDS_EVENTS,
-      payload: request,
-    };
-  },
-  getUserInfo() {
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    const request = axios.get('/api/users/getinfo', config)
-      .catch(() => {
-        return { data: [] };
-      });
-    return {
-      type: GET_USERINFO,
-      payload: request,
-    };
-  },
-  getFriends() {
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    const getFriendsRequest = axios.get('/api/users/getfriends', config)
-      .catch(() => {
-        return { data: [] };
-      });
-    return {
-      type: GET_FRIENDS,
-      payload: getFriendsRequest,
-    };
-  },
-  getOtherFriends({ id }) {
-    const config = {
-      headers: {
-        authHeader: localStorage.getItem('token'),
-        id,
-      },
-    };
-    const getOtherFriendsRequest = axios.get('/api/users/getotherfriends', config)
-      .catch(() => {
-        return { data: [] };
-      });
-    return {
-      type: GET_OTHER_FRIENDS,
-      payload: getOtherFriendsRequest,
-    };
-  },
-  getArtists() {
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    const request = axios.get('/api/artists/getall', config)
-      .catch(() => {
-        return { data: [] };
-      });
-    return {
-      type: GET_ARTISTS,
-      payload: request,
-    };
-  },
-  searchUsers(userQuery) {
-    const userQueryObj = {
-      query: userQuery,
-    };
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    const searchUserResult = axios.post('/api/users/finduser', userQueryObj, config)
-      .catch(() => { data: [] } );
-    return {
-      type: SEARCH_USERS,
-      payload: searchUserResult,
-    };
-  },
-  addFollower(userId) {
-    const addFollowObj = {
-      userId,
-    };
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    const addFollowerResult = axios.post('/api/users/addfollow', addFollowObj, config)
-      .then(() => {
-        hashHistory.push('/');
-      })
-      .catch(() => {
-        return { data: [] };
-      });
-  },
-  unfollow(userId, index) {
-    const unfollowObj = {
-      userId,
-    };
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    const unfollowResult = axios.post('/api/users/unfollow', unfollowObj, config);
-    return {
-      type: 'UNFOLLOW',
-      userId,
-      index,
-    }
-  },
-  signUp(result) {
-    const resultObj = {
-      email: result.email,
-      password: result.password,
-      fullname: result.name,
-    };
-    axios.post('/auth/signup', resultObj);
-    return {
-      type: SIGN_UP,
-      payload: resultObj,
-    }
-  },
-  logIn(result) {
-    const resultObj = {
-      email: result.email,
-      password: result.password,
-    };
-    axios.post('/auth/login', resultObj)
-      .then((res) => {
-        if(res.data.success){
-          localStorage.setItem('token', res.data.token);
-          localStorage.setItem('id', res.data.userId);
-          hashHistory.push('/');
-        }
-        console.log('index.js response from login: ', res);
-      });
+  return {
+    type: SAVE_ARTIST,
+    payload: artistObj,
+  };
+}
 
-    return {
-      type: LOG_IN,
-      payload: resultObj,
-    };
-  },
-  searchArtists(query) {
-    const artistConfig = {
-      headers: {
-        authHeader: localStorage.getItem('token'),
-        artist: query,
-      },
-    };
-    const bandsintownArtistSearch = () => axios.get('/api/bandsintown/getartist', artistConfig);
-    const songkickArtistSearch = () => axios.get('/api/songkick/getartist', artistConfig);
-    return {
-      type: SEARCH_ARTISTS,
-      payload: axios.all([bandsintownArtistSearch(), songkickArtistSearch()])
-      .then(axios.spread((bandsintown, songkick) => {
-        return { bandsintown, songkick };
-      }))
-      .catch(() => {
-        return { bandsintown: [], songkick: [] };
-      }),
-    };
-  },
-  searchNearby(google, map, request) {
-    return new Promise((resolve, reject) => {
-      const service = new google.maps.places.PlacesService(map);
-
-      service.nearbySearch(request, (results, status, pagination) => {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          resolve(results, pagination);
-        } else {
-          reject(results, status);
-        }
-      });
+export function removeEvent(tm_id, i) {
+  const resultObj = {
+    tm_id,
+  };
+  const config = {
+    headers: { authHeader: localStorage.getItem('token') },
+  };
+  axios.post('/api/events/deleteevent', resultObj, config)
+    .then(() => {
+      hashHistory.replace('/');
     });
-  },
-  getUserEvents(user) {
-    const userEventsConfig = {
-      headers: {
-        authHeader: localStorage.getItem('token'),
-        userId: user.id,
-        userInfo: user,
-      },
-    };
-    const request = axios.get('/api/events/getuserevents', userEventsConfig)
-    return {
-      type: GET_USER_EVENTS,
-      payload: request,
-    }
-  },
-  getArtistCalendar(artist) {
-    const getArtistConfig = {
-      headers: {
-        authHeader: localStorage.getItem('token'),
-        mbid: artist.mbid,
-      }
-    };
-    const request = axios.get('/api/songkick/getartistcalendar', getArtistConfig)
-      .catch(() => {
-        return { data: [] };
-      });
-    return {
-      type: GET_ARTIST_CALENDAR,
-      payload: request,
-    };
-  },
-  addEventComment(eventId, userId, friendId, text) {
-    let commentObj = {
-      id_event: eventId,
-      userId,
-      friendId,
-      text,
-    }
-    const addEventCommentConfig = {
-      headers: {
-        authheader: localStorage.getItem('token'),
-        eventId,
-        userId,
-      },
-    };
+  return {
+    type: REMOVE_EVENT,
+    tm_id,
+    i,
+  };
+}
 
-    const request = axios.post('/api/comments/addcomment', commentObj, addEventCommentConfig);
+export function removeArtist(artist_mbid, i) {
+  console.log('artist_mbid:: ', artist_mbid)
+  const resultObj = {
+    artist_mbid,
+  };
+  const config = {
+    headers: { authHeader: localStorage.getItem('token') },
+  };
+  axios.post('/api/artists/deleteartist', resultObj, config)
+    .then(() => {
+      hashHistory.replace('/');
+    });
+  return {
+    type: REMOVE_ARTIST,
+    artist_mbid,
+    i,
+  };
+}
 
-    //   .then(() => axios.get('/api/comments/getcomments', addEventCommentConfig));
+export function getFriendsEvents() {
+  const config = {
+    headers: { authHeader: localStorage.getItem('token') },
+  };
+  const request = axios.get('/api/events/getfriendsevents', config)
+    .catch(() => {
+      return { data: [] };
+    });
+  return {
+    type: FRIENDS_EVENTS,
+    payload: request,
+  };
+}
 
-    return {
-      type: ADD_EVENT_COMMENT,
-      payload: request,
-    }
-  },
-  getEventComments(userId, eventId) {
-    const getEventCommentsConfig = {
-      headers: {
-        authheader: localStorage.getItem('token'),
-        eventId,
-        userId,
-      },
-    };
-    const request = axios.get('/api/comments/getcomments', getEventCommentsConfig);
-    return {
-      type: GET_EVENT_COMMENTS,
-      payload: request,
-    }
-  },
-  removeEventComment(comment) {
-    const commentObj = {
-      commentId: comment.id,
-    };
-    const removeEventCommentConfig = {
-      headers: {
-        authheader: localStorage.getItem('token'),
-        eventId: comment.id_event,
-        userId: comment.id_friend,
-      },
-    };
-    const request = axios.post('/api/comments/removecomment', commentObj, removeEventCommentConfig);
+export function getUserInfo() {
+  const config = {
+    headers: { authHeader: localStorage.getItem('token') },
+  };
+  const request = axios.get('/api/users/getinfo', config)
+    .catch(() => {
+      return { data: [] };
+    });
+  return {
+    type: GET_USERINFO,
+    payload: request,
+  };
+}
 
-    return {
-      type: REMOVE_EVENT_COMMENT,
-      payload: commentObj,
-    }
-  },
-  refreshEventComments() {
-    const obj = { comments: [], posterInfo: [] }
-    return {
-      type: REFRESH_EVENT_COMMENTS,
-      payload: obj,
-    };
-  },
-  getLocation(query) {
-    const config = {
-      headers: {
-        authHeader: localStorage.getItem('token'),
-        latitude: query.latitude,
-        longitude: query.longitude,
-      }
-    }
-    return axios.get('/api/songkick/getlocation', config)
-      .then((res) => {
-        const metroId = res.data.resultsPage.results.location[0].metroArea.id
-        return {
-          type: metroId
-        };
-      });
+export function getFriends() {
+  const config = {
+    headers: { authHeader: localStorage.getItem('token') },
+  };
+  const getFriendsRequest = axios.get('/api/users/getfriends', config)
+    .catch(() => {
+      return { data: [] };
+    });
+  return {
+    type: GET_FRIENDS,
+    payload: getFriendsRequest,
+  };
+}
+
+export function getOtherFriends({ id }) {
+  const config = {
+    headers: {
+      authHeader: localStorage.getItem('token'),
+      id,
     },
-  getLocalEvents(id) {
-    const config = {
-      headers: {
-        authHeader: localStorage.getItem('token'),
-        id,
-      }
-    }
-    const request = axios.get('/api/songkick/getlocalevents', config)
-    .then((res) => {
-      return {
-        resultsPage: res.data.resultsPage.results.event,
-      }
+  };
+  const getOtherFriendsRequest = axios.get('/api/users/getotherfriends', config)
+    .catch(() => {
+      return { data: [] };
     });
+  return {
+    type: GET_OTHER_FRIENDS,
+    payload: getOtherFriendsRequest,
+  };
+}
 
-    return {
-      type: GET_LOCAL_EVENTS,
-      payload: request,
-    }
-  },
-  showLocalEvents(concerts) {
-    return {
-      type: SHOW_LOCAL_EVENTS,
-      payload: concerts,
-    }
-  },
-  getDistanceInfo(locations) {
-    const mapCoords = {
-          originLatitude: locations[0][0],
-          originLongitude: locations[0][1],
-          destinationLatitude: locations[1][0],
-          destinationLongitude: locations[1][1],
-    }
-    const config = {
-      headers: {
-        authHeader: localStorage.getItem('token'),
-      }
-    }
-    const request = axios.post('/api/distance/getdistanceinfo', mapCoords, config)
+export function getArtists() {
+  const config = {
+    headers: { authHeader: localStorage.getItem('token') },
+  };
+  const request = axios.get('/api/artists/getall', config)
+    .catch(() => {
+      return { data: [] };
+    });
+  return {
+    type: GET_ARTISTS,
+    payload: request,
+  };
+}
+
+export function searchUsers(userQuery) {
+  const userQueryObj = {
+    query: userQuery,
+  };
+  const config = {
+    headers: { authHeader: localStorage.getItem('token') },
+  };
+  const searchUserResult = axios.post('/api/users/finduser', userQueryObj, config)
+    .catch(() => { data: [] } );
+  return {
+    type: SEARCH_USERS,
+    payload: searchUserResult,
+  };
+}
+
+export function addFollower(userId) {
+  const addFollowObj = {
+    userId,
+  };
+  const config = {
+    headers: { authHeader: localStorage.getItem('token') },
+  };
+  axios.post('/api/users/addfollow', addFollowObj, config)
+    .then(() => {
+      hashHistory.push('/');
+    })
+    .catch(() => {
+      return { data: [] };
+    });
+}
+
+export function unfollow(userId, index) {
+  const unfollowObj = {
+    userId,
+  };
+  const config = {
+    headers: { authHeader: localStorage.getItem('token') },
+  };
+  axios.post('/api/users/unfollow', unfollowObj, config);
+  return {
+    type: 'UNFOLLOW',
+    userId,
+    index,
+  };
+}
+
+export function signUp(result) {
+  const resultObj = {
+    email: result.email,
+    password: result.password,
+    fullname: result.name,
+  };
+  axios.post('/auth/signup', resultObj)
     .then((res) => {
-      return {
-        distance: res.data.rows[0].elements[0].distance.text,
-        duration: res.data.rows[0].elements[0].duration.text,
+      if(res.data.success){
+        hashHistory.push('/login');
       }
     });
-    return {
-      type: GET_DISTANCE_INFO,
-      payload: request,
+  return {
+    type: SIGN_UP,
+    payload: resultObj,
+  }
+}
+
+export function logIn(result) {
+  const resultObj = {
+    email: result.email,
+    password: result.password,
+  };
+  axios.post('/auth/login', resultObj)
+    .then((res) => {
+      if(res.data.success){
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('id', res.data.userId);
+        hashHistory.push('/');
+      }
+    });
+  return {
+    type: LOG_IN,
+    payload: resultObj,
+  };
+}
+
+export function searchArtists(query) {
+  const artistConfig = {
+    headers: {
+      authHeader: localStorage.getItem('token'),
+      artist: query,
+    },
+  };
+  const bandsintownArtistSearch = () => axios.get('/api/bandsintown/getartist', artistConfig);
+  const songkickArtistSearch = () => axios.get('/api/songkick/getartist', artistConfig);
+  return {
+    type: SEARCH_ARTISTS,
+    payload: axios.all([bandsintownArtistSearch(), songkickArtistSearch()])
+    .then(axios.spread((bandsintown, songkick) => {
+      return { bandsintown, songkick };
+    }))
+    .catch(() => {
+      return { bandsintown: [], songkick: [] };
+    }),
+  };
+}
+
+export function searchNearby(google, map, request) {
+  return new Promise((resolve, reject) => {
+    const service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, (results, status, pagination) => {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        resolve(results, pagination);
+      } else {
+        reject(results, status);
+      }
+    });
+  });
+}
+
+export function getUserEvents(user) {
+  const userEventsConfig = {
+    headers: {
+      authHeader: localStorage.getItem('token'),
+      userId: user.id,
+      userInfo: user,
+    },
+  };
+  const request = axios.get('/api/events/getuserevents', userEventsConfig)
+  return {
+    type: GET_USER_EVENTS,
+    payload: request,
+  };
+}
+
+export function getArtistCalendar(artist) {
+  const getArtistConfig = {
+    headers: {
+      authHeader: localStorage.getItem('token'),
+      mbid: artist.mbid,
     }
-  },
-};
+  };
+  const request = axios.get('/api/songkick/getartistcalendar', getArtistConfig)
+    .catch(() => {
+      return { data: [] };
+    });
+  return {
+    type: GET_ARTIST_CALENDAR,
+    payload: request,
+  };
+}
+
+export function addEventComment(eventId, userId, friendId, text) {
+  let commentObj = {
+    id_event: eventId,
+    userId,
+    friendId,
+    text,
+  };
+  const addEventCommentConfig = {
+    headers: {
+      authheader: localStorage.getItem('token'),
+      eventId,
+      userId,
+    },
+  };
+  const request = axios.post('/api/comments/addcomment', commentObj, addEventCommentConfig);
+  return {
+    type: ADD_EVENT_COMMENT,
+    payload: request,
+  };
+}
+
+export function getEventComments(userId, eventId) {
+  const getEventCommentsConfig = {
+    headers: {
+      authheader: localStorage.getItem('token'),
+      eventId,
+      userId,
+    },
+  };
+  const request = axios.get('/api/comments/getcomments', getEventCommentsConfig);
+  return {
+    type: GET_EVENT_COMMENTS,
+    payload: request,
+  };
+}
+
+export function removeEventComment(comment) {
+  const commentObj = {
+    commentId: comment.id,
+  };
+  const removeEventCommentConfig = {
+    headers: {
+      authheader: localStorage.getItem('token'),
+      eventId: comment.id_event,
+      userId: comment.id_friend,
+    },
+  };
+  axios.post('/api/comments/removecomment', commentObj, removeEventCommentConfig);
+  return {
+    type: REMOVE_EVENT_COMMENT,
+    payload: commentObj,
+  };
+}
+
+export function refreshEventComments() {
+  const obj = { comments: [], posterInfo: [] };
+  return {
+    type: REFRESH_EVENT_COMMENTS,
+    payload: obj,
+  };
+}
+
+export function getLocation(query) {
+  const config = {
+    headers: {
+      authHeader: localStorage.getItem('token'),
+      latitude: query.latitude,
+      longitude: query.longitude,
+    }
+  };
+  return axios.get('/api/songkick/getlocation', config)
+    .then((res) => {
+      const metroId = res.data.resultsPage.results.location[0].metroArea.id
+      return {
+        type: metroId
+      };
+    });
+}
+
+export function getLocalEvents(id) {
+  const config = {
+    headers: {
+      authHeader: localStorage.getItem('token'),
+      id,
+    }
+  };
+  const request = axios.get('/api/songkick/getlocalevents', config)
+  .then((res) => {
+    return {
+      resultsPage: res.data.resultsPage.results.event,
+    }
+  });
+  return {
+    type: GET_LOCAL_EVENTS,
+    payload: request,
+  };
+}
+
+export function showLocalEvents(concerts) {
+  return {
+    type: SHOW_LOCAL_EVENTS,
+    payload: concerts,
+  };
+}
+
+export function getDistanceInfo(locations) {
+  const mapCoords = {
+        originLatitude: locations[0][0],
+        originLongitude: locations[0][1],
+        destinationLatitude: locations[1][0],
+        destinationLongitude: locations[1][1],
+  };
+  const config = {
+    headers: {
+      authHeader: localStorage.getItem('token'),
+    }
+  };
+  const request = axios.post('/api/distance/getdistanceinfo', mapCoords, config)
+  .then((res) => {
+    return {
+      distance: res.data.rows[0].elements[0].distance.text,
+      duration: res.data.rows[0].elements[0].duration.text,
+    }
+  });
+  return {
+    type: GET_DISTANCE_INFO,
+    payload: request,
+  };
+}
