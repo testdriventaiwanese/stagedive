@@ -159,7 +159,7 @@ class EventList extends Component {
       color: 'black',
     }
     return (
-      <Paper>
+      <Paper zDepth={1}>
         <Tabs>
           <Tab style={tabStyle} label="My Events" value="myEvents" >
             {this.renderList()}
