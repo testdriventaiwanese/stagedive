@@ -106,7 +106,7 @@ class ArtistPage extends Component {
     let avatarStyle = {
       height: '350px',
       width: '350px',
-      marginLeft: '15px',
+      marginLeft: '10px',
       marginRight: '10px',
       marginTop: '10px',
       marginBottom: '10px',
@@ -118,6 +118,7 @@ class ArtistPage extends Component {
       overflow: 'scroll',
     }
     let calTitle = {
+      width:'20%',
       marginLeft: '375px',
       marginTop: '20px',
     }
