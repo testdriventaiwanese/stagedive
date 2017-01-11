@@ -8,6 +8,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import IconMenu from 'material-ui/IconMenu';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
+import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Snackbar from 'material-ui/Snackbar';
@@ -153,15 +154,21 @@ class EventList extends Component {
     });
   }
   render() {
+    const tabStyle = {
+      backgroundColor: 'white',
+      color: 'black',
+    }
     return (
-      <Tabs>
-        <Tab label="My Events" value="myEvents" >
-          {this.renderList()}
-        </Tab>
-        <Tab label="Friends Events" value="friendsEvents">
-          <FriendsEvents { ...this.props }/>
-        </Tab>
-      </Tabs>
+      <Paper>
+        <Tabs>
+          <Tab style={tabStyle} label="My Events" value="myEvents" >
+            {this.renderList()}
+          </Tab>
+          <Tab style={tabStyle} label="Friends Events" value="friendsEvents">
+            <FriendsEvents {...this.props}/>
+          </Tab>
+        </Tabs>
+      </Paper>
     );
   }
 }

@@ -106,7 +106,6 @@ class FriendsEventList extends Component {
   render() {
     return (
       <div>
-        <h1>News Feed</h1>
         <div className="list-group col-sm-16">
           {this.renderList()}
         </div>
