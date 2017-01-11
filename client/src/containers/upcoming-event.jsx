@@ -18,35 +18,28 @@ import Auth from '../modules/auth';
 class UpcomingEvent extends Component {
   constructor(props) {
     super(props);
-     this.state = {
-       open: false,
-     };
-   }
-
-   componentWillMount() {
-     const id = localStorage.getItem('id');
-     const user = { id };
-     this.props.getUserInfo();
-     this.props.getUserEvents(user);
-   }
-
-   handleTouchTap = () => {
-     this.setState({
-       open: true,
-     });
-   };
-
-   handleRequestClose = () => {
-     this.setState({
-       open: false,
-     });
-   };
+    this.state = {
+      open: false,
+    };
+  }
+  componentWillMount() {
+    const id = localStorage.getItem('id');
+    const user = { id };
+    this.props.getUserInfo();
+    this.props.getUserEvents(user);
+  }
+  handleTouchTap() {
+    this.setState({
+      open: true,
+    });
+  }
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  }
   renderUpcoming() {
     const id = localStorage.getItem('id');
-    const menuStyle = {
-      float: 'right',
-      height: '0%',
-    }
     const imageStyle = {
       width: '100%',
     };
@@ -64,9 +57,10 @@ class UpcomingEvent extends Component {
     let sortByDate = [];
     if(!this.props.events.futureEvents) {
       return (
-        <div>
-        </div>
-      )
+        <Card>
+          <h6>No Upcoming Events</h6>
+        </Card>
+      );
     }
     if(this.props.events.futureEvents.length > 0) {
       const event = this.props.events.futureEvents[0];
@@ -91,31 +85,30 @@ class UpcomingEvent extends Component {
       }
       return (
         <Card className="list-group-item" zDepth={1} >
-          <h5>Upcoming Event {momentFromNow.toString()}
-            <IconMenu
-              style={{float: 'right', margin: '-15px'}}
-              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-              anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-              targetOrigin={{horizontal: 'right', vertical: 'top'}}
-              useLayerForClickAway={true}
-              >
-              <Link to={`/event/${id}/${event.id}`}>
-                <MenuItem primaryText="View Event Details" secondary />
-              </Link>
-              <MenuItem
-                primaryText="Remove Event"
-                secondary
-                onTouchTap={this.handleTouchTap}
-                onClick={() => this.props.removeEvent(event.tm_id, 0)}
-                />
-              <Snackbar
-                open={this.state.open}
-                message="Removed Event"
-                autoHideDuration={4000}
-                onRequestClose={this.handleRequestClose}
-                />
-            </IconMenu>
-          </h5>
+          <IconMenu
+            style={{float:'right', position:'relative', zIndex:2}}
+            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+            useLayerForClickAway={true}
+            >
+            <Link to={`/event/${id}/${event.id}`}>
+              <MenuItem primaryText="View Event Details" secondary />
+            </Link>
+            <MenuItem
+              primaryText="Remove Event"
+              secondary
+              onTouchTap={this.handleTouchTap}
+              onClick={() => this.props.removeEvent(event.tm_id, 0)}
+              />
+            <Snackbar
+              open={this.state.open}
+              message="Removed Event"
+              autoHideDuration={4000}
+              onRequestClose={this.handleRequestClose}
+              />
+          </IconMenu>
+          <CardHeader title={<h5>Upcoming Event</h5>} subtitle={<h6>{momentFromNow.toString()}</h6>} />
           <CardMedia>
             <img src={image} style={imageStyle} />
           </CardMedia>
