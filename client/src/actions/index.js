@@ -147,7 +147,9 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/events/getfriendsevents', config)
-    console.log('get FREINDS EVENTS CALLED')
+      .catch(() => {
+        return { data: [] };
+      });
     return {
       type: FRIENDS_EVENTS,
       payload: request,
@@ -257,7 +259,12 @@ module.exports = {
       password: result.password,
       fullname: result.name,
     };
-    axios.post('/auth/signup', resultObj);
+    axios.post('/auth/signup', resultObj)
+      .then((res) => {
+        if(res.data.success){
+          hashHistory.push('/login');
+        }
+      });
     return {
       type: SIGN_UP,
       payload: resultObj,
@@ -275,9 +282,7 @@ module.exports = {
           localStorage.setItem('id', res.data.userId);
           hashHistory.push('/');
         }
-        console.log('index.js response from login: ', res);
       });
-
     return {
       type: LOG_IN,
       payload: resultObj,
@@ -306,7 +311,6 @@ module.exports = {
   searchNearby(google, map, request) {
     return new Promise((resolve, reject) => {
       const service = new google.maps.places.PlacesService(map);
-
       service.nearbySearch(request, (results, status, pagination) => {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           resolve(results, pagination);
@@ -328,7 +332,7 @@ module.exports = {
     return {
       type: GET_USER_EVENTS,
       payload: request,
-    }
+    };
   },
   getArtistCalendar(artist) {
     const getArtistConfig = {
@@ -352,7 +356,7 @@ module.exports = {
       userId,
       friendId,
       text,
-    }
+    };
     const addEventCommentConfig = {
       headers: {
         authheader: localStorage.getItem('token'),
@@ -360,11 +364,7 @@ module.exports = {
         userId,
       },
     };
-
     const request = axios.post('/api/comments/addcomment', commentObj, addEventCommentConfig);
-
-    //   .then(() => axios.get('/api/comments/getcomments', addEventCommentConfig));
-
     return {
       type: ADD_EVENT_COMMENT,
       payload: request,
@@ -395,15 +395,14 @@ module.exports = {
         userId: comment.id_friend,
       },
     };
-    const request = axios.post('/api/comments/removecomment', commentObj, removeEventCommentConfig);
-
+    axios.post('/api/comments/removecomment', commentObj, removeEventCommentConfig);
     return {
       type: REMOVE_EVENT_COMMENT,
       payload: commentObj,
     }
   },
   refreshEventComments() {
-    const obj = { comments: [], posterInfo: [] }
+    const obj = { comments: [], posterInfo: [] };
     return {
       type: REFRESH_EVENT_COMMENTS,
       payload: obj,
@@ -416,7 +415,7 @@ module.exports = {
         latitude: query.latitude,
         longitude: query.longitude,
       }
-    }
+    };
     return axios.get('/api/songkick/getlocation', config)
       .then((res) => {
         const metroId = res.data.resultsPage.results.location[0].metroArea.id
@@ -431,14 +430,13 @@ module.exports = {
         authHeader: localStorage.getItem('token'),
         id,
       }
-    }
+    };
     const request = axios.get('/api/songkick/getlocalevents', config)
     .then((res) => {
       return {
         resultsPage: res.data.resultsPage.results.event,
       }
     });
-
     return {
       type: GET_LOCAL_EVENTS,
       payload: request,
