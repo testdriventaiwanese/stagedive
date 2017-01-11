@@ -11,9 +11,9 @@ import LinearProgress from 'material-ui/LinearProgress';
 import { getFriendsEvents } from '../actions/index';
 
 class FriendsEventList extends Component {
-  componentWillMount() {
-    this.props.getFriendsEvents();
-  }
+  // componentWillMount() {
+  //   this.props.getFriendsEvents();
+  // }
   renderList() {
     const imageDiv = {
       width: '35%',
@@ -50,7 +50,7 @@ class FriendsEventList extends Component {
             <span>No upcoming events</span>
             <br />
           </CardText>
-        </Card>  
+        </Card>
       )
     }
     const userInfo = this.props.events.userInfo;
@@ -115,15 +115,15 @@ class FriendsEventList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    events: state.getFriendsEvents,
-  };
-}
+// function mapStateToProps(state) {
+//   return {
+//     events: state.getFriendsEvents,
+//   };
+// }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getFriendsEvents }, dispatch);
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(FriendsEventList);
+export default connect(null, mapDispatchToProps)(FriendsEventList);
