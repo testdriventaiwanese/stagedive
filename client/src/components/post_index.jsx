@@ -13,6 +13,9 @@ class PostIndex extends Component {
     }
   }
   render() {
+    const containerStyle = {
+      margin: '0px -20px 0px -20px'
+    }
     const leftStyle = {
       width: '33%',
       float: 'left',
@@ -21,22 +24,19 @@ class PostIndex extends Component {
     const rightStyle = {
       width: '65%',
       float: 'right',
-      marginBottom: '10px',
+      overflow: 'scroll',
+      height: '1100px',
       marginTop: '10px',
     };
     return (
-      <div>
+      <div style={containerStyle}>
         <div style={leftStyle}>
           <UpcomingEvent />
+          <Friends />
+          <Artists />
         </div>
         <div style={rightStyle}>
           <EventList />
-        </div>
-        <div style={leftStyle}>
-          <Friends />
-        </div>
-        <div style={leftStyle}>
-          <Artists />
         </div>
       </div>
     );

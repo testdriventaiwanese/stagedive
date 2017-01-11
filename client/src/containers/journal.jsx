@@ -21,8 +21,24 @@ class Journal extends Component {
     this.props.refreshEventComments();
   }
 
+  renderHeader() {
+    console.log('PROPS IN JOURNAL: ', this.props.userInfo);
+    const headerStyle = {
+      textAlign: 'center',
+    }
+    return (
+      <div style={headerStyle}>
+        <h1>Concert Journal</h1>
+      </div>
+    )
+  }
+
   render() {
     const styles = {
+      container: {
+        // display: 'flex',
+        // justifyContent: 'center',
+      },
       root: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -30,7 +46,7 @@ class Journal extends Component {
         marginTop: '10px',
       },
       gridList: {
-        width: 1000,
+        width: 'auto',
         overflowY: 'auto',
       },
       loadBar: {
@@ -49,15 +65,18 @@ class Journal extends Component {
 
     const journalPhotos = this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={event.id} i={i} event={event} /> );
     return (
-      <div style={styles.root}>
-        <GridList
-          cols={3}
-          cellHeight={250}
-          padding={20}
-          style={styles.gridList}
-        >
-          {journalPhotos}
-        </GridList>
+      <div style={styles.container}>
+        {this.renderHeader()}
+        <div style={styles.root}>
+          <GridList
+            cols={3}
+            cellHeight={250}
+            padding={20}
+            style={styles.gridList}
+            >
+            {journalPhotos}
+          </GridList>
+        </div>
       </div>
     );
   }
