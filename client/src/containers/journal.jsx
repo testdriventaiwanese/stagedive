@@ -79,7 +79,12 @@ class Journal extends Component {
       )
     }
 
-    const journalPhotos = this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={event.id} i={i} event={event} /> );
+    const journalPhotos =
+    this.props.userInfo.pastEvents.length === 0 ?
+      <Paper>
+        Concert journal will automatically fill with your past events. You currently have no past events.
+      </Paper> :
+      this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={event.id} i={i} event={event} /> );
     return (
       <div style={styles.container}>
         {this.renderHeader()}

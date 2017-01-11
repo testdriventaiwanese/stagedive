@@ -37,10 +37,13 @@ class UserEvents extends Component {
       position: 'absolute',
       bottom: '0',
     }
-    const buttonStyle = {
+    const buttonsDiv = {
       position: 'absolute',
-      width: '30%',
+      width: '50%',
       bottom: '0',
+      right: '10',
+    }
+    const buttonStyle = {
       color: fontColor,
       float: 'right',
     }
@@ -57,16 +60,14 @@ class UserEvents extends Component {
     if(userName[0]) {
       return (
         <Card style={barStyle}>
-          <div>
             <h1 style={nameStyle}>{userName[0].fullname}</h1>
-            <div style={{float:'right'}}>
-            <Link to={`journal/${id}`}>
-              <FlatButton style={buttonStyle}>{`${userName[0].fullname.split(' ')[0]}'s Concert Journal`}</FlatButton>
-            </Link>
-              <FlatButton onClick={() => this.props.addFollower(this.props.params.userId)}>Follow</FlatButton>
-              <FlatButton onClick={() => this.props.unfollow(this.props.params.userId)}>UnFollow</FlatButton>
+            <div style={buttonsDiv}>
+              <FlatButton style={buttonStyle} onClick={() => this.props.unfollow(this.props.params.userId)}>UnFollow</FlatButton>
+              <FlatButton style={buttonStyle} onClick={() => this.props.addFollower(this.props.params.userId)}>Follow</FlatButton>
+              <Link to={`journal/${id}`}>
+                <FlatButton style={buttonStyle}>{`${userName[0].fullname.split(' ')[0]}'s Concert Journal`}</FlatButton>
+              </Link>
             </div>
-          </div>
         </Card>
       )
     }
@@ -81,6 +82,18 @@ class UserEvents extends Component {
     let imageStyle = {
       width: '100%',
     };
+    const largestPic = (imageArray) => {
+      let largest = 0;
+      let index;
+      imageArray.forEach((image, i) => {
+        if (image.width > largest) {
+          largest = image.width;
+          index = i;
+        }
+      });
+      return imageArray[index].url;
+    };
+
     if(!this.props.events.futureEvents) {
       return (
         <div></div>
@@ -96,7 +109,7 @@ class UserEvents extends Component {
       const date = momentDate.toString() + ' ' + est.toString().slice(34);
       let image = null;
       if(event.image){
-        image = JSON.parse(event.image)[3].url || null;
+        image = largestPic(JSON.parse(event.image)) || null;
       };
       const venue = JSON.parse(event.venue)[0];
       let venueName = null;
@@ -140,6 +153,19 @@ class UserEvents extends Component {
     let imageStyle = {
       width: '100%',
     };
+
+    const largestPic = (imageArray) => {
+      let largest = 0;
+      let index;
+      imageArray.forEach((image, i) => {
+        if (image.width > largest) {
+          largest = image.width;
+          index = i;
+        }
+      });
+      return imageArray[index].url;
+    };
+
     if(!this.props.events.futureEvents){
       return (
         <div>
@@ -166,7 +192,7 @@ class UserEvents extends Component {
         const date = momentDate.toString() + ' ' + est.toString().slice(34);
         let image = null;
         if(event.image){
-          image = JSON.parse(event.image)[3].url || null;
+          image = largestPic(JSON.parse(event.image)) || null;
         };
         const venue = JSON.parse(event.venue)[0];
         let venueName = null;
@@ -209,15 +235,17 @@ class UserEvents extends Component {
     const rightStyle = {
       width: '65%',
       float: 'right',
-      marginBottom: '10px',
+      overflow: 'scroll',
+      height: '1100px',
       marginTop: '10px',
     };
     return (
       <div>
         <div>{this.renderProfileBar()}</div>
+        <div style={leftStyle}>
+          {this.renderUpcoming()}
+        </div>
         <div style={rightStyle}>
-          <div>{this.renderUpcoming()}</div>
-          <h4>Events List:</h4>
           <ul className="list-group">
             {this.renderList()}
           </ul>
