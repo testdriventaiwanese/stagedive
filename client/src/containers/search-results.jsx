@@ -125,12 +125,13 @@ class SearchResults extends Component {
       bandsintown = this.props.artists.bandsintown.data;
       if(this.props.artists.songkick.data.resultsPage.results.artist !== undefined && this.props.artists.songkick.data.resultsPage.results.artist !== undefined) {
         songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
-        console.log('bandsintown.image_url:: ', bandsintown.image_url)
+        console.log('bandsintown:: ', bandsintown)
+        console.log('songkick:: ', songkick)
         let avatar = <Avatar src={bandsintown.image_url} style={avatarStyle}/>
         return (
           <Card zDepth={1}>
-            <FloatingActionButton mini={true} style={{float:'right', margin:'10px', position:'relative', zIndex:2}}>
-              <ContentAdd onClick={() => this.props.saveArtist(bandsintown, songkick)} />
+            <FloatingActionButton onClick={() => this.props.saveArtist(bandsintown, songkick)} mini={true} style={{float:'right', margin:'10px', position:'relative', zIndex:2}}>
+              <ContentAdd />
             </FloatingActionButton>
             <CardHeader
               title={ <Link to={`/artists/${songkick.identifier[0].mbid}`}><h2>{songkick.displayName}</h2></Link>}
