@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import ActiveEvent from './reducer_active_event';
 import SearchEvents from './reducer_search_events';
 import SaveEvent from './reducer_save_event';
@@ -21,6 +22,7 @@ import ShowLocalEvents from './reducer_show_local_events';
 import GetDistanceInfo from './reducer_get_distance_info';
 
 const rootReducer = combineReducers({
+  form: formReducer,
   activeEvent: ActiveEvent,
   searchEvents: SearchEvents,
   saveEvent: SaveEvent,

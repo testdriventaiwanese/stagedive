@@ -27,7 +27,3 @@ npm-debug.log
 ### Bundle.js / .map ###
 client/public/bundle.js.map
 client/public/bundle.js
-
-### API Key ###
-client/src/actions/APIKEYS.js
-client/src/containers/GOOGLEMAPSAPIKEY.js
