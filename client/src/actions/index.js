@@ -147,9 +147,7 @@ module.exports = {
       headers: { authHeader: localStorage.getItem('token') },
     };
     const request = axios.get('/api/events/getfriendsevents', config)
-      .catch(() => {
-        return { data: [] };
-      });
+    console.log('get FREINDS EVENTS CALLED')
     return {
       type: FRIENDS_EVENTS,
       payload: request,

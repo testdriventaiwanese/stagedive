@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { hashHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
 import { removeEvent, getUserEvents, refreshEventComments } from '../actions/index';
 import JournalPhoto from './journal-photo';
@@ -23,15 +24,31 @@ class Journal extends Component {
 
   renderHeader() {
     console.log('PROPS IN JOURNAL: ', this.props.userInfo);
-    const headerStyle = {
-      textAlign: 'center',
+    let imageUrl = 'http://i.imgur.com/CMXchpq.jpg'
+    const fontColor = '#FAFAFA';
+    const nameStyle = {
+      marginLeft: '20px',
+      color: fontColor,
+      position: 'absolute',
+      bottom: '0',
     }
-    return (
-      <div style={headerStyle}>
-        <h1>Concert Journal</h1>
-      </div>
-    )
-  }
+    const barStyle = {
+      height: '140px',
+      width: '100%',
+      backgroundImage: 'url(' + imageUrl + ')',
+      backgroundSize: 'auto inherit',
+      opacity: '.95',
+      position: 'relative',
+    }
+
+      return (
+        <Card style={barStyle}>
+          <div>
+            <h1 style={nameStyle}>Concert Journal</h1>
+          </div>
+        </Card>
+      )
+    }
 
   render() {
     const styles = {
@@ -46,12 +63,11 @@ class Journal extends Component {
         marginTop: '10px',
       },
       gridList: {
-        width: 'auto',
+        width: '100%',
         overflowY: 'auto',
       },
       loadBar: {
         width: '100%',
-        left: '0',
       }
     };
 
