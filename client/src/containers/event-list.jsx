@@ -32,7 +32,7 @@ class EventList extends Component {
     const user = { id };
     this.props.getUserInfo();
     this.props.getUserEvents(user);
-    this.props.getFriendsEvents();
+    // this.props.getFriendsEvents();
   }
   handleTouchTap() {
     this.setState({
@@ -154,13 +154,16 @@ class EventList extends Component {
     });
   }
   render() {
+    const tabsStyle = {
+      boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+      borderRadius: '2px',
+    }
     const tabStyle = {
       backgroundColor: 'white',
       color: 'black',
     }
     return (
-      <Paper zDepth={1}>
-        <Tabs>
+        <Tabs style={tabsStyle}>
           <Tab style={tabStyle} label="My Events" value="myEvents" >
             {this.renderList()}
           </Tab>
@@ -168,7 +171,6 @@ class EventList extends Component {
             <FriendsEvents {...this.props}/>
           </Tab>
         </Tabs>
-      </Paper>
     );
   }
 }
@@ -176,6 +178,7 @@ class EventList extends Component {
 function mapStateToProps(state) {
   return {
     events: state.userEvents,
+    friendsEvents: state.getFriendsEvents,
   };
 }
 
