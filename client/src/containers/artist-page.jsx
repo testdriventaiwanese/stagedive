@@ -77,12 +77,17 @@ class ArtistPage extends Component {
     })
   }
   renderArtist() {
-    let imageDiv = {
+    let avatarStyle = {
       width: '35%',
       float: 'left',
       height: '248px',
       margin: '10px',
+      position: 'fixed',
     };
+    let calendarStyle = {
+      float: 'right',
+      width: '45%',
+    }
     let imageStyle = {
       width: '100%',
     };
@@ -119,21 +124,21 @@ class ArtistPage extends Component {
     }
     console.log('2 artistsArr[0]:: ', artistsArr[0]);
     console.log('!!!!!!  !!!!!! !!!!! artistSearch:: ', this.props.artistSearch)
-    artistsArr.push({
-        name: this.props.artistSearch.bandsintown.data.name,
-        facebook: this.props.artistSearch.bandsintown.data.facebook_page_url,
-        upcomingEvents: this.props.artistSearch.bandsintown.data.upcoming_event_count,
-        image: this.props.artistSearch.bandsintown.data.image_url,
-      })
-      console.log('3 artistsArr[0]', artistsArr[0])
-
-    if(this.props.params.artistId === this.props.artistSearch.songkick.data.resultsPage.results.artist[0].identifier[0].mbid) {
-      artistArr.push({
-        name: this.props.artistSearch.bandsintown.data.name,
-        facebook: this.props.artistSearch.bandsintown.data.facebook_page_url,
-        upcomingEvents: this.props.artistSearch.bandsintown.data.upcoming_events,
-        image: this.props.artistSearch.bandsintown.data.image_url,
-      });
+    if(this.props.artistSearch.bandsintown) {
+      artistsArr.push({
+          name: this.props.artistSearch.bandsintown.data.name,
+          facebook: this.props.artistSearch.bandsintown.data.facebook_page_url,
+          upcomingEvents: this.props.artistSearch.bandsintown.data.upcoming_event_count,
+          image: this.props.artistSearch.bandsintown.data.image_url,
+        })
+      if(this.props.params.artistId === this.props.artistSearch.songkick.data.resultsPage.results.artist[0].identifier[0].mbid) {
+        artistsArr.push({
+          name: this.props.artistSearch.bandsintown.data.name,
+          facebook: this.props.artistSearch.bandsintown.data.facebook_page_url,
+          upcomingEvents: this.props.artistSearch.bandsintown.data.upcoming_events,
+          image: this.props.artistSearch.bandsintown.data.image_url,
+        });
+      }
     }
     console.log('4 artistsArr[0]', artistsArr[0])
 
@@ -159,39 +164,10 @@ class ArtistPage extends Component {
       )
     }
 
-
-
-    // let musician = !this.props.artistCalendar.data.results ? '' : this.props.artistCalendar.data.resultsPage.results.event[0].performance.map((performer) => { return performer.artist}).map((id) => {return {name: id.displayName, mbid: !id.identifier[0] ? null : id.identifier[0].mbid } }).filter((mb, i)=> { if(mb.mbid === this.props.params.artistId) {return mb.name}});
-
-    // console.log('musician:: ');
-    // console.log('artistImage:: ', this.props.artistImage)
-    //
-    // let artistImageFromSearch = !this.props.artistImage.songkick ? '' : !this.props.artistImage.songkick.data ? '' : !this.props.artistImage.songkick.data.resultsPage ? '' : !this.props.artistImage.songkick.data.resultsPage.results ? '' : !this.props.artistImage.songkick.data.resultsPage.results.artist
-    //
-    // console.log('artistImageFromSearch:: ', artistImageFromSearch)
-    //
-    // if (!musician) {
-    //   musician = [{name: artistImageFromSearch.displayName, mbid: artistImageFromSearch.identifier[0].mbid}];
-    // }
-    //
-    // if (image.length === 0) {
-    //   image = [this.props.artistImage.bandsintown.data.image_url];
-    // }
-    // console.log('image: ', image)
-    // const realName = !musician[0] ? artist.name : musician[0].name;
-    // const musicId = !musician[0] ? artist.mbid : musician[0].mbid;
-    // artist = {
-    //   name: realName,
-    //   mbid: musicId,
-    //   picture: image[0].image,
-    //   facebook: image[0].facebook,
-    //   upcomingEvents: image[0].upcoming_events,
-    // }
-    // console.log('artist:: ', artist)
     return (
       <div>
       <Card>
-        <div style={imageDiv}>
+        <div style={avatarStyle}>
             <img src={artist.image} style={imageStyle}></img>
             <h1>{artist.name}</h1>
             <p>Upcoming: {artist.upcomingEvents}</p>
@@ -213,7 +189,7 @@ class ArtistPage extends Component {
               />
           </IconMenu>
         </CardActions>
-        <div>
+        <div style={calendarStyle}>
           <h5><strong>Calendar</strong></h5>
           <div className="list-group col-sm-16">{this.renderCalendar()}</div>
         </div>
