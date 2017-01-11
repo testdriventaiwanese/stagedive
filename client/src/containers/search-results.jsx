@@ -115,8 +115,9 @@ class SearchResults extends Component {
       float: 'left',
       height: '248px',
     };
-    const imageStyle = {
-      width: '60%',
+    const avatarStyle = {
+      width: '20%',
+      height: '20%',
     };
     let bandsintown = this.props.artists.bandsintown;
     let songkick = this.props.artists.songkick;
@@ -124,22 +125,17 @@ class SearchResults extends Component {
       bandsintown = this.props.artists.bandsintown.data;
       if(this.props.artists.songkick.data.resultsPage.results.artist !== undefined && this.props.artists.songkick.data.resultsPage.results.artist !== undefined) {
         songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
+        console.log('bandsintown.image_url:: ', bandsintown.image_url)
+        let avatar = <Avatar src={bandsintown.image_url} style={avatarStyle}/>
         return (
-          <Card key={songkick.identifier[0].mbid} zDepth={1}>
-            <CardMedia style={imageDiv}>
-              <img src={bandsintown.image_url} style={imageStyle} alt="artist headshot" />
-            </CardMedia>
-            <Link to={`/artists/${songkick.identifier[0].mbid}`}>
-              <div>{songkick.displayName}</div>
-            </Link>
-            <div>On Tour until: {songkick.onTourUntil}</div>
-            <div><a href={songkick.uri}>Songkick Tour Dates</a></div>
-            <div><a href={bandsintown.facebook_page_url}>Facebook Page</a></div>
-            <div>Number of upcoming events: {bandsintown.upcoming_event_count}</div>
-            <RaisedButton
-              label='Follow Artist'
-              secondary
-              onClick={() => this.props.saveArtist(bandsintown, songkick)}
+          <Card zDepth={1}>
+            <FloatingActionButton mini={true} style={{float:'right', margin:'10px', position:'relative', zIndex:2}}>
+              <ContentAdd onClick={() => this.props.saveArtist(bandsintown, songkick)} />
+            </FloatingActionButton>
+            <CardHeader
+              title={ <Link to={`/artists/${songkick.identifier[0].mbid}`}><h2>{songkick.displayName}</h2></Link>}
+              subtitle={<div><p>On Tour until: {songkick.onTourUntil}</p><p><a href={songkick.uri}>Songkick Tour Dates</a></p><p>Number of upcoming events: {bandsintown.upcoming_event_count}</p></div>}
+              avatar={avatar}
             />
           </Card>
         );
