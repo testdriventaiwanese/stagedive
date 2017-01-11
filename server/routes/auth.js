@@ -23,7 +23,7 @@ router.post('/login', (req, res, next) => {
     if (err) {
       return res.status(400).json({
         success: false,
-        message: 'Could not process the form.',
+        message: 'Login Failed.',
       });
     }
 
@@ -41,9 +41,8 @@ router.get('/facebook', passport.authenticate('facebook-login', { scope: 'email'
 router.get('/facebook/callback', (req, res, next) => {
   passport.authenticate('facebook-login', (err, token, userId) => {
     if (err) {
-      return res.status(400).json({
-        message: 'Error with facebook login.',
-      });
+      console.log('Error with facebook login: ', err);
+      return res.redirect('/#/login');
     }
     const tokenStr = encodeURIComponent(token + userId);
     res.redirect(`/#/token/${tokenStr}`);
