@@ -9,7 +9,7 @@ import LogIn from './containers/LoginPage';
 import Account from './containers/account';
 import Journal from './containers/journal';
 import MapComponent from './containers/map';
-import UserPage from './containers/user-page';
+import UserPage from './containers/user-events';
 import EventDetail from './containers/event-detail';
 import ArtistPage from './containers/artist-page';
 import JournalSingle from './containers/journal-single';
