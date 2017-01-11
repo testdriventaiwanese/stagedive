@@ -7,6 +7,7 @@ import GetEvents from './reducer_get_events';
 import GetFriendsEvents from './reducer_friends_events';
 import GetUserInfo from './reducer_get_userinfo';
 import GetFriends from './reducer_get_friends';
+import GetOtherFriends from './reducer_getotherfriends';
 import GetArtists from './reducer_get_artists';
 import SignUp from './reducer_sign_up';
 import LogIn from './reducer_log_in';
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   getFriendsEvents: GetFriendsEvents,
   getUserInfo: GetUserInfo,
   getFriends: GetFriends,
+  getOtherFriends: GetOtherFriends,
   getArtists: GetArtists,
   signUp: SignUp,
   logIn: LogIn,

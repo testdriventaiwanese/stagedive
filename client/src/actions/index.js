@@ -16,18 +16,17 @@ export const SEARCH_ARTISTS = 'SEARCH_ARTISTS';
 export const SEARCH_USERS = 'SEARCH_USERS';
 export const UNFOLLOW = 'UNFOLLOW';
 export const GET_FRIENDS = 'GET_FRIENDS';
+export const GET_OTHER_FRIENDS = 'GET_OTHER_FRIENDS';
 export const GET_USER_EVENTS = 'GET_USER_EVENTS';
 export const GET_ARTIST_CALENDAR = 'GET_ARTIST_CALENDAR';
 export const REMOVE_ARTIST = 'REMOVE_ARTIST';
 export const GET_EVENT_COMMENTS = 'GET_EVENT_COMMENTS';
 export const GET_LOCAL_EVENTS = 'GET_LOCAL_EVENTS';
-export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS'
+export const SHOW_LOCAL_EVENTS = 'SHOW_LOCAL_EVENTS';
 export const ADD_EVENT_COMMENT = 'ADD_EVENT_COMMENT';
 export const REMOVE_EVENT_COMMENT = 'REMOVE_EVENT_COMMENT';
 export const REFRESH_EVENT_COMMENTS = 'REFRESH_EVENT_COMMENTS';
 export const GET_DISTANCE_INFO = 'GET_DISTANCE_INFO';
-
-const TM_ROOT_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?classificationName=Music&';
 
 module.exports = {
   searchEvents(query) {
@@ -193,6 +192,22 @@ module.exports = {
     return {
       type: GET_FRIENDS,
       payload: getFriendsRequest,
+    };
+  },
+  getOtherFriends({ id }) {
+    const config = {
+      headers: {
+        authHeader: localStorage.getItem('token'),
+        id,
+      },
+    };
+    const getOtherFriendsRequest = axios.get('/api/users/getotherfriends', config)
+      .catch(() => {
+        return { data: [] };
+      });
+    return {
+      type: GET_OTHER_FRIENDS,
+      payload: getOtherFriendsRequest,
     };
   },
   getArtists() {

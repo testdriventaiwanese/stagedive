@@ -22,13 +22,13 @@ class ArtistPage extends Component {
      };
    }
 
-   handleTouchTap = () => {
+   handleTouchTap() {
      this.setState({
        open: true,
      });
    };
 
-   handleRequestClose = () => {
+   handleRequestClose() {
      this.setState({
        open: false,
      });
