@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import moment from 'moment';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import OtherFriends from './other-friends';
+import LinearProgress from 'material-ui/LinearProgress';
 
 // import { selectEvent } from '../actions/index';
 import { getUserEvents, removeEvent, addFollower, unfollow, getOtherFriends, getFriends } from '../actions/index';
@@ -82,9 +83,10 @@ class UserEvents extends Component {
     };
     if(!this.props.events.futureEvents) {
       return (
-        <div>Loading...</div>
+        <div></div>
       )
     }
+
     if(this.props.events.futureEvents.length > 0) {
       let event = this.props.events.futureEvents[0];
       const momentDate = moment(event.date).format('LLLL');
@@ -139,7 +141,11 @@ class UserEvents extends Component {
       width: '100%',
     };
     if(!this.props.events.futureEvents){
-      return <div></div>;
+      return (
+        <div>
+          <LinearProgress mode="indeterminate" />
+        </div>
+      );
     }
     if(this.props.events.futureEvents.length === 0) {
       return (
