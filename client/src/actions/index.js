@@ -142,19 +142,6 @@ module.exports = {
       i,
     };
   },
-  getEvents() {
-    const config = {
-      headers: { authHeader: localStorage.getItem('token') },
-    };
-    const request = axios.get('/api/events/getAll', config)
-      .catch(() => {
-        return { data: [] };
-      });
-    return {
-      type: GET_EVENTS,
-      payload: request,
-    };
-  },
   getFriendsEvents() {
     const config = {
       headers: { authHeader: localStorage.getItem('token') },

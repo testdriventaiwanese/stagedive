@@ -16,6 +16,9 @@ class UserEvents extends Component {
     this.props.getUserEvents(user);
     this.props.getOtherFriends(user);
   }
+  componentDidUpdate() {
+    console.log('user events props: ', this.props);
+  }
 
   renderProfileBar() {
     if (!this.props.events.userInfo) {
