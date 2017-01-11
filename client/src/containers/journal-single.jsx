@@ -11,6 +11,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import CircularProgress from 'material-ui/CircularProgress';
+import LinearProgress from 'material-ui/LinearProgress';
 
 class JournalSingle extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class JournalSingle extends Component {
       return imageArray[index].url;
     }
     console.log('PROPS JOURNAL SINGLE: ', this.props);
-    if(this.props.userInfo.pastEvents.length > 0) {
+    if(this.props.userInfo.pastEvents) {
       pastEvents = this.props.userInfo.pastEvents;
       const i = pastEvents.findIndex((event) => event.id === Number(this.props.params.eventId));
       let event = pastEvents[i];
@@ -76,6 +77,9 @@ class JournalSingle extends Component {
       if(event.image){
         image = largestPic(JSON.parse(event.image)) || null;
       };
+      let imageComments = {
+        width: '100%',
+      }
       let imageDiv = {
         width: '60%',
         float: 'left',
@@ -83,28 +87,40 @@ class JournalSingle extends Component {
       let imageStyle = {
         width: '100%',
       };
+      let commentsBoxStyle = {
+        width: '39%',
+        float: 'right',
+        height: 'inherit',
+      }
+      let commentsHeader = {
+        padding: '10px',
+      }
+      let commentsBottom = {
+        height: '100%',
+      }
       return (
         <div>
-          <h1>Concert Journal</h1>
-          <ul className="list-group col-sm-16">
+          <div style={imageComments}>
             <Paper style={imageDiv} zDepth={1}>
-              <div key={event.id} style={imageStyle}>
                 <img src={image} style={imageStyle} />
-                <span><strong>{event.name}</strong></span>
-                <p>Date: {date}</p>
-              </div>
-              <div>
-                <Comments {...this.props} />
-              </div>
             </Paper>
-          </ul>
+            <div style={commentsBoxStyle} >
+              <Paper zDepth={1} style={commentsHeader}>
+                <span><strong>{event.name}</strong></span>
+                <p>{date}</p>
+              </Paper>
+              <Paper zDepth={1} style={commentsBottom}>
+                <Comments {...this.props} />
+              </Paper>
+            </div>
+          </div>
         </div>
       );
     }
     else {
       return (
         <div align='center'>
-          <CircularProgress size={60} />
+          <LinearProgress mode="indeterminate" />
         </div>
       )
     }

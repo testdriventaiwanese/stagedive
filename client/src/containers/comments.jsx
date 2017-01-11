@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
+import Paper from 'material-ui/Paper';
 
 class Comments extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class Comments extends Component {
 
   renderAddComment() {
     return (
-      <span>
+      <div>
         <MuiThemeProvider>
           <form onSubmit={this.onFormSubmit} className="input-group">
             <TextField
@@ -74,24 +75,31 @@ class Comments extends Component {
               value={this.state.term}
               onChange={this.onInputChange}
             />
-            <span className="button-line">
-              <FlatButton type="submit" label="Add" backgroundColor="#616161" style={{ color: 'white' }} />
-            </span>
           </form>
         </MuiThemeProvider>
-      </span>
+      </div>
     );
   }
 
   render() {
+    const commentsStyle = {
+      height: 'inherit',
+      position: 'relative',
+      overflow: 'scroll',
+    }
+    const formStyle = {
+      position: 'absolute',
+      bottom: '0',
+      width: '100%',
+    }
     return (
-      <div>
+      <div style={commentsStyle}>
         <div>
           {this.renderComments()}
         </div>
-        <div>
+        <Paper zDepth={1} style={formStyle}>
           {this.renderAddComment()}
-        </div>
+        </Paper>
       </div>
     );
   }
