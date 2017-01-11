@@ -458,7 +458,9 @@ module.exports = {
           destinationLongitude: locations[1][1],
     }
     const config = {
-      authHeader: localStorage.getItem('token'),
+      headers: {
+        authHeader: localStorage.getItem('token'),
+      }
     }
     const request = axios.post('/api/distance/getdistanceinfo', mapCoords, config)
     .then((res) => {
