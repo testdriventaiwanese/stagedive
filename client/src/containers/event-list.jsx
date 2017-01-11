@@ -112,7 +112,7 @@ class EventList extends Component {
                 primaryText="Remove Event"
                 secondary
                 onTouchTap={this.handleTouchTap}
-                onClick={() => this.props.removeEvent(event.tm_id, 0)}
+                onClick={() => this.props.removeEvent(event.tm_id, i+1)}
                 />
               <Snackbar
                 open={this.state.open}

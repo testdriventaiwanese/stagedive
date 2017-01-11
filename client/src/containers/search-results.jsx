@@ -91,8 +91,8 @@ class SearchResults extends Component {
 
       return (
         <Card key={event.id} >
-          <FloatingActionButton style={{float:'right', margin:'10px'}}>
-            <ContentAdd onClick={() => this.props.saveEvent(event)} />
+          <FloatingActionButton onClick={() => this.props.saveEvent(event)} style={{float:'right', margin:'10px'}}>
+            <ContentAdd />
           </FloatingActionButton>
           <CardText>
             <h4><strong>{event.name}</strong></h4>
