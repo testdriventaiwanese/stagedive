@@ -69,6 +69,17 @@ module.exports = {
         }
       });
     },
+    getOtherFriends(req, res) {
+      const id = req.headers.id;
+      userModel.users.getFriends(id, (response) => {
+        if (!response) {
+          console.log('Issue retreiving users from database');
+          res.sendStatus(401);
+        } else {
+          res.json(response);
+        }
+      });
+    },
     addfollow(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
       const params = [id.sub, req.body.userId];

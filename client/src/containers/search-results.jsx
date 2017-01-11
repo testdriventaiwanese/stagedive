@@ -175,14 +175,14 @@ class SearchResults extends Component {
       }
       return (
         <Card key={user.id} zDepth={1}>
+          <FloatingActionButton mini={true} style={{float:'right', margin:'10px', position:'relative', zIndex:2}}>
+            <ContentAdd onClick={() => this.props.addFollower(user.id)} />
+          </FloatingActionButton>
           <CardHeader
             title={ <Link to={`/view/${user.id}`} onClick={() => this.onProfileClick(user)}>{user.fullname}</Link>}
             subtitle={user.email}
             avatar={avatar}
           />
-          <FloatingActionButton style={{float:'right', margin:'10px'}}>
-            <ContentAdd onClick={() => this.props.addFollower(user.id)} />
-          </FloatingActionButton>
         </Card>
       );
     });
