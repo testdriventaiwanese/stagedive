@@ -95,6 +95,7 @@ class Map extends React.Component {
         <div ref='map' style={style}>
           Loading..
         </div>
+
     )
   }
 }
@@ -187,6 +188,10 @@ class EventDetail extends Component {
       float: 'right',
       height: '0%',
     }
+    let distanceStyle = {
+      float: 'left',
+      margin: '30px',
+    }
     return (
       <Card key={event.id} className="list-group-item" zDepth={1}>
         <CardMedia>
@@ -205,21 +210,16 @@ class EventDetail extends Component {
               onTouchTap={this.handleTouchTap}
               onClick={() => this.props.removeEvent(event.tm_id, 0)}
               />
-              <Snackbar
-                open={this.state.open}
-                message="Event Removed"
-                autoHideDuration={4000}
-                onRequestClose={this.handleRequestClose}
-              />
           </IconMenu>
         </CardActions>
 
-        <div ref="map" style={mapStyle}>
-          <Map {...this.props} object={[]} />
-          {this.renderDistanceInfo()}
-        </div>
-
         <CardText>
+          <div ref="map" style={mapStyle}>
+            <Map {...this.props} object={[]} />
+            <div style={distanceStyle}>
+              {this.renderDistanceInfo()}
+            </div>
+          </div>
           <h1>{event.name}</h1>
           <p>Listed acts: {artist.join(', ')}</p>
           <p>{venue.name}</p>
@@ -236,18 +236,21 @@ class EventDetail extends Component {
   }
 
   renderDistanceInfo() {
+    console.log('RENDERDISTANCEINFO this.props.event:: ',this.props.event);
     if(!this.props.distance.distance || !this.props.distance.duration) {
       <div>Calculating...</div>
     }
+
     return (
       <div>
-        <div>You are {this.props.distance.distance} from here</div>
-        <div>It will take you {this.props.distance.duration} to get here</div>
+        <div>You are {this.props.distance.distance} from this event</div>
+        <div>It will take you {this.props.distance.duration} to get to this event</div>
       </div>
     )
   }
 
   render() {
+    console.log('process.env.GOOGLEAPI KEY', process.env.JWT_SECRET )
     return (
       <div>
         <h3>Event Details</h3>
