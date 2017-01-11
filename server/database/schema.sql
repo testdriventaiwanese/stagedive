@@ -18,17 +18,13 @@ CREATE TABLE `events` (
   `name` VARCHAR(100) NOT NULL,
   `artist_name` VARCHAR(100) NOT NULL,
   `date` DATETIME NOT NULL,
-  `genre` VARCHAR(100) NOT NULL,
   `event_url` VARCHAR(150) NOT NULL,
   `venue` VARCHAR(150) NOT NULL,
-  `venue_address` VARCHAR(200) NOT NULL,
-  `city` VARCHAR(50) NOT NULL,
-  `zipcode` INTEGER(10) NOT NULL,
   `image` VARCHAR(255) NOT NULL,
-  `subgenre` VARCHAR(50) NOT NULL,
+  `genre` VARCHAR(50) NOT NULL,
   `latitude` VARCHAR(50) NOT NULL,
   `longitude` VARCHAR(50) NOT NULL,
-  `country` VARCHAR(255) NOT NULL,
+  `sale_date` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -44,6 +40,7 @@ CREATE TABLE `users` (
   `email` VARCHAR(70) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   `fullname` VARCHAR(100) NOT NULL,
+  `profile_photo` VARCHAR(100) NOT NULL,
   `createdOn` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
@@ -71,6 +68,7 @@ DROP TABLE IF EXISTS `users_friends`;
 CREATE TABLE `users_friends` (
   `id_user` INTEGER NOT NULL,
   `id_friend` INTEGER NOT NULL
+  `createdOn` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 );
 
 -- ---

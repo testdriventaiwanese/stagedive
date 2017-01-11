@@ -65,7 +65,7 @@ module.exports = {
     },
 
     getFriends(params, callback) {
-      const queryStr = 'SELECT id, email, fullname, profile_photo FROM users INNER JOIN users_friends ON (users_friends.id_user = ? AND users.id = users_friends.id_friend)';
+      const queryStr = 'SELECT users.id, users.email, users.fullname, users.profile_photo, users_friends.createdOn FROM users INNER JOIN users_friends ON (users_friends.id_user = ? AND users.id = users_friends.id_friend)';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/userModel.js getFriends : ', err);

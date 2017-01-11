@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Snackbar from 'material-ui/Snackbar';
+import moment from 'moment';
 
 import { getFriends, unfollow, getUserEvents } from '../actions/index';
 
@@ -44,12 +45,12 @@ class Friends extends Component {
         </Card>
       );
     }
-
     return this.props.friends.map((friend, i) => {
       let avatar = <Avatar>{friend.fullname.slice(0, 1)}</Avatar>;
       if (friend.profile_photo) {
         avatar = <Avatar src={friend.profile_photo} />;
       }
+      const friendSince = moment(friend.createdOn).format('MMM gggg');
       return (
         <Card key={friend.id} zDepth={1}>
           <IconMenu
@@ -73,7 +74,7 @@ class Friends extends Component {
           </IconMenu>
           <CardHeader
             title={ <Link to={`/view/${friend.id}`} onClick={() => this.props.getUserEvents(friend)}>{friend.fullname}</Link>}
-            subtitle={friend.email}
+            subtitle={`Friends since ${friendSince.toString()}`}
             avatar={avatar}
             />
         </Card>
@@ -84,7 +85,7 @@ class Friends extends Component {
   render() {
     return (
       <div>
-        <h3>Following</h3>
+        <h5>Users You're Following</h5>
         <div>{this.renderFriends()}</div>
       </div>
     );
