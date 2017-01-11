@@ -116,10 +116,11 @@ class NavBar extends Component {
               //If logged in, show logout button
               <div>
                 <IconMenu
+                  style={{top:'10px'}}
                   iconButtonElement={<IconButton><AccountMenu /></IconButton>}
                   anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                   targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                  >
+                >
                   <Link to={"account"} style={{ color: 'black' }}>
                     <MenuItem primaryText="My Account" />
                   </Link>
