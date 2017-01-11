@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import LinearProgress from 'material-ui/LinearProgress';
+import Avatar from 'material-ui/Avatar';
+
 import { getUserInfo } from '../actions/index';
 import Auth from '../modules/auth';
 
@@ -18,15 +22,29 @@ class Account extends Component {
 
   renderInfo() {
     if (this.props.info.length === 0) {
-      return <div>Loading...</div>
+      return (
+        <div align='center' style={styles.loadBar}>
+          <LinearProgress mode="indeterminate" />
+        </div>
+      );
+    }
+    const userInfo = this.props.info[0];
+    let avatar = <Avatar>{userInfo.fullname.slice(0, 1)}</Avatar>;
+    if (userInfo.profile_photo) {
+      avatar = <Avatar src={userInfo.profile_photo} />;
     }
     return (
-      <div>
-        <div>Member Since: {this.props.info[0].createdOn.slice(0,10)}</div>
-        <div>Username: {this.props.info[0].email}</div>
-        <div>Name on account: {this.props.info[0].fullname}</div>
-        <img src={this.props.info[0].profile_photo} alt='facebook headshot' />
-      </div>
+      <Card>
+        <CardHeader
+          title={<h3>{userInfo.fullname}</h3>}
+          avatar={avatar}
+        />
+        <CardText>
+          <div><strong>Member Since: </strong>{userInfo.createdOn.slice(0,10)}</div>
+          <div><strong>Username: </strong>{userInfo.email}</div>
+          <div><strong>Fullname on account: </strong>{userInfo.fullname}</div>
+        </CardText>
+      </Card>
     );
   }
 
@@ -34,8 +52,7 @@ class Account extends Component {
     return (
       <div>
         <h3>Your Account</h3>
-        <div>Click here to change password</div>
-        <div>User account information below...</div>
+        <a href='#'>Click here to change password</a>
         <div>{this.renderInfo()}</div>
       </div>
     );
