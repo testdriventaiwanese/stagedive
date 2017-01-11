@@ -219,7 +219,7 @@ class ArtistPage extends Component {
             <p>Upcoming: {artist.upcomingEvents}</p>
             <p><a href={artist.facebook}>Facebook</a></p>
               <div style={flatButtonStyle}>
-                <FlatButton onClick={() => this.props.saveArtist(bandsintown, songkick)}>Follow</FlatButton>
+                <FlatButton onClick={() => this.props.saveArtist(this.props.artistSearch.bandsintown.data, this.props.artistSearch.songkick.data.resultsPage.results.artist[0])}>Follow</FlatButton>
                 <FlatButton onClick={() => this.props.removeArtist(this.props.params.artistId, 0)}> Unfollow</FlatButton>
               </div>
             </div>
@@ -253,4 +253,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getArtistCalendar, removeArtist, searchArtists, getArtists })(ArtistPage);
+export default connect(mapStateToProps, { getArtistCalendar, removeArtist, searchArtists, getArtists, saveArtist })(ArtistPage);
