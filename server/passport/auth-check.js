@@ -6,6 +6,7 @@ const userModel = require('../user/userModel');
  */
 module.exports = (req, res, next) => {
   if (!req.headers.authheader) {
+    console.log('No request headers');
     return res.status(401).end();
   }
 
