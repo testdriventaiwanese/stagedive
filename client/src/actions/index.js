@@ -272,11 +272,12 @@ module.exports = {
     };
     axios.post('/auth/login', resultObj)
       .then((res) => {
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('id', res.data.userId);
-      })
-      .then(() => {
-        hashHistory.push('/');
+        if(res.data.success){
+          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('id', res.data.userId);
+          hashHistory.push('/');
+        }
+        console.log('index.js response from login: ', res);
       });
 
     return {
