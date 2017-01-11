@@ -35,7 +35,7 @@ class FriendsEventList extends Component {
       });
       return imageArray[index].url;
     }
-
+    console.log('FRIENDS PAGE EVENTS PROPS: ', this.props);
     if (!this.props.events.futureEvents) {
       return (
         <div align='center'>

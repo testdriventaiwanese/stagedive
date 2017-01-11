@@ -24,6 +24,9 @@ module.exports = {
             if (err) {
               console.log('Error in server/eventModel.js getFriendsEvents : ', err);
             } else {
+              if (friendsEvents.length === 0) {
+                callback({ userNames: userResults, friendEvents: results, events: [] })
+              }
               const queryStr3 = `SELECT * FROM events WHERE id IN (${friendsEvents})`;
               db.query(queryStr3, (err, eventResults) => {
                 if (err) {

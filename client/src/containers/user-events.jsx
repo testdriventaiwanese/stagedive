@@ -8,19 +8,42 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import OtherFriends from './other-friends';
 
 // import { selectEvent } from '../actions/index';
-import { getUserEvents, removeEvent, addFollower, unfollow, getOtherFriends } from '../actions/index';
+import { getUserEvents, removeEvent, addFollower, unfollow, getOtherFriends, getFriends } from '../actions/index';
 
 class UserEvents extends Component {
   componentWillMount() {
     const user = { id: this.props.params.userId }
     this.props.getUserEvents(user);
     this.props.getOtherFriends(user);
-  }
-  componentDidUpdate() {
-    console.log('user events props: ', this.props);
+    this.props.getFriends();
+
   }
 
   renderProfileBar() {
+    let imageUrl = 'http://i.imgur.com/CMXchpq.jpg'
+    const fontColor = '#FAFAFA';
+    const barStyle = {
+      height: '140px',
+      width: '100%',
+      backgroundImage: 'url(' + imageUrl + ')',
+      backgroundSize: 'auto inherit',
+      opacity: '.95',
+      position: 'relative',
+    }
+    const nameStyle = {
+      marginLeft: '10px',
+      color: fontColor,
+      position: 'absolute',
+      bottom: '0',
+    }
+    const buttonStyle = {
+      position: 'absolute',
+      width: '30%',
+      bottom: '0',
+      color: fontColor,
+      float: 'right',
+    }
+
     if (!this.props.events.userInfo) {
       return (
         <div>Loading...</div>
@@ -30,18 +53,22 @@ class UserEvents extends Component {
       return friend.id === Number(this.props.params.userId);
     })
     const id = this.props.params.userId;
-    return (
-      <Card>
-        <h1>{userName[0].fullname}</h1>
-        <Link to={`journal/${id}`}>
-          <FlatButton>{`${userName[0].fullname.split(' ')[0]}'s Concert Journal`}</FlatButton>
-        </Link>
-        <div style={{float:'right'}}>
-          <FlatButton onClick={() => this.props.addFollower(this.props.params.userId)}>Follow</FlatButton>
-          <FlatButton onClick={() => this.props.unfollow(this.props.params.userId)}>UnFollow</FlatButton>
-        </div>
-      </Card>
-    )
+    if(userName[0]) {
+      return (
+        <Card style={barStyle}>
+          <div>
+            <h1 style={nameStyle}>{userName[0].fullname}</h1>
+            <div style={{float:'right'}}>
+            <Link to={`journal/${id}`}>
+              <FlatButton style={buttonStyle}>{`${userName[0].fullname.split(' ')[0]}'s Concert Journal`}</FlatButton>
+            </Link>
+              <FlatButton onClick={() => this.props.addFollower(this.props.params.userId)}>Follow</FlatButton>
+              <FlatButton onClick={() => this.props.unfollow(this.props.params.userId)}>UnFollow</FlatButton>
+            </div>
+          </div>
+        </Card>
+      )
+    }
   }
 
   renderUpcoming() {
@@ -53,6 +80,11 @@ class UserEvents extends Component {
     let imageStyle = {
       width: '100%',
     };
+    if(!this.props.events.futureEvents) {
+      return (
+        <div>Loading...</div>
+      )
+    }
     if(this.props.events.futureEvents.length > 0) {
       let event = this.props.events.futureEvents[0];
       const momentDate = moment(event.date).format('LLLL');
@@ -106,46 +138,61 @@ class UserEvents extends Component {
     let imageStyle = {
       width: '100%',
     };
-    return this.props.events.futureEvents.slice(1).map((event) => {
-      const momentDate = moment(event.date).format('LLLL');
-      const momentFromNow = moment(event.date).fromNow();
-      const est = moment(event.date)._d;
-      const artist = JSON.parse(event.artist_name).map((performer) => performer.name);
-      const date = momentDate.toString() + ' ' + est.toString().slice(34);
-      let image = null;
-      if(event.image){
-        image = JSON.parse(event.image)[3].url || null;
-      };
-      const venue = JSON.parse(event.venue)[0];
-      let venueName = null;
-      let venueStateOrCountry = null;
-      if (venue.state) {
-        venueName = venue.state.name;
-        venueStateOrCountry = venue.state.stateCode;
-      } else if (venue.country) {
-        venueName = venue.country.name;
-        venueStateOrCountry = venue.country.countryCode;
-      }
+    if(!this.props.events.futureEvents){
+      return <div></div>;
+    }
+    if(this.props.events.futureEvents.length === 0) {
       return (
-        <Card key={event.id} className="list-group-item" zDepth={1}>
-          <CardMedia
-            overlay={ <CardTitle
-            title={event.name}
-            subtitle={venue.city.name + ', ' + momentFromNow.toString()}
-            />}
-          >
-            <img src={image} style={imageStyle} />
-          </CardMedia>
+        <Card className="list-group-item" zDepth={1}>
           <CardText>
-            <span><strong>Listed acts: </strong>{artist.join(', ')}</span>
+            <span>No upcoming events</span>
             <br />
-            <span><strong>Venue: </strong>{venue.name}</span>
-            <br />
-            <span><strong>Event Start: </strong>{date}</span>
           </CardText>
         </Card>
-      );
-    });
+      )
+    }
+    if(this.props.events.futureEvents){
+      return this.props.events.futureEvents.slice(1).map((event) => {
+        const momentDate = moment(event.date).format('LLLL');
+        const momentFromNow = moment(event.date).fromNow();
+        const est = moment(event.date)._d;
+        const artist = JSON.parse(event.artist_name).map((performer) => performer.name);
+        const date = momentDate.toString() + ' ' + est.toString().slice(34);
+        let image = null;
+        if(event.image){
+          image = JSON.parse(event.image)[3].url || null;
+        };
+        const venue = JSON.parse(event.venue)[0];
+        let venueName = null;
+        let venueStateOrCountry = null;
+        if (venue.state) {
+          venueName = venue.state.name;
+          venueStateOrCountry = venue.state.stateCode;
+        } else if (venue.country) {
+          venueName = venue.country.name;
+          venueStateOrCountry = venue.country.countryCode;
+        }
+        return (
+          <Card key={event.id} className="list-group-item" zDepth={1}>
+            <CardMedia
+              overlay={ <CardTitle
+                title={event.name}
+                subtitle={venue.city.name + ', ' + momentFromNow.toString()}
+                />}
+                >
+                <img src={image} style={imageStyle} />
+              </CardMedia>
+              <CardText>
+                <span><strong>Listed acts: </strong>{artist.join(', ')}</span>
+                <br />
+                <span><strong>Venue: </strong>{venue.name}</span>
+                <br />
+                <span><strong>Event Start: </strong>{date}</span>
+              </CardText>
+            </Card>
+          );
+        });
+    }
   }
   render() {
     const leftStyle = {
@@ -186,7 +233,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent, getUserEvents, addFollower, unfollow, getOtherFriends }, dispatch);
+  return bindActionCreators({ removeEvent, getUserEvents, addFollower, unfollow, getOtherFriends, getFriends }, dispatch);
 }
 
 
