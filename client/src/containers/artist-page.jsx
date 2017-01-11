@@ -164,46 +164,10 @@ class ArtistPage extends Component {
       )
     }
 
-<<<<<<< HEAD
-
-
-    // let musician = !this.props.artistCalendar.data.results ? '' : this.props.artistCalendar.data.resultsPage.results.event[0].performance.map((performer) => { return performer.artist}).map((id) => {return {name: id.displayName, mbid: !id.identifier[0] ? null : id.identifier[0].mbid } }).filter((mb, i)=> { if(mb.mbid === this.props.params.artistId) {return mb.name}});
-
-    // console.log('musician:: ');
-    // console.log('artistImage:: ', this.props.artistImage)
-    //
-    // let artistImageFromSearch = !this.props.artistImage.songkick ? '' : !this.props.artistImage.songkick.data ? '' : !this.props.artistImage.songkick.data.resultsPage ? '' : !this.props.artistImage.songkick.data.resultsPage.results ? '' : !this.props.artistImage.songkick.data.resultsPage.results.artist
-    //
-    // console.log('artistImageFromSearch:: ', artistImageFromSearch)
-    //
-    // if (!musician) {
-    //   musician = [{name: artistImageFromSearch.displayName, mbid: artistImageFromSearch.identifier[0].mbid}];
-    // }
-    //
-    // if (image.length === 0) {
-    //   image = [this.props.artistImage.bandsintown.data.image_url];
-    // }
-    // console.log('image: ', image)
-    // const realName = !musician[0] ? artist.name : musician[0].name;
-    // const musicId = !musician[0] ? artist.mbid : musician[0].mbid;
-    // artist = {
-    //   name: realName,
-    //   mbid: musicId,
-    //   picture: image[0].image,
-    //   facebook: image[0].facebook,
-    //   upcomingEvents: image[0].upcoming_events,
-    // }
-    // console.log('artist:: ', artist)
-    return (
-      <div>
-      <Card>
-        <div style={imageDiv}>
-=======
     return (
       <div>
       <Card>
         <div style={avatarStyle}>
->>>>>>> artistPage
             <img src={artist.image} style={imageStyle}></img>
             <h1>{artist.name}</h1>
             <p>Upcoming: {artist.upcomingEvents}</p>
