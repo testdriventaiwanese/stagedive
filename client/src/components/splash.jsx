@@ -9,6 +9,7 @@ export default class Splash extends Component {
       width: '100%',
       height: '100%',
       position: 'fixed',
+      opacity: '.9',
       top: '0',
       left: '0',
       right: '0',

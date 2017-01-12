@@ -43,7 +43,6 @@ class SignUpPage extends Component {
      return (
        <Card style={{textAlign:'center'}}>
          <form onSubmit={handleSubmit(this.onSubmit)}>
-           <h2 className="card-heading">Sign Up</h2>
            <div className="field-line">
              <Field name="name" type="text" component={this.renderTextField} label="Name" />
            </div>
