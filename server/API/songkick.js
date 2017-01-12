@@ -44,7 +44,7 @@ module.exports = {
   },
   getLocalEvents: (req, res) => {
     const metro_area_id = req.headers.id;
-    
+
     request.get({
       url: `http://api.songkick.com/api/3.0/metro_areas/${metro_area_id}/calendar.json?apikey=${process.env.SONGKICK_ID}`,
       method: 'GET',
