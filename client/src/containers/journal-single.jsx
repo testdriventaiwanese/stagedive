@@ -77,8 +77,9 @@ class JournalSingle extends Component {
       if(event.image){
         image = largestPic(JSON.parse(event.image)) || null;
       };
-      let imageComments = {
+      let imageAndComments = {
         width: '100%',
+        height: 'auto',
       }
       let imageDiv = {
         width: '60%',
@@ -99,8 +100,7 @@ class JournalSingle extends Component {
         height: '100%',
       }
       return (
-        <div>
-          <div style={imageComments}>
+          <div style={imageAndComments}>
             <Paper style={imageDiv} zDepth={1}>
                 <img src={image} style={imageStyle} />
             </Paper>
@@ -114,7 +114,6 @@ class JournalSingle extends Component {
               </Paper>
             </div>
           </div>
-        </div>
       );
     }
     else {

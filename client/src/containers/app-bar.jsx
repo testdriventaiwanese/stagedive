@@ -14,6 +14,7 @@ import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import Paper from 'material-ui/Paper';
 
 import Auth from '../modules/auth';
 import SearchBar from './searchbar';
@@ -72,6 +73,12 @@ class NavBar extends Component {
     }
     const drawerStyle = {
       top: '200px',
+      position: 'relative',
+    }
+    const bottomLeftNavStyle = {
+      position: 'absolute',
+      width: '100%',
+      bottom: '0',
     }
     return (
       <div>
@@ -85,9 +92,12 @@ class NavBar extends Component {
             onRequestChange={(open) => this.setState({open})}>
             <MenuItem style={{height: appBarHeight}}></MenuItem>
             <Link to={"/"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Home</MenuItem></Link>
-            <Link to={"newsfeed"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>News Feed</MenuItem></Link>
             <Link to={`journal/${id}`} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Concert Journal</MenuItem></Link>
             <Link to={"explore"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Explore</MenuItem></Link>
+            <Paper style={bottomLeftNavStyle} zDepth={1}>
+              <Link to={"account"} style={{ color: 'black' }}><MenuItem primaryText="My Account" /></Link>
+              <MenuItem onClick={this.onClickLogout} primaryText="Sign out" />
+            </Paper>
           </Drawer>
         ) : (
           <Drawer
@@ -96,7 +106,7 @@ class NavBar extends Component {
             width={150}
             open={this.state.open}
             onRequestChange={(open) => this.setState({open})}>
-            <MenuItem onTouchTap={this.handleLeftNavToggle}>Back</MenuItem>
+            <MenuItem style={{height: appBarHeight}}></MenuItem>
             <Link to={"login"} style={{ color: 'black' }}><MenuItem>Log In</MenuItem></Link>
             <Link to={"signup"} style={{ color: 'black' }}><MenuItem>Sign up</MenuItem></Link>
           </Drawer>
