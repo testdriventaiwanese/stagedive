@@ -34,7 +34,7 @@ module.exports = {
             const dupeParams = [userId, artistResults[0].id];
             db.query(queryStr3, dupeParams, (userArtistsErr, userArtistsResults) => {
               if (userArtistsErr) {
-                console.log('Error in server/artistsModel.js addArtist : ', err);
+                console.log('Error in server/artistsModel.js addArtist userArtistErr : ', userArtistsErr);
               } else {
                 callback(userArtistsResults);
               }
@@ -42,12 +42,12 @@ module.exports = {
           } else {
             db.query(queryStr2, params, (insertErr, insertResults) => {
               if (insertErr) {
-                console.log('Error in server/artistsModel.js addArtist : ', err);
+                console.log('Error in server/artistsModel.js addArtist insertErr : ', insertErr);
               } else {
                 const params2 = [userId, insertResults.insertId];
                 db.query(queryStr3, params2, (userArtistsErr, userArtistsResults) => {
                   if (userArtistsErr) {
-                    console.log('Error in server/artistsModel.js addArtist : ', err);
+                    console.log('Error in server/artistsModel.js userArtistErr2 : ', userArtistsErr);
                   } else {
                     callback(userArtistsResults);
                   }

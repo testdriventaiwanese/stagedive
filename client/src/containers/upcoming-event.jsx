@@ -10,6 +10,8 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Snackbar from 'material-ui/Snackbar';
+import Delete from 'material-ui/svg-icons/action/delete';
+import Description from 'material-ui/svg-icons/action/description';
 import { Link, hashHistory } from 'react-router';
 import moment from 'moment';
 import Divider from 'material-ui/Divider';
@@ -95,13 +97,14 @@ class UpcomingEvent extends Component {
             useLayerForClickAway={true}
             >
             <Link to={`/event/${id}/${event.id}`}>
-              <MenuItem primaryText="Event Details" secondary />
+              <MenuItem primaryText="Details" rightIcon={<Description />} secondary />
             </Link>
             <Divider />
             <MenuItem
-              primaryText="Remove Event"
+              primaryText="Remove"
               secondary
               onTouchTap={this.handleTouchTap}
+              rightIcon={<Delete />}
               onClick={() => this.props.removeEvent(event.tm_id, 0)}
               />
             <Snackbar

@@ -9,6 +9,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Delete from 'material-ui/svg-icons/action/delete';
 import Snackbar from 'material-ui/Snackbar';
 import moment from 'moment';
 
@@ -60,9 +61,9 @@ class Friends extends Component {
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
             >
             <MenuItem
-              primaryText="Unfollow"
-              secondary
+              primaryText='Unfollow'
               onTouchTap={this.handleTouchTap}
+              rightIcon={<Delete />}
               onClick={() => this.props.unfollow(friend.id, i)}
               />
             <Snackbar
