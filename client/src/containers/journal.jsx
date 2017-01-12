@@ -23,8 +23,7 @@ class Journal extends Component {
   }
 
   renderHeader() {
-    console.log('PROPS IN JOURNAL: ', this.props.userInfo);
-    let imageUrl = 'http://i.imgur.com/CMXchpq.jpg'
+    let imageUrl = 'http://i.imgur.com/O8eJkrL.jpg'
     const fontColor = '#FAFAFA';
     const nameStyle = {
       marginLeft: '20px',
@@ -36,7 +35,8 @@ class Journal extends Component {
       height: '140px',
       width: '100%',
       backgroundImage: 'url(' + imageUrl + ')',
-      backgroundSize: 'auto inherit',
+      backgroundSize: 'cover',
+      backgroundPosition: 'left bottom',
       opacity: '.95',
       position: 'relative',
     }
@@ -79,7 +79,12 @@ class Journal extends Component {
       )
     }
 
-    const journalPhotos = this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={event.id} i={i} event={event} /> );
+    const journalPhotos =
+    this.props.userInfo.pastEvents.length === 0 ?
+      <Paper>
+        Concert journal will automatically fill with your past events. You currently have no past events.
+      </Paper> :
+      this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={event.id} i={i} event={event} /> );
     return (
       <div style={styles.container}>
         {this.renderHeader()}

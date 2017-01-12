@@ -35,6 +35,10 @@ class Comments extends Component {
   }
 
   renderComments() {
+    const commentStyle = {
+      margin: "0px 0px 0px 15px",
+
+    };
     return (
       this.props.comments.comments.map((comment) => {
         const userId = comment.id_user;
@@ -45,10 +49,10 @@ class Comments extends Component {
           userObj = [{ fullname: comment.fullname }];
         }
         return (
-          <div key={comment.id} style={{ margin: "0px 0px 0px 15px" }}>
+          <div key={comment.id} style={commentStyle}>
             <div>
               <IconButton onClick={() => this.props.removeEventComment(comment)}
-                style={{ float: 'right', height: '0px', position: 'relative' }}
+                style={{ float: 'right', height: '0px' }}
               ><NavigationClose /></IconButton>
             </div>
             <div>
@@ -93,11 +97,11 @@ class Comments extends Component {
       width: '100%',
     }
     return (
-      <div style={commentsStyle}>
+      <div>
         <div>
           {this.renderComments()}
         </div>
-        <Paper zDepth={1} style={formStyle}>
+        <Paper zDepth={1}>
           {this.renderAddComment()}
         </Paper>
       </div>
