@@ -23,7 +23,7 @@ class Account extends Component {
   renderInfo() {
     if (this.props.info.length === 0) {
       return (
-        <div align='center' style={styles.loadBar}>
+        <div align='center'>
           <LinearProgress mode="indeterminate" />
         </div>
       );
