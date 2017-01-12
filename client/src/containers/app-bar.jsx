@@ -9,7 +9,12 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import AccountMenu from 'material-ui/svg-icons/navigation/expand-more';
 import LeftNavMenu from 'material-ui/svg-icons/navigation/menu';
+import AccountCircle from 'material-ui/svg-icons/action/account-circle';
+import Explore from 'material-ui/svg-icons/action/explore';
+import Home from 'material-ui/svg-icons/action/home';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import Apps from 'material-ui/svg-icons/navigation/apps';
+import PowerSetting from 'material-ui/svg-icons/action/power-settings-new';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -88,26 +93,25 @@ class NavBar extends Component {
         {Auth.isUserAuthenticated() ? (
           <Drawer
             style={drawerStyle}
-            width={150}
+            width={180}
             docked={false}
             open={this.state.open}
             zDepth={1}
             onRequestChange={(open) => this.setState({open})}>
             <MenuItem style={appBarHeight}></MenuItem>
-            <Link to={"/"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Home</MenuItem></Link>
-            <Link to={`journal/${id}`} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Concert Journal</MenuItem></Link>
-            <Link to={"explore"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Explore</MenuItem></Link>
-            <Divider />
+            <Link to={"/"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem primaryText='Home' rightIcon={<Home />} /></Link>
+            <Link to={`journal/${id}`} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem primaryText='Concert Journal' rightIcon={<Apps />} /></Link>
+            <Link to={"explore"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem primaryText="Explore" rightIcon={<Explore />} /></Link>
             <Paper style={bottomLeftNavStyle} zDepth={1}>
-              <Link to={"account"} style={{ color: 'black' }}><MenuItem onClick={this.handleLeftNavToggle} primaryText="My Account" /></Link>
-              <MenuItem onClick={this.onClickLogout} primaryText="Sign out" />
+              <Link to={"account"} style={{ color: 'black' }}><MenuItem onClick={this.handleLeftNavToggle} primaryText="Account" rightIcon={<AccountCircle />} /></Link>
+              <MenuItem onClick={this.onClickLogout} primaryText="Sign out" rightIcon={<PowerSetting />} />
             </Paper>
           </Drawer>
         ) : (
           <Drawer
             style={drawerStyle}
             docked={false}
-            width={150}
+            width={180}
             open={this.state.open}
             onRequestChange={(open) => this.setState({open})}>
             <MenuItem style={appBarHeight}></MenuItem>
