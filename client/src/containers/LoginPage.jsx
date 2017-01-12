@@ -96,7 +96,7 @@ handleChange = (value) => {
                 <RaisedButton type="submit" label="Log in" disabled={pristine || submitting} primary />
               </div>
               <CardText>
-                Don&apos;t have an account?<Link to={'signup'}> Create one</Link>. Or login with <a href='/auth/facebook'>Facebook</a>.
+                <div className="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="true"></div>
               </CardText>
             </form>
           </Card>
