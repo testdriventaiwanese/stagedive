@@ -2,6 +2,7 @@
 //   require('dotenv').config();
 // }
 require('dotenv').config();
+
 require('./database/config.js');
 const path = require('path');
 const express = require('express');
@@ -43,7 +44,6 @@ const apiRoutes = require('./routes/api');
 
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
-
 
 const port = process.env.PORT || 5000;
 
