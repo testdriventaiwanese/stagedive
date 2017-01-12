@@ -12,6 +12,7 @@ node_modules/
 
 ### API keys ###
 src/server/database/pw.js
+src/client/src/containers/gmaps.js
 
 
 ### WIP ###
