@@ -4,13 +4,15 @@ import { bindActionCreators } from 'redux';
 import { hashHistory, Link } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import { saveEvent, addFollower, saveArtist, getUserEvents } from '../actions/index';
 import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import moment from 'moment';
 import Avatar from 'material-ui/Avatar';
+import PersonAdd from 'material-ui/svg-icons/social/person-add';
+
+import { saveEvent, addFollower, saveArtist, getUserEvents } from '../actions/index';
 
 class SearchResults extends Component {
   constructor(props) {
@@ -119,9 +121,19 @@ class SearchResults extends Component {
       width: '20%',
       height: '20%',
     };
+    if (this.props.artists.length === 0) {
+     return (
+       <Card zDepth={1}>
+         <div>
+           No Artists Found
+         </div>
+         <br />
+       </Card>
+     );
+    }
     let bandsintown = this.props.artists.bandsintown;
     let songkick = this.props.artists.songkick;
-    if(this.props.artists.bandsintown !== undefined || this.props.artists.songkick !== undefined){
+    if (this.props.artists.bandsintown !== undefined || this.props.artists.songkick !== undefined){
       bandsintown = this.props.artists.bandsintown.data;
       if(this.props.artists.songkick.data.resultsPage.results.artist !== undefined && this.props.artists.songkick.data.resultsPage.results.artist !== undefined) {
         songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
@@ -130,8 +142,8 @@ class SearchResults extends Component {
         let avatar = <Avatar src={bandsintown.image_url} style={avatarStyle}/>
         return (
           <Card zDepth={1}>
-            <FloatingActionButton onClick={() => this.props.saveArtist(bandsintown, songkick)} mini={true} style={{float:'right', margin:'10px', position:'relative', zIndex:2}}>
-              <ContentAdd />
+            <FloatingActionButton onClick={() => this.props.saveArtist(bandsintown, songkick)} style={{float:'right', margin:'10px', position:'relative', zIndex:2}}>
+              <PersonAdd />
             </FloatingActionButton>
             <CardHeader
               title={ <Link to={`/artists/${songkick.identifier[0].mbid}`}><h2>{songkick.displayName}</h2></Link>}
@@ -140,18 +152,9 @@ class SearchResults extends Component {
             />
           </Card>
         );
-      } else {
-        return (
-          <Card zDepth={1}>
-            <div>
-              No Artists Found
-            </div>
-            <br />
-          </Card>
-        );
       }
+    }
   }
-}
 
   renderUsers() {
     if (this.props.users.length === 0) {
@@ -173,7 +176,7 @@ class SearchResults extends Component {
       return (
         <Card key={user.id} zDepth={1}>
           <FloatingActionButton onClick={() => this.props.addFollower(user.id)} mini={true} style={{float:'right', margin:'10px', position:'relative', zIndex:2}}>
-            <ContentAdd />
+            <PersonAdd />
           </FloatingActionButton>
           <CardHeader
             title={ <Link to={`/view/${user.id}`} onClick={() => this.onProfileClick(user)}>{user.fullname}</Link>}
