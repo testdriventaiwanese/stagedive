@@ -4,14 +4,15 @@ import { bindActionCreators } from 'redux';
 import { GoogleApiWrapper, Marker} from 'google-maps-react';
 import ReactDOM from 'react-dom';
 import { getLocalEvents, getLocation, showLocalEvents } from '../actions/index';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
-
+import moment from 'moment'
 
 class Map extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       this.loadMap();
-    }, 300)
+    }, 150)
   }
   componentDidUpdate(prevProps, prevState) {
     console.log('prevState:: ', prevState);
@@ -50,8 +51,9 @@ class Map extends React.Component {
             .then((events) => {
               return events.filter((value) => {
                 return value.status === 'ok';
-              }).map((value) => {
+              }).map((value, i) => {
                 return {
+                  id: i,
                   displayName: value.displayName,
                   venue: value.venue.displayName,
                   longitude: value.venue.lng,
@@ -67,11 +69,13 @@ class Map extends React.Component {
             .then((concert) => {
               // this.props.object = concert.splice();
               // this.state.object =concert;
+              console.log('CONCERT:::', concert)
               this.props.showLocalEvents(concert);
 
               let val;
-              return concert.map((value) => {
+              return concert.map((value, i) => {
                 return {
+                  value: i,
                   infowindow: new google.maps.InfoWindow({
                     content: '<div>' + '<p><strong>' + value.displayName + '</strong></p>' + '<p>' + value.venue + '</p>' + '<p>' + value.date + '</p>' + '<p>' + value.time + '</p>' + '</div>'
                   }),
@@ -86,9 +90,12 @@ class Map extends React.Component {
               console.log('MARK IN PROMISES:: ', mark);
               return mark.forEach((marking) => {
                   marking.markers.setMap(this.map);
-                  marking.markers.addListener('click', function() {
+                  marking.markers.addListener('mouseover', function() {
                     marking.infowindow.open(marking.markers.map, marking.markers);
                   });
+                  marking.markers.addListener('mouseout', function() {
+                    marking.infowindow.close(marking.markers.map, marking.markers);
+                  })
               });
             })
 
@@ -115,8 +122,8 @@ class Map extends React.Component {
 
   render() {
     const style = {
-      width: '50%',
-      height: '75%'
+      width: '100%',
+      height: '100%'
     }
 
     return (
@@ -136,28 +143,50 @@ export class MapComponent extends React.Component {
       )
     }
     return this.props.showEvents.payload.map((value, i) => {
-      return ( <Paper key={i}>
-        <div>
-          <div>{value.displayName}</div>
-          <div>{value.venue}</div>
-          <div>{value.date}</div>
-          <div>{value.time}</div>
-        </div>
-      </Paper>
+      const momentDate = moment(value.date).format('LL');
+      const est = moment(value.date)._d;
+      const date = momentDate.toString() + ' ' + est.toString().slice(39);
+      const time = moment(value.time, 'HH:mm:ss').format('h:mm A')
+
+      return (
+          <Card key={i} >
+            <CardHeader
+              title={value.displayName}
+              subtitle={<div><div>{value.venue}</div><div>{date}</div><div>{time}</div></div>}
+            />
+          </Card>
     )
     })
   }
   render() {
-    console.log('MAP COMPONENT THIS.PROPS.SHOWEVENTS:: ', this.props.showEvents)
+
     const style = {
-      width: '100vw',
-      height: '100vh'
+      width: '40vw',
+      height: '75vh',
+      float: 'left',
+    }
+    let eventStyle = {
+      float: 'right',
+      width: '48%',
+    }
+    let over = {
+      overflow:'scroll',
+      height: '1100px',
+    }
+    let mapStyle = {
+      width: '100%',
     }
     return (
-      <div ref="map" style={style}>
-        <h1>Explore</h1>
-        <Map {...this.props} object={[]} />
-        <div>{this.renderEvents()}</div>
+      <div>
+
+          <div style={eventStyle}>
+            <h1>Local Events</h1>
+            <div style={over}>{this.renderEvents()}</div>
+          </div>
+          <div ref="map" style={style}>
+            <h1>Explore</h1>
+            <Map style={mapStyle} {...this.props} object={[]} />
+          </div>
       </div>
     );
   }
