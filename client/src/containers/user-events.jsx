@@ -71,6 +71,10 @@ class UserEvents extends Component {
         </Card>
       )
     }
+    else {
+      console.log('PROPS IN USER PROFILE ELSE: ', this.props);
+
+    }
   }
 
   renderUpcoming() {

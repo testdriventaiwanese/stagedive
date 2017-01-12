@@ -25,17 +25,18 @@ class PostIndex extends Component {
       width: '65%',
       float: 'right',
       overflow: 'scroll',
-      height: '1100px',
+      height: '950px',
+      position: 'relative',
       marginTop: '10px',
     };
     return (
       <div style={containerStyle}>
         <div style={leftStyle}>
-          <UpcomingEvent />
+          <UpcomingEvent style={{position: 'fixed'}} />
           <br />
-          <Friends />
+          <Friends style={{position: 'fixed'}} />
           <br />
-          <Artists />
+          <Artists style={{position: 'fixed'}} />
         </div>
         <div style={rightStyle}>
           <EventList />
