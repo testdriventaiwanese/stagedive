@@ -18,6 +18,8 @@ import moment from 'moment';
 import FriendsEvents from './friends-events';
 import { getUserEvents, getUserInfo, removeEvent, getEvents, getFriendsEvents } from '../actions/index';
 import Auth from '../modules/auth';
+import Divider from 'material-ui/Divider';
+
 
 class EventList extends Component {
   constructor(props) {
@@ -32,7 +34,6 @@ class EventList extends Component {
     const user = { id };
     this.props.getUserInfo();
     this.props.getUserEvents(user);
-    // this.props.getFriendsEvents();
   }
   handleTouchTap() {
     this.setState({
@@ -121,8 +122,9 @@ class EventList extends Component {
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
             >
             <Link to={`/event/${id}/${event.id}`}>
-              <MenuItem primaryText="View Event Details" secondary/>
+              <MenuItem primaryText="Event Details" secondary/>
             </Link>
+            <Divider />
             <MenuItem
               primaryText="Remove Event"
               secondary
