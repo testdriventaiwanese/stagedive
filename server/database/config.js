@@ -7,4 +7,6 @@ const connection = mysql.createConnection({
   database: 'concert_wallet',
 });
 
-module.exports = connection.connect();
+connection.connect();
+
+module.exports = connection;

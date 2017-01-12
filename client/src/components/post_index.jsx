@@ -32,7 +32,9 @@ class PostIndex extends Component {
       <div style={containerStyle}>
         <div style={leftStyle}>
           <UpcomingEvent />
+          <br />
           <Friends />
+          <br />
           <Artists />
         </div>
         <div style={rightStyle}>
