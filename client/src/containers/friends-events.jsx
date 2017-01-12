@@ -37,7 +37,6 @@ class FriendsEventList extends Component {
       });
       return imageArray[index].url;
     }
-    console.log('PROPS IN FRIENDS EVENTS: ', this.props);
     if (!this.props.friendsEvents.futureEvents) {
       return (
         <div>
@@ -66,7 +65,6 @@ class FriendsEventList extends Component {
           return eventUser.indexOf(user.id) > -1;
         })
         let name = user.map((user) => user.fullname);
-        console.log('FRIEND NAME: ', name, 'USER INFO: ', user);
 
         const momentDate = moment(event.date).format('LLLL');
         const momentFromNow = moment(event.date).fromNow();

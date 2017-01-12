@@ -23,8 +23,7 @@ class Journal extends Component {
   }
 
   renderHeader() {
-    console.log('PROPS IN JOURNAL: ', this.props.userInfo);
-    let imageUrl = 'http://i.imgur.com/CMXchpq.jpg'
+    let imageUrl = 'http://i.imgur.com/O8eJkrL.jpg'
     const fontColor = '#FAFAFA';
     const nameStyle = {
       marginLeft: '20px',
@@ -36,7 +35,8 @@ class Journal extends Component {
       height: '140px',
       width: '100%',
       backgroundImage: 'url(' + imageUrl + ')',
-      backgroundSize: 'auto inherit',
+      backgroundSize: 'cover',
+      backgroundPosition: 'left bottom',
       opacity: '.95',
       position: 'relative',
     }
