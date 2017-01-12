@@ -119,7 +119,7 @@ class ArtistPage extends Component {
     }
     let calTitle = {
       width:'20%',
-      marginLeft: '375px',
+      marginLeft: '450px',
       marginTop: '20px',
     }
     let imageStyle = {
@@ -229,7 +229,7 @@ class ArtistPage extends Component {
           <div style={calTitle}>
           <h1><strong>Calendar</strong></h1>
           </div>
-          <div className="list-group col-sm-16" style={calendarStyle}>{this.renderCalendar()}</div>
+          <div style={calendarStyle}>{this.renderCalendar()}</div>
         </div>
       </div>
     )

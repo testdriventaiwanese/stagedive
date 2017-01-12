@@ -20,7 +20,7 @@ class Map extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       this.loadMap();
-    }, 300)
+    }, 150)
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.google !== this.props.google) {
