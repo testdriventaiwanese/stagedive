@@ -12,6 +12,8 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Snackbar from 'material-ui/Snackbar';
 import { Link, hashHistory } from 'react-router';
 import moment from 'moment';
+import Divider from 'material-ui/Divider';
+
 import { getUserEvents, getUserInfo, removeEvent, getEvents } from '../actions/index';
 import Auth from '../modules/auth';
 
@@ -93,8 +95,9 @@ class UpcomingEvent extends Component {
             useLayerForClickAway={true}
             >
             <Link to={`/event/${id}/${event.id}`}>
-              <MenuItem primaryText="View Event Details" secondary />
+              <MenuItem primaryText="Event Details" secondary />
             </Link>
+            <Divider />
             <MenuItem
               primaryText="Remove Event"
               secondary

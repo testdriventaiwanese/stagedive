@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
 
 import Auth from '../modules/auth';
 import SearchBar from './searchbar';
@@ -49,11 +50,13 @@ class NavBar extends Component {
   }
 
   render() {
-    const appBarHeight = '70px';
+    const appBarHeight = {
+      height: '70px',
+    };
     const id = localStorage.getItem('id');
     const divBarStyle = {
       width: 'inherit',
-      height: appBarHeight,
+      height: appBarHeight.height,
     }
     const appBarStyle = {
       // display: 'flex',
@@ -90,12 +93,13 @@ class NavBar extends Component {
             open={this.state.open}
             zDepth={1}
             onRequestChange={(open) => this.setState({open})}>
-            <MenuItem style={{height: appBarHeight}}></MenuItem>
+            <MenuItem style={appBarHeight}></MenuItem>
             <Link to={"/"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Home</MenuItem></Link>
             <Link to={`journal/${id}`} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Concert Journal</MenuItem></Link>
             <Link to={"explore"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem>Explore</MenuItem></Link>
+            <Divider />
             <Paper style={bottomLeftNavStyle} zDepth={1}>
-              <Link to={"account"} style={{ color: 'black' }}><MenuItem primaryText="My Account" /></Link>
+              <Link to={"account"} style={{ color: 'black' }}><MenuItem onClick={this.handleLeftNavToggle} primaryText="My Account" /></Link>
               <MenuItem onClick={this.onClickLogout} primaryText="Sign out" />
             </Paper>
           </Drawer>
@@ -106,9 +110,9 @@ class NavBar extends Component {
             width={150}
             open={this.state.open}
             onRequestChange={(open) => this.setState({open})}>
-            <MenuItem style={{height: appBarHeight}}></MenuItem>
-            <Link to={"login"} style={{ color: 'black' }}><MenuItem>Log In</MenuItem></Link>
-            <Link to={"signup"} style={{ color: 'black' }}><MenuItem>Sign up</MenuItem></Link>
+            <MenuItem style={appBarHeight}></MenuItem>
+            <Link to={"login"} style={{ color: 'black' }} onTouchTap={this.handleLeftNavToggle}><MenuItem>Log In</MenuItem></Link>
+            <Link to={"signup"} style={{ color: 'black' }} onTouchTap={this.handleLeftNavToggle}><MenuItem>Sign up</MenuItem></Link>
           </Drawer>
         )}
         <div style={divBarStyle}>
@@ -122,27 +126,6 @@ class NavBar extends Component {
             <div style={searchBarStyle}>
               <SearchBar />
             </div>
-            {Auth.isUserAuthenticated() ?
-              //If logged in, show logout button
-              <div>
-                <IconMenu
-                  style={{top:'10px'}}
-                  iconButtonElement={<IconButton><AccountMenu /></IconButton>}
-                  anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-                  targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                >
-                  <Link to={"account"} style={{ color: 'black' }}>
-                    <MenuItem primaryText="My Account" />
-                  </Link>
-                  <MenuItem onClick={this.onClickLogout} primaryText="Sign out" />
-                </IconMenu>
-              </div> :
-              //If not logged in, show login/signup
-              <div>
-                <FlatButton onClick={this.onClickLogin} label="Login" style={{ color: 'black' }} />
-                <FlatButton onClick={this.onClickSignup} label="Signup" style={{ color: 'black' }} />
-              </div>
-            }
           </AppBar>
         </div>
       </div>
