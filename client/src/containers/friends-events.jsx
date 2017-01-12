@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Link } from 'react-router';
 import CircularProgress from 'material-ui/CircularProgress';
 import Avatar from 'material-ui/Avatar';
 import moment from 'moment';
@@ -61,9 +62,12 @@ class FriendsEventList extends Component {
         const eventUser = friendsEvents.filter((friend) => {
           return friend.id_events === event.id;
         }).map((val) => val.id_users);
-        const name = userInfo.filter((user) => {
+        let user = userInfo.filter((user) => {
           return eventUser.indexOf(user.id) > -1;
-        }).map((name) => name.fullname);
+        })
+        let name = user.map((user) => user.fullname);
+        console.log('FRIEND NAME: ', name, 'USER INFO: ', user);
+
         const momentDate = moment(event.date).format('LLLL');
         const momentFromNow = moment(event.date).fromNow();
         const est = moment(event.date)._d;
@@ -86,8 +90,8 @@ class FriendsEventList extends Component {
         return (
           <Card key={event.id} className="list-group-item">
             <CardHeader
-              title={name.join(', ')}
-              subtitle={`going to in ${momentFromNow.toString()}`}
+              title={ <Link to={`/view/${user[0].id}`} onClick={() => this.props.getUserEvents(user[0])}>{name.join(', ')}</Link>}
+              subtitle={`going ${momentFromNow.toString()}`}
               avatar={<Avatar>{name.join(', ').slice(0,1)}</Avatar>}
               onClick={() => this.props.getOtherUserEvents(friend)}
               />
