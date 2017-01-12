@@ -105,6 +105,7 @@ class NavBar extends Component {
             <Paper style={bottomLeftNavStyle} zDepth={1}>
               <Link to={"account"} style={{ color: 'black' }}><MenuItem onClick={this.handleLeftNavToggle} primaryText="Account" rightIcon={<AccountCircle />} /></Link>
               <MenuItem onClick={this.onClickLogout} primaryText="Sign out" rightIcon={<PowerSetting />} />
+              <Link to={"about"} style={{color: 'black'}}><MenuItem onClick={this.handleLeftNavToggle} primaryText="About Us" /></Link>
             </Paper>
           </Drawer>
         ) : (
