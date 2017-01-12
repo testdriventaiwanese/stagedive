@@ -7,6 +7,7 @@ import { getLocalEvents, getLocation, showLocalEvents } from '../actions/index';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import moment from 'moment'
+import GMAPS from '../containers/gmaps'
 
 class Map extends React.Component {
   componentDidMount() {
@@ -192,7 +193,7 @@ export class MapComponent extends React.Component {
   }
 }
 
-const googleWrapped = GoogleApiWrapper({ apiKey: process.env.GAPI_KEY })(MapComponent);
+const googleWrapped = GoogleApiWrapper({ apiKey: GMAPS})(MapComponent);
 
 function mapStateToProps(state) {
   return {

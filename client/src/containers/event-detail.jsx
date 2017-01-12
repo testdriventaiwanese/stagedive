@@ -14,6 +14,7 @@ import moment from 'moment';
 import { getLocation, removeEvent, getUserEvents, getDistanceInfo } from '../actions/index';
 import { GoogleApiWrapper, Marker} from 'google-maps-react';
 import ReactDOM from 'react-dom';
+import GMAPS from '../containers/gmaps'
 
 
 class Map extends React.Component {
@@ -47,7 +48,7 @@ class Map extends React.Component {
       const node = ReactDOM.findDOMNode(mapRef);
       let crd;
       const position = navigator.geolocation.getCurrentPosition((pos) => {
-        const zoom = 2;
+        const zoom = 3;
         crd = pos.coords;
 
         console.log('this is a test:: ', eventLatLng)
@@ -124,7 +125,7 @@ class EventDetail extends Component {
     });
   }
   renderEvent() {
-    if (!this.props.event.events[0]) {
+    if (!this.props.event.events) {
       return <div>Event Not Listed</div>;
     }
     //
@@ -250,7 +251,7 @@ class EventDetail extends Component {
   }
 
   render() {
-    console.log('process.env.GOOGLEAPI KEY', process.env.JWT_SECRET )
+    console.log('process.env.GOOGLEAPI KEY', process.env )
     return (
       <div>
         <h3>Event Details</h3>
@@ -270,6 +271,6 @@ function mapStateToProps(state) {
   };
 }
 
-const googleWrapped = GoogleApiWrapper({ apiKey: process.env.GAPI_KEY })(EventDetail);
+const googleWrapped = GoogleApiWrapper({ apiKey: GMAPS })(EventDetail);
 
 export default connect(mapStateToProps, { getDistanceInfo, getLocation, removeEvent, getUserEvents })(googleWrapped);
