@@ -3,7 +3,6 @@ const request = require('request');
 module.exports = {
   getArtist: (req, res) => {
     const artist_name = req.headers.artist;
-    console.log('GET ARTIST::: ', process.env.SONGKICK_ID)
     request.get({
       url: `http://api.songkick.com/api/3.0/search/artists.json?query=${artist_name}&apikey=${process.env.SONGKICK_ID}`,
       method: 'GET',
