@@ -93,9 +93,9 @@ class Map extends React.Component {
       height: '100%'
     }
     return (
-        <div ref='map' style={style}>
-          Loading..
-        </div>
+      <Card zDepth={2} ref='map' style={style}>
+        Loading..
+      </Card>
 
     )
   }
@@ -179,6 +179,7 @@ class EventDetail extends Component {
     const imageStyle = {
       width: '50%',
       height: '50%',
+      borderRadius: '5px',
     };
     const mapStyle = {
         width: '35vw',
@@ -191,7 +192,9 @@ class EventDetail extends Component {
     }
     let distanceStyle = {
       float: 'left',
-      margin: '30px',
+      marginBottom: '10px',
+      marginTop: '13px',
+      marginLeft: '30px',
     }
     return (
       <Card key={event.id} className="list-group-item" zDepth={1}>
