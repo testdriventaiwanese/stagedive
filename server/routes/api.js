@@ -17,6 +17,7 @@ router.post('/users/changepassword', userController.users.changepassword);
 router.post('/users/deleteuser', userController.users.deleteUser);
 router.get('/users/getall', userController.users.getAll);
 router.get('/users/getinfo', userController.users.getInfo);
+router.get('/users/getotherinfo', userController.users.getOtherInfo);
 router.get('/users/getfriends', userController.users.getFriends);
 router.get('/users/getotherfriends', userController.users.getOtherFriends);
 router.post('/users/finduser', userController.users.findUser);

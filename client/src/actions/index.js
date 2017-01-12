@@ -9,6 +9,7 @@ export const GET_EVENTS = 'GET_EVENTS';
 export const FRIENDS_EVENTS = 'FRIENDS_EVENTS';
 export const GET_ARTISTS = 'GET_ARTISTS';
 export const GET_USERINFO = 'GET_USERINFO';
+export const GET_OTHER_USERINFO = 'GET_OTHER_USERINFO';
 export const SIGN_UP = 'SIGN_UP';
 export const LOG_IN = 'LOG_IN';
 export const REMOVE_EVENT = 'REMOVE_EVENT';
@@ -173,6 +174,22 @@ export function getUserInfo() {
     payload: request,
   };
 }
+
+export function getOtherUserInfo(userid) {
+  const config = {
+    headers: { authHeader: localStorage.getItem('token'),
+      userid },
+  };
+  const request = axios.get('/api/users/getotherinfo', config)
+    .catch(() => {
+      return { data: [] };
+    });
+  return {
+    type: GET_OTHER_USERINFO,
+    payload: request,
+  };
+}
+
 
 export function getFriends() {
   const config = {
