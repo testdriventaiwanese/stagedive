@@ -41,15 +41,17 @@ class UserEvents extends Component {
       position: 'absolute',
       width: '50%',
       bottom: '0',
-      right: '10',
+      right: '0',
     }
     const buttonStyle = {
       color: 'black',
       backgroundColor: fontColor,
       float: 'right',
+      margin: '0px 5px 5px 0px',
+      padding: '2px'
     }
 
-    if (!this.props.events.userInfo) {
+    if (!this.props.otherUserInfo) {
       return (
         <div>Loading...</div>
       );
@@ -73,17 +75,16 @@ class UserEvents extends Component {
     }
     else {
       const id = this.props.params.userId;
-      console.log('PROPS IN USER PROFILE ELSE: ', this.props.otherUserInfo);
       return (
         <Card style={barStyle}>
-          <h1 style={nameStyle}>{this.props.otherUserInfo[0].fullname}</h1>
+          <h1 style={nameStyle}>{this.props.otherUserInfo.fullname}</h1>
           <div style={buttonsDiv}>
             <FlatButton style={buttonStyle}
               onClick={() => {
                 this.props.addFollower(this.props.params.userId)
               }}>Follow</FlatButton>
               <Link to={`journal/${id}`}>
-                <FlatButton style={buttonStyle}>{`${userName[0].fullname.split(' ')[0]}'s Concert Journal`}</FlatButton>
+                <FlatButton style={buttonStyle}>{`${this.props.otherUserInfo.fullname}'s Concert Journal`}</FlatButton>
               </Link>
             </div>
           </Card>

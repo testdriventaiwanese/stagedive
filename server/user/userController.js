@@ -38,7 +38,7 @@ module.exports = {
       console.log('get other info id: ', req.headers.userid);
       userModel.users.findById(req.headers.userid)
         .then((response) => {
-          res.sendStatus(200).send(response);
+          res.status(200).send(response);
         })
       //   , (response) => {
       //   if (!response) {
