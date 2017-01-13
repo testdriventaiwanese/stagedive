@@ -22,7 +22,7 @@ module.exports = new PassportFacebookStrategy({
               console.log('Error adding facebook user to database in Passport Strategy');
               return done('Error adding facebook user to database in Passport Strategy');
             }
-            userModel.users.findById(response.insertId)
+            userModel.users.findById(response[0])
               .then((userInfo) => {
                 const info = {
                   sub: userInfo[0].id,
