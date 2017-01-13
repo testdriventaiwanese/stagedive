@@ -3,10 +3,9 @@ import { hashHistory } from 'react-router';
 
 class Token extends Component {
   componentWillMount() {
-    const token = window.location.hash.slice(8, 148);
-    const userId = window.location.hash.slice(148);
-    localStorage.setItem('token', token);
-    localStorage.setItem('id', userId);
+    const tokenArr = window.location.hash.slice(8).split('%20');
+    localStorage.setItem('token', tokenArr[0]);
+    localStorage.setItem('id', tokenArr[1]);
     hashHistory.push('/');
   }
 

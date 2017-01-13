@@ -13,11 +13,9 @@ module.exports = new PassportLocalStrategy({
     email: email.trim(),
     password: password.trim(),
   };
-  console.log('userData: ', userData);
   // find a user by password
   userModel.users.getPassword(email)
     .then((results) => {
-      console.log('results in sign in: ', results);
       if (results.length === 0) {
         return done('Error, no user found');
       }
@@ -31,7 +29,6 @@ module.exports = new PassportLocalStrategy({
           error.name = 'IncorrectCredentialsError';
           return done(error);
         }
-        console.log('results in login ', results);
         const payload = {
           sub: results[0].id,
         };
