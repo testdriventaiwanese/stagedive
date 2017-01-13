@@ -10,6 +10,8 @@ import TextField from 'material-ui/TextField';
 import SignUpPage from './SignUpPage';
 import { logIn } from '../actions/index';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import FontIcon from 'material-ui/FontIcon';
+
 
 class LoginPage extends Component {
   constructor(props) {
@@ -103,7 +105,9 @@ handleChange = (value) => {
                 <RaisedButton type="submit" label="Log in" disabled={pristine || submitting} primary />
               </div>
               <CardText>
-                <div className="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="true"></div>
+                <a href='/auth/facebook'>
+                  <FontIcon className='fa fa-facebook-official fa-3x' primary />
+                </a>
               </CardText>
             </form>
           </Card>
