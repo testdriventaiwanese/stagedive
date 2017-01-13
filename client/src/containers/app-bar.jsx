@@ -12,6 +12,7 @@ import LeftNavMenu from 'material-ui/svg-icons/navigation/menu';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import Apps from 'material-ui/svg-icons/navigation/apps';
 import PowerSetting from 'material-ui/svg-icons/action/power-settings-new';
+import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import Info from 'material-ui/svg-icons/action/info';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';

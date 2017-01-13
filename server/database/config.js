@@ -1,5 +1,3 @@
-const mysql = require('mysql');
-
 const config = {
   host: 'mysqlcluster4.registeredsite.com',
   user: process.env.DB_USER,
@@ -8,12 +6,7 @@ const config = {
   charset: 'utf8',
 };
 
-const connection = mysql.connect(config);
-
-module.exports = {
-  connection,
-  config,
-};
+module.exports = config;
 
 // // const connection = mysql.createConnection(config);
 //

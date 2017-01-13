@@ -47,15 +47,14 @@ module.exports = {
             id_friend,
             id_user,
             text,
-          }
+          };
           const posterInfo = {
             fullname: results.posterInfo[0].fullname,
             id: results.posterInfo[0].id,
             profile_photo: results.posterInfo[0].profile_photo,
-          }
-          res.status(200).send({comment, posterInfo});
-        }
-      })
+          };
+          res.status(200).send({ comment, posterInfo });
+        })
     },
     removeComment(req, res) {
       const params = [req.body.commentId];

@@ -13,30 +13,33 @@ module.exports = new PassportLocalStrategy({
     email: email.trim(),
     password: password.trim(),
   };
+  console.log('userData: ', userData);
   // find a user by password
-  userModel.users.getPassword(email, (results) => {
-    if (results.length === 0) {
-      return done('Error, no user found');
-    }
-    // check if a hashed user's password is equal to a value saved in the database
-    bcrypt.compare(userData.password, results[0].password, (passwordErr, isMatch) => {
-      if (passwordErr) {
-        return done(passwordErr);
+  userModel.users.getPassword(email)
+    .then((results) => {
+      console.log('results in sign in: ', results);
+      if (results.length === 0) {
+        return done('Error, no user found');
       }
-      if (!isMatch) {
-        const error = new Error('Incorrect email or password');
-        error.name = 'IncorrectCredentialsError';
-        return done(error);
-      }
+      // check if a hashed user's password is equal to a value saved in the database
+      bcrypt.compare(userData.password, results[0].password, (passwordErr, isMatch) => {
+        if (passwordErr) {
+          return done(passwordErr);
+        }
+        if (!isMatch) {
+          const error = new Error('Incorrect email or password');
+          error.name = 'IncorrectCredentialsError';
+          return done(error);
+        }
+        console.log('results in login ', results);
+        const payload = {
+          sub: results[0].id,
+        };
+        // create a token string
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 });
+        const data = results[0].id;
 
-      const payload = {
-        sub: results[0].id,
-      };
-      // create a token string
-      const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 });
-      const data = results[0].id;
-
-      return done(null, token, data);
+        return done(null, token, data);
+      });
     });
-  });
 });

@@ -113,11 +113,11 @@ knex.schema.hasTable('users_events').then(exists => {
 knex.schema.hasTable('users_friends').then(exist => {
   if (!exist) {
     knex.schema.createTable('users_friends', (users_friends) => {
-      users_events.integer('id_user').unsigned();
-      users_events.integer('id_friend').unsigned();
-      users_events.timestamp('createdOn').defaultTo(knex.fn.now());
-      users_events.foreign('id_user').references('users.id');
-      users_events.foreign('id_event').references('users.id');
+      users_friends.integer('id_user').unsigned();
+      users_friends.integer('id_friend').unsigned();
+      users_friends.timestamp('createdOn').defaultTo(knex.fn.now());
+      users_friends.foreign('id_user').references('users.id');
+      users_friends.foreign('id_event').references('users.id');
     }).then(table => {
       console.log('Created Table:', table);
     });
