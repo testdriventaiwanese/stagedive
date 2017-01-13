@@ -6,8 +6,9 @@ const knex = require('knex')({
     user: config.user,
     password: config.password,
     database: config.database,
+    pool: { min: 10, max: 100 },
   },
-  useNullasDefault: true
+  useNullasDefault: true,
 });
 
 knex.schema.hasTable('users').then(exist => {
@@ -19,7 +20,7 @@ knex.schema.hasTable('users').then(exist => {
       user.string('fullname');
       user.string('profile_photo');
       user.timestamp('createdOn').defaultTo(knex.fn.now());
-    }).then(table => {
+    }).then((table) => {
       console.log('Created Table', table);
     });
   }
@@ -40,7 +41,7 @@ knex.schema.hasTable('events').then(exist => {
       event.string('latitude');
       event.string('longitude');
       event.string('sale_date', 2000);
-    }).then(table => {
+    }).then((table) => {
       console.log('Created Table', table);
     });
   }
@@ -57,7 +58,7 @@ knex.schema.hasTable('artists').then(exist => {
       artist.string('facebook');
       artist.string('onTourUntil');
       artist.integer('upcoming_events');
-    }).then(table => {
+    }).then((table) => {
       console.log('Created Table', table);
     });
   }
@@ -76,7 +77,7 @@ knex.schema.hasTable('comments').then(exist => {
       comment.foreign('id_friend').references('users.id');
       comment.foreign('id_event').references('events.id');
 
-    }).then(table => {
+    }).then((table) => {
       console.log('Created Table', table);
     });
   }
@@ -89,7 +90,7 @@ knex.schema.hasTable('users_artists').then(exist => {
       users_artists.integer('id_artists').unsigned();
       users_artists.foreign('id_users').references('users.id');
       users_artists.foreign('id_artists').references('artists.id');
-    }).then(table => {
+    }).then((table) => {
       console.log('Created Table', table);
     });
   }
@@ -103,7 +104,7 @@ knex.schema.hasTable('users_events').then(exists => {
       users_events.timestamp('createdOn').defaultTo(knex.fn.now());
       users_events.foreign('id_users').references('users.id');
       users_events.foreign('id_events').references('events.id');
-    }).then(table => {
+    }).then((table) => {
       console.log('Created Table', table);
     });
   }
@@ -117,7 +118,7 @@ knex.schema.hasTable('users_friends').then(exist => {
       users_friends.timestamp('createdOn').defaultTo(knex.fn.now());
       users_friends.foreign('id_user').references('users.id');
       users_friends.foreign('id_friend').references('users.id');
-    }).then(table => {
+    }).then((table) => {
       console.log('Created Table:', table);
     });
   }

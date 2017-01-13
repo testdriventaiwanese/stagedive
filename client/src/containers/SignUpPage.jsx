@@ -8,6 +8,8 @@ import { Card, CardText } from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import FontIcon from 'material-ui/FontIcon';
+
 
 import { signUp } from '../actions/index'
 
@@ -56,7 +58,9 @@ class SignUpPage extends Component {
              <RaisedButton type="submit" label="Create New Account" disabled={pristine || submitting} primary />
            </div>
            <CardText>
-             <div className="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="true"></div>
+             <a href='/auth/facebook'>
+               <FontIcon className='fa fa-facebook-official fa-3x' primary />
+             </a>
            </CardText>
          </form>
        </Card>
