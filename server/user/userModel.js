@@ -58,7 +58,7 @@ module.exports = {
     getFriends(params) {
       console.log('getFriends params:: ', params)
 
-      return knex('users').join('users_friends').where({users_friends.id_user: '?', users.id: users_friends.id_friends}).select('users.id', 'users.email', 'users.fullname', 'users.profile_photo', 'users_friends.createdOn')
+      return knex('users').join('users_friends').where({users_friends.id_user: params.id_user, users.id: users_friends.id_friends}).select('users.id', 'users.email', 'users.fullname', 'users.profile_photo', 'users_friends.createdOn')
         .then((res) => {
           return res;
         })
