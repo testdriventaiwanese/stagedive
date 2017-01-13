@@ -43,8 +43,6 @@ router.post('/comments/removecomment', commentsController.comments.removeComment
 router.get('/artists/getall', artistsController.artists.getUserArtists);
 router.post('/artists/addartist', artistsController.artists.addArtist);
 router.post('/artists/deleteartist', artistsController.artists.deleteArtist);
-router.get('/artists/showuserartists', artistsController.artists.showUserArtists);
-router.post('/artists/search', artistsController.artists.search);
 
 // bandsintown api call
 router.get('/bandsintown/getartist', bandsintown.getArtist);
