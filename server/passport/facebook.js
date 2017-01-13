@@ -8,7 +8,6 @@ module.exports = new PassportFacebookStrategy({
   callbackURL: 'http://concertwallet.digitalotion.com/auth/facebook/callback',
   profileFields: ['id', 'displayName', 'picture', 'email'],
 }, (accessToken, refreshToken, profile, done) => {
-  console.log('Facebook Profile Data: ', profile);
   userModel.users.getPassword(profile.emails[0].value)
     .then((results) => {
       if (results.length > 0 && results.password) {

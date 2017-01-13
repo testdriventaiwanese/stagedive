@@ -26,7 +26,6 @@ router.post('/login', (req, res, next) => {
         message: 'Login Failed.',
       });
     }
-
     return res.json({
       success: true,
       message: 'You have successfully logged in!',
@@ -44,7 +43,7 @@ router.get('/facebook/callback', (req, res, next) => {
       console.log('Error with facebook login: ', err);
       return res.redirect('/#/login');
     }
-    const tokenStr = encodeURIComponent(token + userId);
+    const tokenStr = encodeURIComponent(token + ' ' + userId);
     res.redirect(`/#/token/${tokenStr}`);
   })(req, res, next);
 });

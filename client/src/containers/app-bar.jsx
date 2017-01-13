@@ -127,7 +127,7 @@ class NavBar extends Component {
         )}
         <div style={divBarStyle}>
           <AppBar
-            title="ConcertWallet"
+            title="StageDive"
             style={appBarStyle}
             titleStyle={{ color: 'black', fontFamily: 'Oleo Script, cursive', fontSize: '30px'   }}
             onLeftIconButtonTouchTap={this.handleLeftNavToggle}
