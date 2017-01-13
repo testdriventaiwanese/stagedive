@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { GoogleApiWrapper, Marker} from 'google-maps-react';
 import ReactDOM from 'react-dom';
+import YourLocation from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import { getLocalEvents, getLocation, showLocalEvents } from '../actions/index';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
@@ -109,13 +110,24 @@ class Map extends React.Component {
 
         this.map = new maps.Map(node, mapConfig);
 
-        var currentLocation = new maps.Marker({
-          position: center,
-          map: mapRef,
+        var currentLocation = {
+          infowindow: new google.maps.InfoWindow({
+            content: '<div><p><strong>You are here</strong></p></div>'
+          }),
+          marker: new maps.Marker({
+            position: center,
+            map: mapRef,
+            icon: `http://i.imgur.com/hbWVo7x.png`,
+          }),
+        }
+
+        currentLocation.marker.setMap(this.map);
+        currentLocation.marker.addListener('mouseover', function() {
+          currentLocation.infowindow.open(currentLocation.marker.map, currentLocation.marker);
+        });
+        currentLocation.marker.addListener('mouseout', function() {
+          currentLocation.infowindow.close(currentLocation.marker.map, currentLocation.marker);
         })
-
-        currentLocation.setMap(this.map);
-
         return this.map
       })
     }
@@ -162,8 +174,8 @@ export class MapComponent extends React.Component {
   render() {
 
     const style = {
-      width: '40vw',
-      height: '75vh',
+      width: '33vmax',
+      height: '33vmax',
       float: 'left',
     }
     let eventStyle = {
