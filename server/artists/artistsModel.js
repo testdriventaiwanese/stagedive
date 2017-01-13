@@ -5,7 +5,7 @@ module.exports = {
     getUserArtists(params) {
       return knex.from('artists').innerJoin('users_artists', (qb1) => {
         qb1.where('users_artists.id_users', params).andWhere('artists.id', 'users_artists.id_artists');
-      }
+      });
 
       // const queryStr = 'SELECT * FROM artists INNER JOIN users_artists ON (users_artists.id_users = ? and artists.id=users_artists.id_artists)';
       // db.query(queryStr, params, (err, results) => {
@@ -74,7 +74,7 @@ module.exports = {
     },
     deleteArtist(params, callback) {
       return knex('artists').where({ mbid: params[0] }).select('id')
-         .then((artistResults) = > {
+         .then((artistResults) => {
           return knex('users_artists').where({ id_artists: artistResults[0] }).select('id_users')
             .then((userArtistsResp) => {
               if (userArtistsResp.length > 1) {

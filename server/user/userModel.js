@@ -2,77 +2,64 @@ const knex = require('../database/schema.knex.js');
 
 module.exports = {
   users: {
-    findById(params, callback) {
+    findById(params) {
       console.log('findById params:: ', params)
 
-      return knex('users').where({id:  params.id})
+      return knex('users').where({id:  params})
         .select('id', 'email', 'fullname', 'createdOn', 'profile_photo')
-        .then((res) => {
-          return res;
-        })
     },
     findOne(params) {
       console.log('findOne params:: ', params)
 
-      return knex('users').where({email: params.email})
+      return knex('users').where({email: params})
         .select('email')
-        .then((res) => {
-          return res;
-        })
     },
     findUser(params) {
       console.log('findUser params:: ', params)
 
-      return knex('users').where({fullname: params.fullname})
+      return knex('users').where({fullname: params})
         .select('id', 'email', 'fullname')
-        .then((res) => {
-          return res;
-        })
 
     },
     addOne(params) {
       console.log('addOne params:: ', params)
 
-      return knex('users').insert({email: 'params.email', password: 'params.password', fullname: 'params.fullname', profile_photo: 'params.profile_photo'})
+      return knex('users').insert({email: params[0], password: params[1], fullname: params[2], profile_photo: params[3]})
         .then((res) => {
           return res;
         })
     },
     getPassword(params) {
       console.log('getPassword params:: ', params)
-
-      return knex('users').where({email: 'params.email'})
+      return knex('users').where({email: params})
         .select('id', 'password', 'fullname')
-        .then((res) => {
-          return res;
-        })
     },
     getAll(params) {
       console.log('getAll params:: ', params)
 
       return knex.select('id', 'email', 'fullname').from('users')
-        .then((res) => {
-          return res;
-        });
     },
     getFriends(params) {
       console.log('getFriends params:: ', params)
+      return knex.from('users').innerJoin('users_friends', (qb1) => {
+        qb1.where('users_friends.id_user', params).andWhere('users.id', 'users_friends.id_friend');
+      })
 
-      return knex('users').join('users_friends').where({users_friends.id_user: params.id_user, users.id: users_friends.id_friends}).select('users.id', 'users.email', 'users.fullname', 'users.profile_photo', 'users_friends.createdOn')
-        .then((res) => {
-          return res;
-        })
-      const queryStr = 'SELECT users.id, users.email, users.fullname, users.profile_photo, users_friends.createdOn FROM users INNER JOIN users_friends ON (users_friends.id_user = ? AND users.id = users_friends.id_friend)';
+      // return knex('users').join('users_friends').where({users_friends.id_user: params.id_user, users.id: users_friends.id_friends}).select(users.id, users.email, users.fullname, users.profile_photo, users_friends.createdOn)
+      //   .then((res) => {
+      //     return res;
+      //   })
+      // const queryStr = 'SELECT users.id, users.email, users.fullname, users.profile_photo, users_friends.createdOn FROM users INNER JOIN users_friends ON (users_friends.id_user = ? AND users.id = users_friends.id_friend)';
     },
-
-    changePassword(params, callback) {
-      console.log('changePassword params:: ', params);
-
-      return knex('users').where('email', params.email}).update('password', params.password)
-        .then((res) => {
-          return res;
-        })
-    },
+    //
+    // changePassword(params, callback) {
+    //   console.log('changePassword params:: ', params);
+    //
+    //   return knex('users').where('email', params.email}).update('password', params.password)
+    //     .then((res) => {
+    //       return res;
+    //     })
+    // },
     addFollow(params) {
       console.log('addUser params:: ', params);
       return knex('users_friends').where({id_user: params.id_user, id_friend: params.id_friend})
@@ -130,5 +117,5 @@ module.exports = {
     //       });
     //     }
     //   });
-    // },
+    },
 };

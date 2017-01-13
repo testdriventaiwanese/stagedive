@@ -3,11 +3,9 @@ const knex = require('../database/schema.knex.js');
 module.exports = {
   events: {
     getUserEvents(params) {
-      return knex.select('*').from('events')
-        .join('users_events', () => {
-          this.on('users_events.id_users', '=', params)
-          .andOn('events.id', '=', 'users_events.id_events')
-        })
+      return knex.from('events').innerJoin('users_events', (qb1) => {
+        qb1.where('users_events.id_users', params).andWhere('events.id', 'users_events.id_events');
+      });
     },
       // const queryStr = 'SELECT * FROM events INNER JOIN users_events ON (users_events.id_users = ? and events.id=users_events.id_events)';
       // db.query(queryStr, params, (err, results) => {
@@ -19,6 +17,7 @@ module.exports = {
       // });
     // },
     getFriendsEvents(params) {
+      // return knex('users_events').where('')
       let results2;
       let friendsEvents;
       let userResults2;
@@ -109,7 +108,7 @@ module.exports = {
             })
           })
         }
-      }),
+      })
 
       // const queryStr = 'SELECT id FROM events WHERE tm_id = ?';
       // const queryStr2 = 'INSERT INTO events (tm_id, name, artist_name, date, event_url, venue, image, genre, latitude, longitude, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
@@ -141,7 +140,7 @@ module.exports = {
     //         });
     //     }
     //   });
-    // },
+    },
     userEvents(params) {
       return knex('events').where({
         id_users: params
@@ -199,7 +198,7 @@ module.exports = {
 
     deleteEvent(params) {
       return knex('events').where({ tm_id: params[0] }).select('id')
-         .then((eventResults) = > {
+         .then((eventResults) => {
           return knex('users_events').where({ id_events: eventResults[0] }).select('id_users')
             .then((userEventsResp) => {
               if (userEventsResp.length > 1) {
