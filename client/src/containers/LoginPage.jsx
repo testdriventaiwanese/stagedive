@@ -62,6 +62,7 @@ handleChange = (value) => {
       left: '0',
       right: '0',
     }
+    const opacityNum = .97;
     const loginBox = {
       width: '35%',
       height: '50%',
@@ -71,20 +72,26 @@ handleChange = (value) => {
       left: '0',
       right: '0',
       margin: 'auto',
+      opacity: opacityNum,
     }
     const tabStyle = {
       backgroundColor: '#FAFAFA',
       color: 'black',
+      // opacity: opacityNum,
+    }
+    const boxOpacity = {
+      // opacity: opacityNum,
     }
     return (
       <div style={backgroundStyle}>
           <Tabs
+            inkBarStyle={boxOpacity}
             style={loginBox}
             value={this.state.value}
             onChange={this.handleChange}
           >
           <Tab label="Login" value="a" style={tabStyle}>
-          <Card style={{ textAlign: 'center' }}>
+          <Card style={{ textAlign: 'center'}}>
             <form onSubmit={handleSubmit(this.onSubmit)}>
               <div className="field-line">
                 <Field name="email" type="text" component={this.renderTextField} label="Email" />
