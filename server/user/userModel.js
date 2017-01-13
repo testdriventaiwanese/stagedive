@@ -19,7 +19,6 @@ module.exports = {
 
       return knex('users').where({fullname: params})
         .select('id', 'email', 'fullname')
-
     },
     addOne(params) {
       console.log('addOne params:: ', params)
@@ -41,9 +40,11 @@ module.exports = {
     },
     getFriends(params) {
       console.log('getFriends params:: ', params)
-      return knex.from('users').innerJoin('users_friends', (qb1) => {
-        qb1.where('users_friends.id_user', params).andWhere('users.id', 'users_friends.id_friend');
-      })
+      return knex.raw('SELECT users.id, users.email, users.fullname, users.profile_photo, users_friends.createdOn FROM users INNER JOIN users_friends ON (users_friends.id_user = ? AND users.id = users_friends.id_friend)', params)
+        .then((response) => {
+          console.log('getFriends response?? ', response);
+          return response;
+        });
 
       // return knex('users').join('users_friends').where({users_friends.id_user: params.id_user, users.id: users_friends.id_friends}).select(users.id, users.email, users.fullname, users.profile_photo, users_friends.createdOn)
       //   .then((res) => {

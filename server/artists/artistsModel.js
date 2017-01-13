@@ -3,9 +3,11 @@ const knex = require('../database/schema.knex.js');
 module.exports = {
   artists: {
     getUserArtists(params) {
-      return knex.from('artists').innerJoin('users_artists', (qb1) => {
-        qb1.where('users_artists.id_users', params).andWhere('artists.id', 'users_artists.id_artists');
-      });
+      return knex.raw('SELECT * FROM artists INNER JOIN users_artists ON (users_artists.id_users = ? and artists.id=users_artists.id_artists)', params)
+        .then((response) => {
+          console.log('response from getUserArtists: ', response);
+          return response;
+        });
 
       // const queryStr = 'SELECT * FROM artists INNER JOIN users_artists ON (users_artists.id_users = ? and artists.id=users_artists.id_artists)';
       // db.query(queryStr, params, (err, results) => {
