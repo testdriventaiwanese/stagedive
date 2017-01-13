@@ -48,7 +48,7 @@ class Map extends React.Component {
       const node = ReactDOM.findDOMNode(mapRef);
       let crd;
       const position = navigator.geolocation.getCurrentPosition((pos) => {
-        const zoom = 3;
+        const zoom = 2;
         crd = pos.coords;
 
         console.log('this is a test:: ', eventLatLng)
@@ -182,8 +182,8 @@ class EventDetail extends Component {
       borderRadius: '5px',
     };
     const mapStyle = {
-        width: '35vw',
-        height: '50vh',
+        width: '32vmax',
+        height: '20vmax',
         float: 'right',
     }
     const menuStyle = {
