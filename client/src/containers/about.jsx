@@ -26,7 +26,7 @@ export default class About extends React.Component{
         </h1>
         <Card>
           <h2>Tech Stack</h2>
-          <img src={`http://i.imgur.com/iK6B8hl.png`} />
+          <img src={`http://i.imgur.com/NgAhF5s.png`} />
         </Card>
       </div>
     )
