@@ -6,19 +6,11 @@ module.exports = {
     getComments({ headers: {
       eventid,
       userid,
-    } } , res) {
-      // const id = jwt.decode(headers.authheader, process.env.JWT_SECRET);
-      const params = [eventid, userid]
+    } }, res) {
+      const params = [eventid, userid];
       commentsModel.comments.getComments(params)
         .then((results) => {
           res.status(200).send(results);
-        // if(!results) {
-        //   console.log('ERROR in getting comments');
-        //   res.sendStatus(401);
-        // } else {
-        //   console.log('results in get comments: ', results);
-        //   res.status(200).send(results);
-        // }
       });
     },
     addComment({ body: {
@@ -36,6 +28,7 @@ module.exports = {
       ];
       commentsModel.comments.addComment(params)
         .then((results) => {
+          console.log('add comment results in controller: ', results);
           let createdOn = new Date();
           const id_friend = friendId;
           const id_user = userId;
@@ -60,13 +53,8 @@ module.exports = {
       const params = [req.body.commentId];
       commentsModel.comments.removeComment(params)
         .then((results) => {
-        // if(!results) {
-        //   console.log('ERROR in getting comments');
-        //   res.sendStatus(401);
-        // } else {
           res.status(200).send(results);
-        // }
-      });
+        });
     },
   },
 };

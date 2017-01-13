@@ -80,7 +80,7 @@ module.exports = {
 
     deleteEvent(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
-      const params = [req.body.tm_id, id.sub];
+      const params = { tm_id: req.body.tm_id, userId: id.sub };
       eventModel.events.deleteEvent(params)
       .then((results) => {
         res.sendStatus(200);
