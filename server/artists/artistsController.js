@@ -34,7 +34,6 @@ module.exports = {
       };
       artistsModel.artists.addArtist(userId.sub, params)
         .then((response) => {
-          console.log('artist controller resp for add: ', response);
           res.status(200).send(response);
         })
         .catch((err) => {

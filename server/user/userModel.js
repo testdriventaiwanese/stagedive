@@ -16,9 +16,10 @@ module.exports = {
     },
     findUser(params) {
       console.log('findUser params:: ', params)
-
-      return knex('users').where({fullname: params})
-        .select('id', 'email', 'fullname')
+      return knex.raw('SELECT id, email, fullname FROM users WHERE fullname LIKE CONCAT("%", ? , "%")', params)
+        .then((response) => {
+          return response[0];
+        })
     },
     addOne(params) {
       console.log('addOne params:: ', params)
