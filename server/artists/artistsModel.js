@@ -6,7 +6,7 @@ module.exports = {
       return knex.raw('SELECT * FROM artists INNER JOIN users_artists ON (users_artists.id_users = ? and artists.id=users_artists.id_artists)', params)
         .then((response) => {
           console.log('response from getUserArtists: ', response);
-          return response;
+          return response[0];
         });
 
       // const queryStr = 'SELECT * FROM artists INNER JOIN users_artists ON (users_artists.id_users = ? and artists.id=users_artists.id_artists)';

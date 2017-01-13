@@ -5,7 +5,7 @@ module.exports = {
     getUserEvents(params) {
       return knex.raw('SELECT * FROM events INNER JOIN users_events ON (users_events.id_users=? and events.id=users_events.id_events)', params)
         .then((response) => {
-          return response;
+          return response[0];
         });
     },
 
@@ -25,11 +25,11 @@ module.exports = {
           return knex.raw('SELECT id, fullname FROM users INNER JOIN users_friends ON users_friends.id_user=? AND users.id=users_friends.id_friend', params)
             .then((userResults) => {
               if (friendsEvents.length === 0) {
-                return ({ userNames: userResults, friendEvents: results, events: [] });
+                return ({ userNames: userResults[0], friendEvents: results[0], events: [] });
               } else {
                 return knex.from('events').whereIn('id', friendsEvents)
                   .then((eventResults) => {
-                    return ({ userNames: userResults, friendEvents: results, events: eventResults });
+                    return ({ userNames: userResults[0], friendEvents: results[0], events: eventResults });
                   })
               }
             })
