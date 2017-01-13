@@ -14,10 +14,20 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 
 export default class About extends React.Component{
   renderAbout() {
+    const cardStyle ={
+      width: '30%',
+      height: '100%',
+    }
+
     return(
       <div>
-        <h1>Concert Wallet</h1>
-
+        <h1>
+          <strong>Concert Wallet is the best way to make your concert going experience awesome</strong>
+        </h1>
+        <Card>
+          <h2>Tech Stack</h2>
+          <img src={`http://i.imgur.com/iK6B8hl.png`} />
+        </Card>
       </div>
     )
   }
