@@ -31,7 +31,6 @@ module.exports = {
         tm_id: params[0]
       }).select('id')
       .then((eventResults) => {
-        console.log('event results add: ', eventResults);
         if(eventResults.length !== 0) {
           return knex('users_events').insert({
             id_users: userId,
@@ -68,7 +67,6 @@ module.exports = {
     },
 
     deleteEvent(params) {
-      console.log('delete event params', params);
       return knex.select('id').from('events').where({ tm_id: params.tm_id })
          .then((eventResults) => {
           return knex.select('id_users').from('users_events').where({ id_events: eventResults[0].id })

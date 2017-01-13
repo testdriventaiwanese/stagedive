@@ -28,7 +28,6 @@ module.exports = {
       ];
       commentsModel.comments.addComment(params)
         .then((results) => {
-          console.log('add comment results in controller: ', results);
           let createdOn = new Date();
           const id_friend = friendId;
           const id_user = userId;
