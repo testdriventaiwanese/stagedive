@@ -23,7 +23,7 @@ module.exports = {
         });
     },
     getPassword(params) {
-      return knex('users').where({email: params})
+      return knex('users').where({ email: params })
         .select('id', 'password', 'fullname');
     },
     getAll(params) {
