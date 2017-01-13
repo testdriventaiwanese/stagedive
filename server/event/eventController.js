@@ -9,6 +9,9 @@ module.exports = {
       .then((results) => {
         res.status(200).send(results)
       })
+      .catch((err) => {
+        console.log('Error in getUserEvents Controller: ', err);
+      })
       // , (results) => {
       //   if (!results) {
       //     console.log('ERROR in getting all');
@@ -24,6 +27,9 @@ module.exports = {
       .then((results) => {
         res.status(200).send(results);
       })
+      .catch((err) => {
+        console.log('Error in getOtherUserEvents Controller: ', err);
+      })
       // , (results) => {
       //   if (!results) {
       //     console.log('ERROR in getting all');
@@ -38,6 +44,9 @@ module.exports = {
       .then((results) => {
         res.status(200).send(results);
       })
+      .catch((err) => {
+        console.log('Error in getFriendsEvents Controller: ', err);
+      })
       // , (results) => {
       //   if (!results) {
       //     console.log('ERROR in getting all');
@@ -50,6 +59,9 @@ module.exports = {
       eventModel.events.searchEvents(name)
       .then((results) => {
         res.sendStatus(200);
+      })
+      .catch((err) => {
+        console.log('Error in searchEvents Controller: ', err);
       })
       // , (results) => {
       //   if (!results) {
@@ -90,7 +102,9 @@ module.exports = {
       eventModel.events.addEvent(userId.sub, params)
       .then((results) => {
         res.status(200).send(results);
-
+      })
+      .catch((err) => {
+        console.log('Error in addEvent Controller: ', err);
       })
       // , (results) => {
       //   if (!results) {
@@ -102,57 +116,15 @@ module.exports = {
       // });
     },
 
-    showUserEvents({ body: { userId } }, res) {
-      eventModel.events.userEvents(userId)
-      .then((results) => {
-        res.sendStatus(200);
-
-      })
-      // , (results) => {
-      //   if (!results) {
-      //     console.log('ERROR');
-      //     res.sendStatus(401);
-      //   } else {
-      //     console.log(res);
-      //   }
-      // });
-    },
-
-    showLocalEvents({ body: { location, city, zipcode } }, res) {
-      const params = [location, city, zipcode];
-      eventModel.events.localEvents(params, (results) => {
-        if (!results) {
-          console.log('Issue in showing local events');
-          res.sendStatus(401);
-        } else {
-          console.log(res);
-          res.sendStatus(200);
-        }
-      });
-    },
-
-    showRelatedEvents({ body: { genre } }, res) {
-      eventModel.events.relatedEvents(genre)
-      .then((results) => {
-        res.sendStatus(200);
-
-      })
-      // , (results) => {
-      //   if (!results) {
-      //     console.log('Issue in showing related events');
-      //     res.sendStatus(401);
-      //   } else {
-      //     console.log(res);
-      //   }
-      // });
-    },
-
     deleteEvent(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
       const params = [req.body.tm_id, id.sub];
       eventModel.events.deleteEvent(params)
       .then((results) => {
         res.sendStatus(200);
+      })
+      .catch((err) => {
+        console.log('Error in deleteEvent Controller: ', err);
       })
       // , (results) => {
       //   if (!results) {

@@ -27,9 +27,6 @@ router.get('/events/getuserevents', eventController.events.getOtherUserEvents);
 router.get('/events/getfriendsevents', eventController.events.getFriendsEvents);
 router.post('/events/search', eventController.events.search);
 router.post('/events/addevent', eventController.events.addEvent);
-router.get('/events/showuserevents', eventController.events.showUserEvents);
-router.get('/events/showlocalevents', eventController.events.showLocalEvents);
-router.get('/events/showrelatedevents', eventController.events.showRelatedEvents);
 router.post('/events/deleteevent', eventController.events.deleteEvent);
 
 // comment calls

@@ -8,13 +8,10 @@ module.exports = {
       artistsModel.artists.getUserArtists(id.sub)
         .then((results) => {
           res.status(200).send(results);
-        // if (!results) {
-        //   console.log('ERROR in getting all');
-        //   res.sendStatus(401);
-        // } else {
-        //   res.status(200).send(results);
-        // }
-      });
+        })
+        .catch((err) => {
+          console.log('Error in getUserArtists Controller: ', err);
+        })
     },
     addArtist({ body: {
       mbid,
@@ -39,6 +36,10 @@ module.exports = {
         .then((response) => {
           console.log('artist controller resp for add: ', response);
           res.status(200).send(response);
+        })
+        .catch((err) => {
+          console.log('Error in addArtist Controller: ', err);
+        })
       //   (results) => {
       //   if (!results) {
       //     console.log('Issue in adding ARTIST to database');
@@ -47,7 +48,6 @@ module.exports = {
       //     console.log('RESULTS FROM ADD ARTIST: ', results);
       //     res.status(200).send(results);
       //   }
-      });
     },
     deleteArtist(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
@@ -55,14 +55,10 @@ module.exports = {
       artistsModel.artists.deleteArtist(params)
         .then((results) => {
           res.sendStatus(200);
-        // if (!results) {
-        //   console.log('Issue in removing events');
-        //   res.sendStatus(401);
-        // } else {
-        //   console.log('removed');
-        //   res.sendStatus(200);
-        // }
-      });
+      })
+      .catch((err) => {
+        console.log('Error in deleteArtist Controller: ', err);
+      })
     },
   },
 };
