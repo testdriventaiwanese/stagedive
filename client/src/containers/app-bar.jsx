@@ -76,8 +76,9 @@ class NavBar extends Component {
 
     }
     const searchBarStyle = {
-      // marginRight: '33%',
-      margin: '0 auto',
+      position: 'absolute',
+      width: '100%',
+      textAlign: 'center',
     }
 
     const drawerStyle = {
@@ -128,7 +129,7 @@ class NavBar extends Component {
             style={appBarStyle}
             titleStyle={{ color: 'black', fontFamily: 'Oleo Script, cursive', fontSize: '30px'   }}
             onLeftIconButtonTouchTap={this.handleLeftNavToggle}
-            iconStyleLeft={{backgroundColor: 'black'}}
+            iconStyleLeft={{backgroundColor: 'black', zDepth: 800}}
             >
             <div style={searchBarStyle}>
               <SearchBar />

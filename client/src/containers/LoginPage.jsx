@@ -52,7 +52,7 @@ handleChange = (value) => {
   render() {
     const { handleSubmit, pristine, submitting } = this.props;
     const backgroundStyle = {
-      backgroundImage: 'url(http://i.imgur.com/073dXGa.jpg)',
+      backgroundImage: 'url(http://i.imgur.com/JI5phSv.jpg)',
       backgroundSize: 'cover',
       width: '100%',
       height: '100%',

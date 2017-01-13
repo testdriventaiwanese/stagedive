@@ -23,7 +23,7 @@ class Journal extends Component {
   }
 
   renderHeader() {
-    let imageUrl = 'http://i.imgur.com/O8eJkrL.jpg'
+    let imageUrl = 'http://i.imgur.com/t8YX27Y.jpg'
     const fontColor = '#FAFAFA';
     const nameStyle = {
       marginLeft: '20px',
