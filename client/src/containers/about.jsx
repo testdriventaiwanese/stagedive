@@ -28,11 +28,10 @@ export default class About extends React.Component{
     }
     const avatarStyle = {
       width: '200px',
-      height: '200px',
       marginLeft: '68px',
       marginTop: '20px',
       marginBottom: '20px',
-      borderRadius: '50%',
+      borderRadius: '70%',
       border: '1px solid #5f6063',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
@@ -47,7 +46,6 @@ export default class About extends React.Component{
       width:'30px',
     }
     const linkedIn = {
-
       height: '35px',
       width: '35px',
     }
@@ -64,7 +62,7 @@ export default class About extends React.Component{
                 <p>Sean is a lover of music.</p>
                 <p><strong>Favorite Artists:</strong> Ed Sheeran, Yellowcard, blink-182</p>
                 <p><strong>Most Memorable Concert:</strong> Yellowcard's Final World Tour</p>
-                <a href={`Profilehttps://www.linkedin.com/in/seanho10`}><img style={linkedIn} src={`http://i.imgur.com/mZQpO34.png`}></img></a>
+                <a href={`https://www.linkedin.com/in/seanho10`}><img style={linkedIn} src={`http://i.imgur.com/mZQpO34.png`}></img></a>
                 <a href={`http://github.com/seansinflipflops`}><img style={gitHub} src={`http://i.imgur.com/GP6otU2.png`} /></a>
               </div>
             </Card>
