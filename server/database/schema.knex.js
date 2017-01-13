@@ -6,7 +6,6 @@ const knex = require('knex')({
     user: config.user,
     password: config.password,
     database: config.database,
-    charset: config.charset
   },
   useNullasDefault: true
 });
@@ -32,15 +31,15 @@ knex.schema.hasTable('events').then(exist => {
       event.increments('id').primary();
       event.string('tm_id');
       event.string('name');
-      event.text('artist_name');
+      event.string('artist_name', 20000);
       event.dateTime('date');
       event.string('event_url');
-      event.text('venue');
-      event.text('image');
-      event.text('genre');
+      event.string('venue', 10000);
+      event.string('image', 5000);
+      event.string('genre', 1500);
       event.string('latitude');
       event.string('longitude');
-      event.text('sale_date');
+      event.string('sale_date', 2000);
     }).then(table => {
       console.log('Created Table', table);
     });
@@ -71,7 +70,7 @@ knex.schema.hasTable('comments').then(exist => {
       comment.integer('id_user')
       comment.integer('id_friend');
       comment.integer('id_event');
-      comment.text('text');
+      comment.string('text');
       comment.timestamp('createdOn').defaultTo(knex.fn.now());
       comment.foreign('id_user').references('users.id');
       comment.foreign('id_friend').references('users.id');
@@ -117,7 +116,7 @@ knex.schema.hasTable('users_friends').then(exist => {
       users_friends.integer('id_friend').unsigned();
       users_friends.timestamp('createdOn').defaultTo(knex.fn.now());
       users_friends.foreign('id_user').references('users.id');
-      users_friends.foreign('id_event').references('users.id');
+      users_friends.foreign('id_friend').references('users.id');
     }).then(table => {
       console.log('Created Table:', table);
     });

@@ -51,7 +51,7 @@ module.exports = {
     },
     deleteArtist(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
-      const params = [req.body.artist_mbid, id.sub];
+      const params = { mbid: req.body.artist_mbid, userId: id.sub };
       artistsModel.artists.deleteArtist(params)
         .then((results) => {
           res.sendStatus(200);
