@@ -20,6 +20,7 @@ import GetEventComments from './reducer_get_event_comments';
 import GetLocalEvents from './reducer_get_local_events';
 import ShowLocalEvents from './reducer_show_local_events';
 import GetDistanceInfo from './reducer_get_distance_info';
+import GetOtherUserInfo from './reducer_get_other_userinfo';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -43,6 +44,7 @@ const rootReducer = combineReducers({
   getLocalEvents: GetLocalEvents,
   showLocalEvents: ShowLocalEvents,
   getDistanceInfo: GetDistanceInfo,
+  getOtherUserInfo: GetOtherUserInfo,
 });
 
 export default rootReducer;
