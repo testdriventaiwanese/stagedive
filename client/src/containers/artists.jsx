@@ -39,7 +39,6 @@ class Artists extends Component {
   }
 
   renderArtists() {
-
     const imageDiv = {
       width: '35%',
       float: 'left',

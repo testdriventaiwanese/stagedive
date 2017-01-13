@@ -43,7 +43,7 @@ module.exports = {
       return knex.raw('SELECT users.id, users.email, users.fullname, users.profile_photo, users_friends.createdOn FROM users INNER JOIN users_friends ON (users_friends.id_user = ? AND users.id = users_friends.id_friend)', params)
         .then((response) => {
           console.log('getFriends response?? ', response);
-          return response;
+          return response[0];
         });
 
       // return knex('users').join('users_friends').where({users_friends.id_user: params.id_user, users.id: users_friends.id_friends}).select(users.id, users.email, users.fullname, users.profile_photo, users_friends.createdOn)
