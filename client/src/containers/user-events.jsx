@@ -9,15 +9,15 @@ import OtherFriends from './other-friends';
 import LinearProgress from 'material-ui/LinearProgress';
 
 // import { selectEvent } from '../actions/index';
-import { getUserEvents, removeEvent, addFollower, unfollow, getOtherFriends, getFriends } from '../actions/index';
+import { getUserEvents, removeEvent, addFollower, unfollow, getOtherFriends, getFriends, getOtherUserInfo } from '../actions/index';
 
 class UserEvents extends Component {
   componentWillMount() {
     const user = { id: this.props.params.userId }
     this.props.getUserEvents(user);
     this.props.getOtherFriends(user);
+    this.props.getOtherUserInfo(user.id);
     this.props.getFriends();
-
   }
 
   renderProfileBar() {
@@ -44,7 +44,8 @@ class UserEvents extends Component {
       right: '10',
     }
     const buttonStyle = {
-      color: fontColor,
+      color: 'black',
+      backgroundColor: fontColor,
       float: 'right',
     }
 
@@ -63,7 +64,6 @@ class UserEvents extends Component {
             <h1 style={nameStyle}>{userName[0].fullname}</h1>
             <div style={buttonsDiv}>
               <FlatButton style={buttonStyle} onClick={() => this.props.unfollow(this.props.params.userId)}>UnFollow</FlatButton>
-              <FlatButton style={buttonStyle} onClick={() => this.props.addFollower(this.props.params.userId)}>Follow</FlatButton>
               <Link to={`journal/${id}`}>
                 <FlatButton style={buttonStyle}>{`${userName[0].fullname.split(' ')[0]}'s Concert Journal`}</FlatButton>
               </Link>
@@ -72,8 +72,22 @@ class UserEvents extends Component {
       )
     }
     else {
-      console.log('PROPS IN USER PROFILE ELSE: ', this.props);
-
+      const id = this.props.params.userId;
+      console.log('PROPS IN USER PROFILE ELSE: ', this.props.otherUserInfo);
+      return (
+        <Card style={barStyle}>
+          <h1 style={nameStyle}>{this.props.otherUserInfo[0].fullname}</h1>
+          <div style={buttonsDiv}>
+            <FlatButton style={buttonStyle}
+              onClick={() => {
+                this.props.addFollower(this.props.params.userId)
+              }}>Follow</FlatButton>
+              <Link to={`journal/${id}`}>
+                <FlatButton style={buttonStyle}>{`${userName[0].fullname.split(' ')[0]}'s Concert Journal`}</FlatButton>
+              </Link>
+            </div>
+          </Card>
+      );
     }
   }
 
@@ -179,12 +193,15 @@ class UserEvents extends Component {
     }
     if(this.props.events.futureEvents.length === 0) {
       return (
-        <Card className="list-group-item" zDepth={1}>
-          <CardText>
-            <span>No upcoming events</span>
-            <br />
-          </CardText>
-        </Card>
+        <div>
+          <h3>Upcoming Events</h3>
+          <Card className="list-group-item" zDepth={1}>
+            <CardText>
+              <span>No upcoming events</span>
+              <br />
+            </CardText>
+          </Card>
+        </div>
       )
     }
     if(this.props.events.futureEvents){
@@ -267,11 +284,12 @@ function mapStateToProps(state) {
     events: state.userEvents,
     friends: state.getFriends,
     otherFriends: state.getOtherFriends,
+    otherUserInfo: state.getOtherUserInfo,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ removeEvent, getUserEvents, addFollower, unfollow, getOtherFriends, getFriends }, dispatch);
+  return bindActionCreators({ removeEvent, getUserEvents, addFollower, unfollow, getOtherFriends, getFriends, getOtherUserInfo }, dispatch);
 }
 
 

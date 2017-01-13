@@ -26,6 +26,17 @@ module.exports = {
         }
       });
     },
+    getOtherInfo(req, res) {
+      console.log('get other info id: ', req.headers.userid);
+      userModel.users.findById(req.headers.userid, (response) => {
+        if (!response) {
+          console.log('Issue retreiving users from database');
+          res.sendStatus(401);
+        } else {
+          res.json(response);
+        }
+      });
+    },
     findUser({ body: { query } }, res) {
       userModel.users.findUser(query, (response) => {
         if (!response) {

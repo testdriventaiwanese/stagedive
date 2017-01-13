@@ -43,7 +43,6 @@ class SignUpPage extends Component {
      return (
        <Card style={{textAlign:'center'}}>
          <form onSubmit={handleSubmit(this.onSubmit)}>
-           <h2 className="card-heading">Sign Up</h2>
            <div className="field-line">
              <Field name="name" type="text" component={this.renderTextField} label="Name" />
            </div>
@@ -57,7 +56,7 @@ class SignUpPage extends Component {
              <RaisedButton type="submit" label="Create New Account" disabled={pristine || submitting} primary />
            </div>
            <CardText>
-             Already have an account? <Link to={'/login'}>Log in</Link>. Or login with <a href='/auth/facebook'>Facebook</a>.
+             <div className="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="true"></div>
            </CardText>
          </form>
        </Card>
