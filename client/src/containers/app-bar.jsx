@@ -10,12 +10,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AccountMenu from 'material-ui/svg-icons/navigation/expand-more';
 import LeftNavMenu from 'material-ui/svg-icons/navigation/menu';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-<<<<<<< HEAD
 import Apps from 'material-ui/svg-icons/navigation/apps';
 import PowerSetting from 'material-ui/svg-icons/action/power-settings-new';
 import Info from 'material-ui/svg-icons/action/info';
-=======
->>>>>>> styling17
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
