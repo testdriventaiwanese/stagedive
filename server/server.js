@@ -35,7 +35,7 @@ passport.use('facebook-login', facebookLoginStrategy);
 // pass the authenticaion checker middleware
 const authCheckMiddleware = require('./passport/auth-check');
 
-app.use('/api', authCheckMiddleware);
+// app.use('/api', authCheckMiddleware);
 
 // routes
 const authRoutes = require('./routes/auth');

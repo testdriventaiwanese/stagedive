@@ -9,15 +9,16 @@ module.exports = {
     } } , res) {
       // const id = jwt.decode(headers.authheader, process.env.JWT_SECRET);
       const params = [eventid, userid]
-      console.log('PARAMS GOT IN GET COMMENTS: ', params);
-      commentsModel.comments.getComments(params, (results) => {
-        if(!results) {
-          console.log('ERROR in getting comments');
-          res.sendStatus(401);
-        } else {
-          console.log('results in get comments: ', results);
+      commentsModel.comments.getComments(params)
+        .then((results) => {
           res.status(200).send(results);
-        }
+        // if(!results) {
+        //   console.log('ERROR in getting comments');
+        //   res.sendStatus(401);
+        // } else {
+        //   console.log('results in get comments: ', results);
+        //   res.status(200).send(results);
+        // }
       });
     },
     addComment({ body: {
@@ -33,16 +34,11 @@ module.exports = {
         id_event,
         text,
       ];
-      console.log('PARAMS IN COMMENTSCONTROLLER GOT: ', params);
-      commentsModel.comments.addComment(params, (results) => {
-        if(!results) {
-          console.log('ERROR in getting comments');
-          res.sendStatus(401);
-        } else {
-          console.log('RESULTS IN ADD COMMENT USERNAME: ', results);
+      commentsModel.comments.addComment(params)
+        .then((results) => {
           let createdOn = new Date();
-          let id_friend = friendId;
-          let id_user = userId;
+          const id_friend = friendId;
+          const id_user = userId;
 
           const comment = {
             createdOn,
@@ -52,7 +48,6 @@ module.exports = {
             id_user,
             text,
           }
-
           const posterInfo = {
             fullname: results.posterInfo[0].fullname,
             id: results.posterInfo[0].id,
@@ -63,16 +58,15 @@ module.exports = {
       })
     },
     removeComment(req, res) {
-      // const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
-      console.log('req.body.commentId in back:', req.body.commentId);
       const params = [req.body.commentId];
-      commentsModel.comments.removeComment(params, (results) => {
-        if(!results) {
-          console.log('ERROR in getting comments');
-          res.sendStatus(401);
-        } else {
+      commentsModel.comments.removeComment(params)
+        .then((results) => {
+        // if(!results) {
+        //   console.log('ERROR in getting comments');
+        //   res.sendStatus(401);
+        // } else {
           res.status(200).send(results);
-        }
+        // }
       });
     },
   },

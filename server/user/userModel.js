@@ -123,7 +123,7 @@ module.exports = {
       });
     },
     unfollow(params, callback) {
-      const queryStr = 'DELETE FROM users_friends WHERE id_user = ? AND id_friend = ? ';
+      const queryStr = 'DELETE FROM users_friends WHERE id_user = ? AND id_friend = ?';
       db.query(queryStr, params, (err, results) => {
         if (err) {
           console.log('Error in server/userModel.js unfollow : ', err);

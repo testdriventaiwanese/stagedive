@@ -23,6 +23,7 @@
     "express": "^4.14.0",
     "google-maps-react": "^1.0.19",
     "jsonwebtoken": "^7.2.1",
+    "knex": "^0.12.6",
     "material-design-icons": "^3.0.1",
     "material-ui": "^0.16.5",
     "moment": "^2.17.1",
