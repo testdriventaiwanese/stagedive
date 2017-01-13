@@ -35,7 +35,7 @@ module.exports = {
             })
             .then((artistAddRes) => {
               console.log('artist add in knex model: ', artistAddRes);
-              return knex('users_artists').insert({ id_users: userId, id_artists: artistAddRes[0].insertId });
+              return knex('users_artists').insert({ id_users: userId, id_artists: artistAddRes[0] });
             })
           }
         })
@@ -74,62 +74,21 @@ module.exports = {
       //   }
       // });
     },
-    deleteArtist(params, callback) {
-      return knex('artists').where({ mbid: params[0] }).select('id')
+    deleteArtist(params) {
+      return knex.select('id').from('artists').where({ mbid: params.mbid })
          .then((artistResults) => {
-          return knex('users_artists').where({ id_artists: artistResults[0] }).select('id_users')
+          return knex.select('id_users').from('users_artists').where({ id_artists: artistResults[0].id })
             .then((userArtistsResp) => {
               if (userArtistsResp.length > 1) {
-                return knex('users_artists').where('id_artists', userArtistsResp[0].id).andWhere('id_users', params[1]).del()
+                return knex('users_artists').where('id_artists', artistResults[0].id).andWhere('id_users', params.userId).del()
               } else {
-                return knex('users_artists').where('id_artists', userArtistsResp[0].id).andWhere('id_users', params[1]).del()
+                return knex('users_artists').where('id_artists', artistResults[0].id).andWhere('id_users', params.userId).del()
                   .then((deleteUserArtist) => {
-                    return knex('artists').where('id', userArtistsRespp[0].id).del()
+                    return knex('artists').where('id', artistResults[0].id).del()
                   })
               }
             })
-        });
-      // const queryStr = 'SELECT id FROM artists WHERE mbid = ?';
-      // const queryStr2 = 'SELECT id_users FROM users_artists WHERE id_artists = ?';
-      // const queryStr3 = 'DELETE FROM users_artists WHERE id_artists = ? AND id_users = ?';
-      // const queryStr4 = 'DELETE FROM artists WHERE id = ?';
-      // db.query(queryStr, params[0], (eventErr, artistResults) => {
-      //   if (eventErr) {
-      //     console.log('Error in server/artistsModel.js deleteArtist : ', eventErr);
-      //   } else {
-      //     db.query(queryStr2, artistResults[0].id, (userArtistsErr, userArtistsResults) => {
-      //       if (userArtistsErr) {
-      //         console.log('Error in server/artistsModel.js deleteArtist : ', userArtistsErr);
-      //       } else {
-      //         if (userArtistsResults.length > 1) {
-      //           const multipleArtistsParams = [artistResults[0].id, params[1]];
-      //           db.query(queryStr3, multipleArtistsParams, (deleteUserArtist, deleteUserArtistResult) => {
-      //             if (deleteUserArtist) {
-      //               console.log('Error in server/artistsModel.js deleteArtist : ', deleteUserArtist);
-      //             } else {
-      //               callback(deleteUserArtistResult);
-      //             }
-      //           });
-      //         } else {
-      //           const singleEventParams = [artistResults[0].id, params[1]];
-      //           db.query(queryStr3, singleEventParams, (deleteUserArtistErr, res) => {
-      //             if (deleteUserArtistErr) {
-      //               console.log('Error in server/artistsModel.js deleteArtist : ', deleteUserArtistErr);
-      //             } else {
-      //               db.query(queryStr4, artistResults[0].id, (deleteArtistErr, deleteArtistResult) => {
-      //                 if (deleteArtistErr) {
-      //                   console.log('Error in server/artistsModel.js deleteArtist : ', deleteArtistErr);
-      //                 } else {
-      //                   callback(deleteArtistResult);
-      //                 }
-      //               });
-      //             }
-      //           });
-      //         }
-      //       }
-      //     });
-      //   }
-      // });
+         });
     },
   },
 };

@@ -127,7 +127,7 @@ module.exports = {
     },
     unfollow(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
-      const params = [id.sub, req.body.userId];
+      const params = {id_user: id.sub, id_friend: req.body.userId}
       userModel.users.unfollow(params)
         .then((response) => {
           res.status(200).send(response);

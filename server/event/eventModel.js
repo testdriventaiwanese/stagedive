@@ -68,6 +68,7 @@ module.exports = {
         tm_id: params[0]
       }).select('id')
       .then((eventResults) => {
+        console.log('event results add: ', eventResults);
         if(eventResults.length !== 0) {
           return knex('users_events').insert({
             id_users: userId,
@@ -75,7 +76,7 @@ module.exports = {
           });
         }
         else{
-          return knex('users_events').insert({
+          return knex('events').insert({
             tm_id: params[0],
             name: params[1],
             artist_name: params[2],
@@ -91,7 +92,7 @@ module.exports = {
           .then((insertResults) => {
             return knex('users_events').insert({
               id_users: userId,
-              id_events: insertResults.insertId,
+              id_events: insertResults[0],
             })
           })
         }

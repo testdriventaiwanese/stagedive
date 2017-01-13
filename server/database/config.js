@@ -3,7 +3,6 @@ const config = {
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: 'concert_wallet',
-  charset: 'utf8',
 };
 
 module.exports = config;
