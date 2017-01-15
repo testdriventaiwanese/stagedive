@@ -24,9 +24,8 @@ module.exports = {
               upcoming_events: params.upcoming_events,
             })
             .then((artistAddRes) => {
-              console.log('artist add in knex model: ', artistAddRes);
               return knex('users_artists').insert({ id_users: userId, id_artists: artistAddRes[0] });
-            })
+            });
           }
         })
     },
@@ -41,9 +40,9 @@ module.exports = {
                 return knex('users_artists').where('id_artists', artistResults[0].id).andWhere('id_users', params.userId).del()
                   .then((deleteUserArtist) => {
                     return knex('artists').where('id', artistResults[0].id).del()
-                  })
+                  });
               }
-            })
+            });
          });
     },
   },

@@ -12,6 +12,6 @@ module.exports = {
         return err;
       }
       res.status(200).send(body);
-    })
+    });
   },
 };

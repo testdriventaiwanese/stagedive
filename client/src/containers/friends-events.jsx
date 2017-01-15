@@ -119,12 +119,6 @@ class FriendsEventList extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     events: state.getFriendsEvents,
-//   };
-// }
-
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getFriendsEvents }, dispatch);
 }

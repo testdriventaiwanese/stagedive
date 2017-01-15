@@ -11,7 +11,7 @@ module.exports = {
         })
         .catch((err) => {
           console.log('Error in getUserArtists Controller: ', err);
-        })
+        });
     },
     addArtist({ body: {
       mbid,
@@ -38,15 +38,7 @@ module.exports = {
         })
         .catch((err) => {
           console.log('Error in addArtist Controller: ', err);
-        })
-      //   (results) => {
-      //   if (!results) {
-      //     console.log('Issue in adding ARTIST to database');
-      //     res.sendStatus(401);
-      //   } else {
-      //     console.log('RESULTS FROM ADD ARTIST: ', results);
-      //     res.status(200).send(results);
-      //   }
+        });
     },
     deleteArtist(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
@@ -57,7 +49,7 @@ module.exports = {
       })
       .catch((err) => {
         console.log('Error in deleteArtist Controller: ', err);
-      })
+      });
     },
   },
 };

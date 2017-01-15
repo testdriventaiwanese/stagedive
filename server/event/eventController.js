@@ -11,7 +11,7 @@ module.exports = {
       })
       .catch((err) => {
         console.log('Error in getUserEvents Controller: ', err);
-      })
+      });
     },
     getOtherUserEvents(req, res) {
       const otherUserId = req.headers.userid;
@@ -21,7 +21,7 @@ module.exports = {
       })
       .catch((err) => {
         console.log('Error in getOtherUserEvents Controller: ', err);
-      })
+      });
     },
     getFriendsEvents(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
@@ -31,16 +31,7 @@ module.exports = {
       })
       .catch((err) => {
         console.log('Error in getFriendsEvents Controller: ', err);
-      })
-    },
-    search({ body: { name } }, res) {
-      eventModel.events.searchEvents(name)
-      .then((results) => {
-        res.sendStatus(200);
-      })
-      .catch((err) => {
-        console.log('Error in searchEvents Controller: ', err);
-      })
+      });
     },
     addEvent({ body: {
       tm_id,
@@ -75,7 +66,7 @@ module.exports = {
       })
       .catch((err) => {
         console.log('Error in addEvent Controller: ', err);
-      })
+      });
     },
 
     deleteEvent(req, res) {
@@ -87,7 +78,7 @@ module.exports = {
       })
       .catch((err) => {
         console.log('Error in deleteEvent Controller: ', err);
-      })
+      });
     },
   },
 };

@@ -129,7 +129,6 @@ export function removeEvent(tm_id, i) {
 }
 
 export function removeArtist(artist_mbid, i) {
-  console.log('artist_mbid:: ', artist_mbid)
   const resultObj = {
     artist_mbid,
   };
@@ -492,15 +491,15 @@ export function showLocalEvents(concerts) {
 
 export function getDistanceInfo(locations) {
   const mapCoords = {
-        originLatitude: locations[0][0],
-        originLongitude: locations[0][1],
-        destinationLatitude: locations[1][0],
-        destinationLongitude: locations[1][1],
+    originLatitude: locations[0][0],
+    originLongitude: locations[0][1],
+    destinationLatitude: locations[1][0],
+    destinationLongitude: locations[1][1],
   };
   const config = {
     headers: {
       authHeader: localStorage.getItem('token'),
-    }
+    },
   };
   const request = axios.post('/api/distance/getdistanceinfo', mapCoords, config)
   .then((res) => {

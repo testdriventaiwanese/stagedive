@@ -34,7 +34,6 @@ module.exports = {
       url: `http://api.songkick.com/api/3.0/search/locations.json?location=geo:${lat},${lng}&apikey=${process.env.SONGKICK_ID}`,
       method: 'GET',
     }, (err, resp, body) => {
-      // console.log('resp:: ', resp.data);
       if (err) {
         console.log('Error in SongKick API call: ', err);
         return err;
@@ -49,7 +48,6 @@ module.exports = {
       url: `http://api.songkick.com/api/3.0/metro_areas/${metro_area_id}/calendar.json?apikey=${process.env.SONGKICK_ID}`,
       method: 'GET',
     }, (err, resp, body) => {
-      console.log('body:: ', resp.data);
       if (err) {
         console.log('Error in SongKick API call: ', err);
         return err;

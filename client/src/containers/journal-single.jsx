@@ -30,13 +30,6 @@ class JournalSingle extends Component {
     this.props.getEventComments(userId, eventId);
   }
 
-  // componentDidMount() {
-  //   let userId = this.props.params.userId;
-  //   let eventId = this.props.params.eventId;
-  //   console.log('PROPS: ', this.props);
-  //   this.props.getEventComments(userId, eventId);
-  // }
-
   onInputChange(event) {
     this.setState({term: event.target.value});
 
@@ -49,7 +42,6 @@ class JournalSingle extends Component {
     let friendId = this.userInfo.userInfo;
     this.props.addEventComment(this.state.term, userId, friendId, eventId);
     this.setState({ term: '' });
-    // hashHistory.push('/results');
   }
 
   render() {
@@ -65,7 +57,6 @@ class JournalSingle extends Component {
       });
       return imageArray[index].url;
     }
-    console.log('PROPS JOURNAL SINGLE: ', this.props);
     if(this.props.userInfo.pastEvents) {
       pastEvents = this.props.userInfo.pastEvents;
       const i = pastEvents.findIndex((event) => event.id === Number(this.props.params.eventId));

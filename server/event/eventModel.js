@@ -20,10 +20,10 @@ module.exports = {
                 return knex.from('events').whereIn('id', friendsEvents)
                   .then((eventResults) => {
                     return ({ userNames: userResults[0], friendEvents: results[0], events: eventResults });
-                  })
+                  });
               }
-            })
-        })
+            });
+        });
     },
 
     addEvent(userId, params) {
@@ -36,8 +36,7 @@ module.exports = {
             id_users: userId,
             id_events: eventResults[0].id,
           });
-        }
-        else{
+        } else {
           return knex('events').insert({
             tm_id: params[0],
             name: params[1],
@@ -69,7 +68,7 @@ module.exports = {
     deleteEvent(params) {
       return knex.select('id').from('events').where({ tm_id: params.tm_id })
          .then((eventResults) => {
-          return knex.select('id_users').from('users_events').where({ id_events: eventResults[0].id })
+           return knex.select('id_users').from('users_events').where({ id_events: eventResults[0].id })
             .then((userEventsResp) => {
               if (userEventsResp.length > 1) {
                 return knex('users_events').where('id_events', eventResults[0].id).andWhere('id_users', params.userId).del()

@@ -22,7 +22,7 @@ module.exports = {
     addComment(params) {
       return knex('comments').insert({ id_user: params[0], id_friend: params[1], id_event: params[2], text: params[3] })
         .then((response) => {
-          return knex('users').where({ id: params[0]} ).select('id', 'fullname', 'profile_photo')
+          return knex('users').where({ id: params[0] }).select('id', 'fullname', 'profile_photo')
             .then((posterInfo) => {
               const respObj = {
                 posterInfo,

@@ -56,7 +56,6 @@ class SearchResults extends Component {
       )
     }
     return this.props.events.map((event) => {
-      console.log('event : ', event);
       const largestPic = (imageArray) => {
         let largest = 0;
         let index;
@@ -137,8 +136,6 @@ class SearchResults extends Component {
       bandsintown = this.props.artists.bandsintown.data;
       if(this.props.artists.songkick.data.resultsPage.results.artist !== undefined && this.props.artists.songkick.data.resultsPage.results.artist !== undefined) {
         songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
-        console.log('bandsintown:: ', bandsintown)
-        console.log('songkick:: ', songkick)
         let avatar = <Avatar src={bandsintown.image_url} style={avatarStyle}/>
         return (
           <Card zDepth={1}>

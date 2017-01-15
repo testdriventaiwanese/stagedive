@@ -2,7 +2,6 @@ const userModel = require('./userModel');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
 
-
 module.exports = {
   users: {
     getAll(req, res) {
@@ -19,17 +18,16 @@ module.exports = {
         });
     },
     getOtherInfo(req, res) {
-      console.log('get other info id: ', req.headers.userid);
       userModel.users.findById(req.headers.userid)
         .then((response) => {
           res.status(200).send(response);
-        })
+        });
     },
     findUser({ body: { query } }, res) {
       userModel.users.findUser(query)
         .then((response) => {
           res.status(200).send(response);
-        })
+        });
     },
     changepassword({ body: { email, prevPassword, newPassword } }, res) {
       userModel.users.getPassword(email)
@@ -52,37 +50,37 @@ module.exports = {
               }));
             }
           });
-        })
+        });
     },
     getFriends(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
       userModel.users.getFriends(id.sub)
         .then((response) => {
           res.status(200).send(response)
-        })
+        });
     },
     getOtherFriends(req, res) {
       const id = req.headers.id;
       userModel.users.getFriends(id)
         .then((response) => {
           res.status(200).send(response);
-        })
+        });
     },
     addfollow(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
-      const params = {id_user: id.sub, id_friend: req.body.userId};
+      const params = { id_user: id.sub, id_friend: req.body.userId };
       userModel.users.addFollow(params)
         .then((response) => {
           res.status(200).send(response);
-        })
+        });
     },
     unfollow(req, res) {
       const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
-      const params = {id_user: id.sub, id_friend: req.body.userId}
+      const params = { id_user: id.sub, id_friend: req.body.userId };
       userModel.users.unfollow(params)
         .then((response) => {
           res.status(200).send(response);
-        })
+        });
     },
   },
 };

@@ -17,7 +17,7 @@ module.exports = {
         });
     },
     addOne(params) {
-      return knex('users').insert({email: params[0], password: params[1], fullname: params[2], profile_photo: params[3]})
+      return knex('users').insert({ email: params[0], password: params[1], fullname: params[2], profile_photo: params[3] })
         .then((res) => {
           return res;
         });
@@ -36,17 +36,14 @@ module.exports = {
         });
     },
     addFollow(params) {
-      return knex('users_friends').where({id_user: params.id_user, id_friend: params.id_friend})
+      return knex('users_friends').where({ id_user: params.id_user, id_friend: params.id_friend })
         .then((res) => {
-          return knex('users_friends').insert({id_user: params.id_user, id_friend: params.id_friend})
+          return knex('users_friends').insert({ id_user: params.id_user, id_friend: params.id_friend })
         });
     },
     unfollow(params) {
-      return knex('users_friends').where({id_user: params.id_user, id_friend: params.id_friend})
-        .del()
-        .then((res) => {
-          console.log(res);
-        });
+      return knex('users_friends').where({ id_user: params.id_user, id_friend: params.id_friend })
+        .del();
     },
   },
 };
