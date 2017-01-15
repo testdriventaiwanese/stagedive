@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
   // decode the token using a secret key-phrase
   return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      console.log('JWT token error : ', err);
+      console.log('JWT token error');
       return res.status(401).end();
     }
 
