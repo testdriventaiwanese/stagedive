@@ -51,12 +51,5 @@ app.listen(port, (err) => {
   if (err) {
     console.log('Error occurred : ', err);
   }
-    // UNCOMMENT FOR WEEKLY REMINDER EMAILS
-    // var reminded = false;
-    // while(!reminded){
-    //   console.log('Starting weekly reminder function');
-    //   weeklyReminder(); // function lives in emailHelper.js
-    //   reminded = true;
-    // }
   console.log('Server is listening to port : ', port);
 });

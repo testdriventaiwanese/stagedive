@@ -11,7 +11,7 @@ module.exports = {
       commentsModel.comments.getComments(params)
         .then((results) => {
           res.status(200).send(results);
-      });
+        });
     },
     addComment({ body: {
       id_event,

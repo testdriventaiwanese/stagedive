@@ -17,11 +17,9 @@ class Map extends React.Component {
     }, 150)
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log('prevState:: ', prevState);
     if (prevProps.google !== this.props.google) {
       this.loadMap();
     }
-    console.log('prevProps:: ', prevProps);
   }
 
   componentWillUnmount () {
@@ -69,9 +67,6 @@ class Map extends React.Component {
               })
             })
             .then((concert) => {
-              // this.props.object = concert.splice();
-              // this.state.object =concert;
-              console.log('CONCERT:::', concert)
               this.props.showLocalEvents(concert);
 
               let val;
@@ -89,7 +84,6 @@ class Map extends React.Component {
               })
             })
             .then((mark) => {
-              console.log('MARK IN PROMISES:: ', mark);
               return mark.forEach((marking) => {
                   marking.markers.setMap(this.map);
                   marking.markers.addListener('mouseover', function() {
@@ -215,8 +209,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { getLocation, getLocalEvents, showLocalEvents })(googleWrapped);
-
-
-// const test = GoogleApiWrapper({ apiKey: GOOGLEMAPSAPIKEY })(MapComponent);
-// export default connect(mapStateToProps, { getLocation, getLocalEvents })(test);
-// export default GoogleApiWrapper({ apiKey: GOOGLEMAPSAPIKEY })(connect(mapStateToProps, { getLocation, getLocalEvents })(MapComponent));

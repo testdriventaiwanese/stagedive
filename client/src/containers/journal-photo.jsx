@@ -7,9 +7,6 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 
 
 class JournalPhoto extends Component {
-  componentWillMount() {
-
-  }
 
   render() {
     const { event, i, comments } = this.props;

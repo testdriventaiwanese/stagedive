@@ -51,7 +51,6 @@ class Map extends React.Component {
         const zoom = 2;
         crd = pos.coords;
 
-        console.log('this is a test:: ', eventLatLng)
         const locations = [[crd.latitude, crd.longitude], [eventLatLng.latitude, eventLatLng.longitude]]
         const eventMarker = new maps.Marker({
             position: new maps.LatLng(eventLatLng.latitude, eventLatLng.longitude),
@@ -61,13 +60,9 @@ class Map extends React.Component {
 
         const bound = new google.maps.LatLngBounds();
 
-
-        console.log('locations:: ', locations)
         locations.forEach((val, i) => {
           bound.extend(new google.maps.LatLng(val[0], val[1]));
         });
-
-        console.log('boundGetCenteR:: ', bound);
         const mapConfig = Object.assign({}, {
           center: bound.getCenter(),
           zoom: zoom,
@@ -81,7 +76,6 @@ class Map extends React.Component {
         eventMarker.setMap(this.map)
 
         this.props.getDistanceInfo(locations)
-        console.log('MAPPPPPP:: ', this.map)
       })
     }
 
@@ -145,7 +139,6 @@ class EventDetail extends Component {
       return imageArray[index].url;
     }
     const event = eventArr[0];
-    console.log('RENDER EVENT:: ', event)
     const momentDate = moment(event.date).format('LLLL');
     const momentFromNow = moment(event.date).fromNow();
     const est = moment(event.date)._d;
@@ -240,7 +233,6 @@ class EventDetail extends Component {
   }
 
   renderDistanceInfo() {
-    console.log('RENDERDISTANCEINFO this.props.event:: ',this.props.event);
     if(!this.props.distance.distance || !this.props.distance.duration) {
       <div>Calculating...</div>
     }
@@ -254,7 +246,6 @@ class EventDetail extends Component {
   }
 
   render() {
-    console.log('process.env.GOOGLEAPI KEY', process.env )
     return (
       <div>
         <h3>Event Details</h3>

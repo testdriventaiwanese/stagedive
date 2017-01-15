@@ -143,32 +143,18 @@ class ArtistPage extends Component {
     if (!this.props.artists) {
       return <div>Artist Not Listed</div>;
     }
-    console.log('INSIDE this.props:: ', this.props)
-    console.log('OUTSIDE artistArr:: ', this.props.artists)
     let artistsArr;
     artistsArr = this.props.artists.filter((artist) => {
-      console.log('artist.mbid in artistArr:: ', artist.mbid)
-      console.log('props.artists in artistsArr:: ', this.props.artists);
-      console.log('props.params.artist in artistArr:: ', this.props.params.artistId)
       if(artist.mbid === this.props.params.artistId) {
         return artist;
       };
     });
-    console.log('artistsArr', artistsArr)
-    console.log('1 artistsArr[0]:: ', artistsArr[0])
-    console.log('this.props.params:: ', this.props.params)
-    console.log('this.props.artistSearch.bandsintown.data.name:: ')
 
     if(artistsArr.length === 0 && !this.props.artistSearch) {
-      console.log('2 artistsArr[0]:: ', artistsArr[0])
-      console.log('!!!!!!  !!!!!! !!!!! artistSearch:: ', this.props.artistSearch)
-      console.log('1 artistsArr[0]:: ', artistsArr[0])
       return(
         <div>Loading..</div>
       )
     }
-    console.log('2 artistsArr[0]:: ', artistsArr[0]);
-    console.log('!!!!!!  !!!!!! !!!!! artistSearch:: ', this.props.artistSearch)
     if(this.props.artistSearch.bandsintown) {
       artistsArr.push({
           name: this.props.artistSearch.bandsintown.data.name,
@@ -185,30 +171,17 @@ class ArtistPage extends Component {
         });
       }
     }
-    console.log('4 artistsArr[0]', artistsArr[0])
-
-    // console.log('artistArr:: ', artistsArr[0])
-    // console.log('this.props.params:: ', this.props.params)
-    // // console.log('this.props.artistSearch.songkick.data.resultsPage.results.artist[0].identifier[0]', this.props.artistSearch.songkick.data.resultsPage.results.artist[0].identifier[0])
-    // console.log('INSIDE this.props.artistSearch:: ', this.props.artistSearch)
-    // console.log('INSIDE this.props.artistSearch.songkick:: ', this.props.artistSearch);
-
     let artist = {
       name: artistsArr[0].name,
       facebook: artistsArr[0].facebook,
       upcomingEvents: !artistsArr[0].upcomingEvents ? artistsArr[0].upcoming_events : artistsArr[0].upcomingEvents,
       image: artistsArr[0].image,
     };
-
-    console.log('3 artistsArr[0]', artistsArr[0].upcoming_events)
-
-    console.log('artist:: ', artist)
     if(!this.props.artistCalendar.data) {
       return (
         <div>Loading..</div>
       )
     }
-
     return (
       <div>
       <Card style={artistStyle}>
