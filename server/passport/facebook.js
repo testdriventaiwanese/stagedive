@@ -5,7 +5,7 @@ const userModel = require('../user/userModel');
 module.exports = new PassportFacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'http://concertwallet.digitalotion.com/auth/facebook/callback',
+  callbackURL: 'http://stagedive.co/auth/facebook/callback',
   profileFields: ['id', 'displayName', 'picture', 'email'],
 }, (accessToken, refreshToken, profile, done) => {
   userModel.users.getPassword(profile.emails[0].value)
