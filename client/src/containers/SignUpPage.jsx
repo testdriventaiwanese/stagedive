@@ -58,6 +58,7 @@ class SignUpPage extends Component {
              <RaisedButton type="submit" label="Create New Account" disabled={pristine || submitting} primary />
            </div>
            <CardText>
+             <span>Or signup with    </span>
              <a href='/auth/facebook'>
                <FontIcon className='fa fa-facebook-official fa-3x' primary />
              </a>
