@@ -21,12 +21,17 @@ export default class About extends React.Component{
 
     return(
       <div>
-        <h1>
-          <strong>Concert Wallet is the best way to make your concert going experience awesome</strong>
+        <h1 style={{padding: '10px'}}>
+          <strong>StageDive is the best way to make your concert going experience awesome</strong>
         </h1>
-        <Card>
-          <h2>Tech Stack</h2>
-          <img src={`http://i.imgur.com/NgAhF5s.png`} />
+        <div style={{textAlign: 'justify', paddingLeft: '40px', paddingRight: '40px'}}>
+          <p>StageDive is a social media web app for music enthusiasts who want to track upcoming concerts, save favorite artists, and explore local events. </p>
+          <p>The app makes it easy to track events, follow artists, and connect with friends. Once you’ve found what you’re looking for, it’ll remain easily accessible from a glance at your dashboard.</p>
+          <p>Stage Dive uses a relational MySQL database, and is powered by React with Redux on the front end, and Node/Express on the backend. The Google Maps API was used to provide map views. StageDive aggregates data from several entertainment API’s including Ticketmaster, Songkick, and BandsinTown.</p>
+        </div>
+        <h3 style={{padding: '20px'}}>StageDive was built using: </h3>
+        <Card style={{width: '50%', margin: '0 auto'}}>
+          <img style={{width: '100%', height: '25%'}} src={`http://i.imgur.com/NgAhF5s.png`} />
         </Card>
       </div>
     )
@@ -41,7 +46,7 @@ export default class About extends React.Component{
       marginLeft: '68px',
       marginTop: '20px',
       marginBottom: '20px',
-      borderRadius: '70%',
+      borderRadius: '5px',
       border: '1px solid #5f6063',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
@@ -66,7 +71,7 @@ export default class About extends React.Component{
         <p style={aboutStyle}>Three avid concert-goers teaming up and producing the most streamlined web-app that will make your concert experience easy</p>
         <div>
             <Card style = {cardStyle, {float:'right', width: '30%'}} zDepth={1}>
-              <img style= {avatarStyle} src={`http://i.imgur.com/71zox3t.jpg`} />
+              <img style= {avatarStyle} src={`http://i.imgur.com/PEtNp9k.jpg`} />
               <h2 style={{textAlign:'center',marginBottom: '20px'}}>Sean Ho</h2>
               <div style={aboutStyle}>
                 <p>Sean is a lover of music.</p>
@@ -79,7 +84,7 @@ export default class About extends React.Component{
           </div>
         <div>
           <Card style = {cardStyle, {float: 'left', width: '30%'}} zDepth={1}>
-            <img style= {avatarStyle} src={`http://i.imgur.com/F8BmZi3.jpg`} />
+            <img style= {avatarStyle} src={`http://i.imgur.com/RLo7UUx.jpg`} />
             <h2 style={{textAlign:'center', marginBottom: '20px'}}>Adam Wang</h2>
             <div style={aboutStyle}>
               <p>Adam is a lover of music.</p>
@@ -92,7 +97,7 @@ export default class About extends React.Component{
           </div>
           <div>
             <Card style = {cardStyle, {margin: '0 auto', width: '30%', height: '100%'}} zDepth={1}>
-              <img style= {avatarStyle} src={`http://i.imgur.com/yMyJdpD.jpg`} />
+              <img style= {avatarStyle} src={`http://i.imgur.com/0JrUO9s.jpg`} />
               <h2 style={{textAlign:'center', marginBottom: '20px'}}>Timothy Yin</h2>
               <div style={aboutStyle}>
                 <p>Tim is a lover of music.</p>

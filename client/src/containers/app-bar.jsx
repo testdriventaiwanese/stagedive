@@ -22,6 +22,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
+import FontIcon from 'material-ui/FontIcon';
 
 import Auth from '../modules/auth';
 import SearchBar from './searchbar';
@@ -132,7 +133,10 @@ class NavBar extends Component {
             titleStyle={{ color: 'black', fontFamily: 'Oleo Script, cursive', fontSize: '30px'   }}
             onLeftIconButtonTouchTap={this.handleLeftNavToggle}
             iconStyleLeft={{backgroundColor: 'black', zDepth: 800, position:'relative', zIndex:10000}}
+            iconElementRight={<a href='https://github.com/testdriventaiwanese/stagedive'><FontIcon className='fa fa-github' primary /></a>}
+            iconStyleRight={{marginTop: '22px', position: 'relative', zIndex:10000}}
             >
+
             <div style={searchBarStyle}>
               {Auth.isUserAuthenticated() ? (
                 <SearchBar />
