@@ -105,6 +105,7 @@ handleChange = (value) => {
                 <RaisedButton type="submit" label="Log in" disabled={pristine || submitting} primary />
               </div>
               <CardText>
+                <span>Or login with    </span> 
                 <a href='/auth/facebook'>
                   <FontIcon className='fa fa-facebook-official fa-3x' primary />
                 </a>

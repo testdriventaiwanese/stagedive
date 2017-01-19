@@ -25,7 +25,6 @@ class PostIndex extends Component {
       width: '65%',
       float: 'right',
       overflow: 'scroll',
-      height: '950px',
       position: 'relative',
       marginTop: '10px',
     };

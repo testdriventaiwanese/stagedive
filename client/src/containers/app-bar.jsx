@@ -131,10 +131,14 @@ class NavBar extends Component {
             style={appBarStyle}
             titleStyle={{ color: 'black', fontFamily: 'Oleo Script, cursive', fontSize: '30px'   }}
             onLeftIconButtonTouchTap={this.handleLeftNavToggle}
-            iconStyleLeft={{backgroundColor: 'black', zDepth: 800}}
+            iconStyleLeft={{backgroundColor: 'black', zDepth: 800, position:'relative', zIndex:10000}}
             >
             <div style={searchBarStyle}>
-              <SearchBar />
+              {Auth.isUserAuthenticated() ? (
+                <SearchBar />
+              ) : (
+                <div></div>
+              )}
             </div>
           </AppBar>
         </div>
