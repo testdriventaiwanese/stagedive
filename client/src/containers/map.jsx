@@ -174,7 +174,7 @@ export class MapComponent extends React.Component {
     }
     let eventStyle = {
       float: 'right',
-      width: '48%',
+      width: '50%',
     }
     let over = {
       overflow:'scroll',
