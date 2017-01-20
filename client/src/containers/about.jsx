@@ -88,7 +88,7 @@ export default class About extends React.Component{
             <h2 style={{textAlign:'center', marginBottom: '20px'}}>Adam Wang</h2>
             <div style={aboutStyle}>
               <p>Adam is a lover of music.</p>
-              <p><strong>Favorite Artists:</strong> Matt Zo, Above and Beyond, Music </p>
+              <p><strong>Favorite Artists:</strong> Mat Zo, Above and Beyond, John Mayer </p>
               <p><strong>Most Memorable Concert:</strong> Above and Beyond ABGT100</p>
               <a href={`https://www.linkedin.com/in/adamawang`}><img style={linkedIn} src={`http://i.imgur.com/mZQpO34.png`}></img></a>
               <a href={`http://github.com/adamawang`}><img style={gitHub} src={`http://i.imgur.com/GP6otU2.png`} /></a>
