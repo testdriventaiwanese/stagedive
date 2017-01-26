@@ -1,6 +1,7 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   require('dotenv').config();
+// }
+require('dotenv').config();
 require('./database/config.js');
 const path = require('path');
 const express = require('express');
@@ -43,8 +44,8 @@ const apiRoutes = require('./routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
-const isProduction = process.env.NODE_ENV === 'production';
-const port = isProduction ? process.env.PORT : 5000;
+// const isProduction = process.env.NODE_ENV === 'production';
+const port = process.env.PORT || 5000;
 
 app.listen(port, (err) => {
   if (err) {
