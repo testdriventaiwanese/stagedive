@@ -24,7 +24,8 @@ module.exports = new PassportLocalStrategy({
       }
       bcrypt.hash(userData.password, null, null, ((err, hash) => {
         const params = [userData.email, hash, userData.fullname, null];
-        userModel.users.addOne(params, (resp) => {
+        userModel.users.addOne(params)
+        .then((resp) => {
           if (!resp) {
             console.log('Issue in adding to database');
             return done('Error adding user to db');
