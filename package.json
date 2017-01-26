@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack -d --watch",
-    "build": "webpack -p",
+    "build": "NODE_ENV=production webpack -p",
     "commit": "git-cz",
     "start": "nodemon ./server/server.js",
     "lint": "eslint server client --ignore-pattern client/src --ignore-pattern client/public || true"

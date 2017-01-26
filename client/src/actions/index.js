@@ -289,8 +289,19 @@ export function signUp(result) {
   };
   axios.post('/auth/signup', resultObj)
     .then((res) => {
-      if(res.data.success){
-        hashHistory.push('/login');
+      if (res.data.success) {
+        const loginObj = {
+          email: result.email,
+          password: result.password,
+        }
+        axios.post('/auth/login', loginObj)
+          .then((loginRes) => {
+            if(loginRes.data.success){
+              localStorage.setItem('token', loginRes.data.token);
+              localStorage.setItem('id', loginRes.data.userId);
+              hashHistory.push('/');
+            }
+          });
       }
     });
   return {
