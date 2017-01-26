@@ -2,9 +2,7 @@
 
 Stage Dive is a social media web app for music enthusiasts who want to centralize their upcoming concerts, connect with friends, and explore events from favorite artists.
 
-The app makes it easy to track events, follow artists, and connect with friends.
-Once you’ve found what you’re looking for, it’ll remain accessible from a glance at your dashboard.
-This dashboard presents an organized and easy to read layout that immediately shows important details about events you have been tracking.  
+The app makes it easy to search for events, follow artists, and add friends. The home page presents an organized and easy to read layout that immediately shows important details about events you have been tracking.  
 
 [StageDive Home Page](readMeImages/HomePage.png)
 
