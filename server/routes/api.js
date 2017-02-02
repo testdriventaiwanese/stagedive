@@ -29,15 +29,14 @@ router.post('/events/addevent', eventController.events.addEvent);
 router.post('/events/deleteevent', eventController.events.deleteEvent);
 
 // comment calls
-// router.post('/api/events/comments', eventController.events.addComment);
 router.get('/comments/getcomments', commentsController.comments.getComments);
 router.post('/comments/addcomment', commentsController.comments.addComment);
 router.post('/comments/removecomment', commentsController.comments.removeComment);
 
 // artist calls
-router.get('/artists/getall', artistsController.artists.getUserArtists);
-router.post('/artists/addartist', artistsController.artists.addArtist);
-router.post('/artists/deleteartist', artistsController.artists.deleteArtist);
+router.get('/artists/getall', artistsController.getUserArtists);
+router.post('/artists/addartist', artistsController.addArtist);
+router.post('/artists/deleteartist', artistsController.deleteArtist);
 
 // bandsintown api call
 router.get('/bandsintown/getartist', bandsintown.getArtist);
