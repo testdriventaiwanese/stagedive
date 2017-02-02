@@ -37,7 +37,9 @@ exports.getFriendsEvents = (req, res) => {
   });
 };
 
-
+// destructure request body and pull out the following:
+// tm_id, name, artist_name, date, event_url, venue, image
+// genre, latitude, longitude, sale_date
 exports.addEvent = ({ body: {
   tm_id,
   name,
@@ -52,6 +54,7 @@ exports.addEvent = ({ body: {
   sale_date,
 }, headers }, res) => {
   const userId = jwt.decode(headers.authheader, process.env.JWT_SECRET);
+  // create params object and include all destructured items above
   const params = {
     tm_id,
     name,

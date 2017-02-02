@@ -80,7 +80,9 @@ exports.getOtherFriends = (req, res) => {
 
 
 exports.addfollow = (req, res) => {
+  // pull authheader from request header and decode for signed in userId
   const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
+  // pull userId from request body, this is the ID of the friend followed
   const params = { id_user: id.sub, id_friend: req.body.userId };
   userModel.addFollow(params)
   .then((response) => {
@@ -90,7 +92,9 @@ exports.addfollow = (req, res) => {
 
 
 exports.unfollow = (req, res) => {
+  // pull authheader from request header and decode for signed in userId
   const id = jwt.decode(req.headers.authheader, process.env.JWT_SECRET);
+  // pull userId from request body, this is the ID of the friend followed
   const params = { id_user: id.sub, id_friend: req.body.userId };
   userModel.unfollow(params)
   .then((response) => {

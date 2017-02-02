@@ -7,12 +7,16 @@ exports.getUserArtists = (params) => {
 
 
 exports.addArtist = (userId, params) => {
-  return knex('artists').where({ mbid: params.mbid }).select('id')
+  return knex('artists')
+  .where({ mbid: params.mbid })
+  .select('id')
   .then((res) => {
     if (res.length !== 0) {
-      return knex('users_artists').insert({ id_users: userId, id_artists: res[0].id });
+      return knex('users_artists')
+      .insert({ id_users: userId, id_artists: res[0].id });
     }
-    return knex('artists').insert({
+    return knex('artists')
+    .insert({
       mbid: params.mbid,
       name: params.name,
       image: params.image,
@@ -22,23 +26,39 @@ exports.addArtist = (userId, params) => {
       upcoming_events: params.upcoming_events,
     })
     .then((artistAddRes) => {
-      return knex('users_artists').insert({ id_users: userId, id_artists: artistAddRes[0] });
+      return knex('users_artists')
+      .insert({ id_users: userId, id_artists: artistAddRes[0] });
     });
-  })
+  });
 };
 
 
 exports.deleteArtist = (params) => {
-  return knex.select('id').from('artists').where({ mbid: params.mbid })
+  return knex.select('id')
+  .from('artists')
+  .where({ mbid: params.mbid })
   .then((artistResults) => {
-    return knex.select('id_users').from('users_artists').where({ id_artists: artistResults[0].id })
+    return knex.select('id_users')
+    .from('users_artists')
+    .where({ id_artists: artistResults[0].id })
     .then((userArtistsResp) => {
+      // if multiple users follow the artist, do not delete artist from table
+      // ONLY delete user and artist from join table
       if (userArtistsResp.length > 1) {
-        return knex('users_artists').where('id_artists', artistResults[0].id).andWhere('id_users', params.userId).del()
+        return knex('users_artists')
+        .where('id_artists', artistResults[0].id)
+        .andWhere('id_users', params.userId)
+        .del()
       }
-      return knex('users_artists').where('id_artists', artistResults[0].id).andWhere('id_users', params.userId).del()
+      // else delete from both artist table and join table
+      return knex('users_artists')
+      .where('id_artists', artistResults[0].id)
+      .andWhere('id_users', params.userId)
+      .del()
       .then((deleteArtistResult) => {
-        return knex('artists').where('id', artistResults[0].id).del()
+        return knex('artists')
+        .where('id', artistResults[0].id)
+        .del();
       });
     });
   });
