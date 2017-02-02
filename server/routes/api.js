@@ -11,15 +11,15 @@ const distance = require('../API/distance');
 const router = new express.Router();
 
 // user calls
-router.post('/users/addfollow', userController.users.addfollow);
-router.post('/users/unfollow', userController.users.unfollow);
-router.post('/users/changepassword', userController.users.changepassword);
-router.get('/users/getall', userController.users.getAll);
-router.get('/users/getinfo', userController.users.getInfo);
-router.get('/users/getotherinfo', userController.users.getOtherInfo);
-router.get('/users/getfriends', userController.users.getFriends);
-router.get('/users/getotherfriends', userController.users.getOtherFriends);
-router.post('/users/finduser', userController.users.findUser);
+router.post('/users/addfollow', userController.addfollow);
+router.post('/users/unfollow', userController.unfollow);
+router.post('/users/changepassword', userController.changepassword);
+router.get('/users/getall', userController.getAll);
+router.get('/users/getinfo', userController.getInfo);
+router.get('/users/getotherinfo', userController.getOtherInfo);
+router.get('/users/getfriends', userController.getFriends);
+router.get('/users/getotherfriends', userController.getOtherFriends);
+router.post('/users/finduser', userController.findUser);
 
 // event calls
 router.get('/events/getall', eventController.getUserEvents);

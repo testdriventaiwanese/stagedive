@@ -14,7 +14,7 @@ module.exports = new PassportLocalStrategy({
     password: password.trim(),
   };
   // find a user by password
-  userModel.users.getPassword(email)
+  userModel.getPassword(email)
     .then((results) => {
       if (results.length === 0) {
         return done('Error, no user found');
