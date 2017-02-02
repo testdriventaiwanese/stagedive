@@ -16,7 +16,7 @@ module.exports = new PassportLocalStrategy({
     password: password.trim(),
     fullname: req.body.fullname.trim(),
   };
-  userModel.users.findOne(userData.email)
+  userModel.findOne(userData.email)
     .then((response) => {
       if (response.length > 0) {
         console.log('Username already exists');
@@ -24,7 +24,7 @@ module.exports = new PassportLocalStrategy({
       }
       bcrypt.hash(userData.password, null, null, ((err, hash) => {
         const params = [userData.email, hash, userData.fullname, null];
-        userModel.users.addOne(params)
+        userModel.addOne(params)
         .then((resp) => {
           if (!resp) {
             console.log('Issue in adding to database');
