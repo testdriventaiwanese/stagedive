@@ -7,6 +7,8 @@ const config = {
 
 module.exports = config;
 
+// connection pooling: uncomment if not using built in Knex pooling
+
 // // const connection = mysql.createConnection(config);
 //
 // // module.exports = connection;
