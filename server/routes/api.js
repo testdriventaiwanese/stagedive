@@ -22,11 +22,11 @@ router.get('/users/getotherfriends', userController.users.getOtherFriends);
 router.post('/users/finduser', userController.users.findUser);
 
 // event calls
-router.get('/events/getall', eventController.events.getUserEvents);
-router.get('/events/getuserevents', eventController.events.getOtherUserEvents);
-router.get('/events/getfriendsevents', eventController.events.getFriendsEvents);
-router.post('/events/addevent', eventController.events.addEvent);
-router.post('/events/deleteevent', eventController.events.deleteEvent);
+router.get('/events/getall', eventController.getUserEvents);
+router.get('/events/getuserevents', eventController.getOtherUserEvents);
+router.get('/events/getfriendsevents', eventController.getFriendsEvents);
+router.post('/events/addevent', eventController.addEvent);
+router.post('/events/deleteevent', eventController.deleteEvent);
 
 // comment calls
 router.get('/comments/getcomments', commentsController.getComments);
