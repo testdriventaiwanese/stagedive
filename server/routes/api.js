@@ -29,9 +29,9 @@ router.post('/events/addevent', eventController.events.addEvent);
 router.post('/events/deleteevent', eventController.events.deleteEvent);
 
 // comment calls
-router.get('/comments/getcomments', commentsController.comments.getComments);
-router.post('/comments/addcomment', commentsController.comments.addComment);
-router.post('/comments/removecomment', commentsController.comments.removeComment);
+router.get('/comments/getcomments', commentsController.getComments);
+router.post('/comments/addcomment', commentsController.addComment);
+router.post('/comments/removecomment', commentsController.removeComment);
 
 // artist calls
 router.get('/artists/getall', artistsController.getUserArtists);
