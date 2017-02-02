@@ -14,10 +14,12 @@ exports.getFriendsEvents = (params) => {
     const friendsEvents = results[0].map((event) => event.id_events);
     return knex.raw('SELECT id, fullname FROM users INNER JOIN users_friends ON users_friends.id_user=? AND users.id=users_friends.id_friend', params)
     .then((userResults) => {
+      // if no events found from friends, return userNames, friendsEvents, and an empty events array
       if (friendsEvents.length === 0) {
         return ({ userNames: userResults[0], friendEvents: results[0], events: [] });
       }
-      return knex.from('events').whereIn('id', friendsEvents)
+      return knex.from('events')
+      .whereIn('id', friendsEvents)
       .then((eventResults) => {
         return ({ userNames: userResults[0], friendEvents: results[0], events: eventResults });
       });
@@ -27,14 +29,18 @@ exports.getFriendsEvents = (params) => {
 
 
 exports.addEvent = (userId, params) => {
-  return knex('events').where({ tm_id: params.tm_id }).select('id')
+  return knex('events')
+  .where({ tm_id: params.tm_id })
+  .select('id')
   .then((eventResults) => {
+    // if event exists in database, return parameter object with userId and event ID from results
     if (eventResults.length !== 0) {
       return knex('users_events').insert({
         id_users: userId,
         id_events: eventResults[0].id,
       });
     }
+    // create event using params passed in if event does not exist
     return knex('events').insert({
       tm_id: params.tm_id,
       name: params.name,
@@ -59,7 +65,9 @@ exports.addEvent = (userId, params) => {
 
 
 exports.searchEvents = (params) => {
-  return knex('events').where({ name: params }).select('name');
+  return knex('events')
+  .where({ name: params })
+  .select('name');
 };
 
 
@@ -68,12 +76,23 @@ exports.deleteEvent = (params) => {
   .then((eventResults) => {
     return knex.select('id_users').from('users_events').where({ id_events: eventResults[0].id })
     .then((userEventsResp) => {
+      // if there are many users going to this event, do not delete from event table
+      // delete event and user from join table only
       if (userEventsResp.length > 1) {
-        return knex('users_events').where('id_events', eventResults[0].id).andWhere('id_users', params.userId).del()
+        return knex('users_events')
+        .where('id_events', eventResults[0].id)
+        .andWhere('id_users', params.userId)
+        .del()
       }
-      return knex('users_events').where('id_events', eventResults[0].id).andWhere('id_users', params.userId).del()
+      // else delete the event, and delete from join table
+      return knex('users_events')
+      .where('id_events', eventResults[0].id)
+      .andWhere('id_users', params.userId)
+      .del()
       .then((deleteUserEvent) => {
-        return knex('events').where('id', eventResults[0].id).del()
+        return knex('events')
+        .where('id', eventResults[0].id)
+        .del()
       });
     });
   });
