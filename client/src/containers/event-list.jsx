@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import RaisedButton from 'material-ui/RaisedButton';
-import CircularProgress from 'material-ui/CircularProgress';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Card, CardActions, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import IconMenu from 'material-ui/IconMenu';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
-import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Snackbar from 'material-ui/Snackbar';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Description from 'material-ui/svg-icons/action/description';
 import LinearProgress from 'material-ui/LinearProgress';
-import { Link, hashHistory } from 'react-router';
+import { Link } from 'react-router';
 import moment from 'moment';
 import FriendsEvents from './friends-events';
 import { getUserEvents, getUserInfo, removeEvent, getEvents, getFriendsEvents } from '../actions/index';
-import Auth from '../modules/auth';
 import Divider from 'material-ui/Divider';
 
 
@@ -175,7 +171,7 @@ class EventList extends Component {
             {this.renderList()}
           </Tab>
           <Tab style={tabStyle} label="Friends Events" value="friendsEvents">
-            <FriendsEvents {...this.props}/>
+            <FriendsEvents {...this.props} />
           </Tab>
         </Tabs>
     );
@@ -192,6 +188,5 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getUserEvents, getUserInfo, removeEvent, getEvents, getFriendsEvents }, dispatch);
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventList);

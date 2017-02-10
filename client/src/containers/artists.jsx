@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Card, CardHeader } from 'material-ui/Card';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -20,40 +17,26 @@ import { getArtists, removeArtist } from '../actions/index';
 class Artists extends Component {
   constructor(props) {
     super(props);
-     this.state = {
-       open: false,
-     };
-   };
-   handleTouchTap() {
-     this.setState({
-       open: true,
-     });
-   };
-   handleRequestClose() {
-     this.setState({
-       open: false,
-     });
-   };
+    this.state = {
+      open: false,
+    };
+  }
+  handleTouchTap() {
+    this.setState({
+      open: true,
+    });
+  }
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  }
   componentWillMount() {
     this.props.getArtists();
   }
 
   renderArtists() {
-    const imageDiv = {
-      width: '35%',
-      float: 'left',
-      height: '248px',
-      margin: '10px',
-    };
-    const imageStyle = {
-      width: '100%',
-    };
-    const menuStyle = {
-      float: 'right',
-      height: '0%',
-    }
     if (this.props.artists.length === 0) {
-
       return (
         <Card zDepth={2}>
           <div>
@@ -78,23 +61,23 @@ class Artists extends Component {
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
           >
             <MenuItem
-              primaryText='Unfollow'
+              primaryText="Unfollow"
               onTouchTap={this.handleTouchTap}
               rightIcon={<Delete />}
               onClick={() => this.props.removeArtist(artist.mbid, i)}
             />
-              <Snackbar
-                open={this.state.open}
-                message="Artist Unfollowed"
-                autoHideDuration={4000}
-                onRequestClose={this.handleRequestClose}
-              />
+            <Snackbar
+              open={this.state.open}
+              message="Artist Unfollowed"
+              autoHideDuration={4000}
+              onRequestClose={this.handleRequestClose}
+            />
           </IconMenu>
           <CardHeader
             title={<Link to={`/artists/${artist.mbid}`}>{artist.name}</Link>}
             subtitle={`On Tour through ${onTour.toString()}`}
             avatar={avatar}
-            />
+          />
         </Card>
       );
     });

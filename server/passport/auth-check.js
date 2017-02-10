@@ -25,11 +25,11 @@ module.exports = (req, res, next) => {
     // check if a user exists
     return userModel.findById(userId)
       .then((result) => {
-      if (result.length === 0) {
-        return res.status(401).end();
-      }
+        if (result.length === 0) {
+          return res.status(401).end();
+        }
 
-      return next();
-    });
+        return next();
+      });
   });
 };

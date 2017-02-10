@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 import LinearProgress from 'material-ui/LinearProgress';
 import Avatar from 'material-ui/Avatar';
-
 import { getUserInfo } from '../actions/index';
 import Auth from '../modules/auth';
 
