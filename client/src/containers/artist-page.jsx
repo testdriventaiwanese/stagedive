@@ -14,7 +14,6 @@ class ArtistPage extends Component {
       open: false,
     };
   }
-  
   handleTouchTap() {
     this.setState({
       open: true,
