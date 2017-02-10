@@ -14,18 +14,17 @@ class ArtistPage extends Component {
       open: false,
     };
   }
+  handleTouchTap() {
+    this.setState({
+      open: true,
+    });
+  }
 
-   handleTouchTap() {
-     this.setState({
-       open: true,
-     });
-   }
-
-   handleRequestClose() {
-     this.setState({
-       open: false,
-     });
-   }
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  }
   componentWillMount() {
     this.props.getArtists();
     const artistsArr = this.props.artists.filter((artist) => {
