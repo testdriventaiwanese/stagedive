@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Card, CardHeader, CardMedia, CardText } from 'material-ui/Card';
 import { Link } from 'react-router';
-import CircularProgress from 'material-ui/CircularProgress';
 import Avatar from 'material-ui/Avatar';
 import moment from 'moment';
 import LinearProgress from 'material-ui/LinearProgress';
@@ -16,27 +15,17 @@ class FriendsEventList extends Component {
     this.props.getFriendsEvents();
   }
   renderList() {
-    const imageDiv = {
-      width: '35%',
-      float: 'left',
-      height: '248px',
-      margin: '10px',
-    };
-    const imageStyle = {
-      width: '100%',
-    };
-
     const largestPic = (imageArray) => {
       let largest = 0;
       let index;
       imageArray.forEach((image, i) => {
-        if(image.width > largest) {
+        if (image.width > largest) {
           largest = image.width;
           index = i;
         }
       });
       return imageArray[index].url;
-    }
+    };
     if (!this.props.friendsEvents.futureEvents) {
       return (
         <div>
@@ -44,7 +33,7 @@ class FriendsEventList extends Component {
         </div>
       );
     }
-    else if(this.props.friendsEvents.futureEvents.length === 0) {
+    else if (this.props.friendsEvents.futureEvents.length === 0) {
       return (
         <Card className="list-group-item" zDepth={1}>
           <CardText>
@@ -52,7 +41,7 @@ class FriendsEventList extends Component {
             <br />
           </CardText>
         </Card>
-      )
+      );
     }
     else {
       const userInfo = this.props.friendsEvents.userInfo;
@@ -60,10 +49,10 @@ class FriendsEventList extends Component {
       return this.props.friendsEvents.futureEvents.map((event) => {
         const eventUser = friendsEvents.filter((friend) => {
           return friend.id_events === event.id;
-        }).map((val) => val.id_users);
+        }).map(val => val.id_users);
         let user = userInfo.filter((user) => {
           return eventUser.indexOf(user.id) > -1;
-        })
+        });
         let name = user.map((user) => user.fullname);
 
         const momentDate = moment(event.date).format('LLLL');
@@ -72,9 +61,9 @@ class FriendsEventList extends Component {
         const artist = JSON.parse(event.artist_name).map((performer) => performer.name);
         const date = momentDate.toString() + ' ' + est.toString().slice(34);
         let image = null;
-        if(event.image){
+        if (event.image) {
           image = largestPic(JSON.parse(event.image)) || null;
-        };
+        }
         const venue = JSON.parse(event.venue)[0];
         let venueName = null;
         let venueStateOrCountry = null;
@@ -92,7 +81,7 @@ class FriendsEventList extends Component {
               subtitle={`going ${momentFromNow.toString()}`}
               avatar={<Avatar>{name.join(', ').slice(0,1)}</Avatar>}
               onClick={() => this.props.getOtherUserEvents(friend)}
-              />
+            />
             <CardMedia>
               <img src={image} />
             </CardMedia>

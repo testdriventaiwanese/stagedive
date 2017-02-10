@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { addEventComment, removeEventComment } from '../actions/index';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
@@ -14,17 +11,13 @@ import Paper from 'material-ui/Paper';
 class Comments extends Component {
   constructor(props) {
     super(props);
-
     this.state = { term: '' };
-
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
-
   onInputChange(event) {
     this.setState({ term: event.target.value });
   }
-
   onFormSubmit(event) {
     event.preventDefault();
     const userId = localStorage.getItem('id');
@@ -33,11 +26,9 @@ class Comments extends Component {
     this.props.addEventComment(eventId, userId, friendId, this.state.term);
     this.setState({ term: '' });
   }
-
   renderComments() {
     const commentStyle = {
-      margin: "0px 0px 0px 15px",
-
+      margin: '0px 0px 0px 15px',
     };
     return (
       this.props.comments.comments.map((comment) => {
@@ -61,20 +52,18 @@ class Comments extends Component {
                 {comment.text}
               </p>
             </div>
-            </div>
-        )
+          </div>
+        );
       })
-    )
+    );
   }
-  // <button className='remove-comment' onClick={this.props.removeComment.bind(null, this.props.params.postId, i)}>&times;</button>
-
   renderAddComment() {
     return (
       <div>
         <MuiThemeProvider>
           <form onSubmit={this.onFormSubmit} className="input-group">
             <TextField
-              style={{ color: 'white', width: '100%', margin: "0px 10px 0px 10px" }}
+              style={{ color: 'white', width: '100%', margin: '0px 10px 0px 10px' }}
               placeholder="Add comment"
               value={this.state.term}
               onChange={this.onInputChange}
@@ -86,16 +75,6 @@ class Comments extends Component {
   }
 
   render() {
-    const commentsStyle = {
-      height: 'inherit',
-      position: 'relative',
-      overflow: 'scroll',
-    }
-    const formStyle = {
-      position: 'absolute',
-      bottom: '0',
-      width: '100%',
-    }
     return (
       <div>
         <div>
