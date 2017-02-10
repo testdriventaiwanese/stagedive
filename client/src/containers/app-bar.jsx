@@ -1,29 +1,17 @@
 import React, { Component } from 'react';
+import { Link, hashHistory } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import AccountMenu from 'material-ui/svg-icons/navigation/expand-more';
-import LeftNavMenu from 'material-ui/svg-icons/navigation/menu';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import Explore from 'material-ui/svg-icons/action/explore';
 import Home from 'material-ui/svg-icons/action/home';
 import Apps from 'material-ui/svg-icons/navigation/apps';
 import PowerSetting from 'material-ui/svg-icons/action/power-settings-new';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import Info from 'material-ui/svg-icons/action/info';
-import { hashHistory } from 'react-router';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import FontIcon from 'material-ui/FontIcon';
-
 import Auth from '../modules/auth';
 import SearchBar from './searchbar';
 

@@ -1,20 +1,18 @@
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { GoogleApiWrapper, Marker} from 'google-maps-react';
+import { GoogleApiWrapper } from 'google-maps-react';
 import ReactDOM from 'react-dom';
-import YourLocation from 'material-ui/svg-icons/social/sentiment-very-satisfied';
 import { getLocalEvents, getLocation, showLocalEvents } from '../actions/index';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import Paper from 'material-ui/Paper';
+import { Card, CardHeader } from 'material-ui/Card';
 import moment from 'moment'
 import GMAPS from '../containers/gmaps'
 
+//Map component
 class Map extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       this.loadMap();
-    }, 150)
+    }, 150);
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.google !== this.props.google) {
@@ -22,8 +20,8 @@ class Map extends React.Component {
     }
   }
 
-  componentWillUnmount () {
-    clearTimeout(this.timeout)
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
   }
 
   loadMap() {
@@ -34,6 +32,7 @@ class Map extends React.Component {
       const mapRef = this.refs.map;
       const node = ReactDOM.findDOMNode(mapRef);
       let crd;
+      //Geolocation and Local Events marker renderers.
       const position = navigator.geolocation.getCurrentPosition((pos) => {
         const zoom = 13;
         crd = pos.coords;
@@ -130,24 +129,24 @@ class Map extends React.Component {
   render() {
     const style = {
       width: '100%',
-      height: '100%'
-    }
+      height: '100%',
+    };
 
     return (
-        <div ref='map' style={style}>
-          Loading..
-        </div>
-    )
+      <div ref='map' style={style}>
+        Loading..
+      </div>
+    );
   }
 }
 
-
+//Events component
 export class MapComponent extends React.Component {
   renderEvents() {
     if(!this.props.showEvents.payload) {
       return (
         <div>Loading Events</div>
-      )
+      );
     }
     return this.props.showEvents.payload.map((value, i) => {
       const momentDate = moment(value.date).format('LL');
@@ -156,14 +155,14 @@ export class MapComponent extends React.Component {
       const time = moment(value.time, 'HH:mm:ss').format('h:mm A')
 
       return (
-          <Card key={i} >
-            <CardHeader
-              title={value.displayName}
-              subtitle={<div><div>{value.venue}</div><div>{date}</div><div>{time}</div></div>}
-            />
-          </Card>
-    )
-    })
+        <Card key={i} >
+          <CardHeader
+            title={value.displayName}
+            subtitle={<div><div>{value.venue}</div><div>{date}</div><div>{time}</div></div>}
+          />
+        </Card>
+      );
+    });
   }
   render() {
 
@@ -172,34 +171,34 @@ export class MapComponent extends React.Component {
       height: '33vmax',
       float: 'left',
     }
-    let eventStyle = {
+    const eventStyle = {
       float: 'right',
       width: '50%',
     }
-    let over = {
+    const over = {
       overflow:'scroll',
       height: '1100px',
     }
-    let mapStyle = {
+    const mapStyle = {
       width: '100%',
     }
     return (
       <div>
-
-          <div style={eventStyle}>
-            <h1>Local Events</h1>
-            <div style={over}>{this.renderEvents()}</div>
-          </div>
-          <div ref="map" style={style}>
-            <h1>Explore</h1>
-            <Map style={mapStyle} {...this.props} object={[]} />
-          </div>
+        <div style={eventStyle}>
+          <h1>Local Events</h1>
+          <div style={over}>{this.renderEvents()}</div>
+        </div>
+        <div ref="map" style={style}>
+          <h1>Explore</h1>
+          <Map style={mapStyle} {...this.props} object={[]} />
+        </div>
       </div>
     );
   }
 }
 
-const googleWrapped = GoogleApiWrapper({ apiKey: GMAPS})(MapComponent);
+//API Key needed for GoogleMaps
+const googleWrapped = GoogleApiWrapper({ apiKey: GMAPS })(MapComponent);
 
 function mapStateToProps(state) {
   return {

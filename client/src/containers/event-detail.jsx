@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
+import { GoogleApiWrapper } from 'google-maps-react';
 import IconMenu from 'material-ui/IconMenu';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Card, CardActions, CardMedia, CardText } from 'material-ui/Card';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import { Link } from 'react-router';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import Snackbar from 'material-ui/Snackbar';
 import moment from 'moment';
 import { getLocation, removeEvent, getUserEvents, getDistanceInfo } from '../actions/index';
-import { GoogleApiWrapper, Marker} from 'google-maps-react';
-import ReactDOM from 'react-dom';
-import GMAPS from '../containers/gmaps'
+import GMAPS from '../containers/gmaps';
 
-
+//Map Component
 class Map extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       this.loadMap();
-    }, 150)
+    }, 150);
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.google !== this.props.google) {
@@ -50,35 +45,30 @@ class Map extends React.Component {
       const position = navigator.geolocation.getCurrentPosition((pos) => {
         const zoom = 2;
         crd = pos.coords;
-
-        const locations = [[crd.latitude, crd.longitude], [eventLatLng.latitude, eventLatLng.longitude]]
+        const locations = [[crd.latitude, crd.longitude], [eventLatLng.latitude, eventLatLng.longitude]];
         const eventMarker = new maps.Marker({
-            position: new maps.LatLng(eventLatLng.latitude, eventLatLng.longitude),
-            map: mapRef,
-          })
-        const userLocation = new maps.LatLng(crd.latitude, crd.longitude)
-
+          position: new maps.LatLng(eventLatLng.latitude, eventLatLng.longitude),
+          map: mapRef,
+        });
+        const userLocation = new maps.LatLng(crd.latitude, crd.longitude);
         const bound = new google.maps.LatLngBounds();
-
         locations.forEach((val, i) => {
           bound.extend(new google.maps.LatLng(val[0], val[1]));
         });
         const mapConfig = Object.assign({}, {
           center: bound.getCenter(),
           zoom: zoom,
-        })
+        });
         this.map = new maps.Map(node, mapConfig);
         var currentLocation = new maps.Marker({
           position: userLocation,
           map: mapRef,
-        })
-        currentLocation.setMap(this.map)
-        eventMarker.setMap(this.map)
-
-        this.props.getDistanceInfo(locations)
+        });
+        currentLocation.setMap(this.map);
+        eventMarker.setMap(this.map);
+        this.props.getDistanceInfo(locations);
       })
     }
-
   }
 
   render() {
@@ -236,7 +226,6 @@ class EventDetail extends Component {
     if(!this.props.distance.distance || !this.props.distance.duration) {
       <div>Calculating...</div>
     }
-
     return (
       <div>
         <div>You are {this.props.distance.distance} from this event</div>
@@ -256,7 +245,6 @@ class EventDetail extends Component {
     );
   }
 }
-
 
 function mapStateToProps(state) {
   return {
