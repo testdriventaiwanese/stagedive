@@ -22,7 +22,7 @@ class Friends extends Component {
       open: false,
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     this.props.getFriends();
   }
   handleTouchTap() {

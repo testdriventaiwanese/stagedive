@@ -21,26 +21,15 @@ import moment from 'moment'
 class ArtistPage extends Component {
   constructor(props) {
     super(props);
-     this.state = {
-       open: false,
-     };
-   }
+    this.state = {
+      open: false,
+    };
+  }
 
-   handleTouchTap() {
-     this.setState({
-       open: true,
-     });
-   };
-
-   handleRequestClose() {
-     this.setState({
-       open: false,
-     });
-   };
-  componentWillMount() {
+  componentDidMount() {
     this.props.getArtists();
     const artistsArr = this.props.artists.filter((artist) => {
-      if(artist.mbid === this.props.params.artistId) {
+      if (artist.mbid === this.props.params.artistId) {
         return artist;
       }
     });
@@ -54,25 +43,37 @@ class ArtistPage extends Component {
     }
   }
 
+  handleTouchTap() {
+    this.setState({
+      open: true,
+    });
+  }
+
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
   renderCalendar() {
-    let innerEvents = {
+    const innerEvents = {
       padding: '10px',
     }
-    let eventDetails = {
+    const eventDetails = {
       fontSize: '10pt',
       marginLeft: '15px',
     }
-    if(!this.props.artistCalendar.data){
-      return(
+    if (!this.props.artistCalendar.data){
+      return (
         <Paper>
           <div>
             No Upcoming Events!
           </div>
         </Paper>
-      )
+      );
     }
 
-    let events = this.props.artistCalendar.data.resultsPage.results.event || [];
+    const events = this.props.artistCalendar.data.resultsPage.results.event || [];
 
     return events.map((event) => {
       const momentDate = moment(event.start.date).format('LL');
@@ -80,7 +81,7 @@ class ArtistPage extends Component {
       const date = momentDate.toString() + ' ' + est.toString().slice(39);
       const time = moment(event.start.time, 'HH:mm:ss').format('h:mm A')
 
-      return(
+      return (
         <Card key={event.id} >
           <div style={innerEvents}>
             <div><strong>{event.displayName}</strong></div>
@@ -92,18 +93,16 @@ class ArtistPage extends Component {
           </div>
 
         </Card>
-      )
-    })
+      );
+    });
   }
   renderArtist() {
-
-
-    let artistStyle = {
+    const artistStyle = {
       width: '35%',
       float: 'left',
       margin: '10px',
     };
-    let avatarStyle = {
+    const avatarStyle = {
       height: '350px',
       width: '350px',
       marginLeft: '10px',
@@ -111,18 +110,18 @@ class ArtistPage extends Component {
       marginTop: '10px',
       marginBottom: '10px',
     }
-    let calendarStyle = {
+    const calendarStyle = {
       float: 'right',
       width: '60%',
       height: '1100px',
       overflow: 'scroll',
     }
-    let calTitle = {
+    const calTitle = {
       width:'20%',
       marginLeft: '450px',
       marginTop: '20px',
     }
-    let imageStyle = {
+    const imageStyle = {
       width: '90%',
       marginLeft: '19px',
       marginRight: '10px',
@@ -130,32 +129,32 @@ class ArtistPage extends Component {
       marginBottom: '10px',
       borderRadius: '5px',
     };
-    let menuStyle = {
+    const menuStyle = {
       height: '0%',
       float: 'right',
-    }
-    let artistTextStyle = {
-      margin: '10px'
-    }
-    let flatButtonStyle = {
+    };
+    const artistTextStyle = {
+      margin: '10px',
+    };
+    const flatButtonStyle = {
       float: 'right',
-    }
+    };
     if (!this.props.artists) {
       return <div>Artist Not Listed</div>;
     }
     let artistsArr;
     artistsArr = this.props.artists.filter((artist) => {
-      if(artist.mbid === this.props.params.artistId) {
+      if (artist.mbid === this.props.params.artistId) {
         return artist;
       };
     });
 
-    if(artistsArr.length === 0 && !this.props.artistSearch) {
+    if (artistsArr.length === 0 && !this.props.artistSearch) {
       return(
         <div>Loading..</div>
-      )
+      );
     }
-    if(this.props.artistSearch.bandsintown) {
+    if (this.props.artistSearch.bandsintown) {
       artistsArr.push({
           name: this.props.artistSearch.bandsintown.data.name,
           facebook: this.props.artistSearch.bandsintown.data.facebook_page_url,
@@ -214,7 +213,7 @@ class ArtistPage extends Component {
           {this.renderArtist()}
         </ul>
       </div>
-    )
+    );
   }
 }
 

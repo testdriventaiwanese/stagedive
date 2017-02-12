@@ -31,7 +31,7 @@ class EventList extends Component {
       value: 'myEvents',
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     const id = localStorage.getItem('id');
     const user = { id };
     this.props.getUserInfo();
@@ -122,9 +122,9 @@ class EventList extends Component {
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
             anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
-            >
+          >
             <Link to={`/event/${id}/${event.id}`}>
-              <MenuItem primaryText="Details" rightIcon={<Description />} secondary/>
+              <MenuItem primaryText="Details" rightIcon={<Description />} secondary />
             </Link>
             <Divider />
             <MenuItem
@@ -132,14 +132,14 @@ class EventList extends Component {
               secondary
               onTouchTap={this.handleTouchTap}
               rightIcon={<Delete />}
-              onClick={() => this.props.removeEvent(event.tm_id, i+1)}
-              />
+              onClick={() => this.props.removeEvent(event.tm_id, i + 1)}
+            />
             <Snackbar
               open={this.state.open}
               message="Event Removed"
               autoHideDuration={4000}
               onRequestClose={this.handleRequestClose}
-              />
+            />
           </IconMenu>
           <CardText>
             <span><strong>Listed acts: </strong>{artist.join(', ')}</span>
@@ -150,9 +150,9 @@ class EventList extends Component {
           </CardText>
           <CardActions>
             <Link to={`/event/${id}/${event.id}`}>
-              <FlatButton label='Event Details' secondary />
+              <FlatButton label="Event Details" secondary />
             </Link>
-            <a href={event.event_url}><FlatButton label='Buy Tickets' secondary /></a>
+            <a href={event.event_url}><FlatButton label="Buy Tickets" secondary /></a>
           </CardActions>
         </Card>
       );
@@ -162,22 +162,22 @@ class EventList extends Component {
     const tabsStyle = {
       boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
       borderRadius: '2px',
-    }
+    };
     const tabStyle = {
       backgroundColor: 'white',
       color: 'black',
       boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
       borderRadius: '2px',
-    }
+    };
     return (
-        <Tabs style={tabsStyle}>
-          <Tab style={tabStyle} label="My Events" value="myEvents" >
-            {this.renderList()}
-          </Tab>
-          <Tab style={tabStyle} label="Friends Events" value="friendsEvents">
-            <FriendsEvents {...this.props}/>
-          </Tab>
-        </Tabs>
+      <Tabs style={tabsStyle}>
+        <Tab style={tabStyle} label="My Events" value="myEvents" >
+          {this.renderList()}
+        </Tab>
+        <Tab style={tabStyle} label="Friends Events" value="friendsEvents">
+          <FriendsEvents {...this.props} />
+        </Tab>
+      </Tabs>
     );
   }
 }

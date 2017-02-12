@@ -20,40 +20,29 @@ import { getArtists, removeArtist } from '../actions/index';
 class Artists extends Component {
   constructor(props) {
     super(props);
-     this.state = {
-       open: false,
-     };
-   };
-   handleTouchTap() {
-     this.setState({
-       open: true,
-     });
-   };
-   handleRequestClose() {
-     this.setState({
-       open: false,
-     });
-   };
-  componentWillMount() {
+    this.state = {
+      open: false,
+    };
+  }
+
+  componentDidMount() {
     this.props.getArtists();
   }
 
-  renderArtists() {
-    const imageDiv = {
-      width: '35%',
-      float: 'left',
-      height: '248px',
-      margin: '10px',
-    };
-    const imageStyle = {
-      width: '100%',
-    };
-    const menuStyle = {
-      float: 'right',
-      height: '0%',
-    }
-    if (this.props.artists.length === 0) {
+  handleTouchTap() {
+    this.setState({
+      open: true,
+    });
+  }
 
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
+  renderArtists() {
+    if (this.props.artists.length === 0) {
       return (
         <Card zDepth={2}>
           <div>

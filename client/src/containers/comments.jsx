@@ -36,8 +36,7 @@ class Comments extends Component {
 
   renderComments() {
     const commentStyle = {
-      margin: "0px 0px 0px 15px",
-
+      margin: '0px 0px 0px 15px',
     };
     return (
       this.props.comments.comments.map((comment) => {
@@ -45,13 +44,14 @@ class Comments extends Component {
         let userObj = this.props.comments.posterInfo.filter((poster) => {
           return poster.id === userId;
         });
-        if(userObj.length === 0) {
+        if (userObj.length === 0) {
           userObj = [{ fullname: comment.fullname }];
         }
         return (
           <div key={comment.id} style={commentStyle}>
             <div>
-              <IconButton onClick={() => this.props.removeEventComment(comment)}
+              <IconButton
+                onClick={() => this.props.removeEventComment(comment)}
                 style={{ float: 'right', height: '0px' }}
               ><NavigationClose /></IconButton>
             </div>
@@ -61,12 +61,11 @@ class Comments extends Component {
                 {comment.text}
               </p>
             </div>
-            </div>
-        )
+          </div>
+        );
       })
-    )
+    );
   }
-  // <button className='remove-comment' onClick={this.props.removeComment.bind(null, this.props.params.postId, i)}>&times;</button>
 
   renderAddComment() {
     return (
