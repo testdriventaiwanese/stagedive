@@ -15,17 +15,17 @@ import FontIcon from 'material-ui/FontIcon';
 
 class LoginPage extends Component {
   constructor(props) {
-  super(props);
-  this.state = {
-    value: 'a',
-  };
-}
+    super(props);
+    this.state = {
+      value: 'a',
+    };
+  }
 
-handleChange = (value) => {
-  this.setState({
-    value: value,
-  });
-};
+  handleChange = (value) => {
+    this.setState({
+      value: value,
+    });
+  };
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -105,7 +105,7 @@ handleChange = (value) => {
                 <RaisedButton type="submit" label="Log in" disabled={pristine || submitting} primary />
               </div>
               <CardText>
-                <span>Or login with    </span> 
+                <span>Or login with    </span>
                 <a href='/auth/facebook'>
                   <FontIcon className='fa fa-facebook-official fa-3x' primary />
                 </a>

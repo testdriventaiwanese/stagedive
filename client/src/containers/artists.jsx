@@ -21,18 +21,21 @@ class Artists extends Component {
       open: false,
     };
   }
+
+  componentDidMount() {
+    this.props.getArtists();
+  }
+
   handleTouchTap() {
     this.setState({
       open: true,
     });
   }
+
   handleRequestClose() {
     this.setState({
       open: false,
     });
-  }
-  componentWillMount() {
-    this.props.getArtists();
   }
 
   renderArtists() {

@@ -26,7 +26,7 @@ class UpcomingEvent extends Component {
       open: false,
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     const id = localStorage.getItem('id');
     const user = { id };
     this.props.getUserInfo();
@@ -95,7 +95,7 @@ class UpcomingEvent extends Component {
             anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
             useLayerForClickAway={true}
-            >
+          >
             <Link to={`/event/${id}/${event.id}`}>
               <MenuItem primaryText="Details" rightIcon={<Description />} secondary />
             </Link>
@@ -106,13 +106,13 @@ class UpcomingEvent extends Component {
               onTouchTap={this.handleTouchTap}
               rightIcon={<Delete />}
               onClick={() => this.props.removeEvent(event.tm_id, 0)}
-              />
+            />
             <Snackbar
               open={this.state.open}
               message="Removed Event"
               autoHideDuration={4000}
               onRequestClose={this.handleRequestClose}
-              />
+            />
           </IconMenu>
           <CardHeader title={<h5>Upcoming Event</h5>} subtitle={<h6>{momentFromNow.toString()}</h6>} />
           <CardMedia>
@@ -140,10 +140,10 @@ class UpcomingEvent extends Component {
 
   render() {
     return (
-        <div>
-          {this.renderUpcoming()}
-        </div>
-    )
+      <div>
+        {this.renderUpcoming()}
+      </div>
+    );
   }
 }
 

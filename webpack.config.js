@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 
+
 const BUILD_DIR = path.resolve(__dirname, 'client/public');
 const APP_DIR = path.resolve(__dirname, 'client/');
 
@@ -18,6 +19,10 @@ const config = {
         include: APP_DIR,
         exclude: /node_modules/,
         loader: 'babel',
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
