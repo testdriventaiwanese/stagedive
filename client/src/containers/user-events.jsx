@@ -115,11 +115,14 @@ class UserEvents extends Component {
 
     if(!this.props.events.futureEvents) {
       return (
-        <div></div>
-      )
+        <div>
+          <h6>No Upcoming Events</h6>
+        </div>
+      );
     }
 
     if(this.props.events.futureEvents.length > 0) {
+      const id = window.location.hash.slice(7);
       let event = this.props.events.futureEvents[0];
       const momentDate = moment(event.date).format('LLLL');
       const momentFromNow = moment(event.date).fromNow();
@@ -142,13 +145,8 @@ class UserEvents extends Component {
       }
       return (
         <Card key={event.id} className="list-group-item" zDepth={1}>
-          <h4>Upcoming Event:</h4>
-          <CardMedia
-            overlay={ <CardTitle
-            title={event.name}
-            subtitle={venue.city.name + ', ' + momentFromNow.toString()}
-            />}
-          >
+          <CardHeader title={<h5>Upcoming Event</h5>} subtitle={<h6>{momentFromNow.toString()}</h6>} />
+          <CardMedia>
             <img src={image} style={imageStyle} />
           </CardMedia>
           <CardText>
@@ -158,6 +156,12 @@ class UserEvents extends Component {
             <br />
             <span><strong>Event Start: </strong>{date}</span>
           </CardText>
+          <CardActions>
+            <Link to={`/event/${id}/${event.id}`}>
+              <FlatButton label='Event Details' secondary />
+            </Link>
+            <a href={event.event_url}><FlatButton label='Buy Tickets' secondary /></a>
+          </CardActions>
         </Card>
       );
     }
@@ -206,6 +210,7 @@ class UserEvents extends Component {
       )
     }
     if (this.props.events.futureEvents){
+      const id = window.location.hash.slice(7);
       return this.props.events.futureEvents.slice(1).map((event) => {
         const momentDate = moment(event.date).format('LLLL');
         const momentFromNow = moment(event.date).fromNow();
@@ -243,6 +248,12 @@ class UserEvents extends Component {
               <br />
               <span><strong>Event Start: </strong>{date}</span>
             </CardText>
+            <CardActions>
+              <Link to={`/event/${id}/${event.id}`}>
+                <FlatButton label="Event Details" secondary />
+              </Link>
+              <a href={event.event_url}><FlatButton label="Buy Tickets" secondary /></a>
+            </CardActions>
           </Card>
         );
       });
