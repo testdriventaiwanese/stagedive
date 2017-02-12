@@ -86,37 +86,37 @@ class LoginPage extends Component {
     }
     return (
       <div style={backgroundStyle}>
-          <Tabs
-            inkBarStyle={boxOpacity}
-            style={loginBox}
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
+        <Tabs
+          inkBarStyle={boxOpacity}
+          style={loginBox}
+          value={this.state.value}
+          onChange={this.handleChange}
+        >
           <Tab label="Login" value="a" style={tabStyle}>
-          <Card style={{ textAlign: 'center'}}>
-            <form onSubmit={handleSubmit(this.onSubmit)}>
-              <div className="field-line">
-                <Field name="email" type="text" component={this.renderTextField} label="Email" />
-              </div>
-              <div className="field-line">
-                <Field name="password" type="password" component={this.renderTextField} label="Password" />
-              </div>
-              <div className="button-line">
-                <RaisedButton type="submit" label="Log in" disabled={pristine || submitting} primary />
-              </div>
-              <CardText>
-                <span>Or login with    </span>
-                <a href='/auth/facebook'>
-                  <FontIcon className='fa fa-facebook-official fa-3x' primary />
-                </a>
-              </CardText>
-            </form>
-          </Card>
-        </Tab>
-        <Tab label="Sign Up" value="b" style={tabStyle}>
-          <SignUpPage />
-        </Tab>
-          </Tabs>
+            <Card style={{ textAlign: 'center'}}>
+              <form onSubmit={handleSubmit(this.onSubmit)}>
+                <div className="field-line">
+                  <Field name="email" type="text" component={this.renderTextField} label="Email" />
+                </div>
+                <div className="field-line">
+                  <Field name="password" type="password" component={this.renderTextField} label="Password" />
+                </div>
+                <div className="button-line">
+                  <RaisedButton type="submit" label="Log in" disabled={pristine || submitting} primary />
+                </div>
+                <CardText>
+                  <span>Or login with    </span>
+                  <a href='/auth/facebook'>
+                    <FontIcon className='fa fa-facebook-official fa-3x' primary />
+                  </a>
+                </CardText>
+              </form>
+            </Card>
+          </Tab>
+          <Tab label="Sign Up" value="b" style={tabStyle}>
+            <SignUpPage />
+          </Tab>
+        </Tabs>
       </div>
     );
   }

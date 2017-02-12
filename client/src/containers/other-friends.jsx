@@ -33,7 +33,6 @@ class OtherFriends extends Component {
         <Card key={friend.id} zDepth={1}>
           <CardHeader
             title={ <Link to={`/view/${friend.id}`} onClick={() => this.props.getUserEvents(friend)}>{friend.fullname}</Link>}
-            subtitle={friend.email}
             avatar={avatar}
             />
         </Card>
