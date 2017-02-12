@@ -30,6 +30,7 @@ class Comments extends Component {
     const commentStyle = {
       margin: '0px 0px 0px 15px',
     };
+    const currentUser = localStorage.getItem('id');
     return (
       this.props.comments.comments.map((comment) => {
         const userId = comment.id_user;
@@ -39,13 +40,16 @@ class Comments extends Component {
         if (userObj.length === 0) {
           userObj = [{ fullname: comment.fullname }];
         }
+        const deleteButton = +currentUser === +userId ? (
+          <IconButton
+          onClick={() => this.props.removeEventComment(comment)}
+          style={{ float: 'right', height: '0px' }}
+          ><NavigationClose /></IconButton>
+        ) : null;
         return (
           <div key={comment.id} style={commentStyle}>
             <div>
-              <IconButton
-                onClick={() => this.props.removeEventComment(comment)}
-                style={{ float: 'right', height: '0px' }}
-              ><NavigationClose /></IconButton>
+              { deleteButton }
             </div>
             <div>
               <p>
