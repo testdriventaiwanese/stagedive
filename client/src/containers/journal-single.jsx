@@ -23,7 +23,7 @@ class JournalSingle extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let userId = this.props.params.userId;
     let eventId = this.props.params.eventId;
     this.props.getUserEvents({id: userId});

@@ -14,18 +14,8 @@ class ArtistPage extends Component {
       open: false,
     };
   }
-  handleTouchTap() {
-    this.setState({
-      open: true,
-    });
-  }
 
-  handleRequestClose() {
-    this.setState({
-      open: false,
-    });
-  }
-  componentWillMount() {
+  componentDidMount() {
     this.props.getArtists();
     const artistsArr = this.props.artists.filter((artist) => {
       if (artist.mbid === this.props.params.artistId) {
@@ -42,15 +32,27 @@ class ArtistPage extends Component {
     }
   }
 
+  handleTouchTap() {
+    this.setState({
+      open: true,
+    });
+  }
+
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
   renderCalendar() {
     const innerEvents = {
       padding: '10px',
-    };
+    }
     const eventDetails = {
       fontSize: '10pt',
       marginLeft: '15px',
-    };
-    if (!this.props.artistCalendar.data) {
+    }
+    if (!this.props.artistCalendar.data){
       return (
         <Paper>
           <div>
@@ -68,7 +70,7 @@ class ArtistPage extends Component {
       const date = momentDate.toString() + ' ' + est.toString().slice(39);
       const time = moment(event.start.time, 'HH:mm:ss').format('h:mm A')
 
-      return(
+      return (
         <Card key={event.id} >
           <div style={innerEvents}>
             <div><strong>{event.displayName}</strong></div>
@@ -88,6 +90,14 @@ class ArtistPage extends Component {
       float: 'left',
       margin: '10px',
     };
+    const avatarStyle = {
+      height: '350px',
+      width: '350px',
+      marginLeft: '10px',
+      marginRight: '10px',
+      marginTop: '10px',
+      marginBottom: '10px',
+    }
     const calendarStyle = {
       float: 'right',
       width: '60%',
@@ -95,7 +105,7 @@ class ArtistPage extends Component {
       overflow: 'scroll',
     }
     const calTitle = {
-      width: '20%',
+      width:'20%',
       marginLeft: '450px',
       marginTop: '20px',
     }
@@ -107,6 +117,10 @@ class ArtistPage extends Component {
       marginBottom: '10px',
       borderRadius: '5px',
     };
+    const menuStyle = {
+      height: '0%',
+      float: 'right',
+    };
     const artistTextStyle = {
       margin: '10px',
     };
@@ -116,7 +130,8 @@ class ArtistPage extends Component {
     if (!this.props.artists) {
       return <div>Artist Not Listed</div>;
     }
-    const artistsArr = this.props.artists.filter((artist) => {
+    let artistsArr;
+    artistsArr = this.props.artists.filter((artist) => {
       if (artist.mbid === this.props.params.artistId) {
         return artist;
       }

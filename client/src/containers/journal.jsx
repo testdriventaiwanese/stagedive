@@ -16,6 +16,9 @@ class Journal extends Component {
     if (!Auth.isUserAuthenticated()) {
       hashHistory.push('/login');
     }
+  }
+
+  componentDidMount() {
     const id = this.props.params.userId;
     const user = { id };
     this.props.getUserEvents(user);
@@ -23,14 +26,14 @@ class Journal extends Component {
   }
 
   renderHeader() {
-    let imageUrl = 'http://i.imgur.com/t8YX27Y.jpg'
+    const imageUrl = 'http://i.imgur.com/t8YX27Y.jpg'
     const fontColor = '#FAFAFA';
     const nameStyle = {
       marginLeft: '20px',
       color: fontColor,
       position: 'absolute',
       bottom: '0',
-    }
+    };
     const barStyle = {
       height: '140px',
       width: '100%',
@@ -39,16 +42,16 @@ class Journal extends Component {
       backgroundPosition: 'left bottom',
       opacity: '.95',
       position: 'relative',
-    }
+    };
 
-      return (
-        <Card style={barStyle}>
-          <div>
-            <h1 style={nameStyle}>Concert Journal</h1>
-          </div>
-        </Card>
-      )
-    }
+    return (
+      <Card style={barStyle}>
+        <div>
+          <h1 style={nameStyle}>Concert Journal</h1>
+        </div>
+      </Card>
+    );
+  }
 
   render() {
     const styles = {
@@ -68,7 +71,7 @@ class Journal extends Component {
       },
       loadBar: {
         width: '100%',
-      }
+      },
     };
 
     if (!this.props.userInfo.pastEvents) {
@@ -76,7 +79,7 @@ class Journal extends Component {
         <div align='center' style={styles.loadBar}>
           <LinearProgress mode="indeterminate" />
         </div>
-      )
+      );
     }
 
     const journalPhotos =

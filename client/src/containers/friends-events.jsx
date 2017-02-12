@@ -11,7 +11,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 import { getFriendsEvents } from '../actions/index';
 
 class FriendsEventList extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.getFriendsEvents();
   }
   renderList() {

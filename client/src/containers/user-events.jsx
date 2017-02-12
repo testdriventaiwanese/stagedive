@@ -12,7 +12,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 import { getUserEvents, removeEvent, addFollower, unfollow, getOtherFriends, getFriends, getOtherUserInfo } from '../actions/index';
 
 class UserEvents extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const user = { id: this.props.params.userId }
     this.props.getUserEvents(user);
     this.props.getOtherFriends(user);
@@ -93,12 +93,12 @@ class UserEvents extends Component {
   }
 
   renderUpcoming() {
-    let imageDiv = {
+    const imageDiv = {
       width: '35%',
       float: 'left',
       height: '248px',
     };
-    let imageStyle = {
+    const imageStyle = {
       width: '100%',
     };
     const largestPic = (imageArray) => {
@@ -164,12 +164,12 @@ class UserEvents extends Component {
   }
 
   renderList() {
-    let imageDiv = {
+    const imageDiv = {
       width: '35%',
       float: 'left',
       height: '248px',
     };
-    let imageStyle = {
+    const imageStyle = {
       width: '100%',
     };
 
@@ -185,14 +185,14 @@ class UserEvents extends Component {
       return imageArray[index].url;
     };
 
-    if(!this.props.events.futureEvents){
+    if (!this.props.events.futureEvents){
       return (
         <div>
           <LinearProgress mode="indeterminate" />
         </div>
       );
     }
-    if(this.props.events.futureEvents.length === 0) {
+    if (this.props.events.futureEvents.length === 0) {
       return (
         <div>
           <h3>Upcoming Events</h3>
@@ -205,7 +205,7 @@ class UserEvents extends Component {
         </div>
       )
     }
-    if(this.props.events.futureEvents){
+    if (this.props.events.futureEvents){
       return this.props.events.futureEvents.slice(1).map((event) => {
         const momentDate = moment(event.date).format('LLLL');
         const momentFromNow = moment(event.date).fromNow();
@@ -229,23 +229,23 @@ class UserEvents extends Component {
         return (
           <Card key={event.id} className="list-group-item" zDepth={1}>
             <CardMedia
-              overlay={ <CardTitle
+              overlay={<CardTitle
                 title={event.name}
                 subtitle={venue.city.name + ', ' + momentFromNow.toString()}
-                />}
-                >
-                <img src={image} style={imageStyle} />
-              </CardMedia>
-              <CardText>
-                <span><strong>Listed acts: </strong>{artist.join(', ')}</span>
-                <br />
-                <span><strong>Venue: </strong>{venue.name}</span>
-                <br />
-                <span><strong>Event Start: </strong>{date}</span>
-              </CardText>
-            </Card>
-          );
-        });
+              />}
+            >
+              <img src={image} style={imageStyle} />
+            </CardMedia>
+            <CardText>
+              <span><strong>Listed acts: </strong>{artist.join(', ')}</span>
+              <br />
+              <span><strong>Venue: </strong>{venue.name}</span>
+              <br />
+              <span><strong>Event Start: </strong>{date}</span>
+            </CardText>
+          </Card>
+        );
+      });
     }
   }
   render() {

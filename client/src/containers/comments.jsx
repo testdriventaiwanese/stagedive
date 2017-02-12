@@ -36,13 +36,14 @@ class Comments extends Component {
         let userObj = this.props.comments.posterInfo.filter((poster) => {
           return poster.id === userId;
         });
-        if(userObj.length === 0) {
+        if (userObj.length === 0) {
           userObj = [{ fullname: comment.fullname }];
         }
         return (
           <div key={comment.id} style={commentStyle}>
             <div>
-              <IconButton onClick={() => this.props.removeEventComment(comment)}
+              <IconButton
+                onClick={() => this.props.removeEventComment(comment)}
                 style={{ float: 'right', height: '0px' }}
               ><NavigationClose /></IconButton>
             </div>
@@ -57,6 +58,7 @@ class Comments extends Component {
       })
     );
   }
+
   renderAddComment() {
     return (
       <div>
