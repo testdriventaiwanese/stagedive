@@ -167,13 +167,15 @@ export class MapComponent extends React.Component {
   render() {
 
     const style = {
-      width: '33vmax',
-      height: '33vmax',
+      width: '33vw',
+      height: '33vh',
+      minWidth: '300px',
       float: 'left',
     }
     const eventStyle = {
-      float: 'right',
+      float: 'left',
       width: '50%',
+      minWidth: '300px',
     }
     const over = {
       overflow:'scroll',
@@ -184,13 +186,13 @@ export class MapComponent extends React.Component {
     }
     return (
       <div>
-        <div style={eventStyle}>
-          <h1>Local Events</h1>
-          <div style={over}>{this.renderEvents()}</div>
-        </div>
         <div ref="map" style={style}>
           <h1>Explore</h1>
           <Map style={mapStyle} {...this.props} object={[]} />
+        </div>
+        <div style={eventStyle}>
+          <h1>Local Events</h1>
+          <div style={over}>{this.renderEvents()}</div>
         </div>
       </div>
     );
