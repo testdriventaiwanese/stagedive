@@ -7,7 +7,7 @@ export default class Splash extends Component {
       backgroundImage: 'url(http://i.imgur.com/073dXGa.jpg)',
       backgroundSize: 'cover',
       width: '100%',
-      height: '100%',
+      height: '100vh',
       position: 'fixed',
       opacity: '.9',
       top: '0',

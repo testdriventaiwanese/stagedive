@@ -55,10 +55,6 @@ class Journal extends Component {
 
   render() {
     const styles = {
-      container: {
-        // display: 'flex',
-        // justifyContent: 'center',
-      },
       root: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -89,7 +85,7 @@ class Journal extends Component {
       </Paper> :
       this.props.userInfo.pastEvents.map((event, i) => <JournalPhoto {...this.props} key={event.id} i={i} event={event} /> );
     return (
-      <div style={styles.container}>
+      <div>
         {this.renderHeader()}
         <div style={styles.root}>
           <GridList
