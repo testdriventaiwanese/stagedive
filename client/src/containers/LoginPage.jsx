@@ -57,7 +57,7 @@ class LoginPage extends Component {
       backgroundImage: 'url(http://i.imgur.com/JI5phSv.jpg)',
       backgroundSize: 'cover',
       width: '100%',
-      height: '100%',
+      height: '100vh',
       position: 'fixed',
       opacity: '.9',
       top: '0',
@@ -67,6 +67,7 @@ class LoginPage extends Component {
     const opacityNum = .97;
     const loginBox = {
       width: '35%',
+      minWidth: '300px',
       height: '50%',
       position: 'absolute',
       top:'0',

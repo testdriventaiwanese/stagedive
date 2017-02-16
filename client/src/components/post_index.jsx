@@ -14,7 +14,8 @@ class PostIndex extends Component {
   }
   render() {
     const containerStyle = {
-      margin: '0px -20px 0px -20px'
+      margin: '0px -20px 0px -20px',
+      position: 'relative',
     }
     const leftStyle = {
       width: '33%',
@@ -35,11 +36,11 @@ class PostIndex extends Component {
     return (
       <div style={containerStyle}>
         <div style={leftStyle}>
-          <UpcomingEvent style={{position: 'fixed'}} />
+          <UpcomingEvent style={{position: 'absolute'}} />
           <br />
-          <Friends style={{position: 'fixed'}} />
+          <Friends style={{position: 'absolute'}} />
           <br />
-          <Artists style={{position: 'fixed'}} />
+          <Artists style={{position: 'absolute'}} />
         </div>
         <div style={rightStyle}>
           <EventList />
