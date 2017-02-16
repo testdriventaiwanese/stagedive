@@ -10,8 +10,13 @@ class JournalPhoto extends Component {
   render() {
     const { event, i, comments } = this.props;
     const id = this.props.params.userId;
-    const imageStyle = {
+    const tileStyle = {
       height: '250px',
+      minWidth: '90px',
+    };
+    const imageStyle = {
+      height: 'inherit',
+      width: 'inherit',
       textAlign: 'center',
     };
     let image = null;
@@ -39,6 +44,7 @@ class JournalPhoto extends Component {
           key={event.id}
           title={event.name}
           subtitle={momentFromNow.toString()}
+          style={tileStyle}
         >
           <img src={image} style={imageStyle} />
         </GridTile>
