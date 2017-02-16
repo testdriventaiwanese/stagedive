@@ -23,10 +23,11 @@ class PostIndex extends Component {
     };
     const rightStyle = {
       width: '65%',
-      float: 'right',
+      float: 'left',
       overflow: 'scroll',
       position: 'relative',
       marginTop: '10px',
+      marginLeft: '10px',
     };
     return (
       <div style={containerStyle}>
