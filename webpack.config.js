@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 
+
 const BUILD_DIR = path.resolve(__dirname, 'client/public');
 const APP_DIR = path.resolve(__dirname, 'client/');
 
@@ -24,9 +25,11 @@ const config = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
-  devServer: {
-    contentBase: './',
-  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
+  ],
 };
 
 module.exports = config;

@@ -14,28 +14,31 @@ class PostIndex extends Component {
   }
   render() {
     const containerStyle = {
-      margin: '0px -20px 0px -20px'
+      margin: '0px -20px 0px -20px',
     }
     const leftStyle = {
       width: '33%',
+      minWidth: '300px',
       float: 'left',
       marginTop: '10px',
+      margin: 'auto',
     };
     const rightStyle = {
       width: '65%',
-      float: 'right',
+      minWidth: '300px',
+      float: 'left',
       overflow: 'scroll',
-      position: 'relative',
       marginTop: '10px',
+      marginLeft: '10px',
     };
     return (
       <div style={containerStyle}>
         <div style={leftStyle}>
-          <UpcomingEvent style={{position: 'fixed'}} />
+          <UpcomingEvent />
           <br />
-          <Friends style={{position: 'fixed'}} />
+          <Friends />
           <br />
-          <Artists style={{position: 'fixed'}} />
+          <Artists/>
         </div>
         <div style={rightStyle}>
           <EventList />
