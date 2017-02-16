@@ -18,11 +18,14 @@ class PostIndex extends Component {
     }
     const leftStyle = {
       width: '33%',
+      minWidth: '300px',
       float: 'left',
       marginTop: '10px',
+      margin: 'auto',
     };
     const rightStyle = {
       width: '65%',
+      minWidth: '300px',
       float: 'left',
       overflow: 'scroll',
       position: 'relative',
