@@ -7,7 +7,6 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 
 
 class JournalPhoto extends Component {
-
   render() {
     const { event, i, comments } = this.props;
     const id = this.props.params.userId;
