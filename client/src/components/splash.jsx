@@ -17,8 +17,6 @@ export default class Splash extends Component {
     return (
       <div style={backgroundStyle}>
         <h1>HELLO TEST</h1>
-          <div >
-          </div>
       </div>
     );
   }

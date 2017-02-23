@@ -85,13 +85,13 @@ class NavBar extends Component {
       <div>
         {Auth.isUserAuthenticated() ? (
           <Drawer
-            style={drawerStyle}
+            className="drawer-style"
             width={180}
             docked={false}
             open={this.state.open}
             zDepth={1}
             onRequestChange={(open) => this.setState({open})}>
-            <MenuItem style={appBarHeight}></MenuItem>
+            <MenuItem className="app-bar-height"></MenuItem>
               <Link to={"/"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem primaryText='Home' rightIcon={<Home />} /></Link>
               <Link to={`journal/${id}`} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem primaryText='Concert Journal' rightIcon={<Apps />} /></Link>
               <Link to={"explore"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem primaryText="Explore" rightIcon={<Explore />} /></Link>
@@ -104,32 +104,29 @@ class NavBar extends Component {
           </Drawer>
         ) : (
           <Drawer
-            style={drawerStyle}
+            className="drawer-style"
             docked={false}
             width={150}
             open={this.state.open}
             onRequestChange={(open) => this.setState({open})}>
-            <MenuItem style={appBarHeight}></MenuItem>
+            <MenuItem className="app-bar-height"></MenuItem>
             <Link to={"login"} style={{ color: 'black' }} onTouchTap={this.handleLeftNavToggle}><MenuItem>Log In</MenuItem></Link>
             <Link to={"signup"} style={{ color: 'black' }} onTouchTap={this.handleLeftNavToggle}><MenuItem>Sign up</MenuItem></Link>
           </Drawer>
         )}
-        <div style={divBarStyle}>
+        <div className="div-bar-style">
           <AppBar
             title="StageDive"
             style={appBarStyle}
             titleStyle={{ color: 'black', fontFamily: 'Oleo Script, cursive', fontSize: '30px'   }}
             onLeftIconButtonTouchTap={this.handleLeftNavToggle}
             iconStyleLeft={{backgroundColor: 'black', zDepth: 800, position:'relative', zIndex:10000}}
-            iconElementRight={<a href='https://github.com/testdriventaiwanese/stagedive'><FontIcon className='fa fa-github' primary /></a>}
-            iconStyleRight={{marginTop: '22px', position: 'relative', zIndex:10000}}
-            >
-
-            <div style={searchBarStyle}>
+          >
+            <div className="search-bar-style">
               {Auth.isUserAuthenticated() ? (
                 <SearchBar />
               ) : (
-                <div></div>
+                <div />
               )}
             </div>
           </AppBar>

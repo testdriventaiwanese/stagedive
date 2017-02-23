@@ -19,7 +19,7 @@ export default class About extends React.Component {
           <p>The app makes it easy to track events, follow artists, and connect with friends. Once you’ve found what you’re looking for, it’ll remain easily accessible from a glance at your dashboard.</p>
           <p>Stage Dive uses a relational MySQL database, and is powered by React with Redux on the front end, and Node/Express on the backend. The Google Maps API was used to provide map views. StageDive aggregates data from several entertainment API’s including Ticketmaster, Songkick, and BandsinTown.</p>
         </div>
-        <h3 style={{padding: '20px'}}>StageDive was built using: </h3>
+        <h3 style={{padding: '20px'}}>StageDive was built using:</h3>
         <Card style={{width: '50%', margin: '0 auto'}}>
           <img style={{width: '100%', height: '25%'}} src={`http://i.imgur.com/NgAhF5s.png`} />
         </Card>
