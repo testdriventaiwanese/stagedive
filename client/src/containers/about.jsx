@@ -1,4 +1,5 @@
 import React from 'react';
+import FontIcon from 'material-ui/FontIcon';
 import { Card } from 'material-ui/Card';
 import { Tabs, Tab } from 'material-ui/Tabs';
 

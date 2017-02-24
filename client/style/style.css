@@ -29,7 +29,6 @@
 * === App Bar Component Styling ===
 */
 
-
 .app-bar-height {
   height: 70px;
 }
@@ -57,6 +56,19 @@
   position: relative;
   width: 100%;
 }
+
+.github-link {
+  position: relative;
+  z-index: 10000;
+  float: right;
+  margin: auto;
+  top: 30%;
+}
+
+
+/*
+* === Search Bar Component Styling ===
+*/
 
 .search-bar {
   display: flex;

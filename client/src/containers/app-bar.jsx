@@ -92,12 +92,12 @@ class NavBar extends Component {
             zDepth={1}
             onRequestChange={(open) => this.setState({open})}>
             <MenuItem className="app-bar-height"></MenuItem>
-              <Link to={"/"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem primaryText='Home' rightIcon={<Home />} /></Link>
-              <Link to={`journal/${id}`} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem primaryText='Concert Journal' rightIcon={<Apps />} /></Link>
-              <Link to={"explore"} style={{ color: 'black' }} onClick={this.handleLeftNavToggle}><MenuItem primaryText="Explore" rightIcon={<Explore />} /></Link>
+              <Link to={"/"} onClick={this.handleLeftNavToggle}><MenuItem primaryText='Home' rightIcon={<Home />} /></Link>
+              <Link to={`journal/${id}`} onClick={this.handleLeftNavToggle}><MenuItem primaryText='Concert Journal' rightIcon={<Apps />} /></Link>
+              <Link to={"explore"} onClick={this.handleLeftNavToggle}><MenuItem primaryText="Explore" rightIcon={<Explore />} /></Link>
             <Divider />
             <Paper style={bottomLeftNavStyle} zDepth={1}>
-              <Link to={"account"} style={{ color: 'black' }}><MenuItem onClick={this.handleLeftNavToggle} primaryText="Account" rightIcon={<AccountCircle />} /></Link>
+              <Link to={"account"}><MenuItem onClick={this.handleLeftNavToggle} primaryText="Account" rightIcon={<AccountCircle />} /></Link>
               <MenuItem onClick={this.onClickLogout} primaryText="Sign out" rightIcon={<PowerSetting />} />
               <Link to={"about"} style={{color: 'black'}}><MenuItem onClick={this.handleLeftNavToggle} primaryText="About Us" rightIcon={<Info />}/></Link>
             </Paper>
@@ -110,19 +110,20 @@ class NavBar extends Component {
             open={this.state.open}
             onRequestChange={(open) => this.setState({open})}>
             <MenuItem className="app-bar-height"></MenuItem>
-            <Link to={"login"} style={{ color: 'black' }} onTouchTap={this.handleLeftNavToggle}><MenuItem>Log In</MenuItem></Link>
-            <Link to={"signup"} style={{ color: 'black' }} onTouchTap={this.handleLeftNavToggle}><MenuItem>Sign up</MenuItem></Link>
+            <Link to={"login"} onTouchTap={this.handleLeftNavToggle}><MenuItem>Log In</MenuItem></Link>
+            <Link to={"signup"} onTouchTap={this.handleLeftNavToggle}><MenuItem>Sign up</MenuItem></Link>
           </Drawer>
         )}
         <div className="div-bar-style">
           <AppBar
             title="StageDive"
             style={appBarStyle}
-            titleStyle={{ color: 'black', fontFamily: 'Oleo Script, cursive', fontSize: '30px'   }}
+            titleStyle={{ color: 'black', fontFamily: 'Oleo Script, cursive', fontSize: '30px' }}
             onLeftIconButtonTouchTap={this.handleLeftNavToggle}
-            iconStyleLeft={{backgroundColor: 'black', zDepth: 800, position:'relative', zIndex:10000}}
+            iconStyleLeft={{ backgroundColor: '#505050', position: 'relative', zIndex: 10000 }}
           >
             <div className="search-bar-style">
+              <a href='https://github.com/testdriventaiwanese/stagedive' className="github-link"><FontIcon className='fa fa-github' primary /></a>
               {Auth.isUserAuthenticated() ? (
                 <SearchBar />
               ) : (
