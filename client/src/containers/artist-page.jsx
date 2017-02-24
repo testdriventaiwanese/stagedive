@@ -45,13 +45,6 @@ class ArtistPage extends Component {
   }
 
   renderCalendar() {
-    const innerEvents = {
-      padding: '10px',
-    }
-    const eventDetails = {
-      fontSize: '10pt',
-      marginLeft: '15px',
-    }
     if (!this.props.artistCalendar.data){
       return (
         <Paper>
@@ -72,9 +65,9 @@ class ArtistPage extends Component {
 
       return (
         <Card key={event.id} >
-          <div style={innerEvents}>
+          <div className="artist-inner-events">
             <div><strong>{event.displayName}</strong></div>
-            <div style={eventDetails}>
+            <div className="artist-event-details">
               <div>{event.location.city}</div>
               <div>{date}</div>
               <div>{time}</div>
@@ -85,48 +78,6 @@ class ArtistPage extends Component {
     });
   }
   renderArtist() {
-    const artistStyle = {
-      width: '35%',
-      float: 'left',
-      margin: '10px',
-    };
-    const avatarStyle = {
-      height: '350px',
-      width: '350px',
-      marginLeft: '10px',
-      marginRight: '10px',
-      marginTop: '10px',
-      marginBottom: '10px',
-    }
-    const calendarStyle = {
-      float: 'right',
-      width: '60%',
-      height: '1100px',
-      overflow: 'scroll',
-    }
-    const calTitle = {
-      width:'20%',
-      marginLeft: '450px',
-      marginTop: '20px',
-    }
-    const imageStyle = {
-      width: '90%',
-      marginLeft: '19px',
-      marginRight: '10px',
-      marginTop: '15px',
-      marginBottom: '10px',
-      borderRadius: '5px',
-    };
-    const menuStyle = {
-      height: '0%',
-      float: 'right',
-    };
-    const artistTextStyle = {
-      margin: '10px',
-    };
-    const flatButtonStyle = {
-      float: 'right',
-    };
     if (!this.props.artists) {
       return <div>Artist Not Listed</div>;
     }
@@ -138,7 +89,7 @@ class ArtistPage extends Component {
     });
     if (artistsArr.length === 0 && !this.props.artistSearch) {
       return (
-        <div>Loading..</div>
+        <div>Loading...</div>
       );
     }
     if (this.props.artistSearch.bandsintown) {
@@ -169,26 +120,26 @@ class ArtistPage extends Component {
       );
     }
     return (
-      <div>
-      <Card style={artistStyle}>
-        <div>
-          <img src={artist.image} style={imageStyle}></img>
-          <div style={artistTextStyle}>
-          <h1><strong>{artist.name}</strong></h1>
-          <p>Upcoming: {artist.upcomingEvents}</p>
-          <p><a href={artist.facebook}>Facebook</a></p>
-            <div style={flatButtonStyle}>
-              <FlatButton onClick={() => this.props.saveArtist(this.props.artistSearch.bandsintown.data, this.props.artistSearch.songkick.data.resultsPage.results.artist[0])}>Follow</FlatButton>
-              <FlatButton onClick={() => this.props.removeArtist(this.props.params.artistId, 0)}> Unfollow</FlatButton>
+      <div className="artist-container">
+        <Card className="artist-page-style">
+          <div>
+            <img src={artist.image} className="artist-image-style"></img>
+            <div className="artist-text-style">
+              <h1><strong>{artist.name}</strong></h1>
+              <p>Upcoming: {artist.upcomingEvents}</p>
+              <p><a href={artist.facebook}>Facebook</a></p>
+              <div className="artist-flat-button">
+                <FlatButton onClick={() => this.props.saveArtist(this.props.artistSearch.bandsintown.data, this.props.artistSearch.songkick.data.resultsPage.results.artist[0])}>Follow</FlatButton>
+                <FlatButton onClick={() => this.props.removeArtist(this.props.params.artistId, 0)}> Unfollow</FlatButton>
+              </div>
             </div>
           </div>
-        </div>
-      </Card>
+        </Card>
         <div>
-          <div style={calTitle}>
+          <div className="artist-cal-title">
             <h1><strong>Calendar</strong></h1>
           </div>
-          <div style={calendarStyle}>{this.renderCalendar()}</div>
+          <div className="artist-calendar-style">{this.renderCalendar()}</div>
         </div>
       </div>
     );
