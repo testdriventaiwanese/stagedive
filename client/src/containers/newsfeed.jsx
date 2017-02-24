@@ -17,11 +17,11 @@ class NewsFeed extends Component {
       marginTop: '10px',
     };
     return (
-      <div>
-        <div style={rightStyle}>
+      <div className="newsfeed-container">
+        <div>
           <FriendEvents />
         </div>
-        <div style={leftStyle}>
+        <div>
           <Friends />
         </div>
       </div>
