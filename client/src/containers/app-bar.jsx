@@ -45,14 +45,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const appBarHeight = {
-      height: '70px',
-    };
     const id = localStorage.getItem('id');
-    const divBarStyle = {
-      width: 'inherit',
-      height: appBarHeight.height,
-    }
     const appBarStyle = {
       // display: 'flex',
       // flexDirection: 'row',
@@ -64,23 +57,7 @@ class NavBar extends Component {
       width: '100%',
       height: 'inherit',
       backgroundColor: 'white',
-
-    }
-    const searchBarStyle = {
-      position: 'absolute',
-      width: '100%',
-      textAlign: 'center',
-    }
-
-    const drawerStyle = {
-      top: '200px',
-      position: 'relative',
-    }
-    const bottomLeftNavStyle = {
-      position: 'absolute',
-      width: '100%',
-      bottom: '0',
-    }
+    };
     return (
       <div>
         {Auth.isUserAuthenticated() ? (
@@ -96,7 +73,7 @@ class NavBar extends Component {
               <Link to={`journal/${id}`} onClick={this.handleLeftNavToggle}><MenuItem primaryText='Concert Journal' rightIcon={<Apps />} /></Link>
               <Link to={"explore"} onClick={this.handleLeftNavToggle}><MenuItem primaryText="Explore" rightIcon={<Explore />} /></Link>
             <Divider />
-            <Paper style={bottomLeftNavStyle} zDepth={1}>
+            <Paper className="bottom-left-nav-style" zDepth={1}>
               <Link to={"account"}><MenuItem onClick={this.handleLeftNavToggle} primaryText="Account" rightIcon={<AccountCircle />} /></Link>
               <MenuItem onClick={this.onClickLogout} primaryText="Sign out" rightIcon={<PowerSetting />} />
               <Link to={"about"} style={{color: 'black'}}><MenuItem onClick={this.handleLeftNavToggle} primaryText="About Us" rightIcon={<Info />}/></Link>

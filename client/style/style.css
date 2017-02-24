@@ -65,6 +65,11 @@
   top: 30%;
 }
 
+.bottom-left-nav-style {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
 
 /*
 * === Search Bar Component Styling ===
@@ -74,4 +79,59 @@
   display: flex;
   justify-content: center;
   align-self: center;
+}
+
+/*
+* === Artist Page Component Styling ===
+*/
+
+.artist-container {
+  margin-top: 10px;
+}
+
+.artist-inner-events {
+  padding: 10px;
+}
+
+.artist-event-details {
+  font-size: 10pt;
+  margin-left: 15px;
+}
+
+.artist-page-style {
+  width: 35%;
+  float: left;
+  margin: 0px 10px 10px 10px;
+}
+
+.artist-avatar-style {
+  height: 350px;
+  width: 350px;
+  margin: 10px;
+}
+
+.artist-calendar-style {
+  float: right;
+  width: 60%;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.artist-cal-title {
+  width: 20%;
+  margin: 20px 0px 0px 450px;
+}
+
+.artist-image-style {
+  width: 90%;
+  margin: 15px 10px 10px 19px;
+  border-radius: 5px;
+}
+
+.artist-text-style {
+  margin: 10px;
+}
+
+.artist-flat-button {
+  float: right;
 }
