@@ -58,6 +58,10 @@ class Account extends Component {
   }
 }
 
+Account.propTypes = {
+  getUserInfo: React.PropTypes.func,
+};
+
 function mapStateToProps(state) {
   return {
     info: state.getUserInfo,
