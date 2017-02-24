@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
-import PostIndex from './components/post_index';
+import Home from './components/home';
 import SearchResults from './containers/search-results';
 import SignUp from './containers/SignUpPage';
 import LogIn from './containers/LoginPage';
@@ -21,7 +21,7 @@ import Splash from './components/splash';
 
 export default(
   <Route path="/" component={App} >
-    <IndexRoute component={PostIndex} />
+    <IndexRoute component={Home} />
     <Route path="signup" component={SignUp} />
     <Route path="results" component={SearchResults} />
     <Route path="login" component={LogIn} />

@@ -35,17 +35,17 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div>
+      <div className="search-bar">
         <MuiThemeProvider>
           <form onSubmit={this.onFormSubmit}>
-              <SearchIcon style={{ margin: '13px 0 0 0' }}/>
-              <TextField
-                style={{ color: 'white' }}
-                placeholder="Search events / artist / friends"
-                value={this.state.term}
-                onChange={this.onInputChange}
-              >
-              </TextField>
+            <SearchIcon style={{ margin: '13px 0 0 0' }} />
+            <TextField
+              style={{ color: 'white' }}
+              placeholder="Search events / artist / friends"
+              value={this.state.term}
+              onChange={this.onInputChange}
+            >
+            </TextField>
           </form>
         </MuiThemeProvider>
       </div>
