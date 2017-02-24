@@ -94,10 +94,10 @@ class ArtistPage extends Component {
     }
     if (this.props.artistSearch.bandsintown) {
       artistsArr.push({
-          name: this.props.artistSearch.bandsintown.data.name,
-          facebook: this.props.artistSearch.bandsintown.data.facebook_page_url,
-          upcomingEvents: this.props.artistSearch.bandsintown.data.upcoming_event_count,
-          image: this.props.artistSearch.bandsintown.data.image_url,
+        name: this.props.artistSearch.bandsintown.data.name,
+        facebook: this.props.artistSearch.bandsintown.data.facebook_page_url,
+        upcomingEvents: this.props.artistSearch.bandsintown.data.upcoming_event_count,
+        image: this.props.artistSearch.bandsintown.data.image_url,
       });
       if (this.props.params.artistId === this.props.artistSearch.songkick.data.resultsPage.results.artist[0].identifier[0].mbid) {
         artistsArr.push({
@@ -123,7 +123,7 @@ class ArtistPage extends Component {
       <div className="artist-container">
         <Card className="artist-page-style">
           <div>
-            <img src={artist.image} className="artist-image-style"></img>
+            <img src={artist.image} className="artist-image-style" />
             <div className="artist-text-style">
               <h1><strong>{artist.name}</strong></h1>
               <p>Upcoming: {artist.upcomingEvents}</p>
@@ -154,6 +154,12 @@ class ArtistPage extends Component {
     );
   }
 }
+
+ArtistPage.PropTypes = {
+  artists: React.PropTypes.array,
+  getArtists: React.PropTypes.func,
+  getArtistCalendar: React.PropTypes.func,
+};
 
 function mapStateToProps(state) {
   return {
