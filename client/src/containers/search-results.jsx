@@ -36,15 +36,6 @@ class SearchResults extends Component {
   }
 
   renderEvents() {
-    const imageDiv = {
-      width: '35%',
-      position: 'relative',
-      width: '220px',
-      margin: '10px',
-    };
-    const imageStyle = {
-      width: '60%',
-    };
     if (this.props.events.length === 0) {
       return (
         <Card zDepth={1}>
@@ -89,10 +80,18 @@ class SearchResults extends Component {
         image = largestPic(event.images) || null;
       }
       const momentDate = moment(event.dates.start.dateTime).format('LLLL');
+      const actionButtonStyle = {
+        backgroundColor: 'white',
+        float: 'right',
+        margin: '10px',
+      };
 
       return (
         <Card key={event.id} >
-          <FloatingActionButton onClick={() => this.props.saveEvent(event)} style={{float:'right', margin:'10px'}}>
+          <FloatingActionButton
+            onClick={() => this.props.saveEvent(event)}
+            style={actionButtonStyle}
+          >
             <ContentAdd />
           </FloatingActionButton>
           <CardText>
@@ -111,15 +110,17 @@ class SearchResults extends Component {
   }
 
   renderArtists() {
-    const imageDiv = {
-      width: '35%',
-      float: 'left',
-      height: '248px',
+    // const avatarStyle = {
+    //   width: '20%',
+    //   height: '20%',
+    // };
+    const artistActionBtnStyle = {
+      float: 'right',
+      margin: '10px',
+      position: 'relative',
+      zIndex: 2,
     };
-    const avatarStyle = {
-      width: '20%',
-      height: '20%',
-    };
+
     if (this.props.artists.length === 0) {
      return (
        <Card zDepth={1}>
@@ -136,10 +137,10 @@ class SearchResults extends Component {
       bandsintown = this.props.artists.bandsintown.data;
       if(this.props.artists.songkick.data.resultsPage.results.artist !== undefined && this.props.artists.songkick.data.resultsPage.results.artist !== undefined) {
         songkick = this.props.artists.songkick.data.resultsPage.results.artist[0];
-        let avatar = <Avatar src={bandsintown.image_url} style={avatarStyle}/>
+        let avatar = <Avatar src={bandsintown.image_url} className="searchresults-artist-avatar"/>
         return (
           <Card zDepth={1}>
-            <FloatingActionButton onClick={() => this.props.saveArtist(bandsintown, songkick)} style={{float:'right', margin:'10px', position:'relative', zIndex:2}}>
+            <FloatingActionButton onClick={() => this.props.saveArtist(bandsintown, songkick)} style={artistActionBtnStyle}>
               <PersonAdd />
             </FloatingActionButton>
             <CardHeader
@@ -154,6 +155,13 @@ class SearchResults extends Component {
   }
 
   renderUsers() {
+    const userActionBtnStyle = {
+      float: 'right',
+      margin: '10px',
+      position: 'relative',
+      zIndex: 2,
+    };
+
     if (this.props.users.length === 0) {
       return (
         <Card zDepth={1}>
@@ -172,7 +180,7 @@ class SearchResults extends Component {
       }
       return (
         <Card key={user.id} zDepth={1}>
-          <FloatingActionButton onClick={() => this.props.addFollower(user.id)} mini={true} style={{float:'right', margin:'10px', position:'relative', zIndex:2}}>
+          <FloatingActionButton onClick={() => this.props.addFollower(user.id)} mini={true} style={userActionBtnStyle}>
             <PersonAdd />
           </FloatingActionButton>
           <CardHeader
@@ -186,26 +194,34 @@ class SearchResults extends Component {
   }
 
   render() {
+    const backButtonStyle = {
+      color: 'orange',
+      float: 'left',
+      margin: '10px',
+    }
+    const tabStyle = {
+      backgroundColor: '#505050',
+    }
     return (
       <div>
-        <FloatingActionButton style={{float:'left', margin:'10px'}}>
+        <FloatingActionButton style={backButtonStyle}>
           <ArrowBack onClick={hashHistory.goBack} />
         </FloatingActionButton>
         <h1>Search Results</h1>
-          <Tabs
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            <Tab label="Events" value="events" style={{backgroundColor: '#424242' }}>
-              {this.renderEvents()}
-            </Tab>
-            <Tab label="Artists" value="artists" style={{backgroundColor: '#424242' }}>
-              {this.renderArtists()}
-            </Tab>
-            <Tab label="Friends" value="users" style={{backgroundColor: '#424242' }}>
-              {this.renderUsers()}
-            </Tab>
-          </Tabs>
+        <Tabs
+          value={this.state.value}
+          onChange={this.handleChange}
+        >
+          <Tab label="Events" value="events" style={tabStyle}>
+            {this.renderEvents()}
+          </Tab>
+          <Tab label="Artists" value="artists" style={tabStyle}>
+            {this.renderArtists()}
+          </Tab>
+          <Tab label="Friends" value="users" style={tabStyle}>
+            {this.renderUsers()}
+          </Tab>
+        </Tabs>
       </div>
     );
   }

@@ -168,3 +168,13 @@
   flex-direction: row;
   justify-content: space-around;
 }
+
+/*
+* === Search Results Component Styling ===
+*/
+
+
+.searchresults-artist-avatar {
+  width: 20%;
+  height: 20%;
+}
