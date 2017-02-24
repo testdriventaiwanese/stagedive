@@ -135,3 +135,26 @@
 .artist-flat-button {
   float: right;
 }
+
+
+/*
+* === Event List Component Styling ===
+*/
+
+.event-list-card-style {
+  margin-bottom: 10px;
+}
+
+.event-list-image-style {
+  width: 100%;
+}
+
+.event-list-menu-style {
+  float: right;
+  height: 0%;
+}
+
+.event-list-tabs-style {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border-radius: 2px;
+}
