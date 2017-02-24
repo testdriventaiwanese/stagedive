@@ -102,7 +102,7 @@ class EventList extends Component {
         venueStateOrCountry = venue.country.countryCode;
       }
       return (
-        <Card key={event.id} className="list-group-item" style={cardStyle} zDepth={1}>
+        <Card key={event.id} className="list-group-item event-list-card-style" zDepth={1}>
           <CardMedia
             overlay={
               <CardTitle
@@ -111,10 +111,10 @@ class EventList extends Component {
               />
             }
           >
-            <img src={image} style={imageStyle} />
+            <img src={image} className="event-list-image-style" />
           </CardMedia>
           <IconMenu
-            style={menuStyle}
+            className="event-list-menu-style"
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
             anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -155,10 +155,6 @@ class EventList extends Component {
     });
   }
   render() {
-    const tabsStyle = {
-      boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-      borderRadius: '2px',
-    };
     const tabStyle = {
       backgroundColor: 'white',
       color: 'black',
@@ -166,7 +162,7 @@ class EventList extends Component {
       borderRadius: '2px',
     };
     return (
-      <Tabs style={tabsStyle}>
+      <Tabs className="event-list-tabs-style">
         <Tab style={tabStyle} label="My Events" value="myEvents" >
           {this.renderList()}
         </Tab>
